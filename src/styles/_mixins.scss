@@ -1,0 +1,114 @@
+@mixin themed-component {
+  // Base styles that apply to all themes
+  background: var(--neutral-tertiary);
+  color: var(--neutral-primary);
+  border: 1px solid var(--neutral-tertiary-alt);
+  transition: all 0.2s ease-in-out;
+
+  // Light theme styles
+  @at-root {
+    .light-theme & {
+      @include light-theme;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      &:hover {
+        background: var(--lighter);
+        border-color: var(--primary);
+      }
+    }
+  }
+
+  // Dark theme styles
+  @at-root {
+    .dark-theme & {
+      @include dark-theme;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+      &:hover {
+        background: var(--darker);
+        border-color: var(--primary);
+      }
+    }
+  }
+
+  // High contrast theme styles
+  @at-root {
+    .high-contrast-theme & {
+      @include high-contrast-theme;
+      box-shadow: none;
+      border-width: 2px;
+
+      &:hover {
+        background: var(--black);
+        color: var(--white);
+        border-color: var(--white);
+      }
+    }
+  }
+
+  // Protanopia theme styles
+  @at-root {
+    .protanopia-theme & {
+      @include protanopia-theme;
+      box-shadow: none;
+      border-color: var(--neutral-tertiary-alt);
+
+      &:hover {
+        background: var(--neutral-tertiary-alt);
+        border-color: var(--primary);
+      }
+    }
+  }
+
+  // Deuteranopia theme styles
+  @at-root {
+    .deuteranopia-theme & {
+      @include deuteranopia-theme;
+      box-shadow: none;
+      border-color: var(--neutral-tertiary-alt);
+
+      &:hover {
+        background: var(--neutral-tertiary-alt);
+        border-color: var(--primary);
+      }
+    }
+  }
+
+  // Tritanopia theme styles
+  @at-root {
+    .tritanopia-theme & {
+      @include tritanopia-theme;
+      box-shadow: none;
+      border-color: var(--neutral-tertiary-alt);
+
+      &:hover {
+        background: var(--neutral-tertiary-alt);
+        border-color: var(--primary);
+      }
+    }
+  }
+}
+
+@mixin styled-scrollbar {
+  @include themed-component;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--theme-neutral-primary);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--theme-secondary);
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--theme-tertiary);
+  }
+}
+
+// Example usage:
+// .my-component {
+//   @include themed-component;
+//   padding: 1rem;
+//   margin: 0.5rem;
+// }

@@ -1,0 +1,95 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/images/*.{png,jpg,jpeg,gif,webp,svg}",
+      "/css/*",
+      "/js/*",
+      "/static/*",
+      "/assets/*",
+      "*.json",
+      "*.ico",
+      "*.txt",
+      "*.xml",
+      "/manifest.json",
+      "/robots.txt",
+      "/sitemap.xml"
+    ]
+  },
+  "routes": [
+    {
+      "route": "/api/*",
+      "allowedRoles": ["anonymous"],
+      "headers": {
+        "cache-control": "no-cache"
+      }
+    },
+    {
+      "route": "/static/*",
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "route": "*.{png,jpg,jpeg,gif,webp,svg,ico}",
+      "headers": {
+        "cache-control": "public, max-age=31536000"
+      }
+    },
+    {
+      "route": "*.{css,js}",
+      "headers": {
+        "cache-control": "public, max-age=31536000"
+      }
+    },
+    {
+      "route": "*",
+      "allowedRoles": ["anonymous"],
+      "headers": {
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://assets.tidycal.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://use.typekit.net https://cdnjs.cloudflare.com https://res-1.cdn.office.net https://res.cdn.office.net https://p.typekit.net; font-src 'self' data: https://fonts.googleapis.com https://fonts.gstatic.com https://use.typekit.net https://cdn.jsdelivr.net https://res-1.cdn.office.net https://res.cdn.office.net https://cdnjs.cloudflare.com; img-src 'self' data: https: https://twmedia-cdn.azureedge.net; connect-src 'self' https: https://mock-dev-api.terencewaters.com https://mock-tst-api.terencewaters.com https://api.terencewaters.com https://twmedia-cdn.azureedge.net"
+      }
+    }
+  ],
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/index.html",
+      "statusCode": 200
+    }
+  },
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "X-XSS-Protection": "1; mode=block",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+    "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://assets.tidycal.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://use.typekit.net https://cdnjs.cloudflare.com; img-src 'self' data: https: https://twmedia-cdn.azureedge.net; font-src 'self' data: https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https: https://mock-dev-api.terencewaters.com https://mock-tst-api.terencewaters.com https://api.terencewaters.com https://twmedia-cdn.azureedge.net"
+  },
+  "mimeTypes": {
+    ".json": "application/json",
+    ".webp": "image/webp",
+    ".woff2": "font/woff2",
+    ".3gp": "video/3gpp",
+    ".mp4": "video/mp4",
+    ".mpeg": "video/mpeg",
+    ".avi": "video/x-msvideo",
+    ".jpeg": "image/jpeg",
+    ".jpg": "image/jpeg",
+    ".gif": "image/gif",
+    ".png": "image/png",
+    ".otf": "font/otf",
+    ".m4a": "audio/mp4",
+    ".pdf": "application/pdf",
+    ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ".svg": "image/svg+xml",
+    ".bmp": "image/bmp",
+    ".tiff": "image/tiff",
+    ".webm": "video/webm",
+    ".mov": "video/quicktime",
+    ".mp3": "audio/mpeg",
+    ".wav": "audio/wav"
+  }
+}

@@ -1,0 +1,13 @@
+.stepper-arrow-btn {
+  opacity: 0.2;
+  transition: opacity 0.2s;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
+}

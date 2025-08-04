@@ -1,0 +1,77 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "resources": [
+    {
+      "type": "Microsoft.DocumentDB/databaseAccounts/mongodbDatabases",
+      "apiVersion": "2024-11-15",
+      "name": "az-tw-cosmosdb/TW-Website-CosmosDB",
+      "properties": {
+        "resource": {
+          "id": "TW-Website-CosmosDB"
+        },
+        "options": {
+          "autoscaleSettings": {
+            "maxThroughput": 1000
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.DocumentDB/databaseAccounts/mongodbDatabases/collections",
+      "apiVersion": "2024-11-15",
+      "name": "az-tw-cosmosdb/TW-Website-CosmosDB/portfolio",
+      "properties": {
+        "resource": {
+          "id": "portfolio",
+          "partitionKey": {
+            "paths": ["/portfolioId"],
+            "kind": "Hash"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.DocumentDB/databaseAccounts/mongodbDatabases/collections",
+      "apiVersion": "2024-11-15",
+      "name": "az-tw-cosmosdb/TW-Website-CosmosDB/blog",
+      "properties": {
+        "resource": {
+          "id": "blog",
+          "partitionKey": {
+            "paths": ["/blogId"],
+            "kind": "Hash"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.DocumentDB/databaseAccounts/mongodbDatabases/collections",
+      "apiVersion": "2024-11-15",
+      "name": "az-tw-cosmosdb/TW-Website-CosmosDB/books",
+      "properties": {
+        "resource": {
+          "id": "books",
+          "partitionKey": {
+            "paths": ["/booksId"],
+            "kind": "Hash"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.DocumentDB/databaseAccounts/mongodbDatabases/collections",
+      "apiVersion": "2024-11-15",
+      "name": "az-tw-cosmosdb/TW-Website-CosmosDB/artwork",
+      "properties": {
+        "resource": {
+          "id": "artwork",
+          "partitionKey": {
+            "paths": ["/artworkId"],
+            "kind": "Hash"
+          }
+        }
+      }
+    }
+  ]
+}
