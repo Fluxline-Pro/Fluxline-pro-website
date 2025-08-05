@@ -1,38 +1,59 @@
-// Font Families
-$font-family:
-  'Roboto Flex',
-  'San Francisco',
+// FLUXLINE PRO TYPOGRAPHY SYSTEM
+// ==============================
+// Philosophy: Bold structure, humble tone, accent highlights for growth
+// Inter: Clean, modern sans-serif for headings (bold structure)
+// Work Sans: Friendly, approachable for body text (humble tone)
+// Roboto Mono: Technical precision for code (accent highlights)
+
+// Primary Font Families - Fluxline Pro
+$font-family-base:
+  'Work Sans',
   -apple-system,
   BlinkMacSystemFont,
+  'Segoe UI',
   'Helvetica Neue',
   Arial,
-  'Apple Color Emoji',
-  'Segoe UI Emoji',
-  'Segoe UI Symbol',
-  system-ui,
   sans-serif;
 
-$font-family-heading: $font-family;
-$font-family-heading-h3: $font-family;
-$font-family-heading-light: $font-family;
-$font-family-h1: proxima-nova, sans-serif;
-$font-family-h2: $font-family-heading-light;
-$font-family-h3: $font-family-heading-h3;
-$font-family-h4: $font-family-heading-h3;
-$font-family-h5: $font-family-heading-h3;
-$font-family-h6: $font-family;
-$font-family-p: $font-family;
-$font-family-mono: 'Roboto Mono', monospace;
+$font-family-heading:
+  'Inter',
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  'Helvetica Neue',
+  Arial,
+  sans-serif;
 
-// Font Sizes using clamp for responsive design
+$font-family-mono:
+  'Roboto Mono',
+  'SF Mono',
+  'Monaco',
+  'Cascadia Code',
+  Consolas,
+  'Courier New',
+  monospace;
+
+// Specific heading font assignments
+$font-family: $font-family-base; // Default to Work Sans
+$font-family-heading-h3: $font-family-heading; // Inter for headings
+$font-family-heading-light: $font-family-heading;
+$font-family-h1: $font-family-heading; // Inter for bold structure
+$font-family-h2: $font-family-heading; // Inter for bold structure
+$font-family-h3: $font-family-heading; // Inter for structure
+$font-family-h4: $font-family-heading; // Inter for structure
+$font-family-h5: $font-family-base; // Work Sans for humble tone
+$font-family-h6: $font-family-base; // Work Sans for humble tone
+$font-family-p: $font-family-base; // Work Sans for body text
+
+// Font Sizes - Fluxline Pro Modular Scale (1rem base unit)
 $font-size-clamp: clamp(0.25rem, 0.5cqi, 0.25rem);
 $font-size-clamp2: clamp(0.5rem, 1cqi, 0.5rem);
 $font-size-clamp3: clamp(0.75rem, 1.5cqi, 0.75rem);
-$font-size-clamp4: clamp(1rem, 2cqi, 1rem);
-$font-size-clamp5: clamp(1.5rem, 3cqi, 1.5rem);
-$font-size-clamp6: clamp(2rem, 4cqi, 2rem);
-$font-size-clamp7: clamp(3rem, 6cqi, 3rem);
-$font-size-clamp8: clamp(4rem, 8cqi, 4rem);
+$font-size-clamp4: 1rem; // Base rhythm unit
+$font-size-clamp5: clamp(1.25rem, 2.5cqi, 1.25rem);
+$font-size-clamp6: clamp(1.5rem, 3cqi, 1.5rem);
+$font-size-clamp7: clamp(2rem, 4cqi, 2rem);
+$font-size-clamp8: clamp(3rem, 6cqi, 3rem);
 
 // Font Weights
 $font-weight-thin: 100;

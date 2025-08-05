@@ -45,7 +45,7 @@ const getFontScaleFromSize = (size?: string): number => {
   }
 };
 
-// Default preferences
+// Default preferences - Fluxline Pro defaults to dark mode
 const defaultPreferences: UserPreferences = {
   backgroundImage: 'one',
   fontScale: 0.9,
@@ -54,7 +54,7 @@ const defaultPreferences: UserPreferences = {
   fontScaleManuallySet: false, // Initially not manually set
   reducedMotion: false,
   highContrast: false,
-  themeMode: 'light',
+  themeMode: 'dark', // Fluxline Pro default: dark mode for focused aesthetic
   isOnboarded: false,
   layoutPreference: 'right-handed',
   readingDirection: 'ltr',
