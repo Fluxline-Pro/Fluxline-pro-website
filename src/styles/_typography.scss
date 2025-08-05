@@ -1,13 +1,12 @@
 // FLUXLINE PRO TYPOGRAPHY SYSTEM
 // ==============================
 // Philosophy: Bold structure, humble tone, accent highlights for growth
-// Inter: Clean, modern sans-serif for headings (bold structure)
-// Work Sans: Friendly, approachable for body text (humble tone)
+// Inter: Clean, modern sans-serif for all text (unified brand voice)
 // Roboto Mono: Technical precision for code (accent highlights)
 
 // Primary Font Families - Fluxline Pro
 $font-family-base:
-  'Work Sans',
+  'Inter',
   -apple-system,
   BlinkMacSystemFont,
   'Segoe UI',
@@ -34,16 +33,16 @@ $font-family-mono:
   monospace;
 
 // Specific heading font assignments
-$font-family: $font-family-base; // Default to Work Sans
+$font-family: $font-family-base; // Default to Inter
 $font-family-heading-h3: $font-family-heading; // Inter for headings
 $font-family-heading-light: $font-family-heading;
 $font-family-h1: $font-family-heading; // Inter for bold structure
 $font-family-h2: $font-family-heading; // Inter for bold structure
 $font-family-h3: $font-family-heading; // Inter for structure
 $font-family-h4: $font-family-heading; // Inter for structure
-$font-family-h5: $font-family-base; // Work Sans for humble tone
-$font-family-h6: $font-family-base; // Work Sans for humble tone
-$font-family-p: $font-family-base; // Work Sans for body text
+$font-family-h5: $font-family-base; // Inter for all text
+$font-family-h6: $font-family-base; // Inter for all text
+$font-family-p: $font-family-base; // Inter for body text
 
 // Font Sizes - Fluxline Pro Modular Scale (1rem base unit)
 $font-size-clamp: clamp(0.25rem, 0.5cqi, 0.25rem);

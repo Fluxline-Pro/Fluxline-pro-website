@@ -8,7 +8,7 @@
  * DESIGN PRINCIPLES:
  * ------------------
  * • Bold structure: Inter font family for headings provides clear hierarchy
- * • Humble tone: Work Sans for body text creates approachable, readable content
+ * • Unified voice: Inter for all text creates consistency and brand recognition
  * • Accent highlights: Roboto Mono for code emphasizes technical precision
  * • Engineered motion: cubic-bezier(0.4, 0, 0.2, 1) for fluid, intentional animations
  * 
@@ -259,14 +259,13 @@ const baseGradients = {
  * Text Transform Progression: uppercase → title-case → lowercase → accent
  * 
  * Fonts:
- * - Inter: Clean, modern sans-serif for headings (bold structure)
- * - Work Sans: Friendly, approachable for body text (humble tone)  
+ * - Inter: Clean, modern sans-serif for all text (bold structure and humble tone)
  * - Roboto Mono: Technical precision for code (accent highlights)
  */
 export const typography = {
   fontFamilies: {
-    // Fluxline Pro font stack - Inter for headings, Work Sans for body, Roboto Mono for code
-    base: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+    // Fluxline Pro font stack - Inter for all text, Roboto Mono for code
+    base: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
     mono: 'Roboto Mono, "SF Mono", "Monaco", "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
     heading: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
     headingH3: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
@@ -275,9 +274,9 @@ export const typography = {
     h2: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
     h3: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
     h4: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    h5: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    h6: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    p: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+    h5: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+    h6: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+    p: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
   },
   // Font sizes with modular scale - base 1rem unit for rhythm
   fontSizes: {
@@ -332,14 +331,14 @@ export const typography = {
   // Font definitions with Fluxline Pro philosophy
   fonts: {
     tiny: {
-      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(0.25rem, 0.5cqi, 0.25rem)',
       fontWeight: '400' as '400',
       fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
       lineHeight: '1.6',
     },
     xSmall: {
-      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(0.5rem, 1cqi, 0.5rem)',
       fontWeight: '400' as '400',
       fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
@@ -347,7 +346,7 @@ export const typography = {
       lineHeight: '1.6',
     },
     small: {
-      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(0.75rem, 1.5cqi, 0.75rem)',
       fontWeight: '400' as '400',
       fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
@@ -355,7 +354,7 @@ export const typography = {
       lineHeight: '1.6',
     },
     medium: {
-      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: '1rem',
       fontWeight: '400' as '400',
       fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
@@ -363,7 +362,7 @@ export const typography = {
       lineHeight: '1.6',
     },
     mediumPlus: {
-      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(1.25rem, 2.5cqi, 1.25rem)',
       fontWeight: '500' as '500',
       fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
@@ -436,7 +435,7 @@ export const typography = {
       lineHeight: '1.6',
     },
     h5: {
-      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: '1rem',
       fontWeight: '500' as '500',
       fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
@@ -446,7 +445,7 @@ export const typography = {
       lineHeight: '1.6',
     },
     h6: {
-      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: '1rem',
       fontWeight: '600' as '600',
       fontVariationSettings: '"wght" 600, "wdth" 100, "slnt" 0',
@@ -456,7 +455,7 @@ export const typography = {
       lineHeight: '1.6',
     },
     body: {
-      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: '1rem',
       fontWeight: '400' as '400',
       fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
@@ -464,7 +463,7 @@ export const typography = {
       lineHeight: '1.6', // Readable flow
     },
     bodySmall: {
-      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(0.875rem, 1.75cqi, 0.875rem)',
       fontWeight: '400' as '400',
       fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
@@ -480,7 +479,7 @@ export const typography = {
       lineHeight: '1.6',
     },
     label: {
-      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(0.875rem, 1.75cqi, 0.875rem)',
       fontWeight: '500' as '500',
       fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
@@ -488,7 +487,7 @@ export const typography = {
       lineHeight: '1.6',
     },
     quote: {
-      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(1.25rem, 2.5cqi, 1.25rem)',
       fontWeight: '400' as '400',
       fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
@@ -512,7 +511,7 @@ export const typography = {
       lineHeight: '1.6',
     },
     caption: {
-      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(0.75rem, 1.5cqi, 0.75rem)',
       fontWeight: '400' as '400',
       fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
