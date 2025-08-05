@@ -143,3 +143,7 @@ env.local
 
 # Package lock files
 package-lock.json
+
+# Temporary files and directories
+/tmp/
+*.tmp

@@ -5,6 +5,7 @@ interface ServicesPageProps {
   contentType?:
     | 'about'
     | 'services'
+    | 'architecture'
     | 'personal-training'
     | 'education-training'
     | 'consulting'
