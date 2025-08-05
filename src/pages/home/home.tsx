@@ -50,8 +50,8 @@ export const UnderConstruction = () => {
           opacity: 1,
         }}
       >
-        Thanks for <br />
-        visiting!
+        Welcome to <br />
+        Fluxline
       </h1>
       <h2
         style={{
@@ -78,10 +78,10 @@ export const UnderConstruction = () => {
           textAlign: 'center',
         }}
       >
-        I'm currently working on this site.
+        Strategic Architecture for Modern Business
         <br />
-        Please check back soon! <br />
-        My Linktree is in the menu.
+        Coming Soon <br />
+        Transform your vision into reality.
       </h2>
     </>
   );
@@ -239,7 +239,7 @@ const HomeContent: React.FC<{
           },
         }}
       >
-        hi! my name is
+        strategic architecture for
       </Typography>
       <Typography
         variant='h1'
@@ -269,7 +269,7 @@ const HomeContent: React.FC<{
           },
         }}
       >
-        terence waters
+        fluxline
       </Typography>
 
       <hr
@@ -328,7 +328,7 @@ const HomeContent: React.FC<{
               ...(animateSubHeaderLines[0] && animationStyles.slideInDown),
             }}
           >
-            <HighlightText text='ui/ux' /> designer
+            <HighlightText text='strategic' /> consulting
           </div>
           <div
             style={{
@@ -337,7 +337,7 @@ const HomeContent: React.FC<{
               ...(animateSubHeaderLines[1] && animationStyles.slideInDown),
             }}
           >
-            <HighlightText text='web' /> developer
+            <HighlightText text='business' /> architecture
           </div>
           <div
             style={{
@@ -346,8 +346,7 @@ const HomeContent: React.FC<{
               ...(animateSubHeaderLines[2] && animationStyles.slideInDown),
             }}
           >
-            <HighlightText text='personal' /> trainer
-            <HighlightText text=' & ' /> mentor
+            <HighlightText text='transformation' /> solutions
           </div>
         </Typography>
       </div>

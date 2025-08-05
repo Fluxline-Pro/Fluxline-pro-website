@@ -377,22 +377,22 @@ export const generateMockContent = (
     const baseContent = {
       id,
       date: faker.date.past(),
-      author: 'Terence Waters',
+      author: 'Fluxline Team',
     };
 
     switch (contentType) {
       case 'portfolio':
         return {
           ...baseContent,
-          title: `Portfolio Project ${index + 1}`,
-          description: `This is a portfolio project showcasing my skills in development and design.`,
+          title: `${faker.company.name()} ${faker.helpers.arrayElement(['Transformation', 'Strategic Restructuring', 'Digital Evolution', 'Operational Excellence'])}`,
+          description: `A comprehensive case study showcasing Fluxline's strategic approach to business transformation and measurable results.`,
           imageUrl: faker.image.urlPicsumPhotos({ width: 1200, height: 800 }),
           imageAlt: `Portfolio Project ${index + 1} Image`,
           category: faker.helpers.arrayElement([
-            'Web Development',
-            'Mobile App',
-            'Design',
-            'Full-Stack',
+            'Digital Transformation',
+            'Strategic Consulting',
+            'Business Architecture',
+            'Operational Optimization',
           ]),
         };
 
@@ -500,18 +500,89 @@ export const generateMockContent = (
           ]),
         };
 
+      case 'about':
+        return {
+          ...baseContent,
+          title: `About Fluxline`,
+          description: `Strategic architecture for modern business transformation. Learn about our vision, methodology, and commitment to excellence.`,
+          imageUrl: faker.image.urlPicsumPhotos({ width: 1200, height: 800 }),
+          imageAlt: `About Fluxline`,
+          category: 'Company',
+          content: `Fluxline represents the future of strategic business architecture. We specialize in transforming complex business challenges into streamlined, efficient solutions that drive growth and innovation.`,
+        };
+
+      case 'services':
+        return {
+          ...baseContent,
+          title: `${faker.helpers.arrayElement(['Strategic', 'Business', 'Digital', 'Operational'])} ${faker.helpers.arrayElement(['Consulting', 'Architecture', 'Transformation', 'Solutions'])}`,
+          description: `Comprehensive strategic services designed to transform your business operations and drive sustainable growth.`,
+          imageUrl: faker.image.urlPicsumPhotos({ width: 1200, height: 800 }),
+          imageAlt: `Fluxline Service ${index + 1}`,
+          category: faker.helpers.arrayElement([
+            'Strategic Consulting',
+            'Business Architecture',
+            'Digital Transformation',
+            'Operational Excellence',
+          ]),
+        };
+
+      case 'architecture':
+        return {
+          ...baseContent,
+          title: `${faker.helpers.arrayElement(['Enterprise', 'Digital', 'Solution', 'System'])} Architecture ${faker.helpers.arrayElement(['Framework', 'Model', 'Strategy', 'Blueprint'])}`,
+          description: `Deep-dive into our architectural methodologies and frameworks that enable scalable business transformation.`,
+          imageUrl: faker.image.urlPicsumPhotos({ width: 1200, height: 800 }),
+          imageAlt: `Architecture ${index + 1}`,
+          category: faker.helpers.arrayElement([
+            'Enterprise Architecture',
+            'Solution Design',
+            'System Integration',
+            'Technical Strategy',
+          ]),
+        };
+
+      case 'media':
+        return {
+          ...baseContent,
+          title: `${faker.helpers.arrayElement(['Strategic Insights', 'Business Leadership', 'Industry Analysis', 'Transformation Stories'])} - Episode ${index + 1}`,
+          description: `Podcasts, videos, and multimedia content featuring strategic insights and industry expertise from Fluxline.`,
+          imageUrl: faker.image.urlPicsumPhotos({ width: 1920, height: 1080 }),
+          imageAlt: `Media Content ${index + 1}`,
+          category: faker.helpers.arrayElement([
+            'Podcast',
+            'Video Interview',
+            'Webinar',
+            'Case Study Video',
+          ]),
+        };
+
+      case 'press':
+        return {
+          ...baseContent,
+          title: `${faker.helpers.arrayElement(['Fluxline Announces', 'Press Release:', 'Company Update:', 'Industry Recognition:'])} ${faker.company.buzzPhrase()}`,
+          description: `Official announcements, press releases, and company updates from Fluxline Pro.`,
+          imageUrl: faker.image.urlPicsumPhotos({ width: 1200, height: 800 }),
+          imageAlt: `Press Release ${index + 1}`,
+          category: faker.helpers.arrayElement([
+            'Press Release',
+            'Company News',
+            'Awards',
+            'Partnerships',
+          ]),
+        };
+
       default: // 'blog' and others
         return {
           ...baseContent,
-          title: `${contentType.charAt(0).toUpperCase() + contentType.slice(1)} Post ${index + 1}`,
-          description: `This is a ${contentType} post with interesting content and insights.`,
+          title: `${contentType.charAt(0).toUpperCase() + contentType.slice(1)} ${faker.helpers.arrayElement(['Insight', 'Strategy', 'Analysis', 'Update'])} ${index + 1}`,
+          description: `Strategic insights and thought leadership from Fluxline on ${contentType} and business transformation.`,
           imageUrl: faker.image.urlPicsumPhotos({ width: 1200, height: 800 }),
-          imageAlt: `${contentType} Post ${index + 1} Image`,
+          imageAlt: `${contentType} Content ${index + 1} Image`,
           category: faker.helpers.arrayElement([
-            'Technology',
-            'Personal',
-            'Tutorial',
-            'News',
+            'Strategic Planning',
+            'Business Transformation',
+            'Industry Analysis',
+            'Best Practices',
           ]),
         };
     }

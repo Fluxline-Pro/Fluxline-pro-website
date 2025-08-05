@@ -97,6 +97,10 @@ const routes: RouteObject[] = [
         ],
       },
       {
+        path: 'architecture',
+        element: <ServicesPage contentType='architecture' />,
+      },
+      {
         path: 'blog',
         element: <UnifiedContentPage contentType='blog' />,
         children: [
@@ -107,6 +111,20 @@ const routes: RouteObject[] = [
         ],
       },
       // blog-api route removed - using the consolidated unified-content-page.tsx instead
+      {
+        path: 'media',
+        element: <UnifiedContentPage contentType='media' />,
+        children: [
+          {
+            path: ':id',
+            element: <></>, // Content is handled by UnifiedContentPage
+          },
+        ],
+      },
+      {
+        path: 'collaborate',
+        element: <ContactPage />,
+      },
       {
         path: 'contact-me',
         element: <ContactPage />,
@@ -182,6 +200,16 @@ const routes: RouteObject[] = [
       {
         path: 'livestreams',
         element: <UnifiedContentPage contentType='livestreams' />,
+        children: [
+          {
+            path: ':id',
+            element: <></>, // Content is handled by UnifiedContentPage
+          },
+        ],
+      },
+      {
+        path: 'press',
+        element: <UnifiedContentPage contentType='press' />,
         children: [
           {
             path: ':id',
