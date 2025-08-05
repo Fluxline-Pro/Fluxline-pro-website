@@ -1,7 +1,9 @@
 import { IAboutPercentagePoint, IAboutBulletPoint } from './services.types';
 
-const ABOUT_PROFESSIONAL_SUMMARY =
-  'Architect of transformative systems, brand experiences, and human-centric technology who specializes in modular web development, IT infrastructure, and scalable design ecosystems with a focus on emotional clarity, strategic innovation, and long-term impact.<br /><br />As the founder of Fluxline, I bring together advanced architecture, creative storytelling, and intentional coaching to help clients build not just solutions but philosophies, brands, and living identities that evolve with them. Let\'s make your vision a reality!';
+const ABOUT_PROFESSIONAL_SUMMARY = [
+  'Architect of transformative systems, brand experiences, and human-centric technology who specializes in modular web development, IT infrastructure, and scalable design ecosystems with a focus on emotional clarity, strategic innovation, and long-term impact.',
+  'As the founder of Fluxline, I bring together advanced architecture, creative storytelling, and intentional coaching to help clients build not just solutions but philosophies, brands, and living identities that evolve with them. Let\'s make your vision a reality!'
+];
 
 const SERVICES_SUMMARY =
   'I offer strategic, design-forward, and emotionally intelligent solutions that help individuals and businesses build their brand and identity. Every service I offer is rooted in progressive, intentional design and build to push you and your business forward. Click on a service below to learn more!';
