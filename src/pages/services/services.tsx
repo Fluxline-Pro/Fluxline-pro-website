@@ -158,6 +158,23 @@ export const ProfessionalSummary: React.FC<{
     }
   };
 
+  // Helper function to render summary content safely
+  const renderSummary = (summary: string | string[]) => {
+    if (Array.isArray(summary)) {
+      return (
+        <>
+          {summary.map((paragraph, index) => (
+            <React.Fragment key={index}>
+              {paragraph}
+              {index < summary.length - 1 && <><br /><br /></>}
+            </React.Fragment>
+          ))}
+        </>
+      );
+    }
+    return summary;
+  };
+
   const bulletPoints = getBulletPoints();
 
   // Group bullet points into pairs for desktop layout
@@ -187,7 +204,7 @@ export const ProfessionalSummary: React.FC<{
             marginBottom='2rem'
             noHyphens
           >
-            <div dangerouslySetInnerHTML={{ __html: getSummary() }} />
+            {renderSummary(getSummary())}
           </Typography>
         </>
       ) : (
@@ -220,7 +237,7 @@ export const ProfessionalSummary: React.FC<{
             marginBottom='2rem'
             noHyphens
           >
-            <div dangerouslySetInnerHTML={{ __html: getSummary() }} />
+            {renderSummary(getSummary())}
           </Typography>
         </>
       )}
