@@ -23,6 +23,15 @@ $font-family-heading:
   Arial,
   sans-serif;
 
+$font-family-heading-H5H6:
+  'Work Sans',
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  'Helvetica Neue',
+  Arial,
+  sans-serif;
+
 $font-family-mono:
   'Roboto Mono',
   'SF Mono',
@@ -40,8 +49,8 @@ $font-family-h1: $font-family-heading; // Inter for bold structure
 $font-family-h2: $font-family-heading; // Inter for bold structure
 $font-family-h3: $font-family-heading; // Inter for structure
 $font-family-h4: $font-family-heading; // Inter for structure
-$font-family-h5: $font-family-base; // Inter for all text
-$font-family-h6: $font-family-base; // Inter for all text
+$font-family-h5: $font-family-heading-H5H6; // Work Sans for all text
+$font-family-h6: $font-family-heading-H5H6; // Work Sans for all text
 $font-family-p: $font-family-base; // Inter for body text
 
 // Font Sizes - Fluxline Pro Modular Scale (1rem base unit)

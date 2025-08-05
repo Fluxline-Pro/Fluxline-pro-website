@@ -17,7 +17,7 @@
  * H1-H2: UPPERCASE → Bold structure and commanding presence
  * H3-H4: Title Case → Balanced hierarchy and readability  
  * H5: lowercase → Humble, approachable tone
- * H6: none → Accent highlights for growth cues
+ * H6: UPPERCASE → Accent highlights for growth cues
  * 
  * COLOR PHILOSOPHY:
  * -----------------
@@ -274,8 +274,8 @@ export const typography = {
     h2: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
     h3: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
     h4: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    h5: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    h6: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+    h5: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+    h6: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
     p: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
   },
   // Font sizes with modular scale - base 1rem unit for rhythm
@@ -331,14 +331,14 @@ export const typography = {
   // Font definitions with Fluxline Pro philosophy
   fonts: {
     tiny: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(0.25rem, 0.5cqi, 0.25rem)',
       fontWeight: '400' as '400',
       fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
       lineHeight: '1.6',
     },
     xSmall: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(0.5rem, 1cqi, 0.5rem)',
       fontWeight: '400' as '400',
       fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
@@ -435,7 +435,7 @@ export const typography = {
       lineHeight: '1.6',
     },
     h5: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: '1rem',
       fontWeight: '500' as '500',
       fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
@@ -445,13 +445,13 @@ export const typography = {
       lineHeight: '1.6',
     },
     h6: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: '1rem',
       fontWeight: '600' as '600',
       fontVariationSettings: '"wght" 600, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
       textShadow: 'var(--text-shadow-h6)',
-      textTransform: 'none' as const, // Accent highlights
+      textTransform: 'uppercase' as const, // Accent highlights
       lineHeight: '1.6',
     },
     body: {
@@ -769,7 +769,7 @@ const baseExtendedProps = {
 export const lightTheme: IExtendedTheme = createExtendedTheme(
   createTheme({
     palette: {
-      // Fluxline Pro Primary Palette - Deep blues for structure
+      // Fluxline Pro Light Primary Palette - Deep blues for structure
       themePrimary: '#2A5F8F', // Primary interactive blue (darker for light mode)
       themeSecondary: '#357ABD', // Secondary blue
       themeTertiary: '#4A90E2', // Tertiary blue (lighter variant)
@@ -836,7 +836,7 @@ export const lightTheme: IExtendedTheme = createExtendedTheme(
 export const darkTheme: IExtendedTheme = createExtendedTheme(
   createTheme({
     palette: {
-      // Fluxline Pro Primary Palette - Deep blues for structure
+      // Fluxline Pro Dark Primary Palette - Deep blues for structure
       themePrimary: '#4A90E2', // Primary interactive blue
       themeSecondary: '#357ABD', // Secondary blue
       themeTertiary: '#2A5F8F', // Tertiary blue (close to primary on color wheel)
