@@ -1,0 +1,843 @@
+@use 'sass:map';
+
+// Breakpoints
+$breakpoints: (
+  'xs': 0,
+  'sm': 576px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1366px,
+  'xxl': 1920px,
+);
+
+// Grid System
+$grid-columns: 12;
+$grid-gutter: 1rem;
+
+// Component-specific measurements using Container Query Units
+$component-sizes: (
+  xs: clamp(10cqi, 20cqi, 30cqi),
+  sm: clamp(20cqi, 30cqi, 40cqi),
+  md: clamp(30cqi, 40cqi, 50cqi),
+  lg: clamp(40cqi, 50cqi, 60cqi),
+  xl: clamp(50cqi, 60cqi, 70cqi),
+  xxl: clamp(60cqi, 70cqi, 80cqi),
+);
+
+// Scrolling behavior
+html,
+body {
+  height: 100%;
+
+  &:not(.allow-scroll) {
+    overflow: hidden;
+  }
+
+  &.allow-scroll {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: auto;
+    min-height: 100vh;
+  }
+}
+
+// Media query mixins
+@mixin media-up($breakpoint) {
+  @media (min-width: map.get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+@mixin media-down($breakpoint) {
+  @media (max-width: map.get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+// Container query mixin
+@mixin container-query($size) {
+  @container (min-width: map.get($component-sizes, $size)) {
+    @content;
+  }
+}
+
+// Base grid container
+.grid-container {
+  display: grid;
+  gap: $grid-gutter;
+  width: 100%;
+  max-width: 100%;
+  container-type: inline-size;
+  container-name: grid;
+}
+
+// Main layout grid
+.main-layout {
+  @extend .grid-container;
+
+  @include media-up('lg') {
+    grid-template-columns: 3fr 9fr;
+
+    &.reversed {
+      grid-template-columns: 9fr 3fr;
+    }
+
+    .image-container {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .title {
+        position: absolute;
+        bottom: 2rem;
+        left: 2rem;
+        color: var(--white);
+        z-index: 1;
+      }
+    }
+
+    .content-container {
+      padding: 2rem;
+      overflow-y: auto;
+      height: 100vh;
+    }
+  }
+
+  @include media-down('lg') {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+
+    .image-container {
+      position: relative;
+      height: 40vh;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .title {
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
+        color: var(--white);
+        z-index: 1;
+      }
+    }
+
+    .content-container {
+      padding: 1rem;
+    }
+  }
+}
+
+// Component grid system
+.component-grid {
+  @extend .grid-container;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(var(--min-component-width, 20cqi), 1fr)
+  );
+
+  &.xs {
+    --min-component-width: #{map.get($component-sizes, 'xs')};
+  }
+  &.sm {
+    --min-component-width: #{map.get($component-sizes, 'sm')};
+  }
+  &.md {
+    --min-component-width: #{map.get($component-sizes, 'md')};
+  }
+  &.lg {
+    --min-component-width: #{map.get($component-sizes, 'lg')};
+  }
+  &.xl {
+    --min-component-width: #{map.get($component-sizes, 'xl')};
+  }
+  &.xxl {
+    --min-component-width: #{map.get($component-sizes, 'xxl')};
+  }
+}
+
+// Layout direction support
+[dir='rtl'] {
+  .main-layout {
+    .image-container .title {
+      right: 2rem;
+      left: auto;
+    }
+  }
+}
+
+// Left-handed layout support
+.left-handed {
+  .main-layout {
+    @include media-up('lg') {
+      &:not(.reversed) {
+        grid-template-columns: 9fr 3fr;
+      }
+
+      &.reversed {
+        grid-template-columns: 3fr 9fr;
+      }
+    }
+  }
+}
+
+// Component-specific grid layouts
+.content-grid {
+  @extend .grid-container;
+
+  // Mobile Portrait (2x2 and 1col layouts)
+  &.grid-2x2 {
+    @include media-down('sm') {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+
+      .grid-item {
+        aspect-ratio: 1;
+      }
+    }
+  }
+
+  &.grid-1col {
+    @include media-down('sm') {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  // Mobile Landscape/Tablet (3-9 split)
+  &.grid-3x9 {
+    @include media-up('sm') {
+      @include media-down('lg') {
+        grid-template-columns: 3fr 9fr;
+        gap: 2rem;
+      }
+    }
+  }
+
+  // Desktop Layouts
+  @include media-up('lg') {
+    &.grid-1x2 {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    &.grid-2x2 {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+
+      .grid-item {
+        aspect-ratio: 1;
+      }
+    }
+
+    &.grid-3x3 {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    &.grid-4x4 {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+  }
+}
+
+// Viewport Grid
+.viewport-grid {
+  @extend .grid-container;
+  width: 100%;
+
+  // Specific fixes for tablet portrait text overlap issue
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    // Ensure better responsive behavior on tablet portrait
+    .viewport-left {
+      // Allow the left container to shrink more aggressively
+      min-width: 0 !important;
+      max-width: 35%; // Limit left column to prevent text overlap
+      
+      // Image card specific adjustments for tablet portrait
+      #imageCard {
+        min-width: 200px !important; // Override any larger minWidth
+        max-width: 100%;
+        width: 100% !important;
+      }
+    }
+    
+    .viewport-right {
+      // Ensure text area has enough space and proper overflow handling
+      min-width: 65%;
+      padding-right: 2rem; // Extra padding to prevent scrollbar overlap
+      overflow-x: hidden; // Prevent horizontal overflow
+      word-wrap: break-word; // Handle long words
+    }
+  }
+
+  // Animation states
+  .viewport-left,
+  .viewport-right {
+    opacity: 1;
+    transition: all 0.2s ease-in-out;
+  }
+
+  // Desktop animations (default)
+  @include media-up('sm') {
+    .viewport-left {
+      transform: translateX(0);
+
+      &.animate-in {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .viewport-right {
+      transform: translateY(0);
+
+      &.animate-in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    &.exiting {
+      .viewport-left {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .viewport-right {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  // Mobile animations (stacked)
+  @include media-down('sm') {
+    &.stacked {
+      .viewport-left,
+      .viewport-right {
+        transform: translateY(0);
+        transition-delay: 0s;
+
+        &.animate-in {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      // Add slight delay to second element
+      .viewport-right {
+        transition-delay: 0.1s;
+      }
+
+      &.exiting {
+        .viewport-left,
+        .viewport-right {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+
+        .viewport-right {
+          transition-delay: 0s;
+        }
+
+        .viewport-left {
+          transition-delay: 0.1s;
+        }
+      }
+
+      // Flipped state (when image is on bottom)
+      &.flipped {
+        .viewport-left {
+          transition-delay: 0.1s;
+        }
+
+        .viewport-right {
+          transition-delay: 0s;
+        }
+
+        &.exiting {
+          .viewport-left {
+            transition-delay: 0s;
+          }
+
+          .viewport-right {
+            transition-delay: 0.1s;
+          }
+        }
+      }
+    }
+  }
+
+  &.fullscreen {
+    min-height: 100vh;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &.nested {
+    max-width: none;
+    margin: 0;
+
+    .viewport-left,
+    .viewport-right {
+      padding: 0;
+    }
+  }
+
+  // Mobile Portrait (stacked)
+  @include media-down('sm') {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 1rem;
+
+    &.stacked {
+      .viewport-left {
+        grid-row: 1;
+      }
+      .viewport-right {
+        grid-row: 2;
+      }
+
+      &.flipped {
+        .viewport-left {
+          grid-row: 2;
+        }
+        .viewport-right {
+          grid-row: 1;
+        }
+      }
+    }
+
+    .viewport-left,
+    .viewport-right {
+      width: 100%;
+      padding: 1rem;
+
+      &.fullscreen {
+        min-height: 50vh;
+      }
+    }
+  }
+
+  // Mobile Landscape & Tablet (1x2)
+  @include media-up('sm') {
+    @include media-down('lg') {
+      gap: 2rem;
+      padding: 1rem;
+
+      &.fullscreen {
+        padding: 0;
+      }
+
+      .viewport-left,
+      .viewport-right {
+        height: 100%;
+        padding: 1rem;
+
+        &.fullscreen {
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  // Desktop (1x2 with max-width)
+  @include media-up('lg') {
+    gap: 2rem;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+
+    &.fullscreen {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .viewport-left,
+    .viewport-right {
+      height: 100%;
+      padding: 2rem;
+
+      &.fullscreen {
+        padding: 0;
+      }
+    }
+
+    // Limit max-width for viewport-right on very large screens
+    .viewport-right {
+      @include media-up('xxl') {
+        max-width: 1300px !important;
+      }
+    }
+  }
+
+  // RTL Support
+  [dir='rtl'] & {
+    &:not(.reversed) {
+      .viewport-left {
+        grid-column: 2;
+      }
+      .viewport-right {
+        grid-column: 1;
+      }
+    }
+  }
+
+  // Left-handed layout support
+  .left-handed & {
+    @include media-up('lg') {
+      &:not(.reversed) {
+        grid-template-columns: 2fr 1fr;
+      }
+      &.reversed {
+        grid-template-columns: 1fr 2fr;
+      }
+    }
+  }
+}
+
+// Blog post grid
+.blog-grid {
+  @extend .content-grid;
+
+  .blog-card {
+    background: var(--neutral-light);
+    border-radius: var(--border-radius-card);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .blog-content {
+      padding: 1rem;
+
+      h3 {
+        margin: 0 0 0.5rem;
+      }
+
+      .date {
+        color: var(--neutral-secondary);
+        font-size: 0.875rem;
+      }
+    }
+  }
+
+  // Mobile adjustments
+  @include media-down('sm') {
+    &.blog-cards {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+
+      .blog-card img {
+        height: 150px;
+      }
+    }
+  }
+
+  // Tablet adjustments
+  @include media-up('sm') {
+    @include media-down('lg') {
+      &.blog-cards {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+    }
+  }
+
+  // Desktop adjustments
+  @include media-up('lg') {
+    &.blog-cards {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+  }
+}
+
+// Skills grid
+.skills-grid {
+  @extend .content-grid;
+
+  .skill-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    .skill-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .skill-name {
+      font-size: 1rem;
+      color: var(--neutral-primary);
+    }
+  }
+
+  // Mobile adjustments
+  @include media-down('sm') {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+
+    .skill-item .skill-circle {
+      width: 60px;
+      height: 60px;
+      font-size: 1.25rem;
+    }
+  }
+
+  // Desktop adjustments
+  @include media-up('lg') {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2rem;
+  }
+}
+
+// Professional summary grid
+.summary-grid {
+  @extend .content-grid;
+  display: grid;
+  gap: 1.5rem;
+
+  .summary-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .summary-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+    }
+
+    .summary-content {
+      flex: 1;
+    }
+  }
+
+  // Mobile adjustments
+  @include media-down('sm') {
+    grid-template-columns: 1fr;
+  }
+
+  // Tablet/Desktop adjustments
+  @include media-up('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// Year grid (for blog archive)
+.year-grid {
+  @extend .content-grid;
+
+  .year-item {
+    background: var(--neutral-light);
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: var(--border-radius-card);
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background: var(--primary);
+      color: var(--white);
+    }
+  }
+
+  // Mobile adjustments
+  @include media-down('sm') {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  // Tablet adjustments
+  @include media-up('sm') {
+    @include media-down('lg') {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  // Desktop adjustments
+  @include media-up('lg') {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+// Calendar grid
+.calendar-grid {
+  @extend .content-grid;
+  display: grid;
+  gap: 0.5rem;
+
+  .calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+
+    .weekday {
+      text-align: center;
+      font-weight: bold;
+      color: var(--neutral-primary);
+      padding: 0.5rem;
+    }
+  }
+
+  .calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+
+    .calendar-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--neutral-light);
+      border-radius: var(--border-radius-card);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+
+      &:hover {
+        background: var(--primary);
+        color: var(--white);
+      }
+
+      &.today {
+        border: 2px solid var(--primary);
+      }
+
+      &.selected {
+        background: var(--primary);
+        color: var(--white);
+      }
+
+      &.other-month {
+        opacity: 0.5;
+      }
+
+      &.has-events {
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0.25rem;
+          width: 0.25rem;
+          height: 0.25rem;
+          border-radius: 50%;
+          background: var(--primary);
+        }
+      }
+    }
+  }
+
+  .calendar-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .month-year {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    .control-button {
+      padding: 0.5rem 1rem;
+      background: var(--neutral-light);
+      border: none;
+      border-radius: var(--border-radius-button);
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: var(--primary);
+        color: var(--white);
+      }
+    }
+  }
+
+  // Mobile adjustments
+  @include media-down('sm') {
+    .calendar-day {
+      font-size: 0.875rem;
+    }
+
+    .weekday {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+// widths
+.w-50 {
+  width: 50%;
+}
+
+.w-75 {
+  width: 75%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.w-150 {
+  width: 150%;
+}
+
+// heights
+.h-50 {
+  height: 50%;
+}
+
+.h-75 {
+  height: 75%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.h-150 {
+  height: 150%;
+}

@@ -1,0 +1,618 @@
+// =============================================
+// FLUXLINE PRO COLOR SYSTEM
+// Updated color palette to match Fluxline Pro brand specifications
+// Philosophy: Clarity meets transformation
+// =============================================
+
+// Base Universal Colors
+$black: #010101; // Deep black base layout tone (Fluxline Pro)
+$white: #ffffff;
+$light-black: #1a1a1a; // Updated for Fluxline Pro dark theme
+$darker-white: #fafcff; // Updated to match Fluxline Pro light theme
+$contrast-primary: #ffffff;
+$contrast-secondary: #e1e1e1;
+
+// =============================================
+// Fluxline Pro Theme Colors
+// Primary: Deep blues for structure and trust
+// Accent: Teal-green for growth and interaction
+// =============================================
+
+// Light Mode Colors - Fluxline Pro
+$blue-primary-light: #2a5f8f; // Primary interactive blue (darker for light mode)
+$blue-secondary-light: #357abd; // Secondary blue
+$blue-tertiary-light: #4a90e2; // Tertiary blue (lighter variant)
+$success-light: #00796b; // Teal-green for success
+$error-light: #d32f2f; // Strong red for errors
+$error-lighter: #ffebee; // Light red background
+$warning-light: #f57c00; // Orange for messages
+$info-light: #2a5f8f; // Using primary color for info
+$text-primary-light: #1a1a1a; // Dark gray for readability
+$text-secondary-light: #404040; // Medium gray for secondary text
+$background-light: #ffffff; // Pure white background
+$surface-light: #f8f8f8; // Light surface
+$accent-light: #00a896; // Green-blue accent for growth
+$neutral-quaternary-light: #e0e0e0; // Light gray
+$neutral-quaternary-alt-light: #f0f0f0; // Alternative light gray
+
+// Dark Mode Colors - Fluxline Pro
+$blue-primary-dark: #4a90e2; // Primary interactive blue
+$blue-secondary-dark: #357abd; // Secondary blue
+$blue-tertiary-dark: #2a5f8f; // Tertiary blue (close to primary on color wheel)
+$blue-dark: #1e3a52; // Dark blue
+$blue-darker-dark: #0f1c2e; // Darkest blue
+$success-dark: #4ecdc4; // Teal-green for success
+$error-dark: #ff6b6b; // Soft red for errors
+$error-darker: #2d1617; // Dark red background
+$warning-dark: #ffe66d; // Warm yellow for messages
+$info-dark: #4a90e2; // Using primary color for info
+$text-primary-dark: #ffffff; // Pure white for maximum readability
+$text-secondary-dark: #e1e1e1; // Light gray for secondary text
+$background-dark: #010101; // Deep black base layout tone
+$surface-dark: #151515; // Slightly lighter surface
+$accent-dark: #00d4aa; // Green-blue accent for growth and interaction
+$neutral-quaternary-dark: #404040; // Dark gray
+$neutral-quaternary-alt-dark: #2e2e2e; // Alternative dark gray
+
+// =============================================
+// Accessibility Themes
+// These are specialized themes for users with color vision deficiencies
+// =============================================
+
+// High Contrast Theme Colors
+$hc-primary: #0000ff;
+$hc-secondary: #ffffff;
+$hc-tertiary: #cccccc;
+$hc-background: #000000;
+$hc-text: #ffffff;
+$hc-light: #ffffff;
+$hc-dark: #000000;
+$hc-darker: #000000;
+$hc-lighter: #ffffff;
+$hc-lighter-alt: #ffffff;
+$hc-neutral-primary: #ffffff;
+$hc-neutral-secondary: #ffffff;
+$hc-neutral-tertiary: #cccccc;
+$hc-neutral-tertiary-alt: #ffffff;
+$hc-neutral-quaternary: #ffffff;
+$hc-neutral-quaternary-alt: #ffffff;
+$hc-accent: #0000ff;
+$hc-black: #000000;
+$hc-white: #ffffff;
+$hc-neutral-light: #ffffff;
+$hc-neutral-lighter: #ffffff;
+$hc-neutral-lighter-alt: #ffffff;
+$hc-error: #ff0000;
+$hc-success: #00ff00;
+$hc-warning: #ffff00;
+$hc-link: #0000ff;
+$hc-link-hover: #cccccc;
+
+// Protanopia (Red-blind) Theme Colors
+$protanopia-primary: #0078d4;
+$protanopia-secondary: #2b88d8;
+$protanopia-tertiary: #71afe5;
+$protanopia-light: #c7e0f4;
+$protanopia-dark: #005a9e;
+$protanopia-darker: #004578;
+$protanopia-lighter: #deecf9;
+$protanopia-lighter-alt: #eff6fc;
+$protanopia-neutral-primary: #333333;
+$protanopia-neutral-secondary: #666666;
+$protanopia-neutral-tertiary: #a6a6a6;
+$protanopia-neutral-tertiary-alt: #c8c8c8;
+$protanopia-neutral-quaternary: #0e8c77;
+$protanopia-neutral-quaternary-alt: #1b5e20;
+$protanopia-accent: #0078d4;
+$protanopia-error: #e81123; // Strong red for error
+$protanopia-error-bg: #fde7e7; // Light red for background
+$protanopia-success: #1b5e20;
+$protanopia-warning: #ffb900;
+$protanopia-link: #0078d4;
+$protanopia-link-hover: #004578;
+
+// Deuteranopia (Green-blind) Theme Colors
+$deuteranopia-primary: #0063b1;
+$deuteranopia-secondary: #4894fe;
+$deuteranopia-tertiary: #ffb900;
+$deuteranopia-light: #c7e0f4;
+$deuteranopia-dark: #004578;
+$deuteranopia-darker: #002850;
+$deuteranopia-lighter: #deecf9;
+$deuteranopia-lighter-alt: #eff6fc;
+$deuteranopia-neutral-primary: #333333;
+$deuteranopia-neutral-secondary: #666666;
+$deuteranopia-neutral-tertiary: #a6a6a6;
+$deuteranopia-neutral-tertiary-alt: #c8c8c8;
+$deuteranopia-neutral-quaternary: #ffb900;
+$deuteranopia-neutral-quaternary-alt: #4894fe;
+$deuteranopia-accent: #4894fe;
+$deuteranopia-error: #e81123; // Strong red for error
+$deuteranopia-error-bg: #fde7e7; // Light red for background
+$deuteranopia-success: #4894fe;
+$deuteranopia-warning: #ffb900;
+$deuteranopia-link: #0063b1;
+$deuteranopia-link-hover: #004578;
+
+// Tritanopia (Blue-blind) Theme Colors
+$tritanopia-primary: #d13438;
+$tritanopia-secondary: #ff8c00;
+$tritanopia-tertiary: #107c10;
+$tritanopia-light: #e8a3a3;
+$tritanopia-dark: #a4262c;
+$tritanopia-darker: #761721;
+$tritanopia-lighter: #fde7e7;
+$tritanopia-lighter-alt: #fef4f4;
+$tritanopia-neutral-primary: #333333;
+$tritanopia-neutral-secondary: #666666;
+$tritanopia-neutral-tertiary: #a6a6a6;
+$tritanopia-neutral-tertiary-alt: #c8c8c8;
+$tritanopia-neutral-quaternary: #ff8c00;
+$tritanopia-neutral-quaternary-alt: #107c10;
+$tritanopia-accent: #107c10;
+$tritanopia-error: #ff8c00;
+$tritanopia-success: #107c10;
+$tritanopia-warning: #ff8c00;
+$tritanopia-link: #d13438;
+$tritanopia-link-hover: #a4262c;
+
+// =============================================
+// Gradients
+// These match the theme.ts gradients
+// =============================================
+
+// Light Mode Gradients
+$gradient-light-radial: radial-gradient(
+  circle at center,
+  #ffffff 0%,
+  #f8f8f8 30%,
+  #f5f5f5 70%,
+  #f0f0f0 100%
+);
+$gradient-light-linear: linear-gradient(
+  90deg,
+  #f8f8f8 0%,
+  #ffffff 50%,
+  #f8f8f8 100%
+);
+
+// Dark Mode Gradients
+$gradient-dark-radial: radial-gradient(
+  circle at center,
+  #2a2a2a 0%,
+  #242424 30%,
+  #1f1f1f 70%,
+  #1a1a1a 100%
+);
+$gradient-dark-linear: linear-gradient(
+  90deg,
+  #1f1f1f 0%,
+  #242424 50%,
+  #1f1f1f 100%
+);
+
+// Component Gradients
+$gradient-card-light: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+$gradient-card-dark: linear-gradient(135deg, #242424 0%, #1f1f1f 100%);
+$gradient-button-light: linear-gradient(90deg, #ffffff 0%, #f8f8f8 100%);
+$gradient-button-dark: linear-gradient(90deg, #242424 0%, #1f1f1f 100%);
+$gradient-modal-light: radial-gradient(
+  circle at center,
+  #ffffff 0%,
+  #f8f8f8 30%,
+  #f5f5f5 100%
+);
+$gradient-modal-dark: radial-gradient(
+  circle at center,
+  #2a2a2a 0%,
+  #242424 30%,
+  #1f1f1f 100%
+);
+
+// =============================================
+// Color Transitions and Animations
+// These are used across all themes
+// =============================================
+
+// Color Transitions
+@mixin color-transition(
+  $property: color,
+  $duration: 300ms,
+  $timing: ease-in-out
+) {
+  transition: $property $duration $timing;
+}
+
+// Component-specific color transitions
+@mixin button-color-transition {
+  @include color-transition(color, 200ms, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+@mixin card-color-transition {
+  @include color-transition(color, 300ms, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+@mixin modal-color-transition {
+  @include color-transition(color, 400ms, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+@mixin toast-color-transition {
+  @include color-transition(color, 500ms, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+@mixin tooltip-color-transition {
+  @include color-transition(color, 200ms, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+// Color Animation Keyframes
+@keyframes colorPulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes colorFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes colorFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+// Color Animation Mixins
+@mixin color-pulse($duration: 2s, $timing: ease-in-out) {
+  animation: colorPulse $duration $timing infinite;
+}
+
+@mixin color-fade-in($duration: 300ms, $timing: ease-in-out) {
+  animation: colorFadeIn $duration $timing forwards;
+}
+
+@mixin color-fade-out($duration: 300ms, $timing: ease-in-out) {
+  animation: colorFadeOut $duration $timing forwards;
+}
+
+// Theme-specific semantic colors
+$light-error: #a4262c; // Updated to match theme.ts
+$light-success: #107c10; // Updated to match theme.ts
+$light-warning: #c19c00; // Updated to match theme.ts
+$light-link: #445f7e; // Using primary color
+$light-link-hover: #557799; // Using secondary color
+
+$dark-error: #f1707b; // Updated to match theme.ts
+$dark-success: #92c353; // Updated to match theme.ts
+$dark-warning: #ffd335; // Updated to match theme.ts
+$dark-link: #a5c0e1; // Using primary color
+$dark-link-hover: #cad9f2; // Using tertiary color
+
+$hc-error: #ff0000;
+$hc-success: #00ff00;
+$hc-warning: #ffff00;
+$hc-link: #0000ff;
+$hc-link-hover: #00ffff;
+
+$protanopia-error: #e81123; // Strong red for error
+$protanopia-error-bg: #fde7e7; // Light red for background
+$protanopia-success: #1b5e20;
+$protanopia-warning: #ffb900;
+$protanopia-link: #0044ff;
+$protanopia-link-hover: #00ffff;
+
+$deuteranopia-error: #e81123; // Strong red for error
+$deuteranopia-error-bg: #fde7e7; // Light red for background
+$deuteranopia-success: #4894fe;
+$deuteranopia-warning: #ffb900;
+$deuteranopia-link: #0000ff;
+$deuteranopia-link-hover: #00ffff;
+
+$tritanopia-error: #ff8c00;
+$tritanopia-success: #107c10;
+$tritanopia-warning: #ff8c00;
+$tritanopia-link: #ff00ff;
+$tritanopia-link-hover: #ff0000;
+
+// =============================================
+// Theme Mixins
+// These apply the appropriate colors based on the selected theme
+// =============================================
+
+// Light Mode Theme Mixin
+@mixin light-theme {
+  --primary: #{$blue-primary-light};
+  --secondary: #{$blue-secondary-light};
+  --tertiary: #{$blue-tertiary-light};
+  --light: #{$background-light};
+  --dark: #{$black};
+  --darker: #{$light-black};
+  --lighter: #{$white};
+  --lighter-alt: #{$darker-white};
+  --neutral-primary: #{$text-primary-light};
+  --neutral-secondary: #{$text-secondary-light};
+  --neutral-tertiary: #{$surface-light};
+  --neutral-tertiary-alt: #{$white};
+  --neutral-quaternary: #{$warning-light};
+  --neutral-quaternary-alt: #{$success-light};
+  --accent: #{$info-light};
+  --black: #{$black};
+  --white: #{$white};
+  --neutral-light: #{$contrast-primary};
+  --neutral-lighter: #{$contrast-secondary};
+  --neutral-lighter-alt: #{$white};
+  --error: #{$light-error};
+  --success: #{$light-success};
+  --warning: #{$light-warning};
+  --link: #{$light-link};
+  --link-hover: #{$light-link-hover};
+}
+
+// Dark Mode Theme Mixin
+@mixin dark-theme {
+  --primary: #{$blue-primary-dark};
+  --secondary: #{$blue-secondary-dark};
+  --tertiary: #{$blue-tertiary-dark};
+  --light: #{$background-dark};
+  --dark: #{$blue-dark};
+  --darker: #{$blue-darker-dark};
+  --lighter: #{$white};
+  --lighter-alt: #{$darker-white};
+  --neutral-primary: #{$text-primary-dark};
+  --neutral-secondary: #{$text-secondary-dark};
+  --neutral-tertiary: #{$surface-dark};
+  --neutral-tertiary-alt: #{$white};
+  --neutral-quaternary: #{$warning-dark};
+  --neutral-quaternary-alt: #{$success-dark};
+  --accent: #{$info-dark};
+  --black: #{$black};
+  --white: #{$white};
+  --neutral-light: #{$contrast-primary};
+  --neutral-lighter: #{$contrast-secondary};
+  --neutral-lighter-alt: #{$white};
+  --error: #{$dark-error};
+  --success: #{$dark-success};
+  --warning: #{$dark-warning};
+  --link: #{$dark-link};
+  --link-hover: #{$dark-link-hover};
+}
+
+// High Contrast Theme Mixin
+@mixin high-contrast-theme {
+  --primary: #{$hc-primary};
+  --secondary: #{$hc-secondary};
+  --tertiary: #{$hc-tertiary};
+  --light: #{$hc-background};
+  --dark: #{$hc-text};
+  --darker: #{$hc-text};
+  --lighter: #{$hc-text};
+  --lighter-alt: #{$hc-text};
+  --neutral-primary: #{$hc-text};
+  --neutral-secondary: #{$hc-text};
+  --neutral-tertiary: #{$hc-text};
+  --neutral-tertiary-alt: #{$hc-text};
+  --neutral-quaternary: #{$hc-text};
+  --neutral-quaternary-alt: #{$hc-text};
+  --accent: #{$hc-text};
+  --black: #{$hc-black};
+  --white: #{$hc-white};
+  --neutral-light: #{$hc-text};
+  --neutral-lighter: #{$hc-text};
+  --neutral-lighter-alt: #{$hc-text};
+  --error: #{$hc-error};
+  --success: #{$hc-success};
+  --warning: #{$hc-warning};
+  --link: #{$hc-link};
+  --link-hover: #{$hc-link-hover};
+
+  // Additional high contrast specific overrides
+  background-color: #{$hc-background};
+  color: #{$hc-text};
+  border-color: #{$hc-text};
+}
+
+// Protanopia (Red-blind) Theme Mixin
+@mixin protanopia-theme {
+  --primary: #{$protanopia-primary};
+  --secondary: #{$protanopia-secondary};
+  --tertiary: #{$protanopia-tertiary};
+  --light: #{$protanopia-light};
+  --dark: #{$protanopia-dark};
+  --darker: #{$protanopia-darker};
+  --lighter: #{$protanopia-lighter};
+  --lighter-alt: #{$protanopia-lighter-alt};
+  --neutral-primary: #{$protanopia-neutral-primary};
+  --neutral-secondary: #{$protanopia-neutral-secondary};
+  --neutral-tertiary: #{$protanopia-neutral-tertiary};
+  --neutral-tertiary-alt: #{$protanopia-neutral-tertiary-alt};
+  --neutral-quaternary: #{$protanopia-neutral-quaternary};
+  --neutral-quaternary-alt: #{$protanopia-neutral-quaternary-alt};
+  --accent: #{$protanopia-accent};
+  --black: #{$protanopia-black};
+  --white: #{$protanopia-white};
+  --neutral-light: #{$protanopia-neutral-light};
+  --neutral-lighter: #{$protanopia-neutral-lighter};
+  --neutral-lighter-alt: #{$protanopia-neutral-lighter-alt};
+  --error: #{$protanopia-error};
+  --success: #{$protanopia-success};
+  --warning: #{$protanopia-warning};
+  --link: #{$protanopia-link};
+  --link-hover: #{$protanopia-link-hover};
+}
+
+// Deuteranopia (Green-blind) Theme Mixin
+@mixin deuteranopia-theme {
+  --primary: #{$deuteranopia-primary};
+  --secondary: #{$deuteranopia-secondary};
+  --tertiary: #{$deuteranopia-tertiary};
+  --light: #{$deuteranopia-light};
+  --dark: #{$deuteranopia-dark};
+  --darker: #{$deuteranopia-darker};
+  --lighter: #{$deuteranopia-lighter};
+  --lighter-alt: #{$deuteranopia-lighter-alt};
+  --neutral-primary: #{$deuteranopia-neutral-primary};
+  --neutral-secondary: #{$deuteranopia-neutral-secondary};
+  --neutral-tertiary: #{$deuteranopia-neutral-tertiary};
+  --neutral-tertiary-alt: #{$deuteranopia-neutral-tertiary-alt};
+  --neutral-quaternary: #{$deuteranopia-neutral-quaternary};
+  --neutral-quaternary-alt: #{$deuteranopia-neutral-quaternary-alt};
+  --accent: #{$deuteranopia-accent};
+  --black: #{$deuteranopia-black};
+  --white: #{$deuteranopia-white};
+  --neutral-light: #{$deuteranopia-neutral-light};
+  --neutral-lighter: #{$deuteranopia-neutral-lighter};
+  --neutral-lighter-alt: #{$deuteranopia-neutral-lighter-alt};
+  --error: #{$deuteranopia-error};
+  --success: #{$deuteranopia-success};
+  --warning: #{$deuteranopia-warning};
+  --link: #{$deuteranopia-link};
+  --link-hover: #{$deuteranopia-link-hover};
+}
+
+// Tritanopia (Blue-blind) Theme Mixin
+@mixin tritanopia-theme {
+  --primary: #{$tritanopia-primary};
+  --secondary: #{$tritanopia-secondary};
+  --tertiary: #{$tritanopia-tertiary};
+  --light: #{$tritanopia-light};
+  --dark: #{$tritanopia-dark};
+  --darker: #{$tritanopia-darker};
+  --lighter: #{$tritanopia-lighter};
+  --lighter-alt: #{$tritanopia-lighter-alt};
+  --neutral-primary: #{$tritanopia-neutral-primary};
+  --neutral-secondary: #{$tritanopia-neutral-secondary};
+  --neutral-tertiary: #{$tritanopia-neutral-tertiary};
+  --neutral-tertiary-alt: #{$tritanopia-neutral-tertiary-alt};
+  --neutral-quaternary: #{$tritanopia-neutral-quaternary};
+  --neutral-quaternary-alt: #{$tritanopia-neutral-quaternary-alt};
+  --accent: #{$tritanopia-accent};
+  --black: #{$tritanopia-black};
+  --white: #{$tritanopia-white};
+  --neutral-light: #{$tritanopia-neutral-light};
+  --neutral-lighter: #{$tritanopia-neutral-lighter};
+  --neutral-lighter-alt: #{$tritanopia-neutral-lighter-alt};
+  --error: #{$tritanopia-error};
+  --success: #{$tritanopia-success};
+  --warning: #{$tritanopia-warning};
+  --link: #{$tritanopia-link};
+  --link-hover: #{$tritanopia-link-hover};
+}
+
+// Grayscale Theme Colors
+$grayscale-primary: #404040; // Primary interactive elements
+$grayscale-secondary: #666666; // Secondary interactive elements
+$grayscale-tertiary: #808080; // Tertiary elements
+$grayscale-light: #e0e0e0; // Light backgrounds
+$grayscale-dark: #333333; // Dark text and borders
+$grayscale-darker: #1a1a1a; // Darkest elements
+$grayscale-lighter: #f0f0f0; // Lighter backgrounds
+$grayscale-lighter-alt: #f8f8f8; // Lightest backgrounds
+$grayscale-neutral-primary: #000000; // Primary text
+$grayscale-neutral-secondary: #666666; // Secondary text
+$grayscale-neutral-tertiary: #a6a6a6; // Disabled text
+$grayscale-neutral-tertiary-alt: #c8c8c8; // Borders
+$grayscale-neutral-quaternary: #d9d9d9; // Light borders
+$grayscale-neutral-quaternary-alt: #e6e6e6; // Light backgrounds
+$grayscale-accent: #808080; // Accent elements
+$grayscale-error: #4d0000; // Dark red in grayscale
+$grayscale-success: #1a1a1a; // Dark gray for success
+$grayscale-warning: #4d4d4d; // Mid gray for warnings
+$grayscale-link: #404040; // Link color
+$grayscale-link-hover: #1a1a1a; // Link hover color
+
+// Grayscale Gradients
+$gradient-grayscale-radial: radial-gradient(
+  circle at center,
+  #ffffff 0%,
+  #f0f0f0 30%,
+  #e0e0e0 70%,
+  #d0d0d0 100%
+);
+$gradient-grayscale-linear: linear-gradient(
+  90deg,
+  #f0f0f0 0%,
+  #ffffff 50%,
+  #f0f0f0 100%
+);
+$gradient-card-grayscale: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+$gradient-button-grayscale: linear-gradient(90deg, #ffffff 0%, #f0f0f0 100%);
+$gradient-modal-grayscale: radial-gradient(
+  circle at center,
+  #ffffff 0%,
+  #f0f0f0 30%,
+  #e0e0e0 100%
+);
+
+// Add Grayscale Theme Mixin after other theme mixins
+@mixin grayscale-theme {
+  --primary: #{$grayscale-primary};
+  --secondary: #{$grayscale-secondary};
+  --tertiary: #{$grayscale-tertiary};
+  --light: #{$grayscale-light};
+  --dark: #{$grayscale-dark};
+  --darker: #{$grayscale-darker};
+  --lighter: #{$grayscale-lighter};
+  --lighter-alt: #{$grayscale-lighter-alt};
+  --neutral-primary: #{$grayscale-neutral-primary};
+  --neutral-secondary: #{$grayscale-neutral-secondary};
+  --neutral-tertiary: #{$grayscale-neutral-tertiary};
+  --neutral-tertiary-alt: #{$grayscale-neutral-tertiary-alt};
+  --neutral-quaternary: #{$grayscale-neutral-quaternary};
+  --neutral-quaternary-alt: #{$grayscale-neutral-quaternary-alt};
+  --accent: #{$grayscale-accent};
+  --black: #{$black};
+  --white: #{$white};
+  --neutral-light: #{$white};
+  --neutral-lighter: #{$grayscale-lighter};
+  --neutral-lighter-alt: #{$grayscale-lighter-alt};
+  --error: #{$grayscale-error};
+  --success: #{$grayscale-success};
+  --warning: #{$grayscale-warning};
+  --link: #{$grayscale-link};
+  --link-hover: #{$grayscale-link-hover};
+}
+
+// Grayscale Dark Theme Colors
+$grayscale-dark-primary: #bfbfbf;
+$grayscale-dark-secondary: #a6a6a6;
+$grayscale-dark-tertiary: #808080;
+$grayscale-dark-light: #1a1a1a;
+$grayscale-dark-dark: #e0e0e0;
+$grayscale-dark-darker: #f0f0f0;
+$grayscale-dark-lighter: #333333;
+$grayscale-dark-lighter-alt: #000000;
+$grayscale-dark-neutral-primary: #ffffff;
+$grayscale-dark-neutral-secondary: #bfbfbf;
+$grayscale-dark-neutral-tertiary: #666666;
+$grayscale-dark-neutral-tertiary-alt: #404040;
+$grayscale-dark-neutral-quaternary: #262626;
+$grayscale-dark-neutral-quaternary-alt: #1a1a1a;
+$grayscale-dark-accent: #bfbfbf;
+$grayscale-dark-black: #ffffff;
+$grayscale-dark-white: #000000;
+
+// Grayscale Dark Semantic Colors
+$grayscale-dark-body-text: #ffffff;
+$grayscale-dark-body-background: #1a1a1a;
+$grayscale-dark-error-text: #bbbbbb;
+$grayscale-dark-error-background: #222222;
+$grayscale-dark-success-text: #f0f0f0;
+$grayscale-dark-success-background: #262626;
+$grayscale-dark-message-text: #bfbfbf;
+$grayscale-dark-warning-text: #bfbfbf;
+$grayscale-dark-warning-background: #222222;
+$grayscale-dark-link: #bfbfbf;
+$grayscale-dark-link-hover: #f0f0f0;
