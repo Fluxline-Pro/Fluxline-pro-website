@@ -1,8 +1,13 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+// This import is essential for toBeInTheDocument and toHaveAttribute matchers
+import '@testing-library/jest-dom';
 import { ProfessionalSummary } from '../pages/services/services';
 
 // Mock dependencies
+// Note: If you're having issues with react-router-dom not being found,
+// ensure it's properly installed and consider using a __mocks__ directory
+// for module mocking according to Jest's documentation.
 jest.mock('react-router-dom', () => ({
   useLocation: () => ({ pathname: '/about' }),
   useNavigate: () => jest.fn(),
