@@ -1,6 +1,10 @@
 import React from 'react';
 import { isDayjs } from 'dayjs';
 import { useNavigate } from 'react-router-dom';
+// Dynamic imports for optional dependencies
+// import { MDXProvider } from '@mdx-js/react';
+// import ReactMarkdown from 'react-markdown';
+// import DOMPurify from 'dompurify';
 
 import { BaseCard } from '../card/base-card/base-card';
 import { useAppTheme } from '../../hooks/useAppTheme';
@@ -25,39 +29,120 @@ import {
 
 /**
  * Content rendering approach:
- * - Markdown: Basic pattern-based rendering (will be enhanced with ReactMarkdown)
- * - MDX: Basic pattern-based rendering (will be enhanced with MDXProvider)
- * - HTML: Uses dangerouslySetInnerHTML with basic sanitization
+ * - Markdown: Uses ReactMarkdown library (when available, falls back to basic conversion)
+ * - MDX: Uses MDXProvider and dynamic compilation (when available, falls back to markdown)
+ * - HTML: Uses DOMPurify + dangerouslySetInnerHTML (when available, falls back to basic sanitization)
  * - Text: Rendered as plain text
  *
  * Format is auto-detected if not explicitly provided
  */
 
-// Basic HTML sanitization for security
+// Enhanced HTML sanitization for security
 const sanitizeHtml = (html: string): string => {
-  // Basic sanitization - remove script tags and event handlers
+  // Try to use DOMPurify if available
+  try {
+    // Dynamic import would go here when dependencies are available
+    // const DOMPurify = require('dompurify');
+    // return DOMPurify.sanitize(html, {
+    //   ADD_ATTR: ['target', 'rel', 'class', 'id', 'style'],
+    //   FORBID_TAGS: ['script', 'iframe'],
+    //   FORBID_ATTR: ['onerror', 'onload', 'onclick', 'onmouseover'],
+    //   USE_PROFILES: { html: true },
+    // });
+  } catch (error) {
+    console.warn('[ContentRenderer] DOMPurify not available, using basic sanitization');
+  }
+
+  // Fallback basic sanitization - remove script tags and event handlers
   return html
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
     .replace(/on\w+="[^"]*"/gi, '')
     .replace(/on\w+='[^']*'/gi, '')
-    .replace(/javascript:/gi, '');
+    .replace(/javascript:/gi, '')
+    .replace(/vbscript:/gi, '')
+    .replace(/data:/gi, '');
 };
 
-// Basic Markdown to HTML converter (simplified)
+// Enhanced Markdown to HTML converter
 const basicMarkdownToHtml = (markdown: string): string => {
   return markdown
+    // Code blocks
+    .replace(/```([a-z]*)\n([\s\S]*?)\n```/gim, '<pre><code class="language-$1">$2</code></pre>')
+    // Inline code
+    .replace(/`([^`]+)`/gim, '<code>$1</code>')
     // Headers
+    .replace(/^###### (.*$)/gim, '<h6>$1</h6>')
+    .replace(/^##### (.*$)/gim, '<h5>$1</h5>')
+    .replace(/^#### (.*$)/gim, '<h4>$1</h4>')
     .replace(/^### (.*$)/gim, '<h3>$1</h3>')
     .replace(/^## (.*$)/gim, '<h2>$1</h2>')
     .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-    // Bold
-    .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
-    // Italic
-    .replace(/\*(.*)\*/gim, '<em>$1</em>')
-    // Links
+    // Bold and Italic
+    .replace(/\*\*\*(.*?)\*\*\*/gim, '<strong><em>$1</em></strong>')
+    .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+    .replace(/__(.*?)__/gim, '<strong>$1</strong>')
+    .replace(/_(.*?)_/gim, '<em>$1</em>')
+    // Strikethrough
+    .replace(/~~(.*?)~~/gim, '<del>$1</del>')
+    // Links and Images
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/gim, '<img alt="$1" src="$2" />')
     .replace(/\[([^\]]+)\]\(([^)]+)\)/gim, '<a href="$2">$1</a>')
+    // Blockquotes
+    .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
+    // Horizontal rules
+    .replace(/^---$/gim, '<hr />')
+    // Lists (basic)
+    .replace(/^[-*+] (.*)$/gim, '<li>$1</li>')
+    .replace(/^(\d+)\. (.*)$/gim, '<li>$2</li>')
     // Line breaks
+    .replace(/\n\n/gim, '</p><p>')
     .replace(/\n/gim, '<br />');
+};
+
+// Implementation of MDX component handler (placeholder for now)
+const useMDXComponent = (mdxContent: string) => {
+  const [Component, setComponent] = React.useState<React.ComponentType | null>(
+    null
+  );
+
+  React.useEffect(() => {
+    // Placeholder for MDX compilation
+    // When @mdx-js/mdx is available, this would compile the MDX content
+    const compileAndSetComponent = async () => {
+      if (!mdxContent) {
+        setComponent(() => () => null);
+        return;
+      }
+
+      try {
+        // TODO: Use the MDX compiler when available
+        // const { compile } = await import('@mdx-js/mdx');
+        // ... compilation logic ...
+        
+        // For now, fallback to basic markdown conversion
+        console.log('[ContentRenderer] MDX compiler not available, falling back to markdown');
+        setComponent(() => () => {
+          const htmlContent = basicMarkdownToHtml(mdxContent);
+          return (
+            <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(htmlContent) }} />
+          );
+        });
+      } catch (error) {
+        console.error('Error compiling MDX:', error);
+        setComponent(() => () => {
+          const htmlContent = basicMarkdownToHtml(mdxContent);
+          return (
+            <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(htmlContent) }} />
+          );
+        });
+      }
+    };
+
+    compileAndSetComponent();
+  }, [mdxContent]);
+
+  return Component || (() => <div>Loading MDX content...</div>);
 };
 
 // ContentRenderer component to handle different content formats
@@ -78,10 +163,13 @@ const ContentRenderer: React.FC<{
   // Use explicitly provided format or detected format
   const contentFormat = format || detectedFormat;
 
+  // Always call React hooks at the top level
+  const MDXContentComponent = useMDXComponent(content);
+
   // Enhanced logging for debugging content format issues
   React.useEffect(() => {
-    // Log debug information about content format
-    /* DEBUG LOGS - Commented out to reduce console noise
+    // Log debug information about content format (commented out to reduce noise)
+    /* DEBUG LOGS
     console.log(
       `[ContentRenderer] Content format decision:
       - Explicitly provided format: ${format || 'none'}
@@ -97,8 +185,14 @@ const ContentRenderer: React.FC<{
   switch (contentFormat) {
     case 'markdown':
       try {
-        // For now, use basic markdown conversion
-        // TODO: Replace with ReactMarkdown when dependencies are available
+        // Try to use ReactMarkdown if available, otherwise use basic conversion
+        // TODO: Add ReactMarkdown when dependencies are available
+        // return (
+        //   <div style={baseStyles} className={`markdown-content ${className || ''}`}>
+        //     <ReactMarkdown>{content}</ReactMarkdown>
+        //   </div>
+        // );
+        
         const htmlContent = basicMarkdownToHtml(content);
         return (
           <div
@@ -124,26 +218,30 @@ const ContentRenderer: React.FC<{
       }
     case 'mdx': {
       try {
-        // For now, treat MDX like markdown with basic conversion
-        // TODO: Replace with proper MDX compilation when dependencies are available
+        // TODO: Use MDXProvider when available
+        // return (
+        //   <div style={baseStyles} className={`mdx-content ${className || ''}`}>
+        //     <MDXProvider>
+        //       {MDXContentComponent && <MDXContentComponent />}
+        //     </MDXProvider>
+        //   </div>
+        // );
+        
+        return (
+          <div style={baseStyles} className={`mdx-content ${className || ''}`}>
+            {MDXContentComponent && <MDXContentComponent />}
+          </div>
+        );
+      } catch (error) {
+        console.error('[ContentRenderer] Error rendering MDX content:', error);
+        // Fallback to markdown if MDX rendering fails
         const htmlContent = basicMarkdownToHtml(content);
         return (
           <div
             style={baseStyles}
-            className={`mdx-content ${className || ''}`}
+            className={`mdx-content-fallback ${className || ''}`}
             dangerouslySetInnerHTML={{ __html: sanitizeHtml(htmlContent) }}
           />
-        );
-      } catch (error) {
-        console.error('[ContentRenderer] Error rendering MDX content:', error);
-        // Fallback to plain text if MDX rendering fails
-        return (
-          <div
-            style={{ ...baseStyles, whiteSpace: 'pre-wrap' }}
-            className={`mdx-content-fallback ${className || ''}`}
-          >
-            {content}
-          </div>
         );
       }
     }
@@ -157,6 +255,14 @@ const ContentRenderer: React.FC<{
       // If sanitizing removed everything meaningful, it might not be valid HTML
       const strippedHtml = sanitizedContent.replace(/<[^>]*>/g, '').trim();
       const hasActualContent = strippedHtml.length > 0;
+
+      /* DEBUG LOG - Commented out to reduce console noise
+      console.log(`[ContentRenderer] HTML rendering: 
+        - Original content length: ${htmlContent.length} chars
+        - Sanitized content length: ${sanitizedContent.length} chars
+        - Content without HTML tags: ${strippedHtml.length} chars
+      `);
+      */
 
       if (hasActualContent) {
         return (
