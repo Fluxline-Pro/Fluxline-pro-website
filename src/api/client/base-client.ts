@@ -38,14 +38,14 @@ export class BaseApiClient {
           this.config.enableLogging &&
           this.config.environment === 'development'
         ) {
-          console.log(
-            `[API Request] ${config.method?.toUpperCase()} ${config.url}`,
-            {
-              headers: config.headers,
-              data: config.data,
-              params: config.params,
-            }
-          );
+          // console.log(
+          // `[API Request] ${config.method?.toUpperCase()} ${config.url}`,
+          // {
+          // headers: config.headers,
+          // data: config.data,
+          // params: config.params,
+          // }
+          // );
         }
         return config;
       },
@@ -62,10 +62,10 @@ export class BaseApiClient {
           this.config.enableLogging &&
           this.config.environment === 'development'
         ) {
-          console.log(
-            `[API Response] ${response.status} ${response.config.url}`,
-            response.data
-          );
+          // console.log(
+          // `[API Response] ${response.status} ${response.config.url}`,
+          // response.data
+          // );
         }
         return response;
       },
@@ -115,7 +115,7 @@ export class BaseApiClient {
       this.config.enableLogging &&
       this.config.environment === 'development'
     ) {
-      console.log(`[API Client] ${message}`, data);
+      // console.log(`[API Client] ${message}`, data);
     }
   }
 

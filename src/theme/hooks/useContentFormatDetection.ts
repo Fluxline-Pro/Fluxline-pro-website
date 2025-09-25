@@ -1,5 +1,7 @@
 /**
- * Hook to detect the format of content based on string analysis
+ * Hook to detect    // console.log(
+      // `[FormatDetection] Checking HTML format for content: "${str.slice(0, 50)}..."`,
+    // );e format of content based on string analysis
  * Detects Markdown, MDX, HTML, or plain text
  */
 
@@ -32,8 +34,8 @@ export const useContentFormatDetection = (content: string): ContentFormat => {
     // Check for complete HTML elements first (opening and closing tags)
     if (completeTagPattern.test(str)) {
       /* DEBUG LOG - Commented out to reduce console noise
-      console.log(
-        '[FormatDetection] HTML detected: found complete HTML elements with closing tags'
+      // console.log(
+        // '[FormatDetection] HTML detected: found complete HTML elements with closing tags'
       );
       */
       return true;
@@ -82,8 +84,8 @@ export const useContentFormatDetection = (content: string): ContentFormat => {
       styleCheck
     ) {
       /* DEBUG LOG - Commented out to reduce console noise
-      console.log(
-        '[FormatDetection] HTML detected through specific element checks'
+      // console.log(
+        // '[FormatDetection] HTML detected through specific element checks'
       );
       */
       return true;
@@ -102,8 +104,8 @@ export const useContentFormatDetection = (content: string): ContentFormat => {
     // Check for any HTML tag
     if (commonHtmlElements.test(str)) {
       /* DEBUG LOG - Commented out to reduce console noise
-      console.log(
-        '[FormatDetection] HTML detected through common element check'
+      // console.log(
+        // '[FormatDetection] HTML detected through common element check'
       );
       */
       return true;
@@ -112,13 +114,13 @@ export const useContentFormatDetection = (content: string): ContentFormat => {
     // More general HTML tag check as a last resort
     if (htmlTagRegex.test(str)) {
       /* DEBUG LOG - Commented out to reduce console noise
-      console.log('[FormatDetection] HTML detected through general tag regex');
+      // console.log('[FormatDetection] HTML detected through general tag regex');
       */
       return true;
     }
 
     /* DEBUG LOG - Commented out to reduce console noise
-    console.log('[FormatDetection] No HTML patterns detected');
+    // console.log('[FormatDetection] No HTML patterns detected');
     */
     return false;
   };

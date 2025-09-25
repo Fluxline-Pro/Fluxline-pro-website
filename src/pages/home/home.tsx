@@ -21,7 +21,7 @@ export const UnderConstruction = () => {
   const currentView = useLocation().pathname;
   // const { currentView } = useNavigationStore();
 
-  console.log('Current view:', currentView);
+  // console.log('Current view:', currentView);
 
   return (
     <>
