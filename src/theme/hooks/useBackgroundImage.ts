@@ -13,10 +13,8 @@ const useBackgroundImage = () => {
   const themeRef = React.useRef(preferences.themeMode);
   const hasInitializedRef = React.useRef(false);
 
-  // Always start with 'one' - don't read from localStorage on init
-  const [currentBackground, setCurrentBackground] = React.useState<
-    'one' | 'two'
-  >('one');
+  // Always use 'one' and never toggle to 'two'
+  const [currentBackground] = React.useState<'one' | 'two'>('one');
 
   const isHomePage = location.pathname === '/' || location.pathname === '/home';
 
@@ -36,17 +34,10 @@ const useBackgroundImage = () => {
       `[useBackgroundImage] Navigation: ${prevPath} -> ${currentPath}`
     );
 
-    // On first mount only (not re-mounts), read from localStorage if available
+    // On first mount only (not re-mounts), always use 'one'
     if (!hasInitializedRef.current) {
-      const stored = localStorage.getItem(BACKGROUND_STORAGE_KEY);
-      if (stored && (stored === 'one' || stored === 'two')) {
-        console.log(
-          `[useBackgroundImage] First mount, restoring background: ${stored}`
-        );
-        setCurrentBackground(stored as 'one' | 'two');
-      } else {
-        console.log(`[useBackgroundImage] First mount, starting with: one`);
-      }
+      console.log(`[useBackgroundImage] First mount, using background: one`);
+      localStorage.setItem(BACKGROUND_STORAGE_KEY, 'one');
       hasInitializedRef.current = true;
       prevPathRef.current = currentPath;
       return;
@@ -58,19 +49,11 @@ const useBackgroundImage = () => {
       return;
     }
 
-    // Returning TO home page (from non-home) - toggle background
+    // Returning TO home page (from non-home) - always use background 'one'
     // BUT exclude onboarding flow since that's initial setup, not navigation
     if (!prevWasHome && !prevWasOnboarding && isHomePage) {
-      // Get the current background from localStorage to ensure we have the latest value
-      const currentStoredBackground =
-        (localStorage.getItem(BACKGROUND_STORAGE_KEY) as 'one' | 'two') ||
-        'one';
-      const newBackground = currentStoredBackground === 'one' ? 'two' : 'one';
-      console.log(
-        `[useBackgroundImage] Returning to home: toggling ${currentStoredBackground} -> ${newBackground}`
-      );
-      setCurrentBackground(newBackground);
-      localStorage.setItem(BACKGROUND_STORAGE_KEY, newBackground);
+      console.log(`[useBackgroundImage] Returning to home: setting background to 'one'`);
+      localStorage.setItem(BACKGROUND_STORAGE_KEY, 'one');
     } else if (prevWasOnboarding && isHomePage) {
       console.log(
         `[useBackgroundImage] Coming from onboarding: keeping background as ${currentBackground}`

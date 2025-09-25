@@ -71,9 +71,9 @@ export const UnderConstruction = () => {
           ...(orientation === 'mobile-landscape' && {
             fontSize: 'clamp(1.5rem, 4cqi, 2rem)',
           }),
-          ...(orientation === 'landscape' || orientation === 'ultrawide') && {
+          ...((orientation === 'landscape' || orientation === 'ultrawide') && {
             fontSize: 'clamp(2.5rem, 3cqi, 3.5rem)',
-          },
+          }),
           textTransform: 'none',
           textAlign: 'center',
         }}
@@ -99,6 +99,7 @@ const HomeContent: React.FC<{
     false,
     false,
     false,
+    false,
   ]);
 
   React.useEffect(() => {
@@ -116,16 +117,20 @@ const HomeContent: React.FC<{
     // Subheader lines animations
     setTimeout(() => {
       setAnimateSubHeader(true);
-      setAnimateSubHeaderLines([true, false, false]);
-    }, 2000);
+      setAnimateSubHeaderLines([true, false, false, false]);
+    }, 1400);
 
     setTimeout(() => {
-      setAnimateSubHeaderLines([true, true, false]);
-    }, 2500);
+      setAnimateSubHeaderLines([true, true, false, false]);
+    }, 1800);
 
     setTimeout(() => {
-      setAnimateSubHeaderLines([true, true, true]);
-    }, 3000);
+      setAnimateSubHeaderLines([true, true, true, false]);
+    }, 2400);
+
+    setTimeout(() => {
+      setAnimateSubHeaderLines([true, true, true, true]);
+    }, 2800);
   }, []);
 
   const HighlightText = ({ text }: { text: string }) => (
@@ -220,7 +225,10 @@ const HomeContent: React.FC<{
         variant='h2'
         style={{
           ...theme.typography.fonts.homeH3,
-          color: theme.palette.neutralLighterAlt,
+          color:
+            themeMode === 'grayscale'
+              ? theme.palette.neutralTertiary
+              : theme.palette.themePrimary,
           marginBottom: 0,
           opacity: 0,
           transform: 'translateX(-20px)',
@@ -234,12 +242,12 @@ const HomeContent: React.FC<{
           ...(orientation === 'mobile-landscape' && {
             fontSize: 'clamp(1.5rem, 4cqi, 2rem)',
           }),
-          ...(orientation === 'landscape' || orientation === 'ultrawide') && {
+          ...((orientation === 'landscape' || orientation === 'ultrawide') && {
             fontSize: 'clamp(2.5rem, 3cqi, 3.5rem)',
-          },
+          }),
         }}
       >
-        strategic architecture for
+        welcome to
       </Typography>
       <Typography
         variant='h1'
@@ -264,9 +272,9 @@ const HomeContent: React.FC<{
           ...(orientation === 'mobile-landscape' && {
             fontSize: 'clamp(2rem, 8cqi, 3rem)',
           }),
-          ...(orientation === 'landscape' || orientation === 'ultrawide') && {
+          ...((orientation === 'landscape' || orientation === 'ultrawide') && {
             fontSize: 'clamp(3rem, 8cqi, 4.5rem)',
-          },
+          }),
         }}
       >
         fluxline
@@ -316,9 +324,10 @@ const HomeContent: React.FC<{
             ...(orientation === 'mobile-landscape' && {
               fontSize: 'clamp(1.5rem, 4cqi, 2rem)',
             }),
-            ...(orientation === 'landscape' || orientation === 'ultrawide') && {
+            ...((orientation === 'landscape' ||
+              orientation === 'ultrawide') && {
               fontSize: 'clamp(2.5rem, 3cqi, 3.5rem)',
-            },
+            }),
           }}
         >
           <div
@@ -347,6 +356,15 @@ const HomeContent: React.FC<{
             }}
           >
             <HighlightText text='personal training' /> solutions
+          </div>
+          <div
+            style={{
+              opacity: 0,
+              transform: 'translateY(-10px)',
+              ...(animateSubHeaderLines[3] && animationStyles.slideInDown),
+            }}
+          >
+            <HighlightText text='mentoring' /> and coaching
           </div>
         </Typography>
       </div>
