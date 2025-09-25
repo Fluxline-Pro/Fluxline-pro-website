@@ -13,8 +13,8 @@ const PAGE_CONFIGS = {
     imageText: 'About Fluxline',
   },
   '/services': {
-    image: require('../../assets/images/LinkedInTerenceW1024x1536.jpeg'),
-    imageText: 'Our Services',
+    image: require('../../assets/images/FluxlineLogo.png'),
+    imageText: '',
   },
   '/services/education-training': {
     image: require('../../assets/images/EducationTrainingPortrait.jpg'),
