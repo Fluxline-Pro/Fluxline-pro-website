@@ -43,7 +43,7 @@ const styles = {
           ? '1fr 1fr'
           : `repeat(auto-fit, minmax(${columns ? 900 / columns : 130}px, 1fr))`,
     alignItems: 'start',
-    justifyItems: 'center',
+    justifyItems: 'stretch',
     width: '100%',
     maxWidth: '900px',
     margin: '0 auto',
