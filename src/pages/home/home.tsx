@@ -14,6 +14,7 @@ import { LayoutGrid } from '../../theme/layouts/LayoutGrid';
 import { Typography } from '../../theme/components/typography/typography';
 // import { ProgressBar } from '../../theme/components/progress-bar/progress-bar';
 import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
+import { PageStepper } from '../../theme/components/page-stepper';
 
 export const UnderConstruction = () => {
   const { theme } = useAppTheme();
@@ -398,13 +399,16 @@ export const Home: React.FC = () => {
   // }
 
   return (
-    <ViewportGrid
-      leftChildren={<HomeContent isMobile={isMobile} />}
-      rightChildren={<HomeContent isMobile={isMobile} />}
-      isHomePage={true}
-      respectLayoutPreference={true}
-      backgroundImage={backgroundImage as 'one' | 'two'}
-    />
+    <>
+      <ViewportGrid
+        leftChildren={<HomeContent isMobile={isMobile} />}
+        rightChildren={<HomeContent isMobile={isMobile} />}
+        isHomePage={true}
+        respectLayoutPreference={true}
+        backgroundImage={backgroundImage as 'one' | 'two'}
+      />
+      <PageStepper showOnHomePage={true} autoNavigateOnScroll={true} />
+    </>
   );
 };
 

@@ -4,6 +4,7 @@ import { ViewportGrid } from '../../theme/layouts/ViewportGrid';
 import { UnifiedCard } from '../../theme/components/card';
 import { useDeviceOrientation } from '../../theme/hooks/useMediaQuery';
 import { useContentFilterStore } from '../../store/store-specs/contentFilterStore';
+import { PageStepper } from '../../theme/components/page-stepper';
 
 // Define page configurations
 const PAGE_CONFIGS = {
@@ -188,6 +189,8 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
           }}
         >
           {children}
+          {/* Add PageStepper to all wrapped pages */}
+          <PageStepper autoNavigateOnScroll={true} />
         </div>
       }
       respectLayoutPreference={true}
