@@ -12,12 +12,12 @@ interface Routes {
 
 export const ROUTES: Routes[] = [
   { name: 'home', path: '', isMenuItem: true, isContentScreen: false },
-  { name: 'about', path: 'about', isMenuItem: true, isContentScreen: false },
-  { name: 'blog', path: 'blog', isMenuItem: true, isContentScreen: true },
+  { name: 'about us', path: 'about', isMenuItem: true, isContentScreen: false },
+  { name: 'blog', path: 'blog', isMenuItem: false, isContentScreen: true },
   {
     name: 'portfolio',
     path: 'my-content',
-    isMenuItem: true,
+    isMenuItem: false,
     isContentScreen: false,
   },
   {
