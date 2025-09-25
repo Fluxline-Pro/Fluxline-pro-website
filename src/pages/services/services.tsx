@@ -77,6 +77,84 @@ export const GetStarted: React.FC = () => {
   );
 };
 
+export const AboutSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+
+  // Only show for 'about' view
+  if (currentView !== 'about') {
+    return null;
+  }
+
+  return (
+    <div style={{ marginBottom: '3rem', maxWidth: '900px', margin: '0 auto' }}>
+      <Typography
+        variant='h2'
+        color={theme.palette.themePrimary}
+        margin='0 0 1.5rem 0'
+        fontSize={theme.typography.fontSizes.clamp7}
+        fontVariationSettings='wght 400,wdth 300,slnt 0'
+      >
+        About Fluxline
+      </Typography>
+      <Typography
+        variant='p'
+        color={theme.palette.neutralPrimary}
+        marginBottom='2rem'
+        noHyphens
+        style={{ maxWidth: '800px', margin: '0 auto 2rem' }}
+      >
+        {SERVICES_EXPORTS.ABOUT_PROFESSIONAL_SUMMARY.map((paragraph, index) => (
+          <React.Fragment key={index}>
+            {paragraph}
+            {index < SERVICES_EXPORTS.ABOUT_PROFESSIONAL_SUMMARY.length - 1 && (
+              <>
+                <br />
+                <br />
+              </>
+            )}
+          </React.Fragment>
+        ))}
+      </Typography>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr 1fr',
+          gap: '1.5rem',
+          margin: '2rem auto',
+        }}
+      >
+        {SERVICES_EXPORTS.ABOUT_BULLET_POINTS.slice(0, 3).map((point) => (
+          <div
+            key={point.name}
+            style={{
+              padding: '1rem',
+              background: theme.palette.neutralLighterAlt,
+              borderRadius: '4px',
+              height: '100%',
+            }}
+          >
+            <Typography
+              variant='h4'
+              color={theme.palette.themePrimary}
+              marginBottom='0.5rem'
+            >
+              {point.name}
+            </Typography>
+            <Typography
+              variant='p'
+              color={theme.palette.neutralPrimary}
+            >
+              {point.description}
+            </Typography>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 export const ProfessionalSummary: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
@@ -88,11 +166,14 @@ export const ProfessionalSummary: React.FC<{
     orientation === 'tablet-portrait' ||
     orientation === 'large-portrait';
 
+  // Don't show on about page since we have AboutSection now
+  if (currentView === 'about') {
+    return null;
+  }
+
   // Get the appropriate data based on current view
   const getBulletPoints = () => {
     switch (currentView) {
-      case 'about':
-        return SERVICES_EXPORTS.ABOUT_BULLET_POINTS;
       case 'services':
         return SERVICES_EXPORTS.SERVICES_BULLET_POINTS;
       case 'personal-training':
@@ -108,14 +189,12 @@ export const ProfessionalSummary: React.FC<{
       case 'design':
         return SERVICES_EXPORTS.DESIGN_BULLET_POINTS;
       default:
-        return SERVICES_EXPORTS.ABOUT_BULLET_POINTS;
+        return SERVICES_EXPORTS.SERVICES_BULLET_POINTS;
     }
   };
 
   const getTitle = () => {
     switch (currentView) {
-      case 'about':
-        return 'About Us';
       case 'services':
         return 'Our Services';
       case 'personal-training':
@@ -131,14 +210,12 @@ export const ProfessionalSummary: React.FC<{
       case 'design':
         return 'Brand Identity & Experience Design';
       default:
-        return 'About Us';
+        return 'Our Services';
     }
   };
 
   const getSummary = () => {
     switch (currentView) {
-      case 'about':
-        return SERVICES_EXPORTS.ABOUT_PROFESSIONAL_SUMMARY;
       case 'services':
         return SERVICES_EXPORTS.SERVICES_SUMMARY;
       case 'education-training':
@@ -154,7 +231,7 @@ export const ProfessionalSummary: React.FC<{
       case 'design':
         return SERVICES_EXPORTS.DESIGN_SUMMARY;
       default:
-        return SERVICES_EXPORTS.ABOUT_PROFESSIONAL_SUMMARY;
+        return SERVICES_EXPORTS.SERVICES_SUMMARY;
     }
   };
 
@@ -199,53 +276,36 @@ export const ProfessionalSummary: React.FC<{
 
   return (
     <>
-      {currentView === 'services' ? (
-        <>
-          <H2Title name={getTitle()} />
-          <Typography
-            variant='p'
-            textAlign='left'
-            color={theme.palette.neutralPrimary}
-            marginBottom='2rem'
-            noHyphens
-          >
-            {renderSummary(getSummary())}
-          </Typography>
-        </>
-      ) : (
-        <>
-          <Container
-            display='flex'
-            flexDirection='row'
-            justifyContent='flex-start'
-            alignItems='center'
-            paddingLeft='0'
-            marginLeft='0'
-            marginBottom='1rem'
-            gap={theme.spacing.s}
-            style={{ padding: '0' }}
-          >
-            {currentView !== 'about' && (
-              <NavigationArrow
-                direction='backward'
-                navigate={() => navigate('/services')}
-                size='medium'
-                showBackground={false}
-              />
-            )}
-            <H2Title name={getTitle()} />
-          </Container>
-          <Typography
-            variant='p'
-            textAlign='left'
-            color={theme.palette.neutralPrimary}
-            marginBottom='2rem'
-            noHyphens
-          >
-            {renderSummary(getSummary())}
-          </Typography>
-        </>
-      )}
+      <Container
+        display='flex'
+        flexDirection='row'
+        justifyContent='flex-start'
+        alignItems='center'
+        paddingLeft='0'
+        marginLeft='0'
+        marginBottom='1rem'
+        gap={theme.spacing.s}
+        style={{ padding: '0' }}
+      >
+        {currentView !== 'services' && (
+          <NavigationArrow
+            direction='backward'
+            navigate={() => navigate('/services')}
+            size='medium'
+            showBackground={false}
+          />
+        )}
+        <H2Title name={getTitle()} />
+      </Container>
+      <Typography
+        variant='p'
+        textAlign='left'
+        color={theme.palette.neutralPrimary}
+        marginBottom='2rem'
+        noHyphens
+      >
+        {renderSummary(getSummary())}
+      </Typography>
       <Container
         display='flex'
         flexDirection='column'
@@ -255,9 +315,6 @@ export const ProfessionalSummary: React.FC<{
         marginLeft='0'
         style={{ width: '100%', padding: '0 !important' }}
       >
-        {currentView === 'about' && (
-          <H2Title name='Core Capabilities & Expertise' />
-        )}
         {isMobile
           ? bulletPoints.map((point) => (
               <BulletPoint
@@ -265,6 +322,7 @@ export const ProfessionalSummary: React.FC<{
                 name={point.name}
                 description={point.description}
                 onClick={() => point.route && navigate(point.route)}
+                isHoverable={!!point.route}
               />
             ))
           : bulletPairs.map((pair, rowIndex) => (
@@ -310,28 +368,51 @@ export const MissionVisionSection: React.FC<{
   }
 
   return (
-    <>
-      <H2Title name='Mission & Vision' />
-      <Typography
-        variant='p'
-        textAlign='left'
-        color={theme.palette.neutralPrimary}
-        marginBottom='2rem'
-        noHyphens
-      >
-        {SERVICES_EXPORTS.FLUXLINE_MISSION_VISION.map((paragraph, index) => (
-          <React.Fragment key={index}>
-            {paragraph}
-            {index < SERVICES_EXPORTS.FLUXLINE_MISSION_VISION.length - 1 && (
-              <>
-                <br />
-                <br />
-              </>
-            )}
-          </React.Fragment>
-        ))}
-      </Typography>
-    </>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '2rem',
+        maxWidth: '900px',
+        margin: '0 auto',
+      }}
+    >
+      <div>
+        <Typography
+          variant='h3'
+          color={theme.palette.themePrimary}
+          marginBottom='1rem'
+        >
+          Our Mission
+        </Typography>
+        <Typography
+          variant='p'
+          color={theme.palette.neutralPrimary}
+          noHyphens
+          style={{ maxWidth: '800px', margin: '0 auto' }}
+        >
+          {SERVICES_EXPORTS.FLUXLINE_MISSION_VISION[0]}
+        </Typography>
+      </div>
+
+      <div>
+        <Typography
+          variant='h3'
+          color={theme.palette.themePrimary}
+          marginBottom='1rem'
+        >
+          Our Vision
+        </Typography>
+        <Typography
+          variant='p'
+          color={theme.palette.neutralPrimary}
+          style={{ maxWidth: '800px', margin: '0 auto' }}
+          noHyphens
+        >
+          {SERVICES_EXPORTS.FLUXLINE_MISSION_VISION[1]}
+        </Typography>
+      </div>
+    </div>
   );
 };
 
@@ -368,11 +449,11 @@ export const FluxlineEthosSection: React.FC<{
         ))}
       </Typography>
       <Typography
-        variant='p'
+        variant='h2'
         textAlign='center'
         color={theme.palette.themePrimary}
         margin='1rem 0'
-        fontSize={theme.typography.fontSizes.clamp5}
+        fontSize={theme.typography.fontSizes.clamp4}
         style={{ fontStyle: 'italic' }}
       >
         {SERVICES_EXPORTS.FLUXLINE_TAGLINE}
@@ -382,7 +463,7 @@ export const FluxlineEthosSection: React.FC<{
         textAlign='center'
         color={theme.palette.neutralPrimary}
         marginBottom='2rem'
-        fontSize={theme.typography.fontSizes.clamp4}
+        fontSize={theme.typography.fontSizes.clamp3}
         style={{ fontStyle: 'italic' }}
       >
         {SERVICES_EXPORTS.FLUXLINE_SECONDARY_TAGLINE}
@@ -447,28 +528,36 @@ export const TechnicalSkillsSection: React.FC<PercentageCirclesProps> = ({
     return null;
   }
 
-  // Filter technical skills - items 5 to 23 (indexes 5-22)
-  const technicalSkills = SERVICES_EXPORTS.ABOUT_PERCENTAGE_POINTS.slice(5, 23);
+  // Select only the most important technical skills to display (12 instead of all)
+  const topSkills = SERVICES_EXPORTS.ABOUT_PERCENTAGE_POINTS.slice(5, 17);
 
   return (
-    <>
-      <H2Title name='Technical Skills' />
+    <div style={{ marginBottom: '4rem' }}>
+      <Typography
+        variant='h2'
+        color={theme.palette.themePrimary}
+        margin='0 0 2rem 2rem'
+        fontSize={theme.typography.fontSizes.clamp7}
+      >
+        Business Expertise
+      </Typography>
       <div
         style={{
           display: 'grid',
-          gap: theme.spacing.s,
-          padding: isMobile ? '0' : `0 ${theme.spacing.l}`,
+          gap: '1rem',
+          padding: '0',
           gridTemplateColumns: isMobile
             ? '1fr 1fr'
-            : 'repeat(auto-fit, minmax(150px, 1fr))',
+            : 'repeat(auto-fit, minmax(130px, 1fr))',
           gridAutoRows: 'min-content',
           alignItems: 'start',
           justifyItems: 'center',
           width: '100%',
-          maxWidth: '100%',
+          maxWidth: '900px',
+          margin: '0 auto',
         }}
       >
-        {technicalSkills.map((skill, index) => (
+        {topSkills.map((skill, index) => (
           <PercentageBullet
             key={skill.name + index.toString()}
             percentage={skill.percentage}
@@ -477,7 +566,7 @@ export const TechnicalSkillsSection: React.FC<PercentageCirclesProps> = ({
           />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
@@ -492,25 +581,44 @@ export const GuidingPrinciplesSection: React.FC<PercentageCirclesProps> = ({
     return null;
   }
 
-  // Filter guiding principles - last 6 items (indexes 23 to end)
-  const guidingPrinciples = SERVICES_EXPORTS.ABOUT_PERCENTAGE_POINTS.slice(23);
+  // Get the main guiding principles (pick the most important ones)
+  const guidingPrinciples = SERVICES_EXPORTS.ABOUT_PERCENTAGE_POINTS.slice(
+    18,
+    28
+  );
 
   return (
-    <>
-      <H2Title name='Guiding Principles' />
+    <div
+      style={{
+        marginBottom: '4rem',
+        background: theme.palette.neutralLighterAlt,
+        padding: '2rem',
+        borderRadius: '4px',
+      }}
+    >
+      <Typography
+        variant='h2'
+        textAlign='center'
+        color={theme.palette.themePrimary}
+        margin='0 0 2rem 0'
+        fontSize={theme.typography.fontSizes.clamp7}
+      >
+        Our Guiding Principles
+      </Typography>
       <div
         style={{
           display: 'grid',
-          gap: theme.spacing.s,
-          padding: isMobile ? '0' : `0 ${theme.spacing.l}`,
+          gap: '1.5rem',
+          padding: '0',
           gridTemplateColumns: isMobile
             ? '1fr 1fr'
-            : 'repeat(auto-fit, minmax(150px, 1fr))',
+            : 'repeat(auto-fit, minmax(130px, 1fr))',
           gridAutoRows: 'min-content',
           alignItems: 'start',
           justifyItems: 'center',
           width: '100%',
-          maxWidth: '100%',
+          maxWidth: '900px',
+          margin: '0 auto',
         }}
       >
         {guidingPrinciples.map((principle, index) => (
@@ -522,7 +630,115 @@ export const GuidingPrinciplesSection: React.FC<PercentageCirclesProps> = ({
           />
         ))}
       </div>
-    </>
+    </div>
+  );
+};
+
+export const ServicesSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+  const navigate = useNavigate();
+  const orientation = useDeviceOrientation();
+  const isMobile =
+    orientation === 'portrait' ||
+    orientation === 'tablet-portrait' ||
+    orientation === 'large-portrait';
+
+  // Only show for 'about' view
+  if (currentView !== 'about') {
+    return null;
+  }
+
+  // Group bullet points into pairs for desktop layout
+  const createPairs = (
+    items: typeof SERVICES_EXPORTS.SERVICES_BULLET_POINTS
+  ) => {
+    const pairs = [];
+    for (let i = 0; i < items.length; i += 2) {
+      if (i + 1 >= items.length) {
+        pairs.push([items[i]]);
+      } else {
+        pairs.push([items[i], items[i + 1]]);
+      }
+    }
+    return pairs;
+  };
+
+  return (
+    <div
+      style={{
+        background: theme.palette.neutralLighterAlt,
+        padding: '2rem',
+        margin: '2rem -2rem',
+        borderRadius: '4px',
+      }}
+    >
+      <Typography
+        variant='h2'
+        textAlign='center'
+        color={theme.palette.themePrimary}
+        margin='0 0 1.5rem 0'
+        fontSize={theme.typography.fontSizes.clamp7}
+        fontVariationSettings='wght 400,wdth 300,slnt 0'
+      >
+        Our Services
+      </Typography>
+      <Typography
+        variant='p'
+        textAlign='center'
+        color={theme.palette.neutralPrimary}
+        marginBottom='2.5rem'
+        noHyphens
+        style={{ maxWidth: '800px', margin: '0 auto 2.5rem auto' }}
+      >
+        {SERVICES_EXPORTS.SERVICES_SUMMARY}
+      </Typography>
+      <Container
+        display='flex'
+        flexDirection='column'
+        gap={theme.spacing.m}
+        paddingLeft='0'
+        paddingRight='0'
+        marginLeft='0'
+        style={{ width: '100%', padding: '0 !important' }}
+      >
+        {isMobile
+          ? SERVICES_EXPORTS.SERVICES_BULLET_POINTS.map((point) => (
+              <BulletPoint
+                key={point.name}
+                name={point.name}
+                description={point.description}
+                onClick={() => point.route && navigate(point.route)}
+                isHoverable={!!point.route}
+              />
+            ))
+          : createPairs(SERVICES_EXPORTS.SERVICES_BULLET_POINTS).map(
+              (pair, rowIndex) => (
+                <div
+                  key={rowIndex}
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: theme.spacing.menuButton,
+                    width: '100%',
+                    padding: '0 0.5rem',
+                  }}
+                >
+                  {pair.map((point) => (
+                    <BulletPoint
+                      key={point.name}
+                      name={point.name}
+                      description={point.description}
+                      onClick={() => point.route && navigate(point.route)}
+                      isHoverable={!!point.route}
+                    />
+                  ))}
+                </div>
+              )
+            )}
+      </Container>
+    </div>
   );
 };
 
@@ -537,14 +753,28 @@ export const TaglineHeader: React.FC<{
   }
 
   return (
-    <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
+    <div
+      style={{
+        background: theme.palette.neutralLighterAlt,
+        textAlign: 'center',
+        padding: '0',
+        borderLeft: `4px solid ${theme.palette.themePrimary}`,
+        maxWidth: '800px',
+        marginBottom: '3rem',
+        margin: '2rem auto',
+      }}
+    >
       <Typography
         variant='h3'
         textAlign='center'
         color={theme.palette.themePrimary}
-        margin='1rem 0'
-        fontSize={theme.typography.fontSizes.clamp6}
-        style={{ fontStyle: 'italic' }}
+        margin='1rem 0 0'
+        fontSize={theme.typography.fontSizes.clamp7}
+        style={{
+          fontStyle: 'italic',
+          textTransform: 'none',
+          letterSpacing: '-0.02em',
+        }}
       >
         {SERVICES_EXPORTS.FLUXLINE_TAGLINE}
       </Typography>
@@ -552,9 +782,9 @@ export const TaglineHeader: React.FC<{
         variant='p'
         textAlign='center'
         color={theme.palette.neutralPrimary}
-        marginBottom='2rem'
-        fontSize={theme.typography.fontSizes.clamp4}
-        style={{ fontStyle: 'italic' }}
+        marginTop='0'
+        fontSize={theme.typography.fontSizes.clamp5}
+        style={{ fontStyle: 'italic', maxWidth: '80%', margin: '0 auto' }}
       >
         {SERVICES_EXPORTS.FLUXLINE_SECONDARY_TAGLINE}
       </Typography>
@@ -589,17 +819,16 @@ export const Services: React.FC<ServicesProps> = ({
   return (
     <FadeUp key={actualView} delay={0}>
       <div>
-        {/* Show tagline header for About page */}
-        {actualView === 'about' && <TaglineHeader currentView={actualView} />}
-
-        <ProfessionalSummary currentView={actualView} />
-
-        {/* New sections for the About page */}
-        {actualView === 'about' && (
+        {actualView === 'about' ? (
+          // Rearranged About page sections with improved visual hierarchy
           <>
             <MissionVisionSection currentView={actualView} />
-            <FluxlineEthosSection currentView={actualView} />
-            <CorePrinciplesSection
+            <hr style={{ margin: '2rem 0' }} />
+            <TaglineHeader currentView={actualView} />
+            <hr style={{ margin: '2rem 0' }} />
+            <AboutSection currentView={actualView} />
+            <ServicesSection currentView={actualView} />
+            <GuidingPrinciplesSection
               isMobile={orientation === 'portrait'}
               currentView={actualView}
             />
@@ -607,14 +836,15 @@ export const Services: React.FC<ServicesProps> = ({
               isMobile={orientation === 'portrait'}
               currentView={actualView}
             />
-            <GuidingPrinciplesSection
-              isMobile={orientation === 'portrait'}
-              currentView={actualView}
-            />
+            <GetStarted />
+          </>
+        ) : (
+          // Original layout for other service pages
+          <>
+            <ProfessionalSummary currentView={actualView} />
+            <GetStarted />
           </>
         )}
-
-        <GetStarted />
       </div>
     </FadeUp>
   );

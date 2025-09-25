@@ -1,6 +1,6 @@
 import { IAboutPercentagePoint, IAboutBulletPoint } from './services.types';
 
-const FLUXLINE_TAGLINE = "We're not done yet—but we're already extraordinary.";
+const FLUXLINE_TAGLINE = "We're not done yet— \nbut we're already extraordinary.";
 const FLUXLINE_SECONDARY_TAGLINE = 'Modular by design. Resonant by nature.';
 
 const ABOUT_PROFESSIONAL_SUMMARY = [
@@ -51,14 +51,14 @@ const ABOUT_BULLET_POINTS: IAboutBulletPoint[] = [
       'We integrate emerging trends in design, AI, and backend architecture to fuel innovation and unlock new possibilities.',
   },
   {
-    name: 'Intentional Learner',
-    description:
-      'Our process is iterative and expansive—driven by a commitment to growth, clarity, and adaptive evolution.',
-  },
-  {
     name: 'Creative & Modular Thinker',
     description:
       'Fluxline architects brands and systems that flex, scale, and resonate—balancing creativity with precision.',
+  },
+  {
+    name: 'Intentional Learner',
+    description:
+      'Our process is iterative and expansive—driven by a commitment to growth, clarity, and adaptive evolution.',
   },
   {
     name: 'Detail-crafted',
@@ -83,27 +83,6 @@ const ABOUT_BULLET_POINTS: IAboutBulletPoint[] = [
 ];
 
 const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
-  // Core Principles
-  {
-    name: 'modularity',
-    percentage: 100,
-  },
-  {
-    name: 'stewardship',
-    percentage: 100,
-  },
-  {
-    name: 'integration',
-    percentage: 100,
-  },
-  {
-    name: 'integrity',
-    percentage: 100,
-  },
-  {
-    name: 'legacy',
-    percentage: 100,
-  },
   // Technical Skills
   {
     name: 'design thinking',
@@ -184,7 +163,7 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
   },
   {
     name: 'influence',
-    percentage: 99,
+    percentage: 100,
   },
   {
     name: 'creativity',
@@ -192,16 +171,31 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
   },
   {
     name: 'love',
-    percentage: 98,
+    percentage: 100,
   },
   {
     name: 'drive',
-    percentage: 97,
+    percentage: 100,
   },
   {
     name: 'stillness',
-    percentage: 95,
+    percentage: 100,
   },
+  {
+    name: 'empathy',
+    percentage: 100,
+  },
+  {
+    name: 'courage',
+    percentage: 98,
+  },
+  {    name: 'authenticity',
+    percentage: 97,
+  },
+  {
+    name: 'curiosity',
+    percentage: 96,
+  }
 ];
 
 // Services-specific data
