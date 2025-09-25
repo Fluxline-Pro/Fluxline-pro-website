@@ -7,7 +7,7 @@ interface RouteToTitleMap {
 
 const routeToTitleMap: RouteToTitleMap = {
   '/': 'Home',
-  '/about': 'About Fluxline',
+  '/about': 'About Us',
   '/services': 'Services',
   '/services/personal-training': 'Personal Training',
   '/services/education-training': 'Education Training',

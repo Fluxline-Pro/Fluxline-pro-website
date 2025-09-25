@@ -19,7 +19,7 @@ const FLUXLINE_ETHOS = [
 ];
 
 const SERVICES_SUMMARY =
-  'Fluxline offers strategic, design-forward, and emotionally intelligent solutions that help individuals and businesses build their brand and identity. Every service we offer is rooted in progressive, intentional design and build to push you and your business forward. Click on a service below to learn more!';
+  'Fluxline offers strategic, design-forward, and emotionally intelligent solutions that help individuals and businesses build their brand and identity. Every service we offer is rooted in progressive, intentional design and build to push yourself and/or your business forward. Click on a service below to learn more!';
 
 const EDUCATION_TRAINING_SUMMARY =
   'Transformational coaching, founder mentorship, and emotionally intelligent team leadership for those who build with purpose.';

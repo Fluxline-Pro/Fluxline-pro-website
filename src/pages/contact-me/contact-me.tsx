@@ -8,6 +8,10 @@ import { Container } from '../../theme/layouts/Container';
 import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
 import { useContactStore } from '../../store/store-specs/contactStore';
 import { useIsMobile } from '../../theme/hooks/useMediaQuery';
+import { DisplayGrid, GridItem } from '../../theme/layouts/DisplayGrid';
+// Import business card images directly
+import BusinessCardFront from '../../assets/images/businessCardFront.png';
+import BusinessCardBack from '../../assets/images/businessCardBack.png';
 // import { CONTENT_API_FLAGS, isApiAvailable } from '../../utils/contentDataManager';
 
 // interface FormValidation {
@@ -19,7 +23,7 @@ import { useIsMobile } from '../../theme/hooks/useMediaQuery';
 const ContactForm: React.FC = () => {
   const { theme } = useAppTheme();
   const isMobile = useIsMobile();
-  
+
   // Use Zustand contact store
   const {
     // formData,
@@ -89,10 +93,10 @@ const ContactForm: React.FC = () => {
   // const handleChange = (fieldName: string) => (value: string) => {
   //   // Update the store
   //   setFormData({ [fieldName]: value });
-    
+
   //   // Clear previous errors when user starts typing
   //   clearErrors();
-    
+
   //   // Real-time validation if form has been submitted
   //   if (hasBeenSubmitted) {
   //     const error = validateField(fieldName, value);
@@ -165,9 +169,46 @@ const ContactForm: React.FC = () => {
       >
         Let's discuss your needs and goals! Whether you're seeking project
         estimates, personalized training, strategic consulting, or web
-        development, we're happy to help. Click the button to book a free, no obligation consultation.
+        development, we're happy to help. Click the button to book a free, no
+        obligation consultation.
       </Typography>
       <BookingsButton />
+      <Typography
+        variant='h2'
+        textAlign='left'
+        color={theme.palette.themePrimary}
+        fontSize={theme.typography.fontSizes.clamp7}
+        fontVariationSettings='wght 400,wdth 300,slnt 0'
+        marginTop={isMobile ? theme.spacing.m : theme.spacing.xxl}
+        marginBottom={isMobile ? theme.spacing.m : theme.spacing.l}
+      >
+        Business Card
+      </Typography>
+      <Container
+        display='flex'
+        marginBottom={theme.spacing.xxl}
+      >
+        <GridItem>
+          <img
+            src={BusinessCardFront}
+            alt='Fluxline Business Card Front'
+            style={{
+              width: '70%',
+              borderRadius: theme.borderRadius.container.button,
+            }}
+          />
+        </GridItem>
+        <GridItem>
+          <img
+            src={BusinessCardBack}
+            alt='Fluxline Business Card Back'
+            style={{
+              width: '70%',
+              borderRadius: theme.borderRadius.container.button,
+            }}
+          />
+        </GridItem>
+      </Container>
       {/* <Typography
         variant='h2'
         textAlign='left'

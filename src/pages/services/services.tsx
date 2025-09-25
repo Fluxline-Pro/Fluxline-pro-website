@@ -689,6 +689,7 @@ export const ServicesSection: React.FC<{
         variant='p'
         color={theme.palette.neutralPrimary}
         marginBottom='2.5rem'
+        fontWeight='600'
         noHyphens
         style={{ maxWidth: '800px', margin: '0 auto 2.5rem auto' }}
       >
@@ -822,11 +823,11 @@ export const Services: React.FC<ServicesProps> = ({
         {actualView === 'about' ? (
           // Rearranged About page sections with improved visual hierarchy
           <>
-            <MissionVisionSection currentView={actualView} />
+            <AboutSection currentView={actualView} />
             <hr style={{ margin: '2rem 0' }} />
             <TaglineHeader currentView={actualView} />
             <hr style={{ margin: '2rem 0' }} />
-            <AboutSection currentView={actualView} />
+            <MissionVisionSection currentView={actualView} />
             <ServicesSection currentView={actualView} />
             <GuidingPrinciplesSection
               isMobile={orientation === 'portrait'}
