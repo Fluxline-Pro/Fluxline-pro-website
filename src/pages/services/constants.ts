@@ -9,8 +9,8 @@ const ABOUT_PROFESSIONAL_SUMMARY = [
 ];
 
 const FLUXLINE_MISSION_VISION = [
-  'To architect multidimensional systems that fuse emotional intelligence, financial clarity, and somatic discipline—empowering individuals and brands to live with modular precision and legacy-driven resonance.',
-  'Fluxline envisions a world where every person becomes a self-authored steward of their inner and outer architecture—where dashboards track not just dollars and reps, but moments of truth, love, and creativity. It sees businesses as living organisms shaped by values, not just value. It sees monthly plans as mirrors, and relationships as sacred protocols of presence.',
+  'We seek to architect multidimensional systems that fuse emotional intelligence, financial clarity, and somatic discipline—empowering individuals and brands to live with modular precision and legacy-driven resonance.',
+  'Fluxline envisions a world where every person becomes a self-authored steward of their inner and outer architecture—where dashboards track not just dollars and reps, but moments of truth, love, and creativity. It sees businesses as living organisms shaped by values, not just value. It sees monthly plans as mirrors, and relationships as sacred protocols of presence. Through these lenses of entity and endless spirality, Fluxline guides individuals and brands to design lives and legacies that echo beyond the present moment while also ritualizing the now.',
 ];
 
 const FLUXLINE_ETHOS = [

@@ -9,8 +9,8 @@ import { useContentFilterStore } from '../../store/store-specs/contentFilterStor
 const PAGE_CONFIGS = {
   '/about': {
     // Using placeholder - you may want to replace this with an actual Fluxline manifesto image
-    image: require('../../assets/images/AboutMePortrait.jpg'),
-    imageText: 'About Fluxline',
+    image: require('../../assets/images/FluxlineLogo.png'),
+    imageText: '',
   },
   '/services': {
     image: require('../../assets/images/FluxlineLogo.png'),
@@ -45,8 +45,8 @@ const PAGE_CONFIGS = {
     imageText: 'Blog',
   },
   '/contact-me': {
-    image: require('../contact-me/assets/ContactMe1280x1815.jpg'),
-    imageText: 'Contact Us',
+    image: require('../../assets/images/FluxlineLogo.png'),
+    imageText: '',
   },
   '/books': {
     image: require('../../assets/images/EducationTrainingPortrait.jpg'),

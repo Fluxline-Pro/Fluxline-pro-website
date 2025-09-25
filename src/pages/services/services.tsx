@@ -13,6 +13,47 @@ import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { useNavigate } from 'react-router-dom';
 import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
 import { NavigationArrow } from '../../theme/components/navigation-arrow/navigation-arrow';
+
+// Reusable style objects
+const styles = {
+  sectionContainer: {
+    maxWidth: '900px',
+    margin: '0 auto',
+    marginBottom: '3rem',
+  },
+  sectionBox: (theme: any) => ({
+    background: theme.palette.neutralLight,
+    padding: '2rem',
+    borderRadius: '4px',
+    marginBottom: '4rem',
+  }),
+  textContent: {
+    textAlign: 'left' as const,
+    maxWidth: '800px',
+    margin: '0 auto',
+  },
+  gridContainer: (isMobile: boolean, columns?: number | string) => ({
+    display: 'grid',
+    gap: '1.5rem',
+    gridTemplateColumns:
+      typeof columns === 'string'
+        ? columns
+        : isMobile
+          ? '1fr 1fr'
+          : `repeat(auto-fit, minmax(${columns ? 900 / columns : 130}px, 1fr))`,
+    alignItems: 'start',
+    justifyItems: 'center',
+    width: '100%',
+    maxWidth: '900px',
+    margin: '0 auto',
+  }),
+  h2Title: (theme: any) => ({
+    color: theme.palette.themePrimary,
+    margin: '1rem 0 0.5rem 0',
+    fontSize: theme.typography.fontSizes.clamp7,
+    fontVariationSettings: 'wght 400,wdth 300,slnt 0',
+  }),
+};
 interface ServicesProps {
   currentView?:
     | 'about'
@@ -38,11 +79,7 @@ const H2Title = ({
     <Typography
       variant='h2'
       textAlign='left'
-      color={theme.palette.themePrimary}
-      margin='1rem 0 0.5rem 0'
-      fontSize={theme.typography.fontSizes.clamp7}
-      fontVariationSettings='wght 400,wdth 300,slnt 0'
-      style={style}
+      style={{ ...styles.h2Title(theme), ...style }}
     >
       {name}
     </Typography>
@@ -56,6 +93,7 @@ export const GetStarted: React.FC = () => {
   return (
     <div
       style={{
+        ...styles.sectionContainer,
         marginTop:
           orientation === 'portrait' || orientation === 'mobile-landscape'
             ? '2rem'
@@ -69,10 +107,14 @@ export const GetStarted: React.FC = () => {
         color={theme.palette.neutralPrimary}
         marginBottom='1rem'
         noHyphens
+        style={styles.textContent}
       >
-        We'd love to help you with your next project! Click this button to book a free, no obligation consultation with us below.
+        We'd love to help you with your next project! Click this button to book
+        a free, no obligation consultation with us below.
       </Typography>
-      <BookingsButton />
+      <div style={{ textAlign: 'center' }}>
+        <BookingsButton />
+      </div>
     </div>
   );
 };
@@ -88,13 +130,11 @@ export const AboutSection: React.FC<{
   }
 
   return (
-    <div style={{ marginBottom: '3rem', maxWidth: '900px', margin: '0 auto' }}>
+    <div style={styles.sectionContainer}>
       <Typography
         variant='h2'
-        color={theme.palette.themePrimary}
+        style={styles.h2Title(theme)}
         margin='0 0 1.5rem 0'
-        fontSize={theme.typography.fontSizes.clamp7}
-        fontVariationSettings='wght 400,wdth 300,slnt 0'
       >
         About Fluxline
       </Typography>
@@ -103,7 +143,7 @@ export const AboutSection: React.FC<{
         color={theme.palette.neutralPrimary}
         marginBottom='2rem'
         noHyphens
-        style={{ maxWidth: '800px', margin: '0 auto 2rem' }}
+        style={styles.textContent}
       >
         {SERVICES_EXPORTS.ABOUT_PROFESSIONAL_SUMMARY.map((paragraph, index) => (
           <React.Fragment key={index}>
@@ -142,10 +182,7 @@ export const AboutSection: React.FC<{
             >
               {point.name}
             </Typography>
-            <Typography
-              variant='p'
-              color={theme.palette.neutralPrimary}
-            >
+            <Typography variant='p' color={theme.palette.neutralPrimary}>
               {point.description}
             </Typography>
           </div>
@@ -303,6 +340,7 @@ export const ProfessionalSummary: React.FC<{
         color={theme.palette.neutralPrimary}
         marginBottom='2rem'
         noHyphens
+        style={styles.textContent}
       >
         {renderSummary(getSummary())}
       </Typography>
@@ -329,8 +367,7 @@ export const ProfessionalSummary: React.FC<{
               <div
                 key={rowIndex}
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
+                  ...styles.gridContainer(false, '1fr 1fr'),
                   gap: theme.spacing.menuButton,
                   width: '100%',
                   padding: '0 0.5rem',
@@ -370,11 +407,10 @@ export const MissionVisionSection: React.FC<{
   return (
     <div
       style={{
+        ...styles.sectionContainer,
         display: 'flex',
         flexDirection: 'column',
         gap: '2rem',
-        maxWidth: '900px',
-        margin: '0 auto',
       }}
     >
       <div>
@@ -389,7 +425,7 @@ export const MissionVisionSection: React.FC<{
           variant='p'
           color={theme.palette.neutralPrimary}
           noHyphens
-          style={{ maxWidth: '800px', margin: '0 auto' }}
+          style={styles.textContent}
         >
           {SERVICES_EXPORTS.FLUXLINE_MISSION_VISION[0]}
         </Typography>
@@ -406,7 +442,7 @@ export const MissionVisionSection: React.FC<{
         <Typography
           variant='p'
           color={theme.palette.neutralPrimary}
-          style={{ maxWidth: '800px', margin: '0 auto' }}
+          style={styles.textContent}
           noHyphens
         >
           {SERVICES_EXPORTS.FLUXLINE_MISSION_VISION[1]}
@@ -435,6 +471,7 @@ export const FluxlineEthosSection: React.FC<{
         color={theme.palette.neutralPrimary}
         marginBottom='2rem'
         noHyphens
+        style={styles.textContent}
       >
         {SERVICES_EXPORTS.FLUXLINE_ETHOS.map((paragraph, index) => (
           <React.Fragment key={index}>
@@ -447,26 +484,6 @@ export const FluxlineEthosSection: React.FC<{
             )}
           </React.Fragment>
         ))}
-      </Typography>
-      <Typography
-        variant='h2'
-        textAlign='center'
-        color={theme.palette.themePrimary}
-        margin='1rem 0'
-        fontSize={theme.typography.fontSizes.clamp4}
-        style={{ fontStyle: 'italic' }}
-      >
-        {SERVICES_EXPORTS.FLUXLINE_TAGLINE}
-      </Typography>
-      <Typography
-        variant='p'
-        textAlign='center'
-        color={theme.palette.neutralPrimary}
-        marginBottom='2rem'
-        fontSize={theme.typography.fontSizes.clamp3}
-        style={{ fontStyle: 'italic' }}
-      >
-        {SERVICES_EXPORTS.FLUXLINE_SECONDARY_TAGLINE}
       </Typography>
     </>
   );
@@ -491,15 +508,13 @@ export const CorePrinciplesSection: React.FC<PercentageCirclesProps> = ({
       <H2Title name='Core Principles' />
       <div
         style={{
-          display: 'grid',
+          ...styles.gridContainer(
+            isMobile,
+            isMobile ? '1fr 1fr' : 'repeat(auto-fit, minmax(150px, 1fr))'
+          ),
           gap: theme.spacing.s,
           padding: isMobile ? '0' : `0 ${theme.spacing.l}`,
-          gridTemplateColumns: isMobile
-            ? '1fr 1fr'
-            : 'repeat(auto-fit, minmax(150px, 1fr))',
           gridAutoRows: 'min-content',
-          alignItems: 'start',
-          justifyItems: 'center',
           width: '100%',
           maxWidth: '100%',
         }}
@@ -532,27 +547,24 @@ export const TechnicalSkillsSection: React.FC<PercentageCirclesProps> = ({
   const topSkills = SERVICES_EXPORTS.ABOUT_PERCENTAGE_POINTS.slice(5, 17);
 
   return (
-    <div style={{ marginBottom: '4rem', background: theme.palette.neutralLight, padding: '2rem', borderRadius: '4px' }}>
+    <div style={{ ...styles.sectionBox(theme), marginBottom: '4rem' }}>
       <Typography
         variant='h2'
-        color={theme.palette.themePrimary}
+        style={styles.h2Title(theme)}
         textAlign='center'
-        margin='0 0 2rem 2rem'
-        fontSize={theme.typography.fontSizes.clamp7}
+        margin='0 0 2rem 0'
       >
         Business Expertise
       </Typography>
       <div
         style={{
-          display: 'grid',
+          ...styles.gridContainer(
+            isMobile,
+            isMobile ? '1fr 1fr' : 'repeat(auto-fit, minmax(130px, 1fr))'
+          ),
           gap: '1rem',
           padding: '0',
-          gridTemplateColumns: isMobile
-            ? '1fr 1fr'
-            : 'repeat(auto-fit, minmax(130px, 1fr))',
           gridAutoRows: 'min-content',
-          alignItems: 'start',
-          justifyItems: 'center',
           width: '100%',
           maxWidth: '900px',
           margin: '0 auto',
@@ -589,34 +601,24 @@ export const GuidingPrinciplesSection: React.FC<PercentageCirclesProps> = ({
   );
 
   return (
-    <div
-      style={{
-        marginBottom: '4rem',
-        background: theme.palette.neutralLight,
-        padding: '2rem',
-        borderRadius: '4px',
-      }}
-    >
+    <div style={{ ...styles.sectionBox(theme), marginBottom: '4rem' }}>
       <Typography
         variant='h2'
+        style={styles.h2Title(theme)}
         textAlign='center'
-        color={theme.palette.themePrimary}
         margin='0 0 2rem 0'
-        fontSize={theme.typography.fontSizes.clamp7}
       >
         Our Guiding Principles
       </Typography>
       <div
         style={{
-          display: 'grid',
+          ...styles.gridContainer(
+            isMobile,
+            isMobile ? '1fr 1fr' : 'repeat(auto-fit, minmax(130px, 1fr))'
+          ),
           gap: '1.5rem',
           padding: '0',
-          gridTemplateColumns: isMobile
-            ? '1fr 1fr'
-            : 'repeat(auto-fit, minmax(130px, 1fr))',
           gridAutoRows: 'min-content',
-          alignItems: 'start',
-          justifyItems: 'center',
           width: '100%',
           maxWidth: '900px',
           margin: '0 auto',
@@ -669,19 +671,15 @@ export const ServicesSection: React.FC<{
   return (
     <div
       style={{
-        background: theme.palette.neutralLight,
-        padding: '2rem',
+        ...styles.sectionBox(theme),
         margin: '2rem -2rem',
-        borderRadius: '4px',
       }}
     >
       <Typography
         variant='h2'
-        color={theme.palette.themePrimary}
+        style={styles.h2Title(theme)}
         textAlign='center'
         margin='0 0 1.5rem 0'
-        fontSize={theme.typography.fontSizes.clamp7}
-        fontVariationSettings='wght 400,wdth 300,slnt 0'
       >
         Our Services
       </Typography>
@@ -691,7 +689,7 @@ export const ServicesSection: React.FC<{
         marginBottom='2.5rem'
         fontWeight='600'
         noHyphens
-        style={{ maxWidth: '800px', margin: '0 auto 2.5rem auto' }}
+        style={styles.textContent}
       >
         {SERVICES_EXPORTS.SERVICES_SUMMARY}
       </Typography>
@@ -719,8 +717,7 @@ export const ServicesSection: React.FC<{
                 <div
                   key={rowIndex}
                   style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
+                    ...styles.gridContainer(false, '1fr 1fr'),
                     gap: theme.spacing.menuButton,
                     width: '100%',
                     padding: '0 0.5rem',
@@ -756,7 +753,7 @@ export const TaglineHeader: React.FC<{
   return (
     <div
       style={{
-        background: theme.palette.neutralLight,
+        ...styles.sectionBox(theme),
         textAlign: 'center',
         padding: '0',
         borderLeft: `4px solid ${theme.palette.themePrimary}`,
@@ -775,6 +772,7 @@ export const TaglineHeader: React.FC<{
           fontStyle: 'italic',
           textTransform: 'none',
           letterSpacing: '-0.02em',
+          ...styles.textContent,
         }}
       >
         {SERVICES_EXPORTS.FLUXLINE_TAGLINE}
@@ -785,7 +783,11 @@ export const TaglineHeader: React.FC<{
         color={theme.palette.neutralPrimary}
         marginTop='0'
         fontSize={theme.typography.fontSizes.clamp5}
-        style={{ fontStyle: 'italic', maxWidth: '80%', margin: '0 auto' }}
+        style={{
+          fontStyle: 'italic',
+          ...styles.textContent,
+          maxWidth: '80%',
+        }}
       >
         {SERVICES_EXPORTS.FLUXLINE_SECONDARY_TAGLINE}
       </Typography>
@@ -828,6 +830,7 @@ export const Services: React.FC<ServicesProps> = ({
             <TaglineHeader currentView={actualView} />
             <hr style={{ margin: '2rem 0' }} />
             <MissionVisionSection currentView={actualView} />
+            {/* <FluxlineEthosSection currentView={actualView} /> */}
             <ServicesSection currentView={actualView} />
             <GuidingPrinciplesSection
               isMobile={orientation === 'portrait'}
