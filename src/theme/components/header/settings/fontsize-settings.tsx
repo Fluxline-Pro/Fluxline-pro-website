@@ -33,11 +33,12 @@ export const createTypographyStyles = (theme: IExtendedTheme) => ({
   } as CSSProperties,
 
   menuTitle: {
-    fontSize: 'clamp(2rem, 3vh, 3rem)',
-    fontWeight: theme.typography.fontWeights.thin,
-    letterSpacing: theme.typography.fonts.h2.letterSpacing,
+    fontSize: 'clamp(2rem, 4vh, 2rem)',
+    fontFamily: 'Work Sans, sans-serif',
+    fontWeight: theme.typography.fontWeights.medium,
+    letterSpacing: '-1.5px',
     lineHeight: theme.typography.lineHeights.tight,
-    textTransform: 'lowercase' as const,
+    textTransform: 'capitalize' as const,
     textShadow: 'none',
   },
 
