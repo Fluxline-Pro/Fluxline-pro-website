@@ -8,8 +8,9 @@ import { useContentFilterStore } from '../../store/store-specs/contentFilterStor
 // Define page configurations
 const PAGE_CONFIGS = {
   '/about': {
+    // Using placeholder - you may want to replace this with an actual Fluxline manifesto image
     image: require('../../assets/images/AboutMePortrait.jpg'),
-    imageText: 'About Me',
+    imageText: 'About Fluxline',
   },
   '/services': {
     image: require('../../assets/images/LinkedInTerenceW1024x1536.jpeg'),

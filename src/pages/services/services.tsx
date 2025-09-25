@@ -69,7 +69,7 @@ export const GetStarted: React.FC = () => {
         color={theme.palette.neutralPrimary}
         marginBottom='1rem'
       >
-        I'd love to help you with your next project! Book a free consultation
+        We'd love to help you with your next project! Book a free consultation
         below.
       </Typography>
       <BookingsButton />
@@ -115,9 +115,9 @@ export const ProfessionalSummary: React.FC<{
   const getTitle = () => {
     switch (currentView) {
       case 'about':
-        return 'Professional Summary';
+        return 'About Us';
       case 'services':
-        return 'My Services';
+        return 'Our Services';
       case 'personal-training':
         return 'Personal Training, Health & Wellness';
       case 'education-training':
@@ -131,7 +131,7 @@ export const ProfessionalSummary: React.FC<{
       case 'design':
         return 'Brand Identity & Experience Design';
       default:
-        return 'Professional Summary';
+        return 'About Us';
     }
   };
 
@@ -166,7 +166,12 @@ export const ProfessionalSummary: React.FC<{
           {summary.map((paragraph, index) => (
             <React.Fragment key={index}>
               {paragraph}
-              {index < summary.length - 1 && <><br /><br /></>}
+              {index < summary.length - 1 && (
+                <>
+                  <br />
+                  <br />
+                </>
+              )}
             </React.Fragment>
           ))}
         </>
@@ -294,20 +299,115 @@ interface PercentageCirclesProps {
   currentView: ServicesProps['currentView'];
 }
 
-export const PercentageCircles: React.FC<PercentageCirclesProps> = ({
-  isMobile,
-  currentView,
-}) => {
+export const MissionVisionSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
   const { theme } = useAppTheme();
 
-  // Only show skills section for 'about' view
+  // Only show for 'about' view
   if (currentView !== 'about') {
     return null;
   }
 
   return (
     <>
-      <H2Title name='Skills' />
+      <H2Title name='Mission & Vision' />
+      <Typography
+        variant='p'
+        textAlign='left'
+        color={theme.palette.neutralPrimary}
+        marginBottom='2rem'
+        noHyphens
+      >
+        {SERVICES_EXPORTS.FLUXLINE_MISSION_VISION.map((paragraph, index) => (
+          <React.Fragment key={index}>
+            {paragraph}
+            {index < SERVICES_EXPORTS.FLUXLINE_MISSION_VISION.length - 1 && (
+              <>
+                <br />
+                <br />
+              </>
+            )}
+          </React.Fragment>
+        ))}
+      </Typography>
+    </>
+  );
+};
+
+export const FluxlineEthosSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+
+  // Only show for 'about' view
+  if (currentView !== 'about') {
+    return null;
+  }
+
+  return (
+    <>
+      <H2Title name='Fluxline Ethos' />
+      <Typography
+        variant='p'
+        textAlign='left'
+        color={theme.palette.neutralPrimary}
+        marginBottom='2rem'
+        noHyphens
+      >
+        {SERVICES_EXPORTS.FLUXLINE_ETHOS.map((paragraph, index) => (
+          <React.Fragment key={index}>
+            {paragraph}
+            {index < SERVICES_EXPORTS.FLUXLINE_ETHOS.length - 1 && (
+              <>
+                <br />
+                <br />
+              </>
+            )}
+          </React.Fragment>
+        ))}
+      </Typography>
+      <Typography
+        variant='p'
+        textAlign='center'
+        color={theme.palette.themePrimary}
+        margin='1rem 0'
+        fontSize={theme.typography.fontSizes.clamp5}
+        style={{ fontStyle: 'italic' }}
+      >
+        {SERVICES_EXPORTS.FLUXLINE_TAGLINE}
+      </Typography>
+      <Typography
+        variant='p'
+        textAlign='center'
+        color={theme.palette.neutralPrimary}
+        marginBottom='2rem'
+        fontSize={theme.typography.fontSizes.clamp4}
+        style={{ fontStyle: 'italic' }}
+      >
+        {SERVICES_EXPORTS.FLUXLINE_SECONDARY_TAGLINE}
+      </Typography>
+    </>
+  );
+};
+
+export const CorePrinciplesSection: React.FC<PercentageCirclesProps> = ({
+  isMobile,
+  currentView,
+}) => {
+  const { theme } = useAppTheme();
+
+  // Only show for 'about' view
+  if (currentView !== 'about') {
+    return null;
+  }
+
+  // Filter core principles - first 5 items
+  const corePrinciples = SERVICES_EXPORTS.ABOUT_PERCENTAGE_POINTS.slice(0, 5);
+
+  return (
+    <>
+      <H2Title name='Core Principles' />
       <div
         style={{
           display: 'grid',
@@ -323,7 +423,52 @@ export const PercentageCircles: React.FC<PercentageCirclesProps> = ({
           maxWidth: '100%',
         }}
       >
-        {SERVICES_EXPORTS.ABOUT_PERCENTAGE_POINTS.map((skill, index) => (
+        {corePrinciples.map((principle, index) => (
+          <PercentageBullet
+            key={principle.name + index.toString()}
+            percentage={principle.percentage}
+            name={principle.name}
+            isMobile={isMobile}
+          />
+        ))}
+      </div>
+    </>
+  );
+};
+
+export const TechnicalSkillsSection: React.FC<PercentageCirclesProps> = ({
+  isMobile,
+  currentView,
+}) => {
+  const { theme } = useAppTheme();
+
+  // Only show for 'about' view
+  if (currentView !== 'about') {
+    return null;
+  }
+
+  // Filter technical skills - items 5 to 23 (indexes 5-22)
+  const technicalSkills = SERVICES_EXPORTS.ABOUT_PERCENTAGE_POINTS.slice(5, 23);
+
+  return (
+    <>
+      <H2Title name='Technical Skills' />
+      <div
+        style={{
+          display: 'grid',
+          gap: theme.spacing.s,
+          padding: isMobile ? '0' : `0 ${theme.spacing.l}`,
+          gridTemplateColumns: isMobile
+            ? '1fr 1fr'
+            : 'repeat(auto-fit, minmax(150px, 1fr))',
+          gridAutoRows: 'min-content',
+          alignItems: 'start',
+          justifyItems: 'center',
+          width: '100%',
+          maxWidth: '100%',
+        }}
+      >
+        {technicalSkills.map((skill, index) => (
           <PercentageBullet
             key={skill.name + index.toString()}
             percentage={skill.percentage}
@@ -333,6 +478,87 @@ export const PercentageCircles: React.FC<PercentageCirclesProps> = ({
         ))}
       </div>
     </>
+  );
+};
+
+export const GuidingPrinciplesSection: React.FC<PercentageCirclesProps> = ({
+  isMobile,
+  currentView,
+}) => {
+  const { theme } = useAppTheme();
+
+  // Only show for 'about' view
+  if (currentView !== 'about') {
+    return null;
+  }
+
+  // Filter guiding principles - last 6 items (indexes 23 to end)
+  const guidingPrinciples = SERVICES_EXPORTS.ABOUT_PERCENTAGE_POINTS.slice(23);
+
+  return (
+    <>
+      <H2Title name='Guiding Principles' />
+      <div
+        style={{
+          display: 'grid',
+          gap: theme.spacing.s,
+          padding: isMobile ? '0' : `0 ${theme.spacing.l}`,
+          gridTemplateColumns: isMobile
+            ? '1fr 1fr'
+            : 'repeat(auto-fit, minmax(150px, 1fr))',
+          gridAutoRows: 'min-content',
+          alignItems: 'start',
+          justifyItems: 'center',
+          width: '100%',
+          maxWidth: '100%',
+        }}
+      >
+        {guidingPrinciples.map((principle, index) => (
+          <PercentageBullet
+            key={principle.name + index.toString()}
+            percentage={principle.percentage}
+            name={principle.name}
+            isMobile={isMobile}
+          />
+        ))}
+      </div>
+    </>
+  );
+};
+
+export const TaglineHeader: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+
+  // Only show for 'about' view
+  if (currentView !== 'about') {
+    return null;
+  }
+
+  return (
+    <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
+      <Typography
+        variant='h3'
+        textAlign='center'
+        color={theme.palette.themePrimary}
+        margin='1rem 0'
+        fontSize={theme.typography.fontSizes.clamp6}
+        style={{ fontStyle: 'italic' }}
+      >
+        {SERVICES_EXPORTS.FLUXLINE_TAGLINE}
+      </Typography>
+      <Typography
+        variant='p'
+        textAlign='center'
+        color={theme.palette.neutralPrimary}
+        marginBottom='2rem'
+        fontSize={theme.typography.fontSizes.clamp4}
+        style={{ fontStyle: 'italic' }}
+      >
+        {SERVICES_EXPORTS.FLUXLINE_SECONDARY_TAGLINE}
+      </Typography>
+    </div>
   );
 };
 
@@ -347,7 +573,7 @@ export const Services: React.FC<ServicesProps> = ({
     const path = location.pathname;
 
     // Split path and get the part after /services/
-    const pathParts = path.split('/').filter((part) => part);
+    const pathParts = path.split('/').filter((part: string) => part);
 
     if (pathParts[0] === 'about') return 'about';
     if (pathParts[0] === 'services' && pathParts[1]) {
@@ -363,11 +589,31 @@ export const Services: React.FC<ServicesProps> = ({
   return (
     <FadeUp key={actualView} delay={0}>
       <div>
+        {/* Show tagline header for About page */}
+        {actualView === 'about' && <TaglineHeader currentView={actualView} />}
+
         <ProfessionalSummary currentView={actualView} />
-        <PercentageCircles
-          isMobile={orientation === 'portrait'}
-          currentView={actualView}
-        />
+
+        {/* New sections for the About page */}
+        {actualView === 'about' && (
+          <>
+            <MissionVisionSection currentView={actualView} />
+            <FluxlineEthosSection currentView={actualView} />
+            <CorePrinciplesSection
+              isMobile={orientation === 'portrait'}
+              currentView={actualView}
+            />
+            <TechnicalSkillsSection
+              isMobile={orientation === 'portrait'}
+              currentView={actualView}
+            />
+            <GuidingPrinciplesSection
+              isMobile={orientation === 'portrait'}
+              currentView={actualView}
+            />
+          </>
+        )}
+
         <GetStarted />
       </div>
     </FadeUp>
