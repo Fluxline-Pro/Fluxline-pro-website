@@ -63,8 +63,10 @@ const OnboardingName: React.FC = () => {
   }, [localFirstName, setUserFirstName]);
 
   React.useEffect(() => {
-    console.log('OnboardingName MOUNT');
-    return () => console.log('OnboardingName UNMOUNT');
+    // console.log('OnboardingName MOUNT');
+    return () => {
+      /* console.log('OnboardingName UNMOUNT') */
+    };
   }, []);
 
   return (

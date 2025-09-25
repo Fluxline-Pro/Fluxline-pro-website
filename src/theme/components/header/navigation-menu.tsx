@@ -40,7 +40,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({ onClose }) => {
   const handleNavigation = (path: string) => {
     // allow the user to skip onboarding by clicking on a menu item
     if (!onboardingDoneOrSkipped) {
-      console.log('Skipping onboarding');
+      // console.log('Skipping onboarding');
       setOnboardingDoneOrSkipped(true);
       navigate(
         ROUTES.find((item) => item.name === 'onboarding-skip')?.path || '/'
@@ -48,7 +48,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({ onClose }) => {
     }
 
     const navPath = path.startsWith('/') ? path : `/${path}`;
-    console.log('Navigating to:', navPath);
+    // console.log('Navigating to:', navPath);
     navigate(navPath);
     onClose();
   };

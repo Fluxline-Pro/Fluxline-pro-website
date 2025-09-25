@@ -4,7 +4,7 @@
  */
 
 export const testEnvironmentVariables = () => {
-  console.group('🧪 Environment Variables Test');
+  // console.group('🧪 Environment Variables Test');
 
   const envVars = {
     REACT_APP_API_BASE_URL: process.env.REACT_APP_API_BASE_URL,
@@ -15,12 +15,12 @@ export const testEnvironmentVariables = () => {
     NODE_ENV: process.env.NODE_ENV,
   };
 
-  console.log('Raw Environment Variables:');
+  // console.log('Raw Environment Variables:');
   Object.entries(envVars).forEach(([key, value]) => {
     if (key.includes('API_KEY') && value) {
-      console.log(`  ${key}: ${value.substring(0, 10)}...`);
+      // console.log(`  ${key}: ${value.substring(0, 10)}...`);
     } else {
-      console.log(`  ${key}: ${value || 'NOT SET'}`);
+      // console.log(`  ${key}: ${value || 'NOT SET'}`);
     }
   });
 
@@ -28,17 +28,17 @@ export const testEnvironmentVariables = () => {
     .filter(([key]) => key.startsWith('REACT_APP_'))
     .every(([_, value]) => !!value);
 
-  console.log(`\n✅ All REACT_APP_ variables set: ${allSet}`);
+  // console.log(`\n✅ All REACT_APP_ variables set: ${allSet}`);
 
   if (!allSet) {
-    console.log('❌ Missing environment variables detected!');
-    console.log('💡 Make sure:');
-    console.log('   1. File is named .env.local (with dot)');
-    console.log('   2. React dev server has been restarted');
-    console.log('   3. Variables start with REACT_APP_');
+    // console.log('❌ Missing environment variables detected!');
+    // console.log('💡 Make sure:');
+    // console.log('   1. File is named .env.local (with dot)');
+    // console.log('   2. React dev server has been restarted');
+    // console.log('   3. Variables start with REACT_APP_');
   }
 
-  console.groupEnd();
+  // console.groupEnd();
   return allSet;
 };
 

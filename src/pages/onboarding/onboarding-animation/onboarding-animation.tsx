@@ -238,13 +238,13 @@ const CSSAnimation: React.FC<{
 const OnboardingAnimation: React.FC<{ animationClassName?: string }> = ({
   animationClassName,
 }) => {
-  console.log('[OnboardingAnimation] MOUNT');
+  // console.log('[OnboardingAnimation] MOUNT');
   const didMount = React.useRef(false);
   React.useEffect(() => {
     if (didMount.current) {
       console.warn('OnboardingAnimation remounted!');
     } else {
-      console.log('[OnboardingAnimation] didMount OK');
+      // console.log('[OnboardingAnimation] didMount OK');
       didMount.current = true;
     }
   }, []);

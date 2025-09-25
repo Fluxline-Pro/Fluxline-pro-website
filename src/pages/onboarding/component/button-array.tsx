@@ -23,8 +23,9 @@ interface ButtonArrayProps {
   style?: React.CSSProperties;
 }
 
-const onboardingRoutes = ROUTES.filter((route) => route.name === 'onboarding');
-console.log('onboarding', onboardingRoutes);
+// Unused variable commented out
+// const onboardingRoutes = ROUTES.filter((route) => route.name === 'onboarding');
+// console.log('onboarding', onboardingRoutes);
 
 const stepOrder = [
   'name',

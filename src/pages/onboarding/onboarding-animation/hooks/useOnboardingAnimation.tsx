@@ -14,7 +14,7 @@ import {
 } from './useTypingHooks';
 
 const useOnboardingAnimation = () => {
-  console.log('[useOnboardingAnimation] MOUNT');
+  // console.log('[useOnboardingAnimation] MOUNT');
   // Use local state for animation
   const [waitDone, setWaitDone] = React.useState(false);
   const [stepIndex, setStepIndex] = React.useState(0);
@@ -30,8 +30,8 @@ const useOnboardingAnimation = () => {
         ? currentStep.markup
         : '';
   const speed = ('speed' in currentStep && currentStep.speed) || 40;
-  console.log('[useOnboardingAnimation] fullText:', fullText);
-  console.log('[useOnboardingAnimation] speed:', speed);
+  // console.log('[useOnboardingAnimation] fullText:', fullText);
+  // console.log('[useOnboardingAnimation] speed:', speed);
   const typedText = useTypewriter(fullText, speed);
   const lineByLineText = useLineByLineTyping(fullText, speed);
   const backspaceText = useBackspace(backspaceTarget, speed);

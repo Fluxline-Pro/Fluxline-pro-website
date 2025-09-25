@@ -99,7 +99,7 @@ export const useUserPreferencesStore = create<UserPreferencesState>()(
           },
         }),
       setPreference: (key, value) => {
-        console.log('Setting preference:', key, value);
+        // console.log('Setting preference:', key, value);
         set((state) => {
           // If user is specifically setting fontScale, mark it as manually set
           if (key === 'fontScale') {
@@ -119,23 +119,23 @@ export const useUserPreferencesStore = create<UserPreferencesState>()(
         });
       },
       setBackgroundImage: (image) => {
-        console.log('Setting background image to:', image);
+        // console.log('Setting background image to:', image);
         set((state) => {
           const newState = {
             preferences: { ...state.preferences, backgroundImage: image },
           };
-          console.log('New preferences state:', newState.preferences);
+          // console.log('New preferences state:', newState.preferences);
           return newState;
         });
       },
       setThemeMode: (themeMode: ThemeMode) => {
-        console.log('Setting theme mode to:', themeMode);
+        // console.log('Setting theme mode to:', themeMode);
         set((state) => ({
           preferences: { ...state.preferences, themeMode },
         }));
       },
       toggleTheme: () => {
-        console.log('Toggling theme');
+        // console.log('Toggling theme');
         set((state) => ({
           preferences: {
             ...state.preferences,
@@ -145,7 +145,7 @@ export const useUserPreferencesStore = create<UserPreferencesState>()(
         }));
       },
       setOnboardingDoneOrSkipped: (doneOrSkipped: boolean) => {
-        console.log('Setting onboarding done or skipped:', doneOrSkipped);
+        // console.log('Setting onboarding done or skipped:', doneOrSkipped);
         set((state) => ({
           preferences: {
             ...state.preferences,
@@ -154,13 +154,13 @@ export const useUserPreferencesStore = create<UserPreferencesState>()(
         }));
       },
       setUserFirstName: (firstName: string) => {
-        console.log('Setting user first name:', firstName);
+        // console.log('Setting user first name:', firstName);
         if (
           firstName === '' ||
           firstName === undefined ||
           unacceptableWordsRegex.test(firstName)
         ) {
-          console.log('Nah... that first name is unacceptable:');
+          // console.log('Nah... that first name is unacceptable:');
           return;
         }
         set((state) => ({

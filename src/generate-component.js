@@ -37,8 +37,8 @@ files.forEach((file) => {
   const filePath = path.join(componentDir, file.name);
   if (!fs.existsSync(filePath)) {
     fs.writeFileSync(filePath, file.content);
-    console.log(`Created ${filePath}`);
+    // console.log(`Created ${filePath}`);
   } else {
-    console.log(`Skipped ${filePath} (already exists)`);
+    // console.log(`Skipped ${filePath} (already exists)`);
   }
 });
