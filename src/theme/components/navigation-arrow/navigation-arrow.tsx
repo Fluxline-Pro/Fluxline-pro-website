@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { mergeStyles } from '@fluentui/react';
 
 import { useAppTheme } from '../../hooks/useAppTheme';
+import { useIsMobile } from '../../hooks/useMediaQuery';
 
 interface NavigationArrowProps {
   direction: 'forward' | 'backward';
@@ -19,6 +20,7 @@ export const NavigationArrow: React.FC<NavigationArrowProps> = ({
   style
 }) => {
   const { theme } = useAppTheme();
+  const isMobile = useIsMobile();
   const [isHovered, setIsHovered] = useState(false);
 
   // Calculate sizes based on the size prop
@@ -66,7 +68,7 @@ export const NavigationArrow: React.FC<NavigationArrowProps> = ({
     justifyContent: 'center',
     padding: showBackground ? sizes.containerPadding : '0',
     borderRadius: '4px',
-    paddingLeft: style?.paddingLeft || '5rem',
+    paddingLeft: style?.paddingLeft || isMobile ? undefined : '5rem',
     backgroundColor: showBackground
       ? isHovered
         ? theme.palette.neutralLight

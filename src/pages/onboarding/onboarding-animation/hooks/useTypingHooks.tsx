@@ -23,7 +23,7 @@ const useLineByLineTyping = (text: string, speed = 125) => {
 };
 
 const useTypewriter = (text: string, baseSpeed = 150, minSpeed = 40) => {
-  console.log('[useTypewriter] MOUNT');
+  // console.log('[useTypewriter] MOUNT');
   const { shouldReduceMotion } = useReducedMotion();
   const [count, setCount] = React.useState(
     shouldReduceMotion ? text.length : 0
@@ -32,14 +32,14 @@ const useTypewriter = (text: string, baseSpeed = 150, minSpeed = 40) => {
 
   // Reset count and speed when text changes
   React.useEffect(() => {
-    console.log(
-      '[useTypewriter] RESET: text changed to',
-      text,
-      'baseSpeed:',
-      baseSpeed,
-      'shouldReduceMotion:',
-      shouldReduceMotion
-    );
+    // console.log(
+    //   '[useTypewriter] RESET: text changed to',
+    //   text,
+    //   'baseSpeed:',
+    //   baseSpeed,
+    //   'shouldReduceMotion:',
+    //   shouldReduceMotion
+    // );
     setCount(shouldReduceMotion ? text.length : 0);
     setSpeed(baseSpeed);
   }, [text, baseSpeed, shouldReduceMotion]);
@@ -64,36 +64,36 @@ const useTypewriter = (text: string, baseSpeed = 150, minSpeed = 40) => {
       // Add random jitter (+/- 10ms)
       const jitter = Math.floor(Math.random() * 21) - 10;
       const nextSpeed = Math.max(minSpeed, profileSpeed + jitter);
-      console.log('[useTypewriter] Typing:', {
-        count,
-        char: text[count],
-        speed,
-        nextSpeed,
-        text,
-      });
+      // console.log('[useTypewriter] Typing:', {
+      //   count,
+      //   char: text[count],
+      //   speed,
+      //   nextSpeed,
+      //   text,
+      // });
       const timeout = setTimeout(() => {
         setCount(count + 1);
         setSpeed(nextSpeed);
       }, speed);
       return () => clearTimeout(timeout);
     } else {
-      console.log('[useTypewriter] Done typing:', { count, text });
+      // console.log('[useTypewriter] Done typing:', { count, text });
     }
   }, [count, text, speed, baseSpeed, minSpeed, shouldReduceMotion]);
 
-  console.log('[useTypewriter] RETURN:', {
-    count,
-    text,
-    speed,
-    minSpeed,
-    baseSpeed,
-  });
-  console.log('[useTypewriter] END function call');
+  // console.log('[useTypewriter] RETURN:', {
+  //   count,
+  //   text,
+  //   speed,
+  //   minSpeed,
+  //   baseSpeed,
+  // });
+  // console.log('[useTypewriter] END function call');
   return text.slice(0, count);
 };
 
 const useBackspace = (text: string, speed = 120) => {
-  console.log('[useBackspace] MOUNT');
+  // console.log('[useBackspace] MOUNT');
   const { shouldReduceMotion } = useReducedMotion();
   const [typed, setTyped] = React.useState(text);
 
@@ -108,7 +108,7 @@ const useBackspace = (text: string, speed = 120) => {
       return;
     }
 
-    console.log('[useBackspace] BACKSPACE', { typed, speed });
+    // console.log('[useBackspace] BACKSPACE', { typed, speed });
     if (typed.length > 0) {
       const timeout = setTimeout(
         () => setTyped(typed.slice(0, typed.length - 1)),
@@ -118,7 +118,7 @@ const useBackspace = (text: string, speed = 120) => {
     }
   }, [typed, speed, shouldReduceMotion]);
 
-  console.log('[useBackspace] RETURN:', { typed });
+  // console.log('[useBackspace] RETURN:', { typed });
   return typed;
 };
 

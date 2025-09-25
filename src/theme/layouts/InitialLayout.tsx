@@ -8,7 +8,7 @@ import Header from '../components/header/header';
 // import { useUserPreferencesStore } from '../../store/store-specs/userPreferencesStore';
 
 const InitialLayout: React.FC = () => {
-  console.log('[InitialLayout] RENDER');
+  // console.log('[InitialLayout] RENDER');
   const { theme, themeMode } = useAppTheme();
 
   // Dynamic document title management

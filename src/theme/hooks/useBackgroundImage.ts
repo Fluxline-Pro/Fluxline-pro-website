@@ -30,13 +30,13 @@ const useBackgroundImage = () => {
     const prevWasHome = prevPath === '/' || prevPath === '/home';
     const prevWasOnboarding = prevPath?.includes('/onboarding');
 
-    console.log(
-      `[useBackgroundImage] Navigation: ${prevPath} -> ${currentPath}`
-    );
+    // console.log(
+    //   `[useBackgroundImage] Navigation: ${prevPath} -> ${currentPath}`
+    // );
 
     // On first mount only (not re-mounts), always use 'one'
     if (!hasInitializedRef.current) {
-      console.log(`[useBackgroundImage] First mount, using background: one`);
+      // console.log(`[useBackgroundImage] First mount, using background: one`);
       localStorage.setItem(BACKGROUND_STORAGE_KEY, 'one');
       hasInitializedRef.current = true;
       prevPathRef.current = currentPath;
@@ -45,19 +45,19 @@ const useBackgroundImage = () => {
 
     // Only process actual navigation changes (not same path)
     if (prevPath === currentPath) {
-      console.log(`[useBackgroundImage] Same path, ignoring: ${currentPath}`);
+      // console.log(`[useBackgroundImage] Same path, ignoring: ${currentPath}`);
       return;
     }
 
     // Returning TO home page (from non-home) - always use background 'one'
     // BUT exclude onboarding flow since that's initial setup, not navigation
     if (!prevWasHome && !prevWasOnboarding && isHomePage) {
-      console.log(`[useBackgroundImage] Returning to home: setting background to 'one'`);
+      // console.log(`[useBackgroundImage] Returning to home: setting background to 'one'`);
       localStorage.setItem(BACKGROUND_STORAGE_KEY, 'one');
     } else if (prevWasOnboarding && isHomePage) {
-      console.log(
-        `[useBackgroundImage] Coming from onboarding: keeping background as ${currentBackground}`
-      );
+      // console.log(
+      //   `[useBackgroundImage] Coming from onboarding: keeping background as ${currentBackground}`
+      // );
     }
 
     prevPathRef.current = currentPath;
@@ -71,42 +71,42 @@ const useBackgroundImage = () => {
       const originalTheme = localStorage.getItem(ORIGINAL_THEME_KEY);
       const currentTheme = themeRef.current;
 
-      console.log(
-        `[useBackgroundImage] Theme effect - Home: ${isHomePage}, Current theme: ${currentTheme}, Original stored: ${originalTheme}`
-      );
+      // console.log(
+      //   `[useBackgroundImage] Theme effect - Home: ${isHomePage}, Current theme: ${currentTheme}, Original stored: ${originalTheme}`
+      // );
 
       if (!isHomePage) {
         // Not on home page - restore original theme if we forced dark mode
         if (originalTheme && currentTheme === 'dark') {
-          console.log(
-            `[useBackgroundImage] Not on home page: Restoring original theme: ${originalTheme}`
-          );
+          // console.log(
+          //   `[useBackgroundImage] Not on home page: Restoring original theme: ${originalTheme}`
+          // );
           localStorage.removeItem(ORIGINAL_THEME_KEY);
           setPreference('themeMode', originalTheme);
         } else {
-          console.log(
-            `[useBackgroundImage] Not on home page, no theme changes needed`
-          );
+          // console.log(
+          //   `[useBackgroundImage] Not on home page, no theme changes needed`
+          // );
         }
         return;
       }
 
       // On home page - always force dark mode (looks better on both backgrounds!)
       if (currentTheme !== 'dark' && !originalTheme) {
-        console.log(
-          `[useBackgroundImage] Home page + not dark mode: Forcing dark mode (was ${currentTheme})`
-        );
+        // console.log(
+        //   `[useBackgroundImage] Home page + not dark mode: Forcing dark mode (was ${currentTheme})`
+        // );
         localStorage.setItem(ORIGINAL_THEME_KEY, currentTheme);
         setPreference('themeMode', 'dark');
       } else if (currentTheme !== 'dark' && originalTheme) {
-        console.log(
-          `[useBackgroundImage] Home page + original theme stored: Forcing dark mode`
-        );
+        // console.log(
+        //   `[useBackgroundImage] Home page + original theme stored: Forcing dark mode`
+        // );
         setPreference('themeMode', 'dark');
       } else {
-        console.log(
-          `[useBackgroundImage] Home page + already dark mode, no changes needed`
-        );
+        // console.log(
+        //   `[useBackgroundImage] Home page + already dark mode, no changes needed`
+        // );
       }
     }, 100); // Delay to ensure any navigation state updates have completed
 

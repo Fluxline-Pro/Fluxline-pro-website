@@ -13,6 +13,7 @@ import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { useNavigate } from 'react-router-dom';
 import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
 import { NavigationArrow } from '../../theme/components/navigation-arrow/navigation-arrow';
+import { useIsMobile } from '../../theme/hooks/useMediaQuery';
 
 // Reusable style objects
 const styles = {
@@ -74,12 +75,13 @@ const H2Title = ({
   style?: React.CSSProperties;
 }) => {
   const { theme } = useAppTheme();
+  const isMobile = useIsMobile();
 
   return (
     <Typography
       variant='h2'
       textAlign='left'
-      marginLeft={name === 'Our Services' ? '7rem' : undefined}
+      marginLeft={name === 'Our Services' && !isMobile ? '7rem' : undefined}
       style={{ ...styles.h2Title(theme), ...style }}
     >
       {name}
