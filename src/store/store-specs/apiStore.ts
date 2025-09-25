@@ -3,7 +3,7 @@ import { create } from 'zustand';
 
 import { useContentStore } from './contentStore';
 
-console.log('[API Store] module loaded');
+// console.log('[API Store] module loaded');
 
 // Only types needed for API actions
 export type PostTypeKey =

@@ -11,14 +11,14 @@ export const createTypographyStyles = (theme: IExtendedTheme) => ({
     color: theme.isInverted ? theme.palette.white : theme.palette.black,
     fontFamily: theme.typography.fonts.h2.fontFamily,
     fontSize: 'clamp(2rem, 3vh, 3rem)',
-    fontWeight: theme.typography.fontWeights.thin,
+    fontWeight: theme.typography.fontWeights.bold,
     fontVariationSettings: "'wght' 300, 'wdth' 100, 'slnt' 0",
     letterSpacing: theme.typography.fonts.h2.letterSpacing,
     lineHeight: theme.typography.lineHeights.tight,
     textTransform: 'uppercase' as const,
     textShadow: theme.isInverted
       ? theme.typography.textShadows.cardImage
-      : '1px 2px 3px rgba(0, 0, 0, 0.5)',
+      : '1px 1px 2px rgba(0, 0, 0, 0.5)',
   } as CSSProperties,
 
   modalTitle: {

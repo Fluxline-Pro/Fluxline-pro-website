@@ -63,7 +63,7 @@ const testBlogPost: BlogPostDTO = {
   publishDate: new Date().toISOString(),
   lastModified: new Date().toISOString(),
   tagsList: ['test', 'typescript'],
-  isPublished: "true",
+  isPublished: 'true',
 };
 
 const testCreateRequest: CreateBlogPostRequest = {
@@ -144,12 +144,12 @@ const testRepository: GitHubRepository = {
 
 // Function to test type compatibility
 function validateTypes() {
-  console.log('Type validation successful!');
-  console.log('Config:', testConfig.baseUrl);
-  console.log('Author:', testAuthor.displayName);
-  console.log('Blog Post:', testBlogPost.title);
-  console.log('Response:', testApiResponse.success);
-  console.log('Repository:', testRepository.name);
+  // console.log('Type validation successful!');
+  // console.log('Config:', testConfig.baseUrl);
+  // console.log('Author:', testAuthor.displayName);
+  // console.log('Blog Post:', testBlogPost.title);
+  // console.log('Response:', testApiResponse.success);
+  // console.log('Repository:', testRepository.name);
 }
 
 export default validateTypes;

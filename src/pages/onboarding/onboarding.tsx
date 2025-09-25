@@ -90,19 +90,21 @@ const steps = [
 ];
 
 export default function Onboarding() {
-  console.log('[Onboarding] RENDER');
+  // console.log('[Onboarding] RENDER');
   const location = useLocation();
   const { style, displayedPath } = useFadeInOut(location.pathname, 800);
   const { isMobile, isTablet, isMobileLandscape } = useDeviceType();
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    console.log('[Onboarding] MOUNT');
-    console.log('onboardingPath', onboardingPath);
+    // console.log('[Onboarding] MOUNT');
+    // console.log('onboardingPath', onboardingPath);
     if (onboardingPath === '/onboarding') {
       navigate('/onboarding/welcome');
     }
-    return () => console.log('[Onboarding] UNMOUNT');
+    return () => {
+      /* console.log('[Onboarding] UNMOUNT') */
+    };
   }, [navigate]);
 
   const normalize = (path: string) => path.replace(/\/+$/, '').split('?')[0];
@@ -110,9 +112,9 @@ export default function Onboarding() {
     (step) => normalize(location.pathname) === normalize(step?.path ?? '')
   );
 
-  console.log('location.pathname:', location.pathname);
+  // console.log('location.pathname:', location.pathname);
   steps.forEach((step, idx) => {
-    console.log(`step[${idx}].path:`, step.path);
+    // console.log(`step[${idx}].path:`, step.path);
   });
 
   return (

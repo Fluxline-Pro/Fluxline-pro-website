@@ -50,7 +50,9 @@ const sanitizeHtml = (html: string): string => {
     //   USE_PROFILES: { html: true },
     // });
   } catch (error) {
-    console.warn('[ContentRenderer] DOMPurify not available, using basic sanitization');
+    console.warn(
+      '[ContentRenderer] DOMPurify not available, using basic sanitization'
+    );
   }
 
   // Fallback basic sanitization - remove script tags and event handlers
@@ -65,39 +67,44 @@ const sanitizeHtml = (html: string): string => {
 
 // Enhanced Markdown to HTML converter
 const basicMarkdownToHtml = (markdown: string): string => {
-  return markdown
-    // Code blocks
-    .replace(/```([a-z]*)\n([\s\S]*?)\n```/gim, '<pre><code class="language-$1">$2</code></pre>')
-    // Inline code
-    .replace(/`([^`]+)`/gim, '<code>$1</code>')
-    // Headers
-    .replace(/^###### (.*$)/gim, '<h6>$1</h6>')
-    .replace(/^##### (.*$)/gim, '<h5>$1</h5>')
-    .replace(/^#### (.*$)/gim, '<h4>$1</h4>')
-    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-    // Bold and Italic
-    .replace(/\*\*\*(.*?)\*\*\*/gim, '<strong><em>$1</em></strong>')
-    .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
-    .replace(/\*(.*?)\*/gim, '<em>$1</em>')
-    .replace(/__(.*?)__/gim, '<strong>$1</strong>')
-    .replace(/_(.*?)_/gim, '<em>$1</em>')
-    // Strikethrough
-    .replace(/~~(.*?)~~/gim, '<del>$1</del>')
-    // Links and Images
-    .replace(/!\[([^\]]*)\]\(([^)]+)\)/gim, '<img alt="$1" src="$2" />')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/gim, '<a href="$2">$1</a>')
-    // Blockquotes
-    .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
-    // Horizontal rules
-    .replace(/^---$/gim, '<hr />')
-    // Lists (basic)
-    .replace(/^[-*+] (.*)$/gim, '<li>$1</li>')
-    .replace(/^(\d+)\. (.*)$/gim, '<li>$2</li>')
-    // Line breaks
-    .replace(/\n\n/gim, '</p><p>')
-    .replace(/\n/gim, '<br />');
+  return (
+    markdown
+      // Code blocks
+      .replace(
+        /```([a-z]*)\n([\s\S]*?)\n```/gim,
+        '<pre><code class="language-$1">$2</code></pre>'
+      )
+      // Inline code
+      .replace(/`([^`]+)`/gim, '<code>$1</code>')
+      // Headers
+      .replace(/^###### (.*$)/gim, '<h6>$1</h6>')
+      .replace(/^##### (.*$)/gim, '<h5>$1</h5>')
+      .replace(/^#### (.*$)/gim, '<h4>$1</h4>')
+      .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+      .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+      .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+      // Bold and Italic
+      .replace(/\*\*\*(.*?)\*\*\*/gim, '<strong><em>$1</em></strong>')
+      .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+      .replace(/__(.*?)__/gim, '<strong>$1</strong>')
+      .replace(/_(.*?)_/gim, '<em>$1</em>')
+      // Strikethrough
+      .replace(/~~(.*?)~~/gim, '<del>$1</del>')
+      // Links and Images
+      .replace(/!\[([^\]]*)\]\(([^)]+)\)/gim, '<img alt="$1" src="$2" />')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/gim, '<a href="$2">$1</a>')
+      // Blockquotes
+      .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
+      // Horizontal rules
+      .replace(/^---$/gim, '<hr />')
+      // Lists (basic)
+      .replace(/^[-*+] (.*)$/gim, '<li>$1</li>')
+      .replace(/^(\d+)\. (.*)$/gim, '<li>$2</li>')
+      // Line breaks
+      .replace(/\n\n/gim, '</p><p>')
+      .replace(/\n/gim, '<br />')
+  );
 };
 
 // Implementation of MDX component handler (placeholder for now)
@@ -119,13 +126,15 @@ const useMDXComponent = (mdxContent: string) => {
         // TODO: Use the MDX compiler when available
         // const { compile } = await import('@mdx-js/mdx');
         // ... compilation logic ...
-        
+
         // For now, fallback to basic markdown conversion
-        console.log('[ContentRenderer] MDX compiler not available, falling back to markdown');
+        // console.log('[ContentRenderer] MDX compiler not available, falling back to markdown');
         setComponent(() => () => {
           const htmlContent = basicMarkdownToHtml(mdxContent);
           return (
-            <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(htmlContent) }} />
+            <div
+              dangerouslySetInnerHTML={{ __html: sanitizeHtml(htmlContent) }}
+            />
           );
         });
       } catch (error) {
@@ -133,7 +142,9 @@ const useMDXComponent = (mdxContent: string) => {
         setComponent(() => () => {
           const htmlContent = basicMarkdownToHtml(mdxContent);
           return (
-            <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(htmlContent) }} />
+            <div
+              dangerouslySetInnerHTML={{ __html: sanitizeHtml(htmlContent) }}
+            />
           );
         });
       }
@@ -170,14 +181,14 @@ const ContentRenderer: React.FC<{
   React.useEffect(() => {
     // Log debug information about content format (commented out to reduce noise)
     /* DEBUG LOGS
-    console.log(
-      `[ContentRenderer] Content format decision:
-      - Explicitly provided format: ${format || 'none'}
-      - Auto-detected format: ${detectedFormat}
-      - Final format being used: ${contentFormat}
-      - Content type check: ${typeof content}
-      - Content length: ${content?.length || 0} characters
-      `
+    // console.log(
+      // `[ContentRenderer] Content format decision:
+      // - Explicitly provided format: ${format || 'none'}
+      // - Auto-detected format: ${detectedFormat}
+      // - Final format being used: ${contentFormat}
+      // - Content type check: ${typeof content}
+      // - Content length: ${content?.length || 0} characters
+      // `
     );
     */
   }, [format, detectedFormat, contentFormat, content]);
@@ -192,7 +203,7 @@ const ContentRenderer: React.FC<{
         //     <ReactMarkdown>{content}</ReactMarkdown>
         //   </div>
         // );
-        
+
         const htmlContent = basicMarkdownToHtml(content);
         return (
           <div
@@ -226,7 +237,7 @@ const ContentRenderer: React.FC<{
         //     </MDXProvider>
         //   </div>
         // );
-        
+
         return (
           <div style={baseStyles} className={`mdx-content ${className || ''}`}>
             {MDXContentComponent && <MDXContentComponent />}
@@ -257,11 +268,11 @@ const ContentRenderer: React.FC<{
       const hasActualContent = strippedHtml.length > 0;
 
       /* DEBUG LOG - Commented out to reduce console noise
-      console.log(`[ContentRenderer] HTML rendering: 
-        - Original content length: ${htmlContent.length} chars
-        - Sanitized content length: ${sanitizedContent.length} chars
-        - Content without HTML tags: ${strippedHtml.length} chars
-      `);
+      // console.log(`[ContentRenderer] HTML rendering: 
+        // - Original content length: ${htmlContent.length} chars
+        // - Sanitized content length: ${sanitizedContent.length} chars
+        // - Content without HTML tags: ${strippedHtml.length} chars
+      // `);
       */
 
       if (hasActualContent) {
@@ -314,12 +325,12 @@ export const ContentView: React.FC<ContentViewProps> = ({
   // Debug log the props passed to ContentView
   React.useEffect(() => {
     /* DEBUG LOG - Commented out to reduce console noise
-    console.log('[ContentView] Props received:', {
-      postId: post?.id,
-      contentType,
-      format,
-      contentPreview: post?.content?.slice(0, 50),
-    });
+    // console.log('[ContentView] Props received:', {
+      // postId: post?.id,
+      // contentType,
+      // format,
+      // contentPreview: post?.content?.slice(0, 50),
+    // });
     */
   }, [post, contentType, format]);
   const { theme } = useAppTheme();
@@ -366,12 +377,12 @@ export const ContentView: React.FC<ContentViewProps> = ({
   };
 
   /* DEBUG LOGS - Commented out to reduce console noise
-  console.log('[ContentView] Rendering post:', post);
+  // console.log('[ContentView] Rendering post:', post);
 
   // Add debugging for author resolution
-  console.log(
-    '[ContentView] Author resolution debug:',
-    debugAuthorResolution(post)
+  // console.log(
+    // '[ContentView] Author resolution debug:',
+    // debugAuthorResolution(post)
   );
   */
 

@@ -40,9 +40,9 @@ export const useDefaultFontScale = () => {
             // Keep fontScaleManuallySet as false since this is an auto-adjustment
           },
         }));
-        console.log(
-          `Default font scale set to ${newDefaultScale} based on device type: ${isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop'}`
-        );
+        // console.log(
+        //   `Default font scale set to ${newDefaultScale} based on device type: ${isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop'}`
+        // );
       }
     }
   }, [isMobile, isTablet, orientation, fontScaleManuallySet, fontScale]);
