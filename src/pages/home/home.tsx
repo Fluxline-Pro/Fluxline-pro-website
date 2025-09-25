@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
@@ -7,7 +7,7 @@ import {
   useDeviceOrientation,
   useIsMobile,
 } from '../../theme/hooks/useMediaQuery';
-import { useUserPreferencesStore } from '../../store/store-specs/userPreferencesStore';
+// import { useUserPreferencesStore } from '../../store/store-specs/userPreferencesStore';
 import useBackgroundImage from '../../theme/hooks/useBackgroundImage';
 import { ViewportGrid } from '../../theme/layouts/ViewportGrid';
 import { LayoutGrid } from '../../theme/layouts/LayoutGrid';
@@ -346,7 +346,7 @@ const HomeContent: React.FC<{
               ...(animateSubHeaderLines[2] && animationStyles.slideInDown),
             }}
           >
-            <HighlightText text='transformation' /> solutions
+            <HighlightText text='personal training' /> solutions
           </div>
         </Typography>
       </div>
@@ -356,24 +356,24 @@ const HomeContent: React.FC<{
 };
 
 export const Home: React.FC = () => {
-  const { onboardingDoneOrSkipped } = useUserPreferencesStore(
-    (state) => state.preferences
-  );
+  // const { onboardingDoneOrSkipped } = useUserPreferencesStore(
+  //   (state) => state.preferences
+  // );
   const { backgroundImage } = useBackgroundImage(); // Much simpler now!
   const isMobile = useIsMobile();
   const [isLoading, setIsLoading] = React.useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  React.useEffect(() => {
-    // Only navigate to onboarding if not done and not already on onboarding path
-    if (
-      !onboardingDoneOrSkipped &&
-      !window.location.pathname.includes('/onboarding')
-    ) {
-      setIsLoading(false);
-      navigate('/onboarding');
-    }
-  }, [navigate, onboardingDoneOrSkipped]);
+  // React.useEffect(() => {
+  //   // Only navigate to onboarding if not done and not already on onboarding path
+  //   if (
+  //     !onboardingDoneOrSkipped &&
+  //     !window.location.pathname.includes('/onboarding')
+  //   ) {
+  //     setIsLoading(false);
+  //     navigate('/onboarding');
+  //   }
+  // }, [navigate, onboardingDoneOrSkipped]);
 
   if (isLoading) {
     return <ProgressBar label='Loading...' />;

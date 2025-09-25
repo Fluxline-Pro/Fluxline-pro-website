@@ -503,10 +503,10 @@ export const generateMockContent = (
       case 'about':
         return {
           ...baseContent,
-          title: `About Fluxline`,
+          title: `About Us`,
           description: `Strategic architecture for modern business transformation. Learn about our vision, methodology, and commitment to excellence.`,
           imageUrl: faker.image.urlPicsumPhotos({ width: 1200, height: 800 }),
-          imageAlt: `About Fluxline`,
+          imageAlt: `About Us`,
           category: 'Company',
           content: `Fluxline represents the future of strategic business architecture. We specialize in transforming complex business challenges into streamlined, efficient solutions that drive growth and innovation.`,
         };

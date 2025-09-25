@@ -7,7 +7,7 @@ interface RouteToTitleMap {
 
 const routeToTitleMap: RouteToTitleMap = {
   '/': 'Home',
-  '/about': 'About Me',
+  '/about': 'About Us',
   '/services': 'Services',
   '/services/personal-training': 'Personal Training',
   '/services/education-training': 'Education Training',
@@ -16,7 +16,7 @@ const routeToTitleMap: RouteToTitleMap = {
   '/services/design': 'Design',
   '/services/business': 'Business',
   '/blog': 'Blog',
-  '/contact-me': 'Contact Me',
+  '/contact-me': 'Contact Us',
   '/books': 'Books',
   '/events': 'Events',
   '/github': 'GitHub',
@@ -51,27 +51,27 @@ export const useDocumentTitle = (): void => {
       if (pathname.startsWith('/blog/')) {
         return 'Blog';
       }
-      
+
       if (pathname.startsWith('/portfolio/')) {
         return 'Portfolio';
       }
-      
+
       if (pathname.startsWith('/books/')) {
         return 'Books';
       }
-      
+
       if (pathname.startsWith('/github/')) {
         return 'GitHub';
       }
-      
+
       if (pathname.startsWith('/music/')) {
         return 'Music';
       }
-      
+
       if (pathname.startsWith('/videos/')) {
         return 'Videos';
       }
-      
+
       if (pathname.startsWith('/livestreams/')) {
         return 'Livestreams';
       }
@@ -82,7 +82,7 @@ export const useDocumentTitle = (): void => {
 
     const pageTitle = getPageTitle(location.pathname);
     const fullTitle = `TerenceWaters.com - ${pageTitle}`;
-    
+
     document.title = fullTitle;
   }, [location.pathname]);
 };

@@ -8,12 +8,13 @@ import { useContentFilterStore } from '../../store/store-specs/contentFilterStor
 // Define page configurations
 const PAGE_CONFIGS = {
   '/about': {
-    image: require('../../assets/images/AboutMePortrait.jpg'),
-    imageText: 'About Me',
+    // Using placeholder - you may want to replace this with an actual Fluxline manifesto image
+    image: require('../../assets/images/FluxlineLogo.png'),
+    imageText: '',
   },
   '/services': {
-    image: require('../../assets/images/LinkedInTerenceW1024x1536.jpeg'),
-    imageText: 'My Services',
+    image: require('../../assets/images/FluxlineLogo.png'),
+    imageText: '',
   },
   '/services/education-training': {
     image: require('../../assets/images/EducationTrainingPortrait.jpg'),
@@ -44,8 +45,8 @@ const PAGE_CONFIGS = {
     imageText: 'Blog',
   },
   '/contact-me': {
-    image: require('../contact-me/assets/ContactMe1280x1815.jpg'),
-    imageText: 'Contact Me',
+    image: require('../../assets/images/FluxlineLogo.png'),
+    imageText: '',
   },
   '/books': {
     image: require('../../assets/images/EducationTrainingPortrait.jpg'),

@@ -1,12 +1,25 @@
 import { IAboutPercentagePoint, IAboutBulletPoint } from './services.types';
 
+const FLUXLINE_TAGLINE = "We're not done yet— \nbut we're already extraordinary.";
+const FLUXLINE_SECONDARY_TAGLINE = 'Modular by design. Resonant by nature.';
+
 const ABOUT_PROFESSIONAL_SUMMARY = [
-  'Architect of transformative systems, brand experiences, and human-centric technology who specializes in modular web development, IT infrastructure, and scalable design ecosystems with a focus on emotional clarity, strategic innovation, and long-term impact.',
-  'As the founder of Fluxline, I bring together advanced architecture, creative storytelling, and intentional coaching to help clients build not just solutions but philosophies, brands, and living identities that evolve with them. Let\'s make your vision a reality!'
+  'Fluxline architects transformative systems, brand experiences, and human-centric technology solutions, specializing in modular web development, IT infrastructure, and scalable design ecosystems with a focus on emotional clarity, strategic innovation, and long-term impact.',
+  'We bring together advanced architecture, creative storytelling, and intentional coaching to help clients build not just solutions but philosophies, brands, and living identities that evolve with them. We engineer resonance, resilience, and results—helping you build frameworks that adapt to growth, not restrict it. Let us make your vision a reality!',
+];
+
+const FLUXLINE_MISSION_VISION = [
+  'We seek to architect multidimensional systems that fuse emotional intelligence, financial clarity, and somatic discipline—empowering individuals and brands to live with modular precision and legacy-driven resonance.',
+  'Fluxline envisions a world where every person becomes a self-authored steward of their inner and outer architecture—where dashboards track not just dollars and reps, but moments of truth, love, and creativity. It sees businesses as living organisms shaped by values, not just value. It sees monthly plans as mirrors, and relationships as sacred protocols of presence. Through these lenses of entity and endless spirality, Fluxline guides individuals and brands to design lives and legacies that echo beyond the present moment while also ritualizing the now.',
+];
+
+const FLUXLINE_ETHOS = [
+  'Fluxline is a system of intentional architecture—financial, physical, emotional, and relational—designed to cultivate legacy through modular stewardship. It is not just a brand; it is a behavioral mirror, a container for aligned action, and a ritual of becoming. Every protocol, dashboard, and ledger serves as a bridge between inner awareness and outer expression.',
+  "Our core pillars include: Modularity—systems flex and scale to meet life's evolving cadence; Stewardship—every resource is held with reverence and responsibility; Integration—emotional resonance is embedded in every metric and model; Integrity—structures align with ethos, not ego; and Legacy—every system is designed to echo beyond the present moment.",
 ];
 
 const SERVICES_SUMMARY =
-  'I offer strategic, design-forward, and emotionally intelligent solutions that help individuals and businesses build their brand and identity. Every service I offer is rooted in progressive, intentional design and build to push you and your business forward. Click on a service below to learn more!';
+  'Fluxline offers strategic, design-forward, and emotionally intelligent solutions that help individuals and businesses build their brand and identity. Every service we offer is rooted in progressive, intentional design and build to push yourself and/or your business forward. Click on a service below to learn more!';
 
 const EDUCATION_TRAINING_SUMMARY =
   'Transformational coaching, founder mentorship, and emotionally intelligent team leadership for those who build with purpose.';
@@ -30,22 +43,22 @@ const ABOUT_BULLET_POINTS: IAboutBulletPoint[] = [
   {
     name: 'Personable and Approachable',
     description:
-      'I prioritize human connection and empathy—building systems around how people feel, think, and grow.',
+      'Fluxline prioritizes human connection and empathy—building systems around how people feel, think, and grow.',
   },
   {
     name: 'Technologically Curious',
     description:
-      'I integrate emerging trends in design, AI, and backend architecture to fuel innovation and unlock new possibilities.',
-  },
-  {
-    name: 'Intentional Learner',
-    description:
-      'My process is iterative and expansive—driven by a commitment to growth, clarity, and adaptive evolution.',
+      'We integrate emerging trends in design, AI, and backend architecture to fuel innovation and unlock new possibilities.',
   },
   {
     name: 'Creative & Modular Thinker',
     description:
-      'I architect brands and systems that flex, scale, and resonate—balancing creativity with precision.',
+      'Fluxline architects brands and systems that flex, scale, and resonate—balancing creativity with precision.',
+  },
+  {
+    name: 'Intentional Learner',
+    description:
+      'Our process is iterative and expansive—driven by a commitment to growth, clarity, and adaptive evolution.',
   },
   {
     name: 'Detail-crafted',
@@ -55,21 +68,22 @@ const ABOUT_BULLET_POINTS: IAboutBulletPoint[] = [
   {
     name: 'Problem alchemist',
     description:
-      'I synthesize complexity into elegance—translating tangled systems into streamlined, actionable solutions.',
+      'We synthesize complexity into elegance—translating tangled systems into streamlined, actionable solutions.',
   },
   {
     name: 'Proactive strategist',
     description:
-      'I don’t wait for clarity--I design it. I move early, test intelligently, and pivot with intention.',
+      'We don’t wait for clarity--we design it. We move early, test intelligently, and pivot with intention.',
   },
   {
     name: 'Results + resonance',
     description:
-      'I deliver outcomes clients can measure—and frameworks they can feel. Impact isn’t just numeric, it’s experiential.',
+      'We deliver outcomes clients can measure—and frameworks they can feel. Impact isn’t just numeric, it’s experiential.',
   },
 ];
 
 const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
+  // Technical Skills
   {
     name: 'design thinking',
     percentage: 100,
@@ -142,6 +156,46 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
     name: 'motion design',
     percentage: 89,
   },
+  // Guiding Principles
+  {
+    name: 'intelligence',
+    percentage: 100,
+  },
+  {
+    name: 'influence',
+    percentage: 100,
+  },
+  {
+    name: 'creativity',
+    percentage: 100,
+  },
+  {
+    name: 'love',
+    percentage: 100,
+  },
+  {
+    name: 'drive',
+    percentage: 100,
+  },
+  {
+    name: 'stillness',
+    percentage: 100,
+  },
+  {
+    name: 'empathy',
+    percentage: 100,
+  },
+  {
+    name: 'courage',
+    percentage: 98,
+  },
+  {    name: 'authenticity',
+    percentage: 97,
+  },
+  {
+    name: 'curiosity',
+    percentage: 96,
+  }
 ];
 
 // Services-specific data
@@ -434,6 +488,10 @@ const SERVICES_EXPORTS = {
   DEVELOPMENT_SUMMARY,
   EDUCATION_TRAINING_BULLET_POINTS,
   EDUCATION_TRAINING_SUMMARY,
+  FLUXLINE_ETHOS,
+  FLUXLINE_MISSION_VISION,
+  FLUXLINE_TAGLINE,
+  FLUXLINE_SECONDARY_TAGLINE,
   PERSONAL_TRAINING_BULLET_POINTS,
   PERSONAL_TRAINING_SUMMARY,
   SERVICES_BULLET_POINTS,

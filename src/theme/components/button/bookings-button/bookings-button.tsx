@@ -32,7 +32,7 @@ export const BookingsButton = ({
       onClick={bookingsButton}
       style={{
         marginTop: orientation === 'portrait' ? '0' : '1rem',
-        marginBottom: isContactMePage ? '2rem !important' : '0 !important',
+        marginBottom: isContactMePage ? '1rem !important' : '0 !important',
         padding: '12px 16px',
         minHeight: orientation === 'portrait' ? '40px' : undefined,
         minWidth: '250px',
