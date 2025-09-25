@@ -1,4 +1,3 @@
-import React from 'react';
 import { SocialIcon } from './social-icons.types';
 import FacebookLogo from '../../../../assets/svgs/FacebookLogo';
 import InstagramLogo from '../../../../assets/svgs/InstagramLogo';
@@ -45,10 +44,10 @@ export const getSocialIcons = (): SocialIcon[] => [
     tooltip: 'TikTok',
     isTagline: false,
   },
-  {
+  { // removing off Fluxline
     iconName: <MicrosoftLogo />,
-    url: 'https://www.xbox.com/en-us/players/profile?player=AplUSAndmINUS',
-    tooltip: 'Xbox',
+    url: 'mailto:terence@fluxline.pro',
+    tooltip: 'Microsoft Email',
     isTagline: false,
   },
 ];

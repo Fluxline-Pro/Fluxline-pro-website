@@ -55,10 +55,10 @@ const defaultPreferences: UserPreferences = {
   reducedMotion: false,
   highContrast: false,
   themeMode: 'dark', // Fluxline Pro default: dark mode for focused aesthetic
-  isOnboarded: false,
+  isOnboarded: true,
   layoutPreference: 'right-handed',
   readingDirection: 'ltr',
-  onboardingDoneOrSkipped: false,
+  onboardingDoneOrSkipped: true,
   userFirstName: '',
   isAuthenticated: false,
 };

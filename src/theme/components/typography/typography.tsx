@@ -77,7 +77,7 @@ export const Typography: React.FC<TypographyProps> = ({
   textTransform,
   opacity,
   transform,
-  noHyphens = false,
+  noHyphens = true,
   animation,
   animationDelay,
   animationDuration,

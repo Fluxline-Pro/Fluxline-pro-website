@@ -144,7 +144,7 @@ export const ContentArea = React.forwardRef<HTMLDivElement, ContentAreaProps>(
                   : orientation === 'tablet-portrait'
                     ? 'clamp(0px, 100vh, 850px)' // Smaller height to not run into menu buttons on tablet-portrait
                     : orientation === 'ultrawide' || orientation === 'landscape'
-                      ? 'clamp(0px, 100vh, 800px)' // Using clamp instead of min for better cross-environment support
+                      ? 'clamp(0px, 100vh, 900px)' // Using clamp instead of min for better cross-environment support
                       : orientation === 'large-portrait'
                         ? 'clamp(0px, 100vh, 1200px)'
                         : '100vh',

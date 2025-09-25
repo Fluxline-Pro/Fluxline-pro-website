@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { Typography } from '../../theme/components/typography/typography';
@@ -8,6 +8,10 @@ import { Container } from '../../theme/layouts/Container';
 import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
 import { useContactStore } from '../../store/store-specs/contactStore';
 import { useIsMobile } from '../../theme/hooks/useMediaQuery';
+import { ImageModal } from '../../theme/components/modal/image-modal';
+// Import business card images directly
+import BusinessCardFront from '../../assets/images/businessCardFront.png';
+import BusinessCardBack from '../../assets/images/businessCardBack.png';
 // import { CONTENT_API_FLAGS, isApiAvailable } from '../../utils/contentDataManager';
 
 // interface FormValidation {
@@ -19,7 +23,12 @@ import { useIsMobile } from '../../theme/hooks/useMediaQuery';
 const ContactForm: React.FC = () => {
   const { theme } = useAppTheme();
   const isMobile = useIsMobile();
-  
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState({
+    src: '',
+    alt: '',
+  });
+
   // Use Zustand contact store
   const {
     // formData,
@@ -89,10 +98,10 @@ const ContactForm: React.FC = () => {
   // const handleChange = (fieldName: string) => (value: string) => {
   //   // Update the store
   //   setFormData({ [fieldName]: value });
-    
+
   //   // Clear previous errors when user starts typing
   //   clearErrors();
-    
+
   //   // Real-time validation if form has been submitted
   //   if (hasBeenSubmitted) {
   //     const error = validateField(fieldName, value);
@@ -154,6 +163,7 @@ const ContactForm: React.FC = () => {
         fontSize={theme.typography.fontSizes.clamp7}
         fontVariationSettings='wght 400,wdth 300,slnt 0'
         marginTop={isMobile ? theme.spacing.m : undefined}
+        marginBottom={theme.spacing.m}
       >
         Let's connect!
       </Typography>
@@ -165,11 +175,161 @@ const ContactForm: React.FC = () => {
       >
         Let's discuss your needs and goals! Whether you're seeking project
         estimates, personalized training, strategic consulting, or web
-        development solutions—I'm happy to help. Send me a message or click the
-        button below to get started!
+        development, we're happy to help. Click the button below to book a free, no
+        obligation consultation. You may also download and view my business card below for future reference.
       </Typography>
       <BookingsButton />
       <Typography
+        variant='h2'
+        textAlign='left'
+        color={theme.palette.themePrimary}
+        fontSize={theme.typography.fontSizes.clamp7}
+        fontVariationSettings='wght 400,wdth 300,slnt 0'
+        marginTop={isMobile ? theme.spacing.m : theme.spacing.xxl}
+        marginBottom={isMobile ? theme.spacing.m : theme.spacing.l}
+      >
+        Business Card
+      </Typography>
+      <Container display='flex' flexDirection='row' justifyContent='flex-start'>
+          <div
+            className='business-card-container'
+            onClick={() => {
+              setSelectedImage({
+                src: BusinessCardFront,
+                alt: 'Fluxline Business Card Front',
+              });
+              setModalOpen(true);
+            }}
+            style={{
+              cursor: 'pointer',
+              display: 'flex',
+              justifyContent: 'center',
+              position: 'relative',
+              transition: 'all 0.3s ease',
+            }}
+          >
+            <img
+              src={BusinessCardFront}
+              alt='Fluxline Business Card Front'
+              style={{
+                width: '50%',
+                borderRadius: theme.borderRadius.container.button,
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+              }}
+              className='business-card-image'
+            />
+            <div
+              className='overlay'
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                opacity: 0,
+                transition: 'all 0.3s ease',
+                color: 'white',
+                borderRadius: theme.borderRadius.container.button,
+              }}
+            >
+              <span
+                style={{
+                  background: 'rgba(0,0,0,0.5)',
+                  padding: '8px 12px',
+                  borderRadius: '4px',
+                  backdropFilter: 'blur(2px)',
+                }}
+              >
+                Click to expand
+              </span>
+            </div>
+          </div>
+          <div
+            className='business-card-container'
+            onClick={() => {
+              setSelectedImage({
+                src: BusinessCardBack,
+                alt: 'Fluxline Business Card Back',
+              });
+              setModalOpen(true);
+            }}
+            style={{
+              cursor: 'pointer',
+              display: 'flex',
+              justifyContent: 'center',
+              position: 'relative',
+              transition: 'all 0.3s ease',
+            }}
+          >
+            <img
+              src={BusinessCardBack}
+              alt='Fluxline Business Card Back'
+              style={{
+                width: '50%',
+                borderRadius: theme.borderRadius.container.button,
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+              }}
+              className='business-card-image'
+            />
+            <div
+              className='overlay'
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                opacity: 0,
+                transition: 'all 0.3s ease',
+                color: 'white',
+                borderRadius: theme.borderRadius.container.button,
+              }}
+            >
+              <span
+                style={{
+                  background: 'rgba(0,0,0,0.5)',
+                  padding: '8px 12px',
+                  borderRadius: '4px',
+                  backdropFilter: 'blur(2px)',
+                }}
+              >
+                Click to expand
+              </span>
+            </div>
+          </div>
+      </Container>
+
+      {/* Image Modal for fullscreen viewing */}
+      <ImageModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        imageSrc={selectedImage.src}
+        imageAlt={selectedImage.alt}
+      />
+
+      {/* Inline styles for hover effects */}
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+          .business-card-container:hover .business-card-image {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+          }
+          .business-card-container:hover .overlay {
+            opacity: 1;
+          }
+        `,
+        }}
+      />
+      {/* <Typography
         variant='h2'
         textAlign='left'
         color={theme.palette.themePrimary}
@@ -178,10 +338,10 @@ const ContactForm: React.FC = () => {
         fontVariationSettings='wght 400,wdth 300,slnt 0'
       >
         Contact Me Form
-      </Typography>
+      </Typography> */}
 
       {/* Contact form temporarily disabled due to backend issues */}
-      <Typography
+      {/* <Typography
         variant='p'
         color={theme.palette.orangeLighter}
         marginBottom={theme.spacing.m}
@@ -193,7 +353,7 @@ const ContactForm: React.FC = () => {
         }}
       >
         🚧 Coming soon! For now, please click the booking button above to get in touch with me.
-      </Typography>
+      </Typography> */}
 
       {/* 
       TODO: Re-enable contact form once backend issues are resolved

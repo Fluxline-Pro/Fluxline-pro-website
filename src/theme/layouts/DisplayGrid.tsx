@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { useAppTheme } from '../hooks/useAppTheme';
 import { useDeviceOrientation } from '../hooks/useMediaQuery';
 import { LayoutGrid } from './LayoutGrid';
 
@@ -12,6 +11,12 @@ interface DisplayGridProps {
     landscape?: number;
     square?: number;
     mobileLandscape?: number;
+  };
+  gridTemplateColumns?: {
+    portrait?: string;
+    landscape?: string;
+    square?: string;
+    mobileLandscape?: string;
   };
   gap?: {
     portrait?: string;
@@ -27,6 +32,7 @@ interface DisplayGridProps {
   };
   fullWidth?: boolean;
   nested?: boolean;
+  style?: React.CSSProperties;
 }
 
 export const DisplayGrid: React.FC<DisplayGridProps> = ({
@@ -37,6 +43,12 @@ export const DisplayGrid: React.FC<DisplayGridProps> = ({
     landscape: 12,
     square: 6,
     mobileLandscape: 8,
+  },
+  gridTemplateColumns = {
+    portrait: undefined,
+    landscape: undefined,
+    square: undefined,
+    mobileLandscape: undefined,
   },
   gap = {
     portrait: '1rem',
@@ -52,8 +64,8 @@ export const DisplayGrid: React.FC<DisplayGridProps> = ({
   },
   fullWidth = false,
   nested = false,
+  style = {},
 }) => {
-  const { theme } = useAppTheme();
   const orientation = useDeviceOrientation();
 
   // Get grid configuration based on orientation
@@ -65,43 +77,72 @@ export const DisplayGrid: React.FC<DisplayGridProps> = ({
     };
 
     switch (orientation) {
-      case 'portrait':
+      case 'portrait': {
+        // Use custom grid template if provided, otherwise use columns count
+        const columnsTemplate =
+          gridTemplateColumns?.portrait || `repeat(${columns.portrait}, 1fr)`;
+
         return {
           ...baseConfig,
-          gridTemplateColumns: `repeat(${columns.portrait}, 1fr)`,
+          gridTemplateColumns: columnsTemplate,
           gap: gap.portrait,
           padding: nested ? '0' : padding.portrait,
           gridAutoRows: 'auto',
         };
+      }
       case 'landscape':
-      case 'ultrawide':
+      case 'ultrawide': {
+        // Use custom grid template if provided, otherwise use columns count
+        const columnsTemplate =
+          gridTemplateColumns?.landscape || `repeat(${columns.landscape}, 1fr)`;
+
         return {
           ...baseConfig,
-          gridTemplateColumns: `repeat(${columns.landscape}, 1fr)`,
+          gridTemplateColumns: columnsTemplate,
           gap: gap.landscape,
           padding: nested ? '0' : padding.landscape,
           gridAutoRows: 'auto',
         };
-      case 'square':
+      }
+      case 'square': {
+        // Use custom grid template if provided, otherwise use columns count
+        const columnsTemplate =
+          gridTemplateColumns?.square || `repeat(${columns.square}, 1fr)`;
+
         return {
           ...baseConfig,
-          gridTemplateColumns: `repeat(${columns.square}, 1fr)`,
+          gridTemplateColumns: columnsTemplate,
           gap: gap.square,
           padding: nested ? '0' : padding.square,
           gridAutoRows: 'auto',
         };
-      case 'mobile-landscape':
+      }
+      case 'mobile-landscape': {
+        // Use custom grid template if provided, otherwise use columns count
+        const columnsTemplate =
+          gridTemplateColumns?.mobileLandscape ||
+          `repeat(${columns.mobileLandscape}, 1fr)`;
+
         return {
           ...baseConfig,
-          gridTemplateColumns: `repeat(${columns.mobileLandscape}, 1fr)`,
+          gridTemplateColumns: columnsTemplate,
           gap: gap.mobileLandscape,
           padding: nested ? '0' : padding.mobileLandscape,
           gridAutoRows: 'auto',
         };
+      }
       default:
         return baseConfig;
     }
-  }, [orientation, columns, gap, padding, fullWidth, nested]);
+  }, [
+    orientation,
+    columns,
+    gridTemplateColumns,
+    gap,
+    padding,
+    fullWidth,
+    nested,
+  ]);
 
   // Build class names
   const classes = React.useMemo(() => {
@@ -114,7 +155,7 @@ export const DisplayGrid: React.FC<DisplayGridProps> = ({
   return (
     <LayoutGrid
       className={classes}
-      style={gridConfig}
+      style={{ ...gridConfig, ...style }}
       containerType='inline-size'
       containerName='display-grid'
     >
@@ -203,6 +244,7 @@ export const GridItem: React.FC<GridItemProps> = ({
 
 // Example usage:
 /*
+// Example 1: Using columns count
 <DisplayGrid
   columns={{
     portrait: 1,
@@ -237,5 +279,25 @@ export const GridItem: React.FC<GridItemProps> = ({
   >
     Content 2
   </GridItem>
+</DisplayGrid>
+
+// Example 2: Using custom gridTemplateColumns
+<DisplayGrid
+  gridTemplateColumns={{
+    portrait: '1fr',
+    landscape: '2fr 1fr 3fr',
+    square: 'repeat(3, 1fr)',
+    mobileLandscape: 'minmax(100px, 1fr) 2fr',
+  }}
+  gap={{
+    portrait: '1rem',
+    landscape: '2rem',
+    square: '1.5rem',
+    mobileLandscape: '1rem',
+  }}
+>
+  <GridItem>Content 1</GridItem>
+  <GridItem>Content 2</GridItem>
+  <GridItem>Content 3</GridItem>
 </DisplayGrid>
 */

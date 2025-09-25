@@ -3,16 +3,16 @@ import { RouteObject, createBrowserRouter } from 'react-router-dom';
 import { mergeStyles } from '@fluentui/react';
 
 // Onboarding
-import Onboarding from '../pages/onboarding/onboarding';
-import OnboardingAnimation from '../pages/onboarding/onboarding-animation/onboarding-animation';
-import OnboardingWelcome from '../pages/onboarding/views/onboarding-welcome';
-import OnboardingName from '../pages/onboarding/views/onboarding-name';
-import OnboardingLayout from '../pages/onboarding/views/onboarding-layout';
-import OnboardingFontSize from '../pages/onboarding/views/onboarding-fontsize';
-import OnboardingTheme from '../pages/onboarding/views/onboarding-theme';
-import OnboardingAccessibility from '../pages/onboarding/views/onboarding-accessibility';
-import OnboardingComplete from '../pages/onboarding/views/onboarding-complete';
-import OnboardingSkip from '../pages/onboarding/views/onboarding-skip';
+// import Onboarding from '../pages/onboarding/onboarding';
+// import OnboardingAnimation from '../pages/onboarding/onboarding-animation/onboarding-animation';
+// import OnboardingWelcome from '../pages/onboarding/views/onboarding-welcome';
+// import OnboardingName from '../pages/onboarding/views/onboarding-name';
+// import OnboardingLayout from '../pages/onboarding/views/onboarding-layout';
+// import OnboardingFontSize from '../pages/onboarding/views/onboarding-fontsize';
+// import OnboardingTheme from '../pages/onboarding/views/onboarding-theme';
+// import OnboardingAccessibility from '../pages/onboarding/views/onboarding-accessibility';
+// import OnboardingComplete from '../pages/onboarding/views/onboarding-complete';
+// import OnboardingSkip from '../pages/onboarding/views/onboarding-skip';
 
 // CSS Transition
 import InitialLayout from '../theme/layouts/InitialLayout';
@@ -21,8 +21,8 @@ import InitialLayout from '../theme/layouts/InitialLayout';
 import Home from '../pages/home/home';
 import NotFound from '../pages/404/404';
 import ContactPage from '../pages/contact-page/contact-page';
-import Events from '../pages/events/events';
-import Portfolio from '../pages/portfolio/portfolio';
+// import Events from '../pages/events/events';
+// import Portfolio from '../pages/portfolio/portfolio';
 import AuthScreen from '../pages/auth-screen/auth-screen';
 import ServicesPage from '../pages/services-page/services-page';
 import { UnifiedContentPage } from '../pages/unified-content-page/unified-content-page';
@@ -139,74 +139,74 @@ const routes: RouteObject[] = [
           },
         ],
       },
-      {
-        path: 'authors',
-        element: <UnifiedContentPage contentType='authors' />,
-        children: [
-          {
-            path: ':id',
-            element: <></>, // Content is handled by UnifiedContentPage
-          },
-        ],
-      },
-      {
-        path: 'events',
-        element: <Events />,
-      },
-      {
-        path: 'github',
-        element: <UnifiedContentPage contentType='github' />,
-        children: [
-          {
-            path: ':id',
-            element: <></>, // Content is handled by UnifiedContentPage
-          },
-        ],
-      },
-      {
-        path: 'music',
-        element: <UnifiedContentPage contentType='music' />,
-        children: [
-          {
-            path: ':id',
-            element: <></>, // Content is handled by UnifiedContentPage
-          },
-        ],
-      },
-      {
-        path: 'my-content',
-        element: <Portfolio contentType='my-content' />,
-      },
-      {
-        path: 'portfolio',
-        element: <Portfolio contentType='portfolio' />,
-        children: [
-          {
-            path: ':id',
-            element: <></>, // Portfolio handles its own routing
-          },
-        ],
-      },
-      {
-        path: 'videos',
-        element: <UnifiedContentPage contentType='videos' />,
-        children: [
-          {
-            path: ':id',
-            element: <></>, // Content is handled by UnifiedContentPage
-          },
-        ],
-      },
-      {
-        path: 'livestreams',
-        element: <UnifiedContentPage contentType='livestreams' />,
-        children: [
-          {
-            path: ':id',
-            element: <></>, // Content is handled by UnifiedContentPage
-          },
-        ],
-      },
+      // {
+      //   path: 'authors',
+      //   element: <UnifiedContentPage contentType='authors' />,
+      //   children: [
+      //     {
+      //       path: ':id',
+      //       element: <></>, // Content is handled by UnifiedContentPage
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: 'events',
+      //   element: <Events />,
+      // },
+      // {
+      //   path: 'github',
+      //   element: <UnifiedContentPage contentType='github' />,
+      //   children: [
+      //     {
+      //       path: ':id',
+      //       element: <></>, // Content is handled by UnifiedContentPage
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: 'music',
+      //   element: <UnifiedContentPage contentType='music' />,
+      //   children: [
+      //     {
+      //       path: ':id',
+      //       element: <></>, // Content is handled by UnifiedContentPage
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: 'my-content',
+      //   element: <Portfolio contentType='my-content' />,
+      // },
+      // {
+      //   path: 'portfolio',
+      //   element: <Portfolio contentType='portfolio' />,
+      //   children: [
+      //     {
+      //       path: ':id',
+      //       element: <></>, // Portfolio handles its own routing
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: 'videos',
+      //   element: <UnifiedContentPage contentType='videos' />,
+      //   children: [
+      //     {
+      //       path: ':id',
+      //       element: <></>, // Content is handled by UnifiedContentPage
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: 'livestreams',
+      //   element: <UnifiedContentPage contentType='livestreams' />,
+      //   children: [
+      //     {
+      //       path: ':id',
+      //       element: <></>, // Content is handled by UnifiedContentPage
+      //     },
+      //   ],
+      // },
       {
         path: 'press',
         element: <UnifiedContentPage contentType='press' />,
@@ -217,48 +217,48 @@ const routes: RouteObject[] = [
           },
         ],
       },
-      {
-        path: 'onboarding',
-        element: <Onboarding />,
-        children: [
-          {
-            path: 'animation',
-            element: <OnboardingAnimation />,
-          },
-          {
-            path: 'welcome',
-            element: <OnboardingWelcome />,
-          },
-          {
-            path: 'name',
-            element: <OnboardingName />,
-          },
-          {
-            path: 'layout',
-            element: <OnboardingLayout />,
-          },
-          {
-            path: 'font-size',
-            element: <OnboardingFontSize />,
-          },
-          {
-            path: 'theme',
-            element: <OnboardingTheme />,
-          },
-          {
-            path: 'accessibility',
-            element: <OnboardingAccessibility />,
-          },
-          {
-            path: 'complete',
-            element: <OnboardingComplete />,
-          },
-          {
-            path: 'skip',
-            element: <OnboardingSkip />,
-          },
-        ],
-      },
+      // {
+      //   path: 'onboarding',
+      //   element: <Onboarding />,
+      //   children: [
+      //     {
+      //       path: 'animation',
+      //       element: <OnboardingAnimation />,
+      //     },
+      //     {
+      //       path: 'welcome',
+      //       element: <OnboardingWelcome />,
+      //     },
+      //     {
+      //       path: 'name',
+      //       element: <OnboardingName />,
+      //     },
+      //     {
+      //       path: 'layout',
+      //       element: <OnboardingLayout />,
+      //     },
+      //     {
+      //       path: 'font-size',
+      //       element: <OnboardingFontSize />,
+      //     },
+      //     {
+      //       path: 'theme',
+      //       element: <OnboardingTheme />,
+      //     },
+      //     {
+      //       path: 'accessibility',
+      //       element: <OnboardingAccessibility />,
+      //     },
+      //     {
+      //       path: 'complete',
+      //       element: <OnboardingComplete />,
+      //     },
+      //     {
+      //       path: 'skip',
+      //       element: <OnboardingSkip />,
+      //     },
+      //   ],
+      // },
       {
         path: '*',
         element: <Loading>{<NotFound />}</Loading>,
