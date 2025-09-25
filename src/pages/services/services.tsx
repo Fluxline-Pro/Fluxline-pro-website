@@ -68,9 +68,9 @@ export const GetStarted: React.FC = () => {
         textAlign='left'
         color={theme.palette.neutralPrimary}
         marginBottom='1rem'
+        noHyphens
       >
-        We'd love to help you with your next project! Book a free consultation
-        below.
+        We'd love to help you with your next project! Click this button to book a free, no obligation consultation with us below.
       </Typography>
       <BookingsButton />
     </div>
@@ -130,7 +130,7 @@ export const AboutSection: React.FC<{
             key={point.name}
             style={{
               padding: '1rem',
-              background: theme.palette.neutralLighterAlt,
+              background: theme.palette.neutralLight,
               borderRadius: '4px',
               height: '100%',
             }}
@@ -532,10 +532,11 @@ export const TechnicalSkillsSection: React.FC<PercentageCirclesProps> = ({
   const topSkills = SERVICES_EXPORTS.ABOUT_PERCENTAGE_POINTS.slice(5, 17);
 
   return (
-    <div style={{ marginBottom: '4rem' }}>
+    <div style={{ marginBottom: '4rem', background: theme.palette.neutralLight, padding: '2rem', borderRadius: '4px' }}>
       <Typography
         variant='h2'
         color={theme.palette.themePrimary}
+        textAlign='center'
         margin='0 0 2rem 2rem'
         fontSize={theme.typography.fontSizes.clamp7}
       >
@@ -591,7 +592,7 @@ export const GuidingPrinciplesSection: React.FC<PercentageCirclesProps> = ({
     <div
       style={{
         marginBottom: '4rem',
-        background: theme.palette.neutralLighterAlt,
+        background: theme.palette.neutralLight,
         padding: '2rem',
         borderRadius: '4px',
       }}
@@ -668,7 +669,7 @@ export const ServicesSection: React.FC<{
   return (
     <div
       style={{
-        background: theme.palette.neutralLighterAlt,
+        background: theme.palette.neutralLight,
         padding: '2rem',
         margin: '2rem -2rem',
         borderRadius: '4px',
@@ -676,8 +677,8 @@ export const ServicesSection: React.FC<{
     >
       <Typography
         variant='h2'
-        textAlign='center'
         color={theme.palette.themePrimary}
+        textAlign='center'
         margin='0 0 1.5rem 0'
         fontSize={theme.typography.fontSizes.clamp7}
         fontVariationSettings='wght 400,wdth 300,slnt 0'
@@ -686,7 +687,6 @@ export const ServicesSection: React.FC<{
       </Typography>
       <Typography
         variant='p'
-        textAlign='center'
         color={theme.palette.neutralPrimary}
         marginBottom='2.5rem'
         noHyphens
@@ -755,7 +755,7 @@ export const TaglineHeader: React.FC<{
   return (
     <div
       style={{
-        background: theme.palette.neutralLighterAlt,
+        background: theme.palette.neutralLight,
         textAlign: 'center',
         padding: '0',
         borderLeft: `4px solid ${theme.palette.themePrimary}`,

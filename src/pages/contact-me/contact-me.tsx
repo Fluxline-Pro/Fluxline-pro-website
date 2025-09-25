@@ -165,11 +165,10 @@ const ContactForm: React.FC = () => {
       >
         Let's discuss your needs and goals! Whether you're seeking project
         estimates, personalized training, strategic consulting, or web
-        development solutions—I'm happy to help. Send me a message or click the
-        button below to get started!
+        development, we're happy to help. Click the button to book a free, no obligation consultation.
       </Typography>
       <BookingsButton />
-      <Typography
+      {/* <Typography
         variant='h2'
         textAlign='left'
         color={theme.palette.themePrimary}
@@ -178,10 +177,10 @@ const ContactForm: React.FC = () => {
         fontVariationSettings='wght 400,wdth 300,slnt 0'
       >
         Contact Me Form
-      </Typography>
+      </Typography> */}
 
       {/* Contact form temporarily disabled due to backend issues */}
-      <Typography
+      {/* <Typography
         variant='p'
         color={theme.palette.orangeLighter}
         marginBottom={theme.spacing.m}
@@ -193,7 +192,7 @@ const ContactForm: React.FC = () => {
         }}
       >
         🚧 Coming soon! For now, please click the booking button above to get in touch with me.
-      </Typography>
+      </Typography> */}
 
       {/* 
       TODO: Re-enable contact form once backend issues are resolved

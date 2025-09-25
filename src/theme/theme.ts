@@ -391,7 +391,7 @@ export const typography = {
       fontWeight: '800' as '800',
       fontVariationSettings: '"wght" 800, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
-      lineHeight: '1.6',
+      lineHeight: '1.3',
     },
     // Heading hierarchy with text transform progression
     h1: {
@@ -412,7 +412,7 @@ export const typography = {
       letterSpacing: '0.1px',
       textShadow: 'none',
       textTransform: 'uppercase' as const, // Bold structure
-      lineHeight: '1.6',
+      lineHeight: '1.3',
     },
     h3: {
       fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
@@ -422,7 +422,7 @@ export const typography = {
       letterSpacing: '0.1px',
       textShadow: 'none',
       textTransform: 'capitalize' as const, // Title-case transition
-      lineHeight: '1.6',
+      lineHeight: '1.3',
     },
     h4: {
       fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
@@ -432,7 +432,7 @@ export const typography = {
       letterSpacing: '0.1px',
       textShadow: 'var(--text-shadow-h4)',
       textTransform: 'capitalize' as const, // Title-case
-      lineHeight: '1.6',
+      lineHeight: '1.3',
     },
     h5: {
       fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
@@ -442,7 +442,7 @@ export const typography = {
       letterSpacing: '0.1px',
       textShadow: 'var(--text-shadow-h5)',
       textTransform: 'lowercase' as const, // Humble tone
-      lineHeight: '1.6',
+      lineHeight: '1.3',
     },
     h6: {
       fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',

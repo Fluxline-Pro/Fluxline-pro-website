@@ -16,7 +16,7 @@ const routeToTitleMap: RouteToTitleMap = {
   '/services/design': 'Design',
   '/services/business': 'Business',
   '/blog': 'Blog',
-  '/contact-me': 'Contact Me',
+  '/contact-me': 'Contact Us',
   '/books': 'Books',
   '/events': 'Events',
   '/github': 'GitHub',

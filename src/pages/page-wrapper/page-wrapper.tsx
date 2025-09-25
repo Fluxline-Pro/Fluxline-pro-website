@@ -14,7 +14,7 @@ const PAGE_CONFIGS = {
   },
   '/services': {
     image: require('../../assets/images/LinkedInTerenceW1024x1536.jpeg'),
-    imageText: 'My Services',
+    imageText: 'Our Services',
   },
   '/services/education-training': {
     image: require('../../assets/images/EducationTrainingPortrait.jpg'),
@@ -46,7 +46,7 @@ const PAGE_CONFIGS = {
   },
   '/contact-me': {
     image: require('../contact-me/assets/ContactMe1280x1815.jpg'),
-    imageText: 'Contact Me',
+    imageText: 'Contact Us',
   },
   '/books': {
     image: require('../../assets/images/EducationTrainingPortrait.jpg'),

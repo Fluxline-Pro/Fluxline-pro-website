@@ -346,7 +346,7 @@ const HomeContent: React.FC<{
               ...(animateSubHeaderLines[2] && animationStyles.slideInDown),
             }}
           >
-            <HighlightText text='transformation' /> solutions
+            <HighlightText text='personal training' /> solutions
           </div>
         </Typography>
       </div>
