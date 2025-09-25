@@ -12,7 +12,7 @@ import useBackgroundImage from '../../theme/hooks/useBackgroundImage';
 import { ViewportGrid } from '../../theme/layouts/ViewportGrid';
 import { LayoutGrid } from '../../theme/layouts/LayoutGrid';
 import { Typography } from '../../theme/components/typography/typography';
-import { ProgressBar } from '../../theme/components/progress-bar/progress-bar';
+// import { ProgressBar } from '../../theme/components/progress-bar/progress-bar';
 import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
 
 export const UnderConstruction = () => {
@@ -361,7 +361,7 @@ export const Home: React.FC = () => {
   // );
   const { backgroundImage } = useBackgroundImage(); // Much simpler now!
   const isMobile = useIsMobile();
-  const [isLoading, setIsLoading] = React.useState(false);
+  // const [isLoading, setIsLoading] = React.useState(false);
   // const navigate = useNavigate();
 
   // React.useEffect(() => {
@@ -375,9 +375,9 @@ export const Home: React.FC = () => {
   //   }
   // }, [navigate, onboardingDoneOrSkipped]);
 
-  if (isLoading) {
-    return <ProgressBar label='Loading...' />;
-  }
+  // if (isLoading) {
+  //   return <ProgressBar label='Loading...' />;
+  // }
 
   return (
     <ViewportGrid

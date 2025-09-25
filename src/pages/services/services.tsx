@@ -79,6 +79,7 @@ const H2Title = ({
     <Typography
       variant='h2'
       textAlign='left'
+      marginLeft={name === 'Our Services' ? '7rem' : undefined}
       style={{ ...styles.h2Title(theme), ...style }}
     >
       {name}

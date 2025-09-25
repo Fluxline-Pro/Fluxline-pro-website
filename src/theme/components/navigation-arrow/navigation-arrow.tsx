@@ -8,6 +8,7 @@ interface NavigationArrowProps {
   navigate: () => void;
   size?: 'small' | 'medium' | 'large';
   showBackground?: boolean;
+  style?: React.CSSProperties;
 }
 
 export const NavigationArrow: React.FC<NavigationArrowProps> = ({
@@ -15,6 +16,7 @@ export const NavigationArrow: React.FC<NavigationArrowProps> = ({
   navigate,
   size = 'medium',
   showBackground = false,
+  style
 }) => {
   const { theme } = useAppTheme();
   const [isHovered, setIsHovered] = useState(false);
@@ -64,6 +66,7 @@ export const NavigationArrow: React.FC<NavigationArrowProps> = ({
     justifyContent: 'center',
     padding: showBackground ? sizes.containerPadding : '0',
     borderRadius: '4px',
+    paddingLeft: style?.paddingLeft || '5rem',
     backgroundColor: showBackground
       ? isHovered
         ? theme.palette.neutralLight
