@@ -1,24 +1,24 @@
 /**
  * FLUXLINE PRO THEME SYSTEM
  * ========================
- * 
+ *
  * Philosophy: "Clarity meets transformation"
  * Style: "Minimalist precision with animated warmth"
- * 
+ *
  * DESIGN PRINCIPLES:
  * ------------------
  * • Bold structure: Inter font family for headings provides clear hierarchy
  * • Unified voice: Inter for all text creates consistency and brand recognition
  * • Accent highlights: Roboto Mono for code emphasizes technical precision
  * • Engineered motion: cubic-bezier(0.4, 0, 0.2, 1) for fluid, intentional animations
- * 
+ *
  * TEXT TRANSFORM PROGRESSION:
  * ---------------------------
  * H1-H2: UPPERCASE → Bold structure and commanding presence
- * H3-H4: Title Case → Balanced hierarchy and readability  
+ * H3-H4: Title Case → Balanced hierarchy and readability
  * H5: lowercase → Humble, approachable tone
  * H6: UPPERCASE → Accent highlights for growth cues
- * 
+ *
  * COLOR PHILOSOPHY:
  * -----------------
  * • Dark Mode (Default): Deep black (#010101) base for focused, calm aesthetic
@@ -26,21 +26,21 @@
  * • Secondary: Complementary blue variations for visual harmony
  * • Accent: Vibrant teal-green (#00D4AA, #00A896) for growth and interaction
  * • Neutrals: Carefully calibrated grays optimized for each mode
- * 
+ *
  * RHYTHM & SPACING:
  * ------------------
  * • Base unit: 1rem for consistent rhythm
  * • Line height: 1.6 for optimal readability
  * • Generous spacing creates breathing room
  * • Modular elevation system for visual depth
- * 
+ *
  * ACCESSIBILITY:
  * --------------
  * • High contrast ratios tested in both light and dark modes
  * • Color harmony: Tertiary & Accent hues positioned close on color wheel
  * • Multiple theme variants for visual accessibility needs
  * • Semantic color roles clearly defined for consistent usage
- * 
+ *
  * USAGE:
  * ------
  * This theme system is designed to be modular and compatible with:
@@ -48,9 +48,9 @@
  * • Styled Components
  * • FluentUI components
  * • CSS-in-JS solutions
- * 
+ *
  * Default export prioritizes dark mode for the Fluxline Pro brand experience.
- * 
+ *
  * @version 2.0.0 - Fluxline Pro Specifications
  * @author Fluxline Pro Design System
  */
@@ -109,7 +109,7 @@ export const mediaQueries = {
 
 /**
  * Fluxline Pro Spacing System - Generous Rhythm
- * 
+ *
  * Base unit: 1rem for consistent rhythm throughout the design
  * Philosophy: Generous spacing creates breathing room and clarity
  */
@@ -201,75 +201,99 @@ export const shadows = {
   modal: '0 32px 96px rgba(0, 0, 0, 0.4)',
   toast: '0 16px 48px rgba(0, 0, 0, 0.32)',
   menu: '0 0 20px rgba(0, 0, 0, 0.15)',
-  cardImage: '4px 4px 8px rgba(0,0,0,0.7',
+  cardImage: '4px 4px 8px rgba(0,0,0,0.7)',
+  glyph: '0 0 12px rgba(245, 200, 92, 0.5)', // Mythic Gold glow
+  resonance: '0 0 24px rgba(58, 186, 180, 0.4)', // Fluxline Teal pulse
 };
 
 /**
  * Fluxline Pro Gradients - Engineered Visual Depth
- * 
+ *
  * Dark mode optimized with '#010101' base for focused aesthetic
  * Light mode with clean, minimal gradients for clarity
  */
-const baseGradients = {
+export const baseGradients = {
   dark: {
-    // Base backgrounds with Fluxline deep black
-    solid: '#010101', // Deep black base layout tone
-    background:
-      '#010101 radial-gradient(circle at 20% 50%, #1A1A1A 0%, #0F0F0F 30%, #050505 70%, #010101 100%)',
-    menu: '#010101 radial-gradient(circle at 80% 50%, #151515 0%, #0D0D0D 30%, #080808 70%, #010101 100%)',
-    radial:
-      '#010101 radial-gradient(circle at center, #1A1A1A 0%, #0F0F0F 30%, #050505 70%, #010101 100%)',
+    solid: '#010101',
+    background: 'linear-gradient(135deg, #2E2E3A 0%, #010101 100%)',
+    menu: 'linear-gradient(135deg, #1A1A1A 0%, #010101 100%)',
+    radial: 'radial-gradient(circle at center, #2E2E3A 0%, #010101 100%)',
     vignette: 'radial-gradient(circle at center, transparent 0%, #010101 100%)',
-    linear:
-      'linear-gradient(90deg, #010101 0%, #0A0A0A 50%, #010101 100%) no-repeat center',
+    linear: 'linear-gradient(90deg, #2E2E3A 0%, #010101 100%)',
   },
   light: {
-    // Clean light gradients
     solid: '#FFFFFF',
-    background:
-      '#FFFFFF radial-gradient(circle at 20% 50%, #FEFEFE 0%, #F8F8F8 30%, #F2F2F2 70%, #ECECEC 100%)',
-    menu: '#FFFFFF radial-gradient(circle at center, #FFFFFF 0%, #F0F0F0 30%, #E8E8E8 70%, #E0E0E0 100%)',
-    radial:
-      '#FFFFFF radial-gradient(circle at center, #FFFFFF 0%, #F0F0F0 30%, #E8E8E8 70%, #E0E0E0 100%)',
-    vignette: 'radial-gradient(circle at center, transparent 0%, #F0F0F0 100%)',
-    linear:
-      'linear-gradient(90deg, #F8F8F8 0%, #FFFFFF 50%, #F8F8F8 100%) no-repeat center',
+    background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+    menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+    radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+    vignette: 'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+    linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
   },
   components: {
     card: {
-      dark: 'linear-gradient(135deg, #151515 0%, #010101 100%)',
-      light: 'linear-gradient(135deg, #FFFFFF 0%, #F8F8F8 100%)',
+      dark: 'linear-gradient(135deg, #2E2E3A 0%, #010101 100%)',
+      light: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
     },
     button: {
-      dark: 'linear-gradient(90deg, #1A1A1A 0%, #010101 100%)',
-      light: 'linear-gradient(90deg, #FFFFFF 0%, #F8F8F8 100%)',
+      dark: 'linear-gradient(90deg, #3ABAB4 0%, #2E2E3A 100%)',
+      light: 'linear-gradient(90deg, #F5C85C 0%, #FFFFFF 100%)',
     },
     modal: {
-      dark: '#010101 radial-gradient(circle at center, #1A1A1A 0%, #0F0F0F 30%, #010101 100%)',
-      light:
-        '#FFFFFF radial-gradient(circle at center, #FFFFFF 0%, #F8F8F8 30%, #F5F5F5 100%)',
+      dark: 'radial-gradient(circle at center, #2E2E3A 0%, #010101 100%)',
+      light: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
     },
+  },
+  symbolic: {
+    fluxlineAscension:
+      'linear-gradient(135deg, #274770 0%, #5A7CA0 50%, #F5C85C 100%)',
+    mythicHorizon:
+      'linear-gradient(90deg, #F5C85C 0%, #EAD68F 50%, #274770 100%)',
+    glyphGateFade: 'linear-gradient(to bottom, #F5C85C 0%, #1F1F1F 100%)',
   },
 };
 
 /**
  * Typography Configuration - Fluxline Pro Brand System
- * 
+ *
  * Philosophy: Bold structure, humble tone, and accent highlights for growth
  * Text Transform Progression: uppercase → title-case → lowercase → accent
- * 
+ *
  * Fonts:
  * - Inter: Clean, modern sans-serif for all text (bold structure and humble tone)
  * - Roboto Mono: Technical precision for code (accent highlights)
  */
+
+export const fontSizes = {
+  xs: 'clamp(0.25rem, 0.5cqi, 0.25rem)',
+  sm: 'clamp(0.5rem, 1cqi, 0.5rem)',
+  md: 'clamp(0.75rem, 1.5cqi, 0.75rem)',
+  base: '1rem', // Base rhythm unit
+  lg: 'clamp(1.25rem, 2.5cqi, 1.25rem)',
+  xl: 'clamp(1.5rem, 3cqi, 1.5rem)',
+  xxl: 'clamp(2rem, 4cqi, 2rem)',
+  xxxl: 'clamp(3rem, 6cqi, 3rem)',
+  xxxxl: 'clamp(4rem, 8cqi, 4rem)',
+  clamp: 'clamp(0.25rem, 0.5cqi, 0.25rem)',
+  clamp2: 'clamp(0.5rem, 1cqi, 0.5rem)',
+  clamp3: 'clamp(0.75rem, 1.5cqi, 0.75rem)',
+  clamp4: '1rem', // Base unit
+  clamp5: 'clamp(1.25rem, 2.5cqi, 1.25rem)',
+  clamp6: 'clamp(1.5rem, 3cqi, 1.5rem)',
+  clamp7: 'clamp(2rem, 4cqi, 2rem)',
+  clamp8: 'clamp(3rem, 6cqi, 3rem)',
+};
+
 export const typography = {
   fontFamilies: {
     // Fluxline Pro font stack - Inter for all text, Roboto Mono for code
     base: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
     mono: 'Roboto Mono, "SF Mono", "Monaco", "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
-    heading: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    headingH3: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    headingLight: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+    heading:
+      'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+    headingH3:
+      'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+    headingLight:
+      'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
     h1: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
     h2: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
     h3: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
@@ -280,23 +304,23 @@ export const typography = {
   },
   // Font sizes with modular scale - base 1rem unit for rhythm
   fontSizes: {
-    xs: 'clamp(0.25rem, 0.5cqi, 0.25rem)',
-    sm: 'clamp(0.5rem, 1cqi, 0.5rem)',
-    md: 'clamp(0.75rem, 1.5cqi, 0.75rem)',
-    base: '1rem', // Base rhythm unit
-    lg: 'clamp(1.25rem, 2.5cqi, 1.25rem)',
-    xl: 'clamp(1.5rem, 3cqi, 1.5rem)',
-    xxl: 'clamp(2rem, 4cqi, 2rem)',
-    xxxl: 'clamp(3rem, 6cqi, 3rem)',
-    xxxxl: 'clamp(4rem, 8cqi, 4rem)',
-    clamp: 'clamp(0.25rem, 0.5cqi, 0.25rem)',
-    clamp2: 'clamp(0.5rem, 1cqi, 0.5rem)',
-    clamp3: 'clamp(0.75rem, 1.5cqi, 0.75rem)',
-    clamp4: '1rem', // Base unit
-    clamp5: 'clamp(1.25rem, 2.5cqi, 1.25rem)',
-    clamp6: 'clamp(1.5rem, 3cqi, 1.5rem)',
-    clamp7: 'clamp(2rem, 4cqi, 2rem)',
-    clamp8: 'clamp(3rem, 6cqi, 3rem)',
+    xs: fontSizes.xs,
+    sm: fontSizes.sm,
+    md: fontSizes.md,
+    base: fontSizes.base, // Base rhythm unit
+    lg: fontSizes.lg,
+    xl: fontSizes.xl,
+    xxl: fontSizes.xxl,
+    xxxl: fontSizes.xxxl,
+    xxxxl: fontSizes.xxxxl,
+    clamp: fontSizes.clamp,
+    clamp2: fontSizes.clamp2,
+    clamp3: fontSizes.clamp3,
+    clamp4: fontSizes.clamp4,
+    clamp5: fontSizes.clamp5,
+    clamp6: fontSizes.clamp6,
+    clamp7: fontSizes.clamp7,
+    clamp8: fontSizes.clamp8,
   },
   fontWeights: {
     thin: 100,
@@ -331,38 +355,43 @@ export const typography = {
   // Font definitions with Fluxline Pro philosophy
   fonts: {
     tiny: {
-      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(0.25rem, 0.5cqi, 0.25rem)',
-      fontWeight: '400' as '400',
-      fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
+      fontWeight: '500' as '500', // Inter Medium
+      fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
       lineHeight: '1.6',
     },
     xSmall: {
-      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(0.5rem, 1cqi, 0.5rem)',
-      fontWeight: '400' as '400',
-      fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
+      fontWeight: '500' as '500',
+      fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
       lineHeight: '1.6',
     },
     small: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(0.75rem, 1.5cqi, 0.75rem)',
-      fontWeight: '400' as '400',
-      fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
+      fontWeight: '500' as '500',
+      fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
       lineHeight: '1.6',
     },
     medium: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: '1rem',
-      fontWeight: '400' as '400',
-      fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
+      fontWeight: '500' as '500',
+      fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
       lineHeight: '1.6',
     },
     mediumPlus: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(1.25rem, 2.5cqi, 1.25rem)',
       fontWeight: '500' as '500',
       fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
@@ -370,15 +399,17 @@ export const typography = {
       lineHeight: '1.6',
     },
     large: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(1.5rem, 3cqi, 1.5rem)',
-      fontWeight: '600' as '600',
-      fontVariationSettings: '"wght" 600, "wdth" 100, "slnt" 0',
+      fontWeight: '700' as '700', // Inter Bold
+      fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
       lineHeight: '1.6',
     },
     xLarge: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(2rem, 4cqi, 2rem)',
       fontWeight: '700' as '700',
       fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
@@ -386,100 +417,124 @@ export const typography = {
       lineHeight: '1.6',
     },
     xxLarge: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(3rem, 6cqi, 3rem)',
-      fontWeight: '800' as '800',
-      fontVariationSettings: '"wght" 800, "wdth" 100, "slnt" 0',
+      fontWeight: '700' as '700',
+      fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
       lineHeight: '1.3',
     },
-    // Heading hierarchy with text transform progression
+
+    // Headings
     h1: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(8cqi, min(10cqi, 10cqh), min(14cqi, 14cqh))',
       fontWeight: '700' as '700',
       fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
       textShadow: 'var(--text-shadow-textBig)',
-      textTransform: 'uppercase' as const, // Bold structure
+      textTransform: 'uppercase' as const,
       lineHeight: '1.6',
     },
     h2: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(2cqi, min(5cqi, 5cqh), min(7cqi, 7cqh))',
-      fontWeight: '600' as '600',
-      fontVariationSettings: '"wght" 600, "wdth" 100, "slnt" 0',
+      fontWeight: '700' as '700',
+      fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
       textShadow: 'none',
-      textTransform: 'uppercase' as const, // Bold structure
+      textTransform: 'uppercase' as const,
       lineHeight: '1.3',
     },
     h3: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(1.25rem, 3cqi, 2rem)',
-      fontWeight: '500' as '500',
-      fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
+      fontWeight: '700' as '700',
+      fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
       textShadow: 'none',
-      textTransform: 'capitalize' as const, // Title-case transition
+      textTransform: 'capitalize' as const,
       lineHeight: '1.3',
     },
     h4: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(1.25rem, 2.5cqi, 1.25rem)',
-      fontWeight: '500' as '500',
-      fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
+      fontWeight: '700' as '700',
+      fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
       textShadow: 'var(--text-shadow-h4)',
-      textTransform: 'capitalize' as const, // Title-case
+      textTransform: 'capitalize' as const,
       lineHeight: '1.3',
     },
     h5: {
-      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontSize: '1rem',
+      fontWeight: '700' as '700',
+      fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
+      letterSpacing: '0.1px',
+      textShadow: 'var(--text-shadow-h5)',
+      textTransform: 'lowercase' as const,
+      lineHeight: '1.3',
+    },
+    h6: {
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontSize: '1rem',
+      fontWeight: '700' as '700',
+      fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
+      letterSpacing: '0.1px',
+      textShadow: 'var(--text-shadow-h6)',
+      textTransform: 'uppercase' as const,
+      lineHeight: '1.6',
+    },
+
+    // Body and utility text
+    body: {
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: '1rem',
       fontWeight: '500' as '500',
       fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
-      textShadow: 'var(--text-shadow-h5)',
-      textTransform: 'lowercase' as const, // Humble tone
-      lineHeight: '1.3',
-    },
-    h6: {
-      fontFamily: 'Work Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-      fontSize: '1rem',
-      fontWeight: '600' as '600',
-      fontVariationSettings: '"wght" 600, "wdth" 100, "slnt" 0',
-      letterSpacing: '0.1px',
-      textShadow: 'var(--text-shadow-h6)',
-      textTransform: 'uppercase' as const, // Accent highlights
       lineHeight: '1.6',
     },
-    body: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-      fontSize: '1rem',
-      fontWeight: '400' as '400',
-      fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
-      letterSpacing: '0.1px',
-      lineHeight: '1.6', // Readable flow
-    },
     bodySmall: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(0.875rem, 1.75cqi, 0.875rem)',
-      fontWeight: '400' as '400',
-      fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
+      fontWeight: '500' as '500',
+      fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
       lineHeight: '1.6',
     },
     homeH3: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(3cqi, min(6cqi, 6cqh), min(8cqi, 8cqh))',
-      fontWeight: '400' as '400',
-      fontVariationSettings: '"wght" 400, "wdth" 125, "slnt" 0',
+      fontWeight: '500' as '500', // Inter Medium
+      fontVariationSettings: '"wght" 500, "wdth" 125, "slnt" 0',
       textTransform: 'lowercase' as const, // Humble tone
       lineHeight: '1.6',
     },
+    paragraph: {
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontSize: '1rem',
+      fontWeight: '500' as '500',
+      fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
+      letterSpacing: '0.1px',
+      lineHeight: '1.6',
+    },
+
     label: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(0.875rem, 1.75cqi, 0.875rem)',
       fontWeight: '500' as '500',
       fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
@@ -487,15 +542,16 @@ export const typography = {
       lineHeight: '1.6',
     },
     quote: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(1.25rem, 2.5cqi, 1.25rem)',
-      fontWeight: '400' as '400',
-      fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
+      fontWeight: '500' as '500',
+      fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
       lineHeight: '1.6',
     },
     pre: {
-      fontFamily: 'Roboto Mono, "SF Mono", "Monaco", "Cascadia Code", Consolas, "Courier New", monospace',
+      fontFamily: 'Courier Prime, "Courier New", Courier, monospace',
       fontSize: 'clamp(0.875rem, 1.75cqi, 0.875rem)',
       fontWeight: '400' as '400',
       fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
@@ -503,7 +559,7 @@ export const typography = {
       lineHeight: '1.6',
     },
     code: {
-      fontFamily: 'Roboto Mono, "SF Mono", "Monaco", "Cascadia Code", Consolas, "Courier New", monospace',
+      fontFamily: 'Courier Prime, "Courier New", Courier, monospace',
       fontSize: 'clamp(0.875rem, 1.75cqi, 0.875rem)',
       fontWeight: '400' as '400',
       fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
@@ -511,11 +567,49 @@ export const typography = {
       lineHeight: '1.6',
     },
     caption: {
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(0.75rem, 1.5cqi, 0.75rem)',
+      fontWeight: '500' as '500',
+      fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
+      letterSpacing: '0.1px',
+      lineHeight: '1.6',
+    },
+    mono: {
+      fontFamily: 'Courier Prime, "Courier New", Courier, monospace',
+      fontSize: 'clamp(0.875rem, 1.75cqi, 0.875rem)',
       fontWeight: '400' as '400',
       fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
+      lineHeight: '1.6',
+    },
+    ritual: {
+      fontFamily: 'Courier Prime, "Courier New", Courier, monospace',
+      fontSize: 'clamp(0.875rem, 2.5cqi, 1.125rem)',
+      fontWeight: '400' as '400',
+      fontVariationSettings: '"wght" 400, "wdth" 100, "slnt" 0',
+      letterSpacing: '0.1px',
+      lineHeight: '1.6',
+      textTransform: 'none' as const,
+    },
+    glyphTag: {
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontSize: 'clamp(0.75rem, 1.5cqi, 0.875rem)',
+      fontWeight: '700' as '700',
+      fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
+      letterSpacing: '0.5px',
+      textTransform: 'uppercase' as const,
+      lineHeight: '1.3',
+    },
+    emotionalCue: {
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontSize: 'clamp(0.875rem, 2cqi, 1rem)',
+      fontWeight: '500' as '500',
+      fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
+      letterSpacing: '0.25px',
+      textTransform: 'capitalize' as const,
       lineHeight: '1.6',
     },
   },
@@ -572,7 +666,7 @@ export const fontWidths = {
 
 /**
  * Animation System - Fluxline Pro Motion Philosophy
- * 
+ *
  * Engineered fluidity with calm, focused aesthetic
  * Primary motion curve: cubic-bezier(0.4, 0, 0.2, 1) for engineered warmth
  */
@@ -756,61 +850,61 @@ const baseExtendedProps = {
 
 /**
  * Fluxline Pro Light Theme
- * 
- * Philosophy: Clarity meets transformation
- * Style: Clean precision with subtle warmth
- * 
+ *
+ * Philosophy: Mythic clarity meets emotional resonance
+ * Style: Clean precision with luminous breath
+ *
  * Color Roles:
- * - Primary: Deep blue for structure and trust
- * - Secondary: Complementary blue-green for balance  
- * - Accent: Vibrant highlight for growth and interaction
- * - Neutral: Carefully calibrated grays for hierarchy
+ * - Primary: Slate blue for structure, sovereignty, and trust
+ * - Secondary: Fluxline teal for flow, balance, and intuitive clarity
+ * - Accent: Mythic gold for illumination, growth, and curriculum ignition
+ * - Neutral: Calibrated grays for hierarchy, silence, and sacred whitespace
  */
 export const lightTheme: IExtendedTheme = createExtendedTheme(
   createTheme({
     palette: {
-      // Fluxline Pro Light Primary Palette - Deep blues for structure
-      themePrimary: '#2A5F8F', // Primary interactive blue (darker for light mode)
-      themeSecondary: '#357ABD', // Secondary blue
-      themeTertiary: '#4A90E2', // Tertiary blue (lighter variant)
-      themeLight: '#E8F4FD', // Light blue tint
-      themeDark: '#1E3A52', // Dark blue
-      themeDarker: '#0F1C2E', // Darkest blue
-      themeLighter: '#F0F8FF', // Lightest blue
-      themeLighterAlt: '#FAFCFF', // Alternative light blue
-      
-      // Neutral Palette - Optimized for light mode readability
-      neutralPrimary: '#1A1A1A', // Primary text - dark gray
-      neutralSecondary: '#404040', // Secondary text - medium gray
-      neutralTertiary: '#707070', // Tertiary text - lighter gray
-      neutralTertiaryAlt: '#8F8F8F', // Alternative tertiary
-      neutralQuaternary: '#E0E0E0', // Quaternary - light gray
-      neutralQuaternaryAlt: '#F0F0F0', // Alternative quaternary
-      neutralDark: '#000000', // Dark elements
-      neutralLight: '#FFFFFF', // Light elements
-      
-      // Fluxline Accent - Vibrant highlight for growth
-      accent: '#00A896', // Slightly darker green-blue accent for light mode
-      black: '#000000', // Pure black
-      white: '#FFFFFF', // Pure white
+      // Fluxline Pro Light Primary Palette – Mythic clarity
+      themePrimary: '#274770', // Deep slate blue – anchors brand
+      themeSecondary: '#5A7CA0', // Cooler contrast
+      themeTertiary: '#7B9BB8', // UI layering
+      themeLight: '#F8FAFC', // Clean and airy
+      themeDark: '#2E2E3A', // Resonance Core – grounding
+      themeDarker: '#1F1F1F', // Deep charcoal
+      themeLighter: '#FFFFFF', // Ritual White
+      themeLighterAlt: '#F5F5F5', // Breath whitespace
+
+      // Neutral Palette – Optimized for light mode readability
+      neutralPrimary: '#2E2E2E', // Primary text
+      neutralSecondary: '#4A4A4A', // Secondary text
+      neutralTertiary: '#707070', // Tertiary text
+      neutralTertiaryAlt: '#8F8F8F',
+      neutralQuaternary: '#E0E0E0',
+      neutralQuaternaryAlt: '#F0F0F0',
+      neutralDark: '#000000',
+      neutralLight: '#FFFFFF',
+
+      // Fluxline Accent – Emotional resonance
+      accent: '#3ABAB4', // Fluxline Teal – flow, clarity
+      black: '#000000',
+      white: '#FFFFFF',
     },
     semanticColors: {
-      // Body and Background - Clean light aesthetic
-      bodyText: '#1A1A1A', // Dark gray for readability
-      bodyBackground: '#FFFFFF', // Pure white background
-      
-      // State Colors - Optimized for light mode
-      errorText: '#D32F2F', // Strong red for errors
-      errorBackground: '#FFEBEE', // Light red background
-      successText: '#00796B', // Teal-green for success
-      successBackground: '#E0F2F1', // Light green background
-      messageText: '#F57C00', // Orange for messages
-      warningText: '#F57C00', // Warning orange
-      warningBackground: '#FFF8E1', // Light orange background
-      
+      // Body and Background – Clean light aesthetic
+      bodyText: '#2E2E2E',
+      bodyBackground: '#FFFFFF',
+
+      // State Colors – Emotional clarity
+      errorText: '#B0303C', // Refined red
+      errorBackground: '#FFEBEE',
+      successText: '#107C10', // Microsoft green
+      successBackground: '#E0F2F1',
+      messageText: '#F5C85C', // Mythic Gold – illumination
+      warningText: '#C19C00', // Deep gold
+      warningBackground: '#FFF8E1',
+
       // Interactive Elements
-      link: '#2A5F8F', // Primary blue for links
-      linkHovered: '#1E3A52', // Darker blue for hover
+      link: '#274770', // Primary blue
+      linkHovered: '#1F1F1F', // Resonance Core
     },
     isInverted: false,
   }),
@@ -821,64 +915,64 @@ export const lightTheme: IExtendedTheme = createExtendedTheme(
 );
 
 /**
- * Fluxline Pro Dark Theme - Default Theme
- * 
- * Philosophy: Clarity meets transformation
- * Style: Minimalist precision with animated warmth
- * Background: Deep black (#010101) for focused aesthetic
- * 
+ * Fluxline Pro Dark Theme – Default Mode
+ *
+ * Philosophy: Mythic clarity meets emotional depth
+ * Style: Minimalist precision with symbolic warmth
+ * Background: Deep black (#010101) for focused transmission
+ *
  * Color Roles:
- * - Primary: Deep blue for structure and trust
- * - Secondary: Complementary blue-green for balance
- * - Accent: Vibrant highlight for growth and interaction
- * - Neutral: Carefully calibrated grays for hierarchy
+ * - Primary: Slate blue for structure, sovereignty, and trust
+ * - Secondary: Fluxline teal for flow, balance, and intuitive clarity
+ * - Accent: Mythic gold for illumination, growth, and curriculum ignition
+ * - Neutral: Calibrated grays for hierarchy, silence, and sacred contrast
  */
 export const darkTheme: IExtendedTheme = createExtendedTheme(
   createTheme({
     palette: {
-      // Fluxline Pro Dark Primary Palette - Deep blues for structure
-      themePrimary: '#4A90E2', // Primary interactive blue
-      themeSecondary: '#357ABD', // Secondary blue
-      themeTertiary: '#2A5F8F', // Tertiary blue (close to primary on color wheel)
-      themeLight: '#E8F4FD', // Light blue tint
-      themeDark: '#1E3A52', // Dark blue
-      themeDarker: '#0F1C2E', // Darkest blue
-      themeLighter: '#F0F8FF', // Lightest blue
-      themeLighterAlt: '#FAFCFF', // Alternative light blue
-      
-      // Neutral Palette - Optimized for dark mode vibrancy
-      neutralPrimary: '#FFFFFF', // Primary text - pure white for contrast
-      neutralSecondary: '#E1E1E1', // Secondary text - light gray
-      neutralTertiary: '#B8B8B8', // Tertiary text - medium gray
-      neutralTertiaryAlt: '#8F8F8F', // Alternative tertiary
-      neutralQuaternary: '#404040', // Quaternary - dark gray
-      neutralQuaternaryAlt: '#2E2E2E', // Alternative quaternary
-      neutralDark: '#1A1A1A', // Dark elements
-      neutralLight: '#262626', // Light elements in dark mode
-      
-      // Fluxline Accent - Vibrant highlight for growth
-      accent: '#00D4AA', // Green-blue accent for growth and interaction
-      black: '#010101', // Deep black base
-      white: '#FFFFFF', // Pure white
+      // Fluxline Pro Dark Primary Palette – Resonance Core
+      themePrimary: '#274770', // Slate blue – sovereign structure
+      themeSecondary: '#3ABAB4', // Fluxline teal – intuitive clarity
+      themeTertiary: '#5A7CA0', // UI layering
+      themeLight: '#F8FAFC', // Light overlay for contrast
+      themeDark: '#1F1F1F', // Resonance Core
+      themeDarker: '#010101', // Deep black base
+      themeLighter: '#2E2E3A', // Soft slate
+      themeLighterAlt: '#3A3A4A', // UI hover zones
+
+      // Neutral Palette – Optimized for dark mode vibrancy
+      neutralPrimary: '#FFFFFF',
+      neutralSecondary: '#E1E1E1',
+      neutralTertiary: '#B8B8B8',
+      neutralTertiaryAlt: '#8F8F8F',
+      neutralQuaternary: '#404040',
+      neutralQuaternaryAlt: '#2E2E2E',
+      neutralDark: '#1A1A1A',
+      neutralLight: '#262626',
+
+      // Fluxline Accent – Emotional resonance
+      accent: '#F5C85C', // Mythic gold – illumination and growth
+      black: '#010101',
+      white: '#FFFFFF',
     },
     semanticColors: {
-      // Body and Background - Fluxline Pro dark aesthetic
-      bodyText: '#FFFFFF', // Pure white for maximum readability
-      bodyBackground: '#010101', // Deep black base layout tone
-      
-      // State Colors - Optimized for dark mode
-      errorText: '#FF6B6B', // Soft red for errors
-      errorBackground: '#2D1617', // Dark red background
-      successText: '#4ECDC4', // Teal-green for success
-      successBackground: '#1A2D2A', // Dark green background
-      successIcon: '#4ECDC4', // Success icon color
-      messageText: '#FFE66D', // Warm yellow for messages
-      warningText: '#FFE66D', // Warning yellow
-      warningBackground: '#2D2A17', // Dark yellow background
-      
+      // Body and Background – Fluxline Pro dark aesthetic
+      bodyText: '#FFFFFF',
+      bodyBackground: '#010101',
+
+      // State Colors – Emotional clarity
+      errorText: '#B0303C', // Somatic rose – soft red
+      errorBackground: '#2D1617',
+      successText: '#3ABAB4', // Fluxline teal
+      successBackground: '#1A2D2A',
+      successIcon: '#3ABAB4',
+      messageText: '#F5C85C', // Mythic gold
+      warningText: '#F5C85C',
+      warningBackground: '#2D2A17',
+
       // Interactive Elements
-      link: '#4A90E2', // Primary blue for links
-      linkHovered: '#357ABD', // Secondary blue for hover
+      link: '#274770',
+      linkHovered: '#5A7CA0',
     },
     isInverted: true,
   }),
@@ -889,6 +983,19 @@ export const darkTheme: IExtendedTheme = createExtendedTheme(
 );
 
 // High Contrast Theme
+/**
+ * Fluxline Pro High Contrast Theme
+ *
+ * Philosophy: Maximum legibility with zero ambiguity
+ * Style: Stark contrast with simplified structure
+ * Background: Deep charcoal (#121212) for focused clarity
+ *
+ * Color Roles:
+ * - Primary: Bright blue for interaction and visibility
+ * - Secondary: Pure white and light gray for contrast
+ * - Accent: High-contrast blue for emphasis and links
+ * - Neutral: Simplified grayscale for hierarchy and accessibility
+ */
 export const highContrastTheme: IExtendedTheme = createExtendedTheme(
   createTheme({
     palette: {
@@ -932,7 +1039,7 @@ export const highContrastTheme: IExtendedTheme = createExtendedTheme(
   {
     ...baseExtendedProps,
     themeMode: 'high-contrast' as ThemeMode,
-    gradients: {
+    gradients: { // neutralize gradients on high contrast & colorblind modes
       dark: {
         solid: '#121212',
         background: '#121212',
@@ -948,6 +1055,11 @@ export const highContrastTheme: IExtendedTheme = createExtendedTheme(
         radial: '#121212',
         vignette: '#121212',
         linear: '#121212',
+      },
+      symbolic: {
+        fluxlineAscension: '#121212',
+        glyphGateFade: '#121212',
+        mythicHorizon: '#121212',
       },
       components: {
         card: {
@@ -967,6 +1079,19 @@ export const highContrastTheme: IExtendedTheme = createExtendedTheme(
   }
 );
 
+/**
+ * Fluxline Pro Protanopia Theme
+ *
+ * Philosophy: Inclusive clarity for red-blind vision
+ * Style: Cool tones with teal and blue emphasis
+ * Background: Clean white with softened contrast
+ *
+ * Color Roles:
+ * - Primary: Deep blue for structure and trust
+ * - Secondary: Teal and green for success and balance
+ * - Accent: Soft blue for interaction and emphasis
+ * - Neutral: Calibrated grays for hierarchy and legibility
+ */
 // Protanopia Theme
 export const protanopiaTheme: IExtendedTheme = createExtendedTheme(
   createTheme({
@@ -1008,10 +1133,60 @@ export const protanopiaTheme: IExtendedTheme = createExtendedTheme(
   }),
   {
     ...baseExtendedProps,
+    gradients: {
+      dark: {
+        solid: '#121212',
+        background: '#121212',
+        menu: '#121212',
+        radial: '#121212',
+        vignette: '#121212',
+        linear: '#121212',
+      },
+      light: {
+        solid: '#121212',
+        background: '#121212',
+        menu: '#121212',
+        radial: '#121212',
+        vignette: '#121212',
+        linear: '#121212',
+      },
+      symbolic: {
+        fluxlineAscension: '#121212',
+        glyphGateFade: '#121212',
+        mythicHorizon: '#121212',
+      },
+      components: {
+        card: {
+          dark: '#121212',
+          light: '#121212',
+        },
+        button: {
+          dark: '#121212',
+          light: '#121212',
+        },
+        modal: {
+          dark: '#121212',
+          light: '#121212',
+        },
+      },
+    },
     themeMode: 'protanopia' as ThemeMode,
   }
 );
 
+/**
+ * Fluxline Pro Deuteranopia Theme
+ *
+ * Philosophy: Inclusive clarity for green-blind vision
+ * Style: Muted blues and yellows for emotional accessibility
+ * Background: Clean white with softened contrast
+ *
+ * Color Roles:
+ * - Primary: Deep blue for structure and trust
+ * - Secondary: Muted yellow for emphasis and alerts
+ * - Accent: Soft blue for interaction and success
+ * - Neutral: Calibrated grays for hierarchy and legibility
+ */
 // Deuteranopia Theme
 export const deuteranopiaTheme: IExtendedTheme = createExtendedTheme(
   createTheme({
@@ -1053,10 +1228,60 @@ export const deuteranopiaTheme: IExtendedTheme = createExtendedTheme(
   }),
   {
     ...baseExtendedProps,
+    gradients: {
+      dark: {
+        solid: '#121212',
+        background: '#121212',
+        menu: '#121212',
+        radial: '#121212',
+        vignette: '#121212',
+        linear: '#121212',
+      },
+      light: {
+        solid: '#121212',
+        background: '#121212',
+        menu: '#121212',
+        radial: '#121212',
+        vignette: '#121212',
+        linear: '#121212',
+      },
+      symbolic: {
+        fluxlineAscension: '#121212',
+        glyphGateFade: '#121212',
+        mythicHorizon: '#121212',
+      },
+      components: {
+        card: {
+          dark: '#121212',
+          light: '#121212',
+        },
+        button: {
+          dark: '#121212',
+          light: '#121212',
+        },
+        modal: {
+          dark: '#121212',
+          light: '#121212',
+        },
+      },
+    },
     themeMode: 'deuteranopia' as ThemeMode,
   }
 );
 
+/**
+ * Fluxline Pro Tritanopia Theme
+ *
+ * Philosophy: Inclusive clarity for blue-blind vision
+ * Style: Warm tones with orange and green emphasis
+ * Background: Clean white with softened contrast
+ *
+ * Color Roles:
+ * - Primary: Warm red for structure and alerts
+ * - Secondary: Orange for emphasis and interaction
+ * - Accent: Green for success and balance
+ * - Neutral: Calibrated grays for hierarchy and legibility
+ */
 // Tritanopia Theme
 export const tritanopiaTheme: IExtendedTheme = createExtendedTheme(
   createTheme({
@@ -1098,6 +1323,43 @@ export const tritanopiaTheme: IExtendedTheme = createExtendedTheme(
   }),
   {
     ...baseExtendedProps,
+    gradients: {
+      dark: {
+        solid: '#121212',
+        background: '#121212',
+        menu: '#121212',
+        radial: '#121212',
+        vignette: '#121212',
+        linear: '#121212',
+      },
+      light: {
+        solid: '#121212',
+        background: '#121212',
+        menu: '#121212',
+        radial: '#121212',
+        vignette: '#121212',
+        linear: '#121212',
+      },
+      symbolic: {
+        fluxlineAscension: '#121212',
+        glyphGateFade: '#121212',
+        mythicHorizon: '#121212',
+      },
+      components: {
+        card: {
+          dark: '#121212',
+          light: '#121212',
+        },
+        button: {
+          dark: '#121212',
+          light: '#121212',
+        },
+        modal: {
+          dark: '#121212',
+          light: '#121212',
+        },
+      },
+    },
     themeMode: 'tritanopia' as ThemeMode,
   }
 );
@@ -1143,10 +1405,60 @@ export const grayscaleTheme: IExtendedTheme = createExtendedTheme(
   }),
   {
     ...baseExtendedProps,
+    gradients: {
+      dark: {
+        solid: '#121212',
+        background: '#121212',
+        menu: '#121212',
+        radial: '#121212',
+        vignette: '#121212',
+        linear: '#121212',
+      },
+      light: {
+        solid: '#121212',
+        background: '#121212',
+        menu: '#121212',
+        radial: '#121212',
+        vignette: '#121212',
+        linear: '#121212',
+      },
+      symbolic: {
+        fluxlineAscension: '#121212',
+        glyphGateFade: '#121212',
+        mythicHorizon: '#121212',
+      },
+      components: {
+        card: {
+          dark: '#121212',
+          light: '#121212',
+        },
+        button: {
+          dark: '#121212',
+          light: '#121212',
+        },
+        modal: {
+          dark: '#121212',
+          light: '#121212',
+        },
+      },
+    },
     themeMode: 'grayscale' as ThemeMode,
   }
 );
 
+/**
+ * Fluxline Pro Protanopia Theme
+ *
+ * Philosophy: Inclusive clarity for red-blind vision
+ * Style: Cool tones with teal and blue emphasis
+ * Background: Clean white with softened contrast
+ *
+ * Color Roles:
+ * - Primary: Deep blue for structure and trust
+ * - Secondary: Teal and green for success and balance
+ * - Accent: Soft blue for interaction and emphasis
+ * - Neutral: Calibrated grays for hierarchy and legibility
+ */
 // Grayscale Dark Theme
 export const grayscaleDarkTheme: IExtendedTheme = createExtendedTheme(
   createTheme({
@@ -1209,6 +1521,11 @@ export const grayscaleDarkTheme: IExtendedTheme = createExtendedTheme(
           'radial-gradient(circle at center, transparent 0%, #1A1A1A 100%)',
         linear:
           'linear-gradient(90deg, #1F1F1F 0%, #242424 50%, #1F1F1F 100%) no-repeat center',
+      },
+      symbolic: {
+        fluxlineAscension: '#1F1F1F',
+        glyphGateFade: '#1F1F1F',
+        mythicHorizon: '#1F1F1F',
       },
       components: {
         card: {
@@ -1386,20 +1703,20 @@ export const THEME_STORAGE_KEY = 'app-theme-mode';
 
 /**
  * Fluxline Pro Theme Utilities
- * 
+ *
  * Default theme mode is 'dark' to prioritize the focused aesthetic
  * with deep black (#010101) background for calm, engineered experience
  */
 export const getInitialThemeMode = (): ThemeMode => {
   return 'dark'; // Fluxline Pro defaults to dark mode
-  
+
   // Optional: Uncomment to respect user system preferences
   // if (typeof window === 'undefined') return 'dark';
-  
+
   // // Check localStorage for saved preference
   // const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) as ThemeMode;
   // if (savedTheme && themeMap[savedTheme]) return savedTheme;
-  
+
   // // Check system preference - defaults to dark if no preference
   // if (
   //   window.matchMedia &&
@@ -1407,7 +1724,7 @@ export const getInitialThemeMode = (): ThemeMode => {
   // ) {
   //   return 'light';
   // }
-  
+
   // return 'dark'; // Fluxline Pro dark mode default
 };
 
@@ -1539,10 +1856,10 @@ export const getResponsiveTypography = ({
 /**
  * DEFAULT EXPORT - Fluxline Pro Dark Theme
  * ========================================
- * 
+ *
  * Exports dark theme as default to prioritize the Fluxline Pro
  * focused aesthetic with deep black (#010101) background.
- * 
+ *
  * This ensures all components using the default theme export
  * will render with the intended dark mode experience.
  */
