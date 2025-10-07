@@ -1,7 +1,7 @@
 import { SocialIcon } from './social-icons.types';
 import FacebookLogo from '../../../../assets/svgs/FacebookLogo';
 import InstagramLogo from '../../../../assets/svgs/InstagramLogo';
-import ThreadsLogo from '../../../../assets/svgs/ThreadsLogo';
+// import ThreadsLogo from '../../../../assets/svgs/ThreadsLogo';
 import LinkedInLogo from '../../../../assets/svgs/LinkedInLogo';
 import MicrosoftLogo from '../../../../assets/svgs/MicrosoftLogo';
 import YouTubeLogo from '../../../../assets/svgs/YouTubeLogo';
