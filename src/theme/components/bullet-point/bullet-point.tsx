@@ -77,7 +77,7 @@ export const BulletPoint: React.FC<BulletPointProps> = ({
         justifyContent: 'baseline',
         gap: theme.spacing.s,
         paddingLeft: '0',
-        paddingRight: '0',
+        paddingRight: '0.75rem',
         cursor: isHoverable ? 'pointer' : 'default',
         padding: `${theme.spacing.s1} ${isHoverable ? theme.spacing.m : '0'} ${theme.spacing.s1} ${isHoverable ? theme.spacing.s : '0'}`,
         borderRadius: isHoverable ? '4px' : '0',
