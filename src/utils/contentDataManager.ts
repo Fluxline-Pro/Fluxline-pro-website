@@ -15,12 +15,15 @@ import {
   GitHubRepository,
   AuthorDTO,
   AuthorWithMediaDTO,
+  PressReleaseDTO,
+  PressReleaseWithMediaDTO,
 } from '../api/types';
 import { useBlogPostsStore } from '../store/store-specs/blogPostsStore';
 import { useBooksStore } from '../store/store-specs/booksStore';
 import { usePortfolioPiecesStore } from '../store/store-specs/portfolioPiecesStore';
 import { useGitHubStore } from '../store/store-specs/githubStore';
 import { useAuthorsStore } from '../store/store-specs/authorsStore';
+import { usePressReleasesStore } from '../store/store-specs/pressReleasesStore';
 import { faker } from '@faker-js/faker';
 
 // Import debug utilities in development
@@ -40,6 +43,7 @@ export const CONTENT_API_FLAGS = {
   github: false, // Disabled - GitHub API still returning mock data, will enable when AplUSAndmINUS data is available
   authors: true, // Enable real authors API
   contact: true, // Enable real contact API
+  press: false, // Use mock data for press releases (until backend is ready)
   videos: false, // Still use mock data
   music: false, // Still use mock data
   livestreams: false, // Still use mock data
@@ -366,6 +370,62 @@ export const convertAuthorToContentItem = (
   };
 };
 
+// Convert Press Release DTO to ContentItem format
+export const convertPressReleaseToContentItem = (
+  pressRelease: PressReleaseDTO | PressReleaseWithMediaDTO
+): ContentItem => {
+  // Handle both PressReleaseDTO and PressReleaseWithMediaDTO
+  const releaseData = pressRelease;
+  const mediaItems = 'mediaItems' in pressRelease ? pressRelease.mediaItems : [];
+
+  // Find featured image
+  const featuredImage = mediaItems.find(
+    (media) => media.id === releaseData.featuredImageId
+  );
+
+  // Generate fallback image if no featured image is available
+  // Use first tag as keyword for more relevant image, fallback to category
+  let imageUrl = featuredImage?.url;
+  if (!imageUrl) {
+    // Get a valid keyword or use default as fallback
+    let keyword = 'press'; // Default fallback
+
+    // Try to get first tag if available and not empty
+    if (releaseData.tagsList?.length > 0 && releaseData.tagsList[0]?.trim()) {
+      keyword = releaseData.tagsList[0];
+    }
+    // Otherwise try to use category if available and not empty
+    else if (releaseData.category?.trim()) {
+      keyword = releaseData.category;
+    }
+
+    // Set the seed based on keyword for consistent images
+    faker.seed(keyword.length * 100 + keyword.charCodeAt(0));
+    imageUrl = faker.image.urlPicsumPhotos({
+      width: 1200,
+      height: 800,
+    });
+  }
+
+  return {
+    id: releaseData.slug,
+    title: releaseData.title,
+    description: releaseData.description,
+    imageUrl,
+    imageAlt: featuredImage?.altText || `${releaseData.title} featured image`,
+    date: new Date(releaseData.publishDate),
+    author: releaseData.authorSlug,
+    category: releaseData.category,
+    content: releaseData.content,
+    // Additional fields from DTO
+    status: releaseData.status,
+    tags: releaseData.tagsList,
+    slug: releaseData.slug,
+    lastModified: new Date(releaseData.lastModified),
+    isPublished: releaseData.isPublished || releaseData.status === 'Published',
+  };
+};
+
 // Generate mock data (existing function moved here)
 export const generateMockContent = (
   contentType: string,
@@ -596,6 +656,7 @@ export const useContentData = (contentType: string) => {
   const portfolioStore = usePortfolioPiecesStore();
   const githubStore = useGitHubStore();
   const authorsStore = useAuthorsStore();
+  const pressReleasesStore = usePressReleasesStore();
 
   // Memoize the configuration to prevent unnecessary re-renders
   const config = React.useMemo(() => {
@@ -690,6 +751,18 @@ export const useContentData = (contentType: string) => {
               ...params,
             });
             return authorsStore.getAllAuthors().map(convertAuthorToContentItem);
+
+          case 'press':
+            await pressReleasesStore.fetchPressReleases({
+              status: 'Published',
+              page: 1,
+              pageSize: 12,
+              includeMedia: true,
+              ...params,
+            });
+            return pressReleasesStore
+              .getPublishedPressReleases()
+              .map(convertPressReleaseToContentItem);
 
           default:
             return generateMockContent(contentType);

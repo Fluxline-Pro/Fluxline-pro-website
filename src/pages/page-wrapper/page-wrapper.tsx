@@ -59,6 +59,10 @@ const PAGE_CONFIGS = {
     image: require('../../assets/images/Blog1280x1815.jpg'),
     imageText: 'Blog',
   },
+  '/press': {
+    image: require('../../assets/images/Content1280x1815.jpg'),
+    imageText: 'Press Release',
+  },
   '/contact-me': {
     image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
     imageText: '',

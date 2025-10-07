@@ -13,6 +13,7 @@ import { GitHubApiClient } from './github-client';
 import { MediaApiClient } from './media-client';
 import { BooksApiClient } from './books-client';
 import { ContactApiClient } from './contact-client';
+import { PressReleasesApiClient } from './pressreleases-client';
 
 export class ApiClient extends BaseApiClient {
   // Service-specific clients
@@ -23,6 +24,7 @@ export class ApiClient extends BaseApiClient {
   public readonly media: MediaApiClient;
   public readonly books: BooksApiClient;
   public readonly contact: ContactApiClient;
+  public readonly pressReleases: PressReleasesApiClient;
 
   constructor(config: ApiClientConfig) {
     super(config);
@@ -35,6 +37,7 @@ export class ApiClient extends BaseApiClient {
     this.media = new MediaApiClient(config);
     this.books = new BooksApiClient(config);
     this.contact = new ContactApiClient(config);
+    this.pressReleases = new PressReleasesApiClient(config);
   }
 
   /**
@@ -156,6 +159,7 @@ export class ApiClient extends BaseApiClient {
     this.media.updateConfig(newConfig);
     this.books.updateConfig(newConfig);
     this.contact.updateConfig(newConfig);
+    this.pressReleases.updateConfig(newConfig);
   }
 
   /**
@@ -172,6 +176,7 @@ export class ApiClient extends BaseApiClient {
       media: boolean;
       books: boolean;
       contact: boolean;
+      pressReleases: boolean;
     };
   }> {
     const results = {
@@ -182,6 +187,7 @@ export class ApiClient extends BaseApiClient {
       media: false,
       books: false,
       contact: false,
+      pressReleases: false,
     };
 
     try {
@@ -195,6 +201,7 @@ export class ApiClient extends BaseApiClient {
         this.books.getBooks({ page: 1, pageSize: 1 }),
         // For contact, we can't really test without submitting a form, so this is a placeholder
         Promise.resolve({ success: true }),
+        this.pressReleases.getPressReleases({ page: 1, pageSize: 1 }),
       ]);
 
       results.authors = tests[0].status === 'fulfilled';
@@ -204,6 +211,7 @@ export class ApiClient extends BaseApiClient {
       results.media = tests[4].status === 'fulfilled';
       results.books = tests[5].status === 'fulfilled';
       results.contact = tests[6].status === 'fulfilled';
+      results.pressReleases = tests[7].status === 'fulfilled';
 
       const successCount = Object.values(results).filter(Boolean).length;
       const totalCount = Object.keys(results).length;
@@ -301,5 +309,6 @@ export {
   MediaApiClient,
   BooksApiClient,
   ContactApiClient,
+  PressReleasesApiClient,
   BaseApiClient,
 };

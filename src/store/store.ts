@@ -11,6 +11,7 @@ import { useGitHubStore } from './store-specs/githubStore';
 import { useMediaStore } from './store-specs/mediaStore';
 import { useBooksStore } from './store-specs/booksStore';
 import { useContactStore } from './store-specs/contactStore';
+import { usePressReleasesStore } from './store-specs/pressReleasesStore';
 import { useCombinedApiStore } from './store-specs/combinedApiStore';
 
 // Export individual stores for direct use
@@ -22,6 +23,7 @@ export {
   useMediaStore,
   useBooksStore,
   useContactStore,
+  usePressReleasesStore,
   useCombinedApiStore,
 };
 
