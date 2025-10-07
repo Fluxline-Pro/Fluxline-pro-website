@@ -74,13 +74,11 @@ const H2Title = ({
   style?: React.CSSProperties;
 }) => {
   const { theme } = useAppTheme();
-  const orientation = useDeviceOrientation();
 
   return (
     <Typography
       variant='h2'
       textAlign='left'
-      marginLeft={name === 'Our Services' ? orientation === 'portrait' ? '0' : orientation === 'square' ? '2rem' : '5rem' : '0'}
       color={theme.palette.themePrimary}
       noHyphens
       style={{ ...styles.h2Title(theme), ...style }}
@@ -323,37 +321,39 @@ export const ProfessionalSummary: React.FC<{
 
   return (
     <>
-      <Container
-        display='flex'
-        flexDirection='row'
-        justifyContent='flex-start'
-        alignItems='center'
-        paddingLeft='0'
-        marginLeft='0'
-        marginBottom='1rem'
-        gap={theme.spacing.s}
-        style={{ padding: '0' }}
-      >
-        {currentView !== 'services' && (
-          <NavigationArrow
-            direction='backward'
-            navigate={() => navigate('/services')}
-            size='medium'
-            showBackground={false}
-          />
-        )}
-        <H2Title name={getTitle()} />
-      </Container>
-      <Typography
-        variant='p'
-        textAlign='left'
-        color={theme.palette.neutralPrimary}
-        marginBottom='2rem'
-        noHyphens
-        style={styles.textContent}
-      >
-        {renderSummary(getSummary())}
-      </Typography>
+      <div style={styles.sectionContainer}>
+        <Container
+          display='flex'
+          flexDirection='row'
+          justifyContent='flex-start'
+          alignItems='center'
+          paddingLeft='0'
+          marginLeft='0'
+          marginBottom='1rem'
+          gap={theme.spacing.s}
+          style={{ padding: '0' }}
+        >
+          {currentView !== 'services' && (
+            <NavigationArrow
+              direction='backward'
+              navigate={() => navigate('/services')}
+              size='medium'
+              showBackground={false}
+            />
+          )}
+          <H2Title name={getTitle()} />
+        </Container>
+        <Typography
+          variant='p'
+          textAlign='left'
+          color={theme.palette.neutralPrimary}
+          marginBottom='2rem'
+          noHyphens
+          style={styles.textContent}
+        >
+          {renderSummary(getSummary())}
+        </Typography>
+      </div>
       <Container
         display='flex'
         flexDirection='column'

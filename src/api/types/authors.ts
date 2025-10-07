@@ -56,7 +56,7 @@ export interface AuthorDTO {
   // Optional properties
   location?: string; // e.g. "San Francisco, CA"
   bio?: string; // e.g. "Software Engineer with a passion for open source."
-  website?: string; // e.g. "https://terencewaters.com"
+  website?: string; // e.g. "https://Fluxline.pro"
   twitterHandle?: string; // e.g. "@terencewaters"
   instagramHandle?: string; // e.g. "@terencewaters"
   linkedInHandle?: string; // e.g. "https://www.linkedin.com/in/terencewaters"
