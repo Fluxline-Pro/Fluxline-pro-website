@@ -81,7 +81,7 @@ export const useDocumentTitle = (): void => {
     };
 
     const pageTitle = getPageTitle(location.pathname);
-    const fullTitle = `TerenceWaters.com - ${pageTitle}`;
+    const fullTitle = `Fluxline Resonance Group - ${pageTitle}`;
 
     document.title = fullTitle;
   }, [location.pathname]);

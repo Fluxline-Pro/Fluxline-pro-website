@@ -30,7 +30,7 @@ describe('useDocumentTitle', () => {
       </BrowserRouter>
     );
     
-    expect(document.title).toBe('TerenceWaters.com - Home');
+    expect(document.title).toBe('Fluxline Resonance Group - Home');
   });
 
   test('sets correct title for about page', () => {
@@ -40,7 +40,7 @@ describe('useDocumentTitle', () => {
       </BrowserRouter>
     );
     
-    expect(document.title).toBe('TerenceWaters.com - About Me');
+    expect(document.title).toBe('Fluxline Resonance Group - About Me');
   });
 
   test('sets correct title for blog page', () => {
@@ -50,7 +50,7 @@ describe('useDocumentTitle', () => {
       </BrowserRouter>
     );
     
-    expect(document.title).toBe('TerenceWaters.com - Blog');
+    expect(document.title).toBe('Fluxline Resonance Group - Blog');
   });
 
   test('sets correct title for blog post page', () => {
@@ -60,7 +60,7 @@ describe('useDocumentTitle', () => {
       </BrowserRouter>
     );
     
-    expect(document.title).toBe('TerenceWaters.com - Blog');
+    expect(document.title).toBe('Fluxline Resonance Group - Blog');
   });
 
   test('sets correct title for contact page', () => {
@@ -70,7 +70,7 @@ describe('useDocumentTitle', () => {
       </BrowserRouter>
     );
     
-    expect(document.title).toBe('TerenceWaters.com - Contact Me');
+    expect(document.title).toBe('Fluxline Resonance Group - Contact Me');
   });
 
   test('sets correct title for portfolio page', () => {
@@ -80,7 +80,7 @@ describe('useDocumentTitle', () => {
       </BrowserRouter>
     );
     
-    expect(document.title).toBe('TerenceWaters.com - Portfolio');
+    expect(document.title).toBe('Fluxline Resonance Group - Portfolio');
   });
 
   test('sets correct title for portfolio item page', () => {
@@ -90,7 +90,7 @@ describe('useDocumentTitle', () => {
       </BrowserRouter>
     );
     
-    expect(document.title).toBe('TerenceWaters.com - Portfolio');
+    expect(document.title).toBe('Fluxline Resonance Group - Portfolio');
   });
 
   test('sets correct title for 404 page', () => {
@@ -100,7 +100,7 @@ describe('useDocumentTitle', () => {
       </BrowserRouter>
     );
     
-    expect(document.title).toBe('TerenceWaters.com - 404 - Not Found');
+    expect(document.title).toBe('Fluxline Resonance Group - 404 - Not Found');
   });
 
   test('sets correct title for services page', () => {
@@ -110,7 +110,7 @@ describe('useDocumentTitle', () => {
       </BrowserRouter>
     );
     
-    expect(document.title).toBe('TerenceWaters.com - Services');
+    expect(document.title).toBe('Fluxline Resonance Group - Services');
   });
 
   test('sets correct title for specific service page', () => {
@@ -120,6 +120,6 @@ describe('useDocumentTitle', () => {
       </BrowserRouter>
     );
     
-    expect(document.title).toBe('TerenceWaters.com - Consulting');
+    expect(document.title).toBe('Fluxline Resonance Group - Consulting');
   });
 });
