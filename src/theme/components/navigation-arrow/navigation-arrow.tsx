@@ -118,7 +118,9 @@ export const NavigationArrow: React.FC<NavigationArrowProps> = ({
         <path
           d={getPathData()}
           fill={
-            isHovered ? theme.palette.themeDarker : theme.palette.themePrimary
+            isHovered
+              ? theme.palette.themeSecondary
+              : theme.palette.themePrimary
           }
           style={{ transition: 'fill 0.3s ease-in-out' }}
         />

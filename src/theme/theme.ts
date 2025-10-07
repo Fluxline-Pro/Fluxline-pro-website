@@ -479,7 +479,7 @@ export const typography = {
       fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
       textShadow: 'var(--text-shadow-h5)',
-      textTransform: 'lowercase' as const,
+      textTransform: 'capitalize' as const,
       lineHeight: '1.3',
     },
     h6: {
@@ -498,7 +498,7 @@ export const typography = {
     body: {
       fontFamily:
         'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-      fontSize: '1rem',
+      fontSize: '1.1rem', // rising just a tad
       fontWeight: '500' as '500',
       fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
@@ -931,7 +931,7 @@ export const darkTheme: IExtendedTheme = createExtendedTheme(
   createTheme({
     palette: {
       // Fluxline Pro Dark Primary Palette – Resonance Core
-      themePrimary: '#274770', // Slate blue – sovereign structure
+      themePrimary: '#AFCAFC', // Slate blue – sovereign structure
       themeSecondary: '#3ABAB4', // Fluxline teal – intuitive clarity
       themeTertiary: '#5A7CA0', // UI layering
       themeLight: '#F8FAFC', // Light overlay for contrast
@@ -1039,7 +1039,8 @@ export const highContrastTheme: IExtendedTheme = createExtendedTheme(
   {
     ...baseExtendedProps,
     themeMode: 'high-contrast' as ThemeMode,
-    gradients: { // neutralize gradients on high contrast & colorblind modes
+    gradients: {
+      // neutralize gradients on high contrast & colorblind modes
       dark: {
         solid: '#121212',
         background: '#121212',

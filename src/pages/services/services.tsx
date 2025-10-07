@@ -13,7 +13,6 @@ import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { useNavigate } from 'react-router-dom';
 import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
 import { NavigationArrow } from '../../theme/components/navigation-arrow/navigation-arrow';
-import { useIsMobile } from '../../theme/hooks/useMediaQuery';
 
 // Reusable style objects
 const styles = {
@@ -75,13 +74,15 @@ const H2Title = ({
   style?: React.CSSProperties;
 }) => {
   const { theme } = useAppTheme();
-  const isMobile = useIsMobile();
+  const orientation = useDeviceOrientation();
 
   return (
     <Typography
       variant='h2'
       textAlign='left'
-      marginLeft={name === 'Our Services' && !isMobile ? '7rem' : undefined}
+      marginLeft={name === 'Our Services' ? orientation === 'portrait' ? '0' : orientation === 'square' ? '2rem' : '5rem' : '0'}
+      color={theme.palette.themePrimary}
+      noHyphens
       style={{ ...styles.h2Title(theme), ...style }}
     >
       {name}
@@ -148,17 +149,23 @@ export const AboutSection: React.FC<{
         noHyphens
         style={styles.textContent}
       >
-        {SERVICES_EXPORTS.ABOUT_PROFESSIONAL_SUMMARY.map((paragraph, index) => (
-          <React.Fragment key={index}>
-            {paragraph}
-            {index < SERVICES_EXPORTS.ABOUT_PROFESSIONAL_SUMMARY.length - 1 && (
-              <>
-                <br />
-                <br />
-              </>
-            )}
-          </React.Fragment>
-        ))}
+        <div>
+          {SERVICES_EXPORTS.ABOUT_PROFESSIONAL_SUMMARY.map(
+            (paragraph, index) => (
+              <div
+                key={index}
+                dangerouslySetInnerHTML={{ __html: paragraph }}
+                style={{
+                  marginBottom:
+                    index <
+                    SERVICES_EXPORTS.ABOUT_PROFESSIONAL_SUMMARY.length - 1
+                      ? '2rem'
+                      : '0',
+                }}
+              />
+            )
+          )}
+        </div>
       </Typography>
       <div
         style={{
