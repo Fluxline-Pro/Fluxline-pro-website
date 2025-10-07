@@ -1,7 +1,7 @@
 import { SocialIcon } from './social-icons.types';
 import FacebookLogo from '../../../../assets/svgs/FacebookLogo';
 import InstagramLogo from '../../../../assets/svgs/InstagramLogo';
-import ThreadsLogo from '../../../../assets/svgs/ThreadsLogo';
+// import ThreadsLogo from '../../../../assets/svgs/ThreadsLogo';
 import LinkedInLogo from '../../../../assets/svgs/LinkedInLogo';
 import MicrosoftLogo from '../../../../assets/svgs/MicrosoftLogo';
 import YouTubeLogo from '../../../../assets/svgs/YouTubeLogo';
@@ -10,20 +10,14 @@ import TiktokLogo from '../../../../assets/svgs/TiktokLogo';
 export const getSocialIcons = (): SocialIcon[] => [
   {
     iconName: <FacebookLogo />,
-    url: 'https://www.facebook.com/AplUSAndmINUS',
+    url: 'https://www.facebook.com/Fluxline',
     tooltip: 'Facebook',
     isTagline: true,
   },
   {
     iconName: <InstagramLogo />,
-    url: 'https://www.instagram.com/aplusandminus',
+    url: 'https://www.instagram.com/FluxlineCo',
     tooltip: 'Instagram',
-    isTagline: true,
-  },
-  {
-    iconName: <ThreadsLogo />,
-    url: 'https://www.threads.com/@aplusandminus',
-    tooltip: 'Threads',
     isTagline: true,
   },
   {
@@ -40,7 +34,7 @@ export const getSocialIcons = (): SocialIcon[] => [
   },
   {
     iconName: <TiktokLogo />,
-    url: 'https://www.tiktok.com/@aplusandminus',
+    url: 'https://www.tiktok.com/@aplusinflux',
     tooltip: 'TikTok',
     isTagline: false,
   },

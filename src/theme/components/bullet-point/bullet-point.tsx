@@ -60,7 +60,7 @@ export const BulletPoint: React.FC<BulletPointProps> = ({
           >
             <path
               d='M12 4L10.59 5.41L16.17 11H4V13H16.17L10.59 18.59L12 20L20 12L12 4Z'
-              fill={theme.palette.themeDarker}
+              fill={theme.palette.themeSecondary}
             />
           </svg>
         </div>
@@ -77,7 +77,7 @@ export const BulletPoint: React.FC<BulletPointProps> = ({
         justifyContent: 'baseline',
         gap: theme.spacing.s,
         paddingLeft: '0',
-        paddingRight: '0',
+        paddingRight: '0.75rem',
         cursor: isHoverable ? 'pointer' : 'default',
         padding: `${theme.spacing.s1} ${isHoverable ? theme.spacing.m : '0'} ${theme.spacing.s1} ${isHoverable ? theme.spacing.s : '0'}`,
         borderRadius: isHoverable ? '4px' : '0',
@@ -129,7 +129,7 @@ export const BulletPoint: React.FC<BulletPointProps> = ({
               fill: theme.palette.themePrimary,
               transition: 'fill 0.3s ease-in-out',
               ...((isHovered || isFocused) && isHoverable
-                ? { fill: theme.palette.themeDarker }
+                ? { fill: theme.palette.themeSecondary }
                 : {}),
             }}
           />
@@ -148,7 +148,6 @@ export const BulletPoint: React.FC<BulletPointProps> = ({
         <Typography
           variant='h5'
           textAlign='left'
-          color={theme.palette.themePrimary}
           fontWeight={600}
           fontSize={theme.typography.fontSizes.clamp5}
           noHyphens
@@ -160,7 +159,7 @@ export const BulletPoint: React.FC<BulletPointProps> = ({
               'color 0.3s ease-in-out, text-decoration 0.3s ease-in-out',
             color:
               (isHovered || isFocused) && isHoverable
-                ? theme.palette.themeDarker
+                ? theme.palette.themeSecondary
                 : theme.palette.themePrimary,
           }}
         >
