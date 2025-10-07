@@ -1,7 +1,7 @@
 /**
  * Main API Client
  * Central API client that provides access to all service-specific clients
- * IKMPORTANT NOTE: This needs to be updated for Fluxline.pro's API and services once data services are set up
+ * IMPORTANT NOTE: This needs to be updated for Fluxline.pro's API and services once data services are set up
  */
 
 import { ApiClientConfig, EnvironmentConfig } from '../types';
