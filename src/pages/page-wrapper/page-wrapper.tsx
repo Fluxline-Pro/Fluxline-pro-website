@@ -4,16 +4,31 @@ import { ViewportGrid } from '../../theme/layouts/ViewportGrid';
 import { UnifiedCard } from '../../theme/components/card';
 import { useDeviceOrientation } from '../../theme/hooks/useMediaQuery';
 import { useContentFilterStore } from '../../store/store-specs/contentFilterStore';
+import { useAppTheme } from '../../theme/hooks/useAppTheme';
+import { ThemeMode } from '../../theme/theme';
+
+// Helper function to get the appropriate Fluxline logo based on theme mode
+const getFluxlineLogo = (themeMode: ThemeMode): string => {
+  // Dark mode themes: dark, high-contrast, grayscale-dark
+  const darkModeThemes: ThemeMode[] = ['dark', 'high-contrast', 'grayscale-dark'];
+  
+  if (darkModeThemes.includes(themeMode)) {
+    return require('../../assets/images/FluxlineLogoDarkMode.png');
+  }
+  
+  // Light mode themes: light, protanopia, deuteranopia, tritanopia, grayscale
+  return require('../../assets/images/FluxlineLogoLightMode.png');
+};
 
 // Define page configurations
 const PAGE_CONFIGS = {
   '/about': {
     // Using placeholder - you may want to replace this with an actual Fluxline manifesto image
-    image: require('../../assets/images/FluxlineLogo.png'),
+    image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
     imageText: '',
   },
   '/services': {
-    image: require('../../assets/images/FluxlineLogo.png'),
+    image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
     imageText: '',
   },
   '/services/education-training': {
@@ -45,7 +60,7 @@ const PAGE_CONFIGS = {
     imageText: 'Blog',
   },
   '/contact-me': {
-    image: require('../../assets/images/FluxlineLogo.png'),
+    image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
     imageText: '',
   },
   '/books': {
@@ -106,6 +121,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
   const orientation = useDeviceOrientation(); // Determine if we should show the title on the image card
   const { selectedPost } = useContentFilterStore();
   const { id } = useParams();
+  const { themeMode } = useAppTheme();
 
   // Hide title for services views except about view to prevent duplicate titles
   const shouldShowTitle = React.useMemo(() => {
@@ -142,10 +158,16 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
   const config = currentConfig || NOT_FOUND_CONFIG;
 
   // Use the selected post's image if available and we're in detail view
+  // Handle dynamic Fluxline logo based on theme mode
+  let configImage = config.image;
+  if (configImage === 'FLUXLINE_LOGO') {
+    configImage = getFluxlineLogo(themeMode);
+  }
+  
   const imageToDisplay =
     id && selectedPost && selectedPost.imageUrl
       ? selectedPost.imageUrl
-      : contentImage || config.image;
+      : contentImage || configImage;
 
   // Use the selected post's title if available and we're in detail view
   const imageTextToDisplay =

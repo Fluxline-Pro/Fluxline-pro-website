@@ -60,7 +60,7 @@ export const isApiAvailable = (): boolean => {
     // Note: mock-dev-api and mock-tst-api are actually REAL API endpoints (just with "mock" in the name)
     const isRealApiUrl =
       hasApiUrl &&
-      (apiUrl.includes('terencewaters.com') ||
+      (apiUrl.includes('fluxline.pro') ||
         apiUrl.includes('dev-api') ||
         apiUrl.includes('tst-api') ||
         apiUrl.includes('api.')) &&

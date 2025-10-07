@@ -54,7 +54,7 @@ export const debugApiConfig = () => {
     // console.log('\n📋 Mock Data Mode Detected');
     // console.log('  Real API not configured or credentials invalid');
     // console.log(
-    //   '  Note: mock-dev-api.terencewaters.com and mock-tst-api.terencewaters.com are REAL endpoints'
+    //   '  Note: mock-dev-api.Fluxline.pro and mock-tst-api.Fluxline.pro are REAL endpoints'
     // );
     // console.log(
     //   '  Check environment variables: REACT_APP_API_BASE_URL, REACT_APP_API_KEY, REACT_APP_CDN_BASE_URL'
