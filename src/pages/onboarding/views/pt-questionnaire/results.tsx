@@ -71,7 +71,7 @@ const ProgramCard: React.FC<{ program: ProgramRecommendation; isTop?: boolean }>
       <div style={{ marginBottom: '0.75rem' }}>
         <strong style={{ color: theme.palette.neutralSecondary }}>Ideal for:</strong>
         <ul style={{ marginTop: '0.25rem', paddingLeft: '1.5rem' }}>
-          {program.idealFor.map((item, idx) => (
+          {program.idealFor.map((item: string, idx: number) => (
             <li key={idx} style={{ color: theme.palette.neutralPrimary }}>
               {item}
             </li>
@@ -213,7 +213,7 @@ const PTQuestionnaireResults: React.FC = () => {
       {recommendations.alternativeRecommendations.length > 0 && (
         <Container width='100%' marginBottom='2rem'>
           <H3styles text='Other Great Options' marginBottom='1rem' />
-          {recommendations.alternativeRecommendations.map((program, idx) => (
+          {recommendations.alternativeRecommendations.map((program: ProgramRecommendation, idx: number) => (
             <ProgramCard key={idx} program={program} />
           ))}
         </Container>
@@ -232,7 +232,7 @@ const PTQuestionnaireResults: React.FC = () => {
       >
         <H3styles text='Next Steps' marginBottom='1rem' />
         <ul style={{ paddingLeft: '1.5rem', margin: 0 }}>
-          {recommendations.nextSteps.map((step, idx) => (
+          {recommendations.nextSteps.map((step: string, idx: number) => (
             <li
               key={idx}
               style={{

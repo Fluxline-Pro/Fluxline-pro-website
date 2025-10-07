@@ -172,6 +172,12 @@ export const ROUTES: Routes[] = [
   },
   // Personal Training Questionnaire Routes
   {
+    name: 'pt-questionnaire-welcome',
+    path: '/onboarding/pt-questionnaire/welcome',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
     name: 'pt-questionnaire-fitness-journey',
     path: '/onboarding/pt-questionnaire/fitness-journey',
     isMenuItem: false,
