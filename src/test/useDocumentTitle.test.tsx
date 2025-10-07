@@ -26,100 +26,100 @@ describe('useDocumentTitle', () => {
   test('sets correct title for home page', () => {
     render(
       <BrowserRouter>
-        <TestComponent pathname="/" />
+        <TestComponent pathname='/' />
       </BrowserRouter>
     );
-    
-    expect(document.title).toBe('Fluxline Resonance Group - Home');
+
+    expect(document.title).toBe('Fluxline.pro - Home');
   });
 
   test('sets correct title for about page', () => {
     render(
       <BrowserRouter>
-        <TestComponent pathname="/about" />
+        <TestComponent pathname='/about' />
       </BrowserRouter>
     );
-    
-    expect(document.title).toBe('Fluxline Resonance Group - About Me');
+
+    expect(document.title).toBe('Fluxline.pro - About Me');
   });
 
   test('sets correct title for blog page', () => {
     render(
       <BrowserRouter>
-        <TestComponent pathname="/blog" />
+        <TestComponent pathname='/blog' />
       </BrowserRouter>
     );
-    
-    expect(document.title).toBe('Fluxline Resonance Group - Blog');
+
+    expect(document.title).toBe('Fluxline.pro - Blog');
   });
 
   test('sets correct title for blog post page', () => {
     render(
       <BrowserRouter>
-        <TestComponent pathname="/blog/my-blog-post" />
+        <TestComponent pathname='/blog/my-blog-post' />
       </BrowserRouter>
     );
-    
-    expect(document.title).toBe('Fluxline Resonance Group - Blog');
+
+    expect(document.title).toBe('Fluxline.pro - Blog');
   });
 
   test('sets correct title for contact page', () => {
     render(
       <BrowserRouter>
-        <TestComponent pathname="/contact-me" />
+        <TestComponent pathname='/contact-me' />
       </BrowserRouter>
     );
-    
-    expect(document.title).toBe('Fluxline Resonance Group - Contact Me');
+
+    expect(document.title).toBe('Fluxline.pro - Contact Me');
   });
 
   test('sets correct title for portfolio page', () => {
     render(
       <BrowserRouter>
-        <TestComponent pathname="/portfolio" />
+        <TestComponent pathname='/portfolio' />
       </BrowserRouter>
     );
-    
-    expect(document.title).toBe('Fluxline Resonance Group - Portfolio');
+
+    expect(document.title).toBe('Fluxline.pro - Portfolio');
   });
 
   test('sets correct title for portfolio item page', () => {
     render(
       <BrowserRouter>
-        <TestComponent pathname="/portfolio/my-project" />
+        <TestComponent pathname='/portfolio/my-project' />
       </BrowserRouter>
     );
-    
-    expect(document.title).toBe('Fluxline Resonance Group - Portfolio');
+
+    expect(document.title).toBe('Fluxline.pro - Portfolio');
   });
 
   test('sets correct title for 404 page', () => {
     render(
       <BrowserRouter>
-        <TestComponent pathname="/non-existent-page" />
+        <TestComponent pathname='/non-existent-page' />
       </BrowserRouter>
     );
-    
-    expect(document.title).toBe('Fluxline Resonance Group - 404 - Not Found');
+
+    expect(document.title).toBe('Fluxline.pro - 404 - Not Found');
   });
 
   test('sets correct title for services page', () => {
     render(
       <BrowserRouter>
-        <TestComponent pathname="/services" />
+        <TestComponent pathname='/services' />
       </BrowserRouter>
     );
-    
-    expect(document.title).toBe('Fluxline Resonance Group - Services');
+
+    expect(document.title).toBe('Fluxline.pro - Services');
   });
 
   test('sets correct title for specific service page', () => {
     render(
       <BrowserRouter>
-        <TestComponent pathname="/services/consulting" />
+        <TestComponent pathname='/services/consulting' />
       </BrowserRouter>
     );
-    
-    expect(document.title).toBe('Fluxline Resonance Group - Consulting');
+
+    expect(document.title).toBe('Fluxline.pro - Consulting');
   });
 });

@@ -59,7 +59,7 @@ const AuthScreen = () => {
 
   // Set document title for auth screen
   React.useEffect(() => {
-    document.title = 'Fluxline Resonance Group - Authentication';
+    document.title = 'Fluxline.pro - Authentication';
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

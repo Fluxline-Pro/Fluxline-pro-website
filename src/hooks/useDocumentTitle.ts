@@ -81,7 +81,7 @@ export const useDocumentTitle = (): void => {
     };
 
     const pageTitle = getPageTitle(location.pathname);
-    const fullTitle = `Fluxline Resonance Group - ${pageTitle}`;
+    const fullTitle = `Fluxline.pro - ${pageTitle}`;
 
     document.title = fullTitle;
   }, [location.pathname]);
