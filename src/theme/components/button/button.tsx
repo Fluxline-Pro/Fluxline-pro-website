@@ -71,8 +71,8 @@ export const FluentButton: React.FC<ButtonProps> = ({
       case 'primary':
         return theme.themeMode === 'high-contrast'
           ? theme.palette.themePrimary
-          : theme.themeMode === 'dark'
-            ? theme.palette.themeDark
+            : theme.themeMode === 'dark'
+              ? theme.palette.themeTertiary
             : theme.themeMode === 'grayscale-dark'
               ? theme.palette.neutralTertiary
               : theme.palette.themePrimary;
@@ -112,10 +112,10 @@ export const FluentButton: React.FC<ButtonProps> = ({
         return theme.themeMode === 'high-contrast'
           ? theme.palette.themeDarker
           : theme.themeMode === 'dark'
-            ? theme.palette.themeDarker
+            ? theme.palette.themeSecondary
             : theme.themeMode === 'grayscale-dark'
               ? theme.palette.neutralQuaternary
-            : theme.palette.themeDarker;
+            : theme.palette.themeSecondary;
       case 'secondary':
         if (theme.themeMode === 'protanopia') {
           return theme.palette.themePrimary;
