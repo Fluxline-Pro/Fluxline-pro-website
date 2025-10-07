@@ -6,6 +6,10 @@ This document provides comprehensive documentation for the API layer and Zustand
 
 The API layer provides a robust interface to interact with Azure Functions backend services, supporting Authors, Blog Posts, Portfolio Pieces, Books, Contact Form submissions, GitHub repositories, and Media management. It includes TypeScript types, API clients, Zustand stores, and React hooks for seamless integration.
 
+## Important Note
+
+These reference TerenceWaters.com, as its code base was used to incorporate Fluxline.pro's underlying code and deployment. Once APIs and backend data services are implemented for the site, this README, along with all URLs and staticwebapp.config.json apps and objects, will need to be configured with Fluxline.pro's URL settings and API endpoints. -TW 10/07/2025
+
 ## Table of Contents
 
 1. [Installation & Setup](#installation--setup)
