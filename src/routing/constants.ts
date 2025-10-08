@@ -214,6 +214,12 @@ export const ROUTES: Routes[] = [
     isContentScreen: false,
   },
   {
+    name: 'questionnaire-commitment',
+    path: '/questionnaire/commitment',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
     name: 'questionnaire-investment',
     path: '/questionnaire/investment',
     isMenuItem: false,

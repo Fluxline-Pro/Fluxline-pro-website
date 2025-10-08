@@ -263,7 +263,7 @@ const QuestionnaireInvestment: React.FC = () => {
       </div>
 
       <ButtonArray
-        backButtonText='Preferences'
+        backButtonText='Commitment'
         nextButtonText='Continue'
         nextDisabled={!selectedBudget || !selectedTimeline || !selectedUrgency}
         onNext={handleNext}

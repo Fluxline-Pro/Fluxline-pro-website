@@ -20,6 +20,7 @@ import QuestionnaireGoals from './views/questionnaire-goals';
 import QuestionnaireChallenges from './views/questionnaire-challenges';
 import QuestionnaireMotivation from './views/questionnaire-motivation';
 import QuestionnaireServicePreferences from './views/questionnaire-service-preferences';
+import QuestionnaireCommitment from './views/questionnaire-commitment';
 import QuestionnaireInvestment from './views/questionnaire-investment';
 import QuestionnaireContactInfo from './views/questionnaire-contact-info';
 import QuestionnaireResults from './views/questionnaire-results';
@@ -48,6 +49,10 @@ const steps = [
   {
     label: 'Preferences',
     path: '/questionnaire/services',
+  },
+  {
+    label: 'Commitment',
+    path: '/questionnaire/commitment',
   },
   {
     label: 'Investment',
@@ -172,6 +177,10 @@ export default function Questionnaire() {
                   <Route
                     path='services'
                     element={<QuestionnaireServicePreferences />}
+                  />
+                  <Route
+                    path='commitment'
+                    element={<QuestionnaireCommitment />}
                   />
                   <Route
                     path='investment'
