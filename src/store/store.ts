@@ -12,6 +12,7 @@ import { useMediaStore } from './store-specs/mediaStore';
 import { useBooksStore } from './store-specs/booksStore';
 import { useContactStore } from './store-specs/contactStore';
 import { useCombinedApiStore } from './store-specs/combinedApiStore';
+import { useIndividualPathStore } from './store-specs/individualPathStore';
 
 // Export individual stores for direct use
 export {
@@ -23,6 +24,7 @@ export {
   useBooksStore,
   useContactStore,
   useCombinedApiStore,
+  useIndividualPathStore,
 };
 
 // Export convenience hooks
