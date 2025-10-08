@@ -6,6 +6,7 @@ import { useDeviceOrientation } from '../../theme/hooks/useMediaQuery';
 import { useContentFilterStore } from '../../store/store-specs/contentFilterStore';
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { ThemeMode } from '../../theme/theme';
+import { PageStepper } from '../../theme/components/page-stepper';
 
 // Helper function to get the appropriate Fluxline logo based on theme mode
 const getFluxlineLogo = (themeMode: ThemeMode): string => {
