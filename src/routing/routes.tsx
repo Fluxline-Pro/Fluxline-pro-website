@@ -26,6 +26,7 @@ import ContactPage from '../pages/contact-page/contact-page';
 import AuthScreen from '../pages/auth-screen/auth-screen';
 import ServicesPage from '../pages/services-page/services-page';
 import { UnifiedContentPage } from '../pages/unified-content-page/unified-content-page';
+import Testimonials from '../pages/testimonials/testimonials';
 import ProgressBar from '../theme/components/progress-bar/progress-bar';
 import { useAppTheme } from '../theme/hooks/useAppTheme';
 
@@ -216,6 +217,10 @@ const routes: RouteObject[] = [
             element: <></>, // Content is handled by UnifiedContentPage
           },
         ],
+      },
+      {
+        path: 'testimonials',
+        element: <Testimonials />,
       },
       // {
       //   path: 'onboarding',
