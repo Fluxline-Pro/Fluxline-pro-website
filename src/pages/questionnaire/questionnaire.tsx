@@ -14,6 +14,7 @@ import { useFadeInOut } from '../../theme/hooks/useFadeInOut';
 import { useIndividualPathStore } from '../../store/store-specs/individualPathStore';
 
 // Views
+import QuestionnaireWelcome from './views/questionnaire-welcome';
 import QuestionnaireClientType from './views/questionnaire-client-type';
 import QuestionnaireGoals from './views/questionnaire-goals';
 import QuestionnaireChallenges from './views/questionnaire-challenges';
@@ -24,6 +25,10 @@ import QuestionnaireContactInfo from './views/questionnaire-contact-info';
 import QuestionnaireResults from './views/questionnaire-results';
 
 const steps = [
+  {
+    label: 'Welcome',
+    path: '/questionnaire/welcome',
+  },
   {
     label: 'Client Type',
     path: '/questionnaire/client-type',
@@ -67,8 +72,8 @@ export default function Questionnaire() {
 
   React.useEffect(() => {
     // Redirect to first step if on base questionnaire route
-    if (location.pathname === '/questionnaire') {
-      navigate('/questionnaire/client-type');
+    if (location.pathname === '/questionnaire' || location.pathname === '/questionnaire/') {
+      navigate('/questionnaire/welcome');
     }
   }, [location.pathname, navigate]);
 
@@ -85,7 +90,8 @@ export default function Questionnaire() {
         <>
           {/* Progress stepper */}
           {(isMobile || isTablet || isMobileLandscape) &&
-            location.pathname !== '/questionnaire/results' && (
+            location.pathname !== '/questionnaire/results' &&
+            location.pathname !== '/questionnaire/welcome' && (
               <div
                 style={{
                   width: '100%',
@@ -121,7 +127,8 @@ export default function Questionnaire() {
             {!isMobile &&
               !isTablet &&
               !isMobileLandscape &&
-              location.pathname !== '/questionnaire/results' && (
+              location.pathname !== '/questionnaire/results' &&
+              location.pathname !== '/questionnaire/welcome' && (
                 <div
                   style={{
                     width: '100%',
@@ -146,8 +153,9 @@ export default function Questionnaire() {
                 <Routes location={{ ...location, pathname: displayedPath }}>
                   <Route
                     path='/questionnaire'
-                    element={<Navigate to='/questionnaire/client-type' />}
+                    element={<Navigate to='/questionnaire/welcome' />}
                   />
+                  <Route path='welcome' element={<QuestionnaireWelcome />} />
                   <Route
                     path='client-type'
                     element={<QuestionnaireClientType />}
