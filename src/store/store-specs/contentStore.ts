@@ -18,6 +18,7 @@ interface ContentState {
   events: Record<string, Post>;
   books: Record<string, Post>;
   contactMeForm: Record<string, Post>;
+  caseStudies: Record<string, Post>;
   isLoading: boolean;
   error: string | null;
   fetchPost: (postId: string) => Promise<void>;
@@ -35,6 +36,7 @@ export const useContentStore = create<ContentState>((set) => ({
   events: {},
   books: {},
   contactMeForm: {},
+  caseStudies: {},
   isLoading: false,
   error: null,
 

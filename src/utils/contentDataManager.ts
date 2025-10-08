@@ -21,6 +21,7 @@ import { useBooksStore } from '../store/store-specs/booksStore';
 import { usePortfolioPiecesStore } from '../store/store-specs/portfolioPiecesStore';
 import { useGitHubStore } from '../store/store-specs/githubStore';
 import { useAuthorsStore } from '../store/store-specs/authorsStore';
+import { useCaseStudiesStore } from '../store/store-specs/caseStudiesStore';
 import { faker } from '@faker-js/faker';
 
 // Import debug utilities in development
@@ -43,6 +44,7 @@ export const CONTENT_API_FLAGS = {
   videos: false, // Still use mock data
   music: false, // Still use mock data
   livestreams: false, // Still use mock data
+  'case-studies': false, // Use mock data - no backend yet
 };
 
 // Check if API is available and configured
@@ -366,6 +368,31 @@ export const convertAuthorToContentItem = (
   };
 };
 
+// Convert CaseStudy to ContentItem format
+export const convertCaseStudyToContentItem = (study: any): ContentItem => {
+  return {
+    id: study.slug,
+    title: study.title,
+    description: study.description,
+    imageUrl: study.imageUrl,
+    imageAlt: `${study.title} case study`,
+    date: new Date(study.date),
+    author: 'Fluxline Team',
+    category: study.category,
+    content: study.challengeDescription,
+    // Additional fields
+    client: study.client,
+    services: study.services,
+    technologies: study.technologies,
+    results: study.results,
+    challengeDescription: study.challengeDescription,
+    solutionDescription: study.solutionDescription,
+    testimonial: study.testimonial,
+    isFeatured: study.isFeatured,
+    slug: study.slug,
+  };
+};
+
 // Generate mock data (existing function moved here)
 export const generateMockContent = (
   contentType: string,
@@ -571,6 +598,23 @@ export const generateMockContent = (
           ]),
         };
 
+      case 'case-studies':
+        return {
+          ...baseContent,
+          title: `${faker.company.name()} ${faker.helpers.arrayElement(['Transformation', 'Success Story', 'Strategic Initiative', 'Digital Evolution'])}`,
+          description: `A comprehensive case study showcasing measurable results and client success through strategic partnership.`,
+          imageUrl: faker.image.urlPicsumPhotos({ width: 1200, height: 800 }),
+          imageAlt: `Case Study ${index + 1}`,
+          category: faker.helpers.arrayElement([
+            'Personal Training',
+            'Business',
+            'Development',
+            'Consulting',
+            'Design',
+            'Education & Training',
+          ]),
+        };
+
       default: // 'blog' and others
         return {
           ...baseContent,
@@ -596,6 +640,7 @@ export const useContentData = (contentType: string) => {
   const portfolioStore = usePortfolioPiecesStore();
   const githubStore = useGitHubStore();
   const authorsStore = useAuthorsStore();
+  const caseStudiesStore = useCaseStudiesStore();
 
   // Memoize the configuration to prevent unnecessary re-renders
   const config = React.useMemo(() => {
@@ -691,6 +736,12 @@ export const useContentData = (contentType: string) => {
             });
             return authorsStore.getAllAuthors().map(convertAuthorToContentItem);
 
+          case 'case-studies':
+            // Use store data directly (mock data already initialized)
+            return caseStudiesStore
+              .getAllCaseStudies()
+              .map(convertCaseStudyToContentItem);
+
           default:
             return generateMockContent(contentType);
         }
@@ -710,6 +761,7 @@ export const useContentData = (contentType: string) => {
       portfolioStore,
       githubStore,
       authorsStore,
+      caseStudiesStore,
     ]
   );
 
@@ -755,6 +807,11 @@ export const useContentData = (contentType: string) => {
             const author = authorsStore.getAuthor(id);
             return author ? convertAuthorToContentItem(author) : null;
 
+          case 'case-studies':
+            // Get from store (mock data)
+            const caseStudy = caseStudiesStore.getCaseStudy(id);
+            return caseStudy ? convertCaseStudyToContentItem(caseStudy) : null;
+
           default:
             const mockData = generateMockContent(contentType);
             return mockData.find((item) => item.id === id) || null;
@@ -776,6 +833,7 @@ export const useContentData = (contentType: string) => {
       portfolioStore,
       githubStore,
       authorsStore,
+      caseStudiesStore,
     ]
   );
 
@@ -793,6 +851,8 @@ export const useContentData = (contentType: string) => {
         return githubStore.isLoadingList;
       case 'authors':
         return authorsStore.isLoadingList;
+      case 'case-studies':
+        return caseStudiesStore.isLoading;
       default:
         return false;
     }
@@ -804,6 +864,7 @@ export const useContentData = (contentType: string) => {
     portfolioStore,
     githubStore,
     authorsStore,
+    caseStudiesStore,
   ]);
 
   const getErrorState = React.useCallback(() => {
@@ -820,6 +881,8 @@ export const useContentData = (contentType: string) => {
         return githubStore.error;
       case 'authors':
         return authorsStore.error;
+      case 'case-studies':
+        return caseStudiesStore.error;
       default:
         return null;
     }
@@ -831,6 +894,7 @@ export const useContentData = (contentType: string) => {
     portfolioStore,
     githubStore,
     authorsStore,
+    caseStudiesStore,
   ]);
 
   return {

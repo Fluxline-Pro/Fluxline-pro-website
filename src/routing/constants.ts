@@ -33,6 +33,12 @@ export const ROUTES: Routes[] = [
     isContentScreen: false,
   },
   {
+    name: 'case studies',
+    path: 'case-studies',
+    isMenuItem: true,
+    isContentScreen: true,
+  },
+  {
     name: 'collab & connect',
     path: 'contact-me',
     isMenuItem: true,

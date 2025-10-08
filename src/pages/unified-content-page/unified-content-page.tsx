@@ -62,6 +62,7 @@ interface UnifiedContentPageProps {
     | 'architecture'
     | 'media'
     | 'press'
+    | 'case-studies'
     | 'personal-training'
     | 'education-training'
     | 'business'

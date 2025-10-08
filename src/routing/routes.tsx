@@ -101,6 +101,16 @@ const routes: RouteObject[] = [
         element: <ServicesPage contentType='architecture' />,
       },
       {
+        path: 'case-studies',
+        element: <UnifiedContentPage contentType='case-studies' />,
+        children: [
+          {
+            path: ':id',
+            element: <></>, // Content is handled by UnifiedContentPage
+          },
+        ],
+      },
+      {
         path: 'blog',
         element: <UnifiedContentPage contentType='blog' />,
         children: [
