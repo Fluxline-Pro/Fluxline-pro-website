@@ -87,7 +87,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({ onClose }) => {
             />
           ))}
           <a
-            href='https://linktr.ee/aplusandminus'
+            href='https://linktr.ee/aplusinflux'
             rel='noreferrer noopener'
             target='_blank'
             style={{

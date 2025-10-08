@@ -1,6 +1,7 @@
 /**
  * API Configuration Helpers
  * Utilities for creating and validating API configurations
+ * IMPORTANT NOTE: This needs to be updated for Fluxline.pro's API and services once data services are set up
  */
 
 import { ApiClientConfig, EnvironmentConfig } from './types';

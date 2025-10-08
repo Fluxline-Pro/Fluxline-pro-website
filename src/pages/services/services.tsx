@@ -13,7 +13,6 @@ import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { useNavigate } from 'react-router-dom';
 import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
 import { NavigationArrow } from '../../theme/components/navigation-arrow/navigation-arrow';
-import { useIsMobile } from '../../theme/hooks/useMediaQuery';
 
 // Reusable style objects
 const styles = {
@@ -75,13 +74,13 @@ const H2Title = ({
   style?: React.CSSProperties;
 }) => {
   const { theme } = useAppTheme();
-  const isMobile = useIsMobile();
 
   return (
     <Typography
       variant='h2'
       textAlign='left'
-      marginLeft={name === 'Our Services' && !isMobile ? '7rem' : undefined}
+      color={theme.palette.themePrimary}
+      noHyphens
       style={{ ...styles.h2Title(theme), ...style }}
     >
       {name}
@@ -148,17 +147,23 @@ export const AboutSection: React.FC<{
         noHyphens
         style={styles.textContent}
       >
-        {SERVICES_EXPORTS.ABOUT_PROFESSIONAL_SUMMARY.map((paragraph, index) => (
-          <React.Fragment key={index}>
-            {paragraph}
-            {index < SERVICES_EXPORTS.ABOUT_PROFESSIONAL_SUMMARY.length - 1 && (
-              <>
-                <br />
-                <br />
-              </>
-            )}
-          </React.Fragment>
-        ))}
+        <div>
+          {SERVICES_EXPORTS.ABOUT_PROFESSIONAL_SUMMARY.map(
+            (paragraph, index) => (
+              <div
+                key={index}
+                dangerouslySetInnerHTML={{ __html: paragraph }}
+                style={{
+                  marginBottom:
+                    index <
+                    SERVICES_EXPORTS.ABOUT_PROFESSIONAL_SUMMARY.length - 1
+                      ? '2rem'
+                      : '0',
+                }}
+              />
+            )
+          )}
+        </div>
       </Typography>
       <div
         style={{
@@ -316,37 +321,39 @@ export const ProfessionalSummary: React.FC<{
 
   return (
     <>
-      <Container
-        display='flex'
-        flexDirection='row'
-        justifyContent='flex-start'
-        alignItems='center'
-        paddingLeft='0'
-        marginLeft='0'
-        marginBottom='1rem'
-        gap={theme.spacing.s}
-        style={{ padding: '0' }}
-      >
-        {currentView !== 'services' && (
-          <NavigationArrow
-            direction='backward'
-            navigate={() => navigate('/services')}
-            size='medium'
-            showBackground={false}
-          />
-        )}
-        <H2Title name={getTitle()} />
-      </Container>
-      <Typography
-        variant='p'
-        textAlign='left'
-        color={theme.palette.neutralPrimary}
-        marginBottom='2rem'
-        noHyphens
-        style={styles.textContent}
-      >
-        {renderSummary(getSummary())}
-      </Typography>
+      <div style={styles.sectionContainer}>
+        <Container
+          display='flex'
+          flexDirection='row'
+          justifyContent='flex-start'
+          alignItems='center'
+          paddingLeft='0'
+          marginLeft='0'
+          marginBottom='1rem'
+          gap={theme.spacing.s}
+          style={{ padding: '0' }}
+        >
+          {currentView !== 'services' && (
+            <NavigationArrow
+              direction='backward'
+              navigate={() => navigate('/services')}
+              size='medium'
+              showBackground={false}
+            />
+          )}
+          <H2Title name={getTitle()} />
+        </Container>
+        <Typography
+          variant='p'
+          textAlign='left'
+          color={theme.palette.neutralPrimary}
+          marginBottom='2rem'
+          noHyphens
+          style={styles.textContent}
+        >
+          {renderSummary(getSummary())}
+        </Typography>
+      </div>
       <Container
         display='flex'
         flexDirection='column'
