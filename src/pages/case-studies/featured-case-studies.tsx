@@ -87,7 +87,6 @@ export const FeaturedCaseStudies: React.FC = () => {
               imageUrl={study.imageUrl}
               imageAlt={`${study.title} case study`}
               date={study.date}
-              category={study.category}
               viewType='grid'
               showTitleOnImage={false}
               delay={index * 0.1}
