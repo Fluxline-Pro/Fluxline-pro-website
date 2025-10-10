@@ -31,6 +31,10 @@ const PAGE_CONFIGS = {
     image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
     imageText: '',
   },
+  '/white-pages': {
+    image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
+    imageText: '',
+  },
   '/services/education-training': {
     image: require('../../assets/images/EducationTrainingPortrait.jpg'),
     imageText: 'Education & Training',

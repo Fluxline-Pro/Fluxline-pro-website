@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { BulletPoint } from '../../theme/components/bullet-point/bullet-point';
@@ -13,6 +13,8 @@ import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { useNavigate } from 'react-router-dom';
 import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
 import { NavigationArrow } from '../../theme/components/navigation-arrow/navigation-arrow';
+import { PdfModal } from '../../theme/components/modal/pdf-modal';
+import WHITE_PAGES from '../white-pages/white-pages-constants';
 
 // Reusable style objects
 const styles = {
@@ -118,6 +120,165 @@ export const GetStarted: React.FC = () => {
         <BookingsButton />
       </div>
     </div>
+  );
+};
+
+export const WhitePagesSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+  const orientation = useDeviceOrientation();
+  const navigate = useNavigate();
+  const [selectedPdf, setSelectedPdf] = useState<typeof WHITE_PAGES[0] | null>(null);
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+
+  // Only show on services main page and specific service pages
+  if (currentView === 'about') {
+    return null;
+  }
+
+  const isMobile =
+    orientation === 'portrait' ||
+    orientation === 'tablet-portrait' ||
+    orientation === 'large-portrait';
+
+  const cardStyle = (isHovered: boolean) => ({
+    backgroundColor: theme.palette.neutralLight,
+    borderRadius: theme.borderRadius.container.button,
+    padding: '1.25rem',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    border: `2px solid ${isHovered ? theme.palette.themePrimary : 'transparent'}`,
+    boxShadow: isHovered ? theme.shadows.xl : theme.shadows.card,
+    transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
+    height: '100%',
+  });
+
+  // Filter white pages for current view
+  const getRelevantWhitePages = () => {
+    if (currentView === 'services') {
+      return WHITE_PAGES;
+    }
+    // For specific service pages, show only the relevant white page
+    return WHITE_PAGES.filter((wp) => wp.category === currentView);
+  };
+
+  const relevantWhitePages = getRelevantWhitePages();
+
+  if (relevantWhitePages.length === 0) {
+    return null;
+  }
+
+  return (
+    <>
+      <div
+        style={{
+          ...styles.sectionContainer,
+          marginTop: '3rem',
+          marginBottom: '3rem',
+        }}
+      >
+        <H2Title name='Services White Pages' />
+        <Typography
+          variant='p'
+          textAlign='left'
+          color={theme.palette.neutralPrimary}
+          marginBottom='2rem'
+          noHyphens
+          style={styles.textContent}
+        >
+          {currentView === 'services'
+            ? 'Explore detailed information about each of our services. Click on any service below to view the complete white paper.'
+            : 'View the detailed white paper for this service.'}
+        </Typography>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile
+              ? '1fr'
+              : currentView === 'services'
+                ? 'repeat(auto-fit, minmax(280px, 1fr))'
+                : '1fr',
+            gap: '1.5rem',
+          }}
+        >
+          {relevantWhitePages.map((whitePage) => (
+            <div
+              key={whitePage.id}
+              style={cardStyle(hoveredCard === whitePage.id)}
+              onClick={() => setSelectedPdf(whitePage)}
+              onMouseEnter={() => setHoveredCard(whitePage.id)}
+              onMouseLeave={() => setHoveredCard(null)}
+            >
+              <Typography
+                variant='h3'
+                color={theme.palette.themePrimary}
+                marginBottom='0.5rem'
+                fontSize={theme.typography.fontSizes.clamp5}
+              >
+                {whitePage.title}
+              </Typography>
+              <Typography
+                variant='p'
+                color={theme.palette.neutralPrimary}
+                fontSize='0.95rem'
+                marginBottom='1rem'
+              >
+                {whitePage.description}
+              </Typography>
+              <Typography
+                variant='p'
+                color={theme.palette.themePrimary}
+                marginTop='0.5rem'
+                fontWeight='600'
+                fontSize='0.9rem'
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                }}
+              >
+                <span>📄</span> View White Paper
+              </Typography>
+            </div>
+          ))}
+        </div>
+
+        {currentView === 'services' && (
+          <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+            <Typography
+              variant='p'
+              color={theme.palette.neutralSecondary}
+              fontSize='0.9rem'
+              style={{ fontStyle: 'italic' }}
+            >
+              Want to see all white pages in one place?{' '}
+              <span
+                onClick={() => navigate('/white-pages')}
+                style={{
+                  color: theme.palette.themePrimary,
+                  cursor: 'pointer',
+                  textDecoration: 'underline',
+                }}
+              >
+                Visit our White Pages Library
+              </span>
+            </Typography>
+          </div>
+        )}
+      </div>
+
+      {/* PDF Modal */}
+      {selectedPdf && (
+        <PdfModal
+          isOpen={!!selectedPdf}
+          onClose={() => setSelectedPdf(null)}
+          pdfSrc={selectedPdf.pdfPath}
+          pdfTitle={selectedPdf.title}
+        />
+      )}
+    </>
   );
 };
 
@@ -856,6 +1017,7 @@ export const Services: React.FC<ServicesProps> = ({
           // Original layout for other service pages
           <>
             <ProfessionalSummary currentView={actualView} />
+            <WhitePagesSection currentView={actualView} />
             <GetStarted />
           </>
         )}
