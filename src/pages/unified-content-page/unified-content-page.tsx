@@ -65,7 +65,7 @@ interface UnifiedContentPageProps {
     | 'testimonials'
     | 'personal-training'
     | 'education-training'
-    | 'business'
+    | 'resonance-core'
     | 'consulting'
     | 'development'
     | 'design'
@@ -468,10 +468,14 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
               // Special handling for GitHub: show "Coming Soon!" but enable external link
               const isGitHub = route.name === 'github';
               const shouldShowComingSoon = route.isComingSoon || isGitHub;
-              
+
               const handleClick = () => {
                 if (route.isExternal && route.externalUrl) {
-                  window.open(route.externalUrl, '_blank', 'noopener,noreferrer');
+                  window.open(
+                    route.externalUrl,
+                    '_blank',
+                    'noopener,noreferrer'
+                  );
                 } else if (!route.isComingSoon) {
                   navigate(`/${route.path}`);
                 }
@@ -508,7 +512,7 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
     contentType === 'about' ||
     contentType === 'services' ||
     contentType === 'personal-training' ||
-    contentType === 'business' ||
+    contentType === 'resonance-core' ||
     contentType === 'education-training' ||
     contentType === 'consulting' ||
     contentType === 'development' ||
@@ -534,7 +538,13 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
         />
       );
     }
-    return <ContentView post={displayPost} contentType={contentType} allPosts={displayPosts} />;
+    return (
+      <ContentView
+        post={displayPost}
+        contentType={contentType}
+        allPosts={displayPosts}
+      />
+    );
   }
 
   // If calendar is open, show calendar
@@ -717,7 +727,7 @@ export const UnifiedContentPage: React.FC<UnifiedContentPageProps> = ({
       if (
         contentType === 'personal-training' ||
         contentType === 'education-training' ||
-        contentType === 'business' ||
+        contentType === 'resonance-core' ||
         contentType === 'consulting' ||
         contentType === 'development' ||
         contentType === 'design' ||
