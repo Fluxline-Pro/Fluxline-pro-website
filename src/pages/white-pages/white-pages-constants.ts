@@ -6,7 +6,7 @@ export interface WhitePageItem {
   pdfPath: string;
   category:
     | 'personal-training'
-    | 'graphic-design'
+    | 'design'
     | 'education-training'
     | 'consulting'
     | 'development'
@@ -31,7 +31,7 @@ export const WHITE_PAGES: WhitePageItem[] = [
     description:
       'End-to-end brand architecture and emotionally intelligent UI/UX design that reflects your evolution and resonates.',
     pdfPath: require('../../assets/white-pages/Fluxline-Graphic-Design.pdf'),
-    category: 'graphic-design',
+    category: 'design',
   },
   {
     id: 'education-training',
