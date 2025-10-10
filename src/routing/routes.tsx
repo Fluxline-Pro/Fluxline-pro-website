@@ -26,6 +26,7 @@ import ContactPage from '../pages/contact-page/contact-page';
 import AuthScreen from '../pages/auth-screen/auth-screen';
 import ServicesPage from '../pages/services-page/services-page';
 import { UnifiedContentPage } from '../pages/unified-content-page/unified-content-page';
+import WhitePagesView from '../pages/white-pages/white-pages';
 import ProgressBar from '../theme/components/progress-bar/progress-bar';
 import { useAppTheme } from '../theme/hooks/useAppTheme';
 
@@ -91,10 +92,14 @@ const routes: RouteObject[] = [
             element: <ServicesPage contentType='design' />,
           },
           {
-            path: 'business',
-            element: <ServicesPage contentType='business' />,
-          }
+            path: 'resonance-core',
+            element: <ServicesPage contentType='resonance-core' />,
+          },
         ],
+      },
+      {
+        path: 'white-pages',
+        element: <WhitePagesView />,
       },
       {
         path: 'architecture',
