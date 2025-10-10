@@ -146,11 +146,11 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
     percentage: 94,
   },
   {
-    name: 'qa & automation',
+    name: 'QA & automation',
     percentage: 92,
   },
   {
-    name: 'ai integration',
+    name: 'AI integration',
     percentage: 91,
   },
   {
