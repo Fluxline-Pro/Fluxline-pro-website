@@ -116,9 +116,7 @@ export const GetStarted: React.FC = () => {
         We'd love to help you with your next project! Click this button to book
         a free, no obligation consultation with us below.
       </Typography>
-      <div style={{ textAlign: 'center' }}>
-        <BookingsButton />
-      </div>
+      <BookingsButton />
     </div>
   );
 };
