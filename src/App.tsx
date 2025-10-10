@@ -1,6 +1,8 @@
 import React from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { ThemeProvider } from '@fluentui/react';
+import '@fontsource-variable/inter';
+import '@fontsource/inter';
 
 import { router } from './routing/routes';
 import { FontScaleProvider } from './theme/components/font-scale/FontScaleProvider';

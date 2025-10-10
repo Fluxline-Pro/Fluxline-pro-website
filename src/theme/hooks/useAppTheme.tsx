@@ -29,18 +29,20 @@
 
 // // Custom hook for using the theme context
 import { useUserPreferencesStore } from '../../store/store-specs/userPreferencesStore';
+import { ITheme } from '@fluentui/react';
 import {
   themeMap,
   ThemeMode,
   ReadingDirection,
   LayoutPreference,
+  IExtendedTheme,
 } from '../theme';
 
 export const useAppTheme = () => {
   const { preferences, setPreference, toggleTheme } = useUserPreferencesStore();
   const themeMode = preferences.themeMode;
   const fontScale = preferences.fontScale;
-  const theme = themeMap[themeMode];
+  const theme = themeMap[themeMode] as IExtendedTheme & ITheme;
   const layoutPreference = preferences.layoutPreference;
   const readingDirection = preferences.readingDirection;
 
