@@ -263,6 +263,11 @@ export const baseGradients = {
  * - Roboto Mono: Technical precision for code (accent highlights)
  */
 
+export const fontFamily = {
+  text: '"Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+  mono: '"Courier Prime", "Roboto Mono", "SF Mono", "Monaco", "Cascadia Code", Consolas, "Courier New", monospace',
+};
+
 export const fontSizes = {
   xs: 'clamp(0.25rem, 0.5cqi, 0.25rem)',
   sm: 'clamp(0.5rem, 1cqi, 0.5rem)',
@@ -285,22 +290,19 @@ export const fontSizes = {
 
 export const typography = {
   fontFamilies: {
-    // Fluxline Pro font stack - Inter for all text, Roboto Mono for code
-    base: 'inter-variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    mono: 'courier-prime, Roboto Mono, "SF Mono", "Monaco", "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
-    heading:
-      'inter-variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    headingH3:
-      'inter-variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    headingLight:
-      'inter-variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    h1: 'inter-variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    h2: 'inter-variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    h3: 'inter-variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    h4: 'inter-variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    h5: 'inter-variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    h6: 'inter-variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-    p: 'inter-variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+    // Fluxline Pro font stack - Inter for all text, Courier Prime for code
+    base: fontFamily.text,
+    mono: fontFamily.mono,
+    heading: fontFamily.text,
+    headingH3: fontFamily.text,
+    headingLight: fontFamily.text,
+    h1: fontFamily.text,
+    h2: fontFamily.text,
+    h3: fontFamily.text,
+    h4: fontFamily.text,
+    h5: fontFamily.text,
+    h6: fontFamily.text,
+    p: fontFamily.text,
   },
   // Font sizes with modular scale - base 1rem unit for rhythm
   fontSizes: {
