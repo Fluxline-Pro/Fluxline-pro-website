@@ -67,9 +67,9 @@ export const PercentageBullet: React.FC<PercentageBulletProps> = ({
     color: getCircleColor(),
     fontWeight: 600,
     fontVariationSettings: theme.typography.fonts.h6.fontVariationSettings,
-    fontFamily: theme.fonts.medium.fontFamily,
-    fontWidth: theme.fonts.medium.fontWidth,
-    fontStyle: theme.fonts.medium.fontStyle,
+    fontFamily: theme.typography.fontFamilies.base,
+    fontWidth: String(theme.typography.fontWidths.normal),
+    fontStyle: String(theme.typography.fontSlants.normal),
     fontSize: theme.typography.fontSizes.clamp7,
   });
 
@@ -83,10 +83,10 @@ export const PercentageBullet: React.FC<PercentageBulletProps> = ({
     wordBreak: 'keep-all',
     overflowWrap: 'normal',
     color: getCircleColor(),
-    fontFamily: theme.fonts.medium.fontFamily,
-    fontWidth: theme.fonts.medium.fontWidth,
-    fontStyle: theme.fonts.medium.fontStyle,
-    textTransform: 'lowercase',
+    fontFamily: theme.typography.fontFamilies.base,
+    fontWidth: String(theme.typography.fontWidths.normal),
+    fontStyle: String(theme.typography.fontSlants.normal),
+    textTransform: 'capitalize',
     lineHeight: '1.2',
   });
 

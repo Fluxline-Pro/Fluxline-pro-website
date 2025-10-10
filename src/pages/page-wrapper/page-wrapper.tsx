@@ -10,12 +10,16 @@ import { ThemeMode } from '../../theme/theme';
 // Helper function to get the appropriate Fluxline logo based on theme mode
 const getFluxlineLogo = (themeMode: ThemeMode): string => {
   // Dark mode themes: dark, high-contrast, grayscale-dark
-  const darkModeThemes: ThemeMode[] = ['dark', 'high-contrast', 'grayscale-dark'];
-  
+  const darkModeThemes: ThemeMode[] = [
+    'dark',
+    'high-contrast',
+    'grayscale-dark',
+  ];
+
   if (darkModeThemes.includes(themeMode)) {
     return require('../../assets/images/FluxlineLogoDarkMode.png');
   }
-  
+
   // Light mode themes: light, protanopia, deuteranopia, tritanopia, grayscale
   return require('../../assets/images/FluxlineLogoLightMode.png');
 };
@@ -28,6 +32,10 @@ const PAGE_CONFIGS = {
     imageText: '',
   },
   '/services': {
+    image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
+    imageText: '',
+  },
+  '/white-pages': {
     image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
     imageText: '',
   },
@@ -47,9 +55,9 @@ const PAGE_CONFIGS = {
     image: require('../../assets/images/GitHubPortrait.jpg'),
     imageText: 'Web & App Development',
   },
-  '/services/business': {
-    image: 'https://picsum.photos/400/600?random=business',
-    imageText: 'Business & Legal Strategy',
+  '/services/resonance-core': {
+    image: 'https://picsum.photos/400/600?random=resonance',
+    imageText: 'Life Coaching: Resonance Core',
   },
   '/services/design': {
     image: require('../../assets/images/Portfolio1280x1815.jpg'),
@@ -163,7 +171,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
   if (configImage === 'FLUXLINE_LOGO') {
     configImage = getFluxlineLogo(themeMode);
   }
-  
+
   const imageToDisplay =
     id && selectedPost && selectedPost.imageUrl
       ? selectedPost.imageUrl

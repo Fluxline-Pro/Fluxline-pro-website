@@ -1,6 +1,7 @@
 import { IAboutPercentagePoint, IAboutBulletPoint } from './services.types';
 
-const FLUXLINE_TAGLINE = "We're not done yet— \nbut we're already extraordinary.";
+const FLUXLINE_TAGLINE =
+  "We're not done yet— \nbut we're already extraordinary.";
 const FLUXLINE_SECONDARY_TAGLINE = 'Modular by design. Resonant by nature.';
 
 const ABOUT_PROFESSIONAL_SUMMARY = [
@@ -27,8 +28,8 @@ const EDUCATION_TRAINING_SUMMARY =
 const PERSONAL_TRAINING_SUMMARY =
   'Fitness and life training through a systems lens. Tailored programs for founders and creatives to align body, mind, and mission.';
 
-const BUSINESS_SUMMARY =
-  'Designing layered business ecosystems—from LLC structuring to asset protection—with a focus on longevity, tax efficiency, and legacy.';
+const RESONANCE_CORE_SUMMARY =
+  'Guiding individuals through transformative life coaching and personal development using the Resonance Core methodology.';
 
 const CONSULTING_SUMMARY =
   'Modular IT strategies, infrastructure planning, and tech stack alignment for startups, creators, and visionary brands.';
@@ -145,11 +146,11 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
     percentage: 94,
   },
   {
-    name: 'qa & automation',
+    name: 'QA & automation',
     percentage: 92,
   },
   {
-    name: 'ai integration',
+    name: 'AI integration',
     percentage: 91,
   },
   {
@@ -189,13 +190,11 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
     name: 'courage',
     percentage: 98,
   },
-  {    name: 'authenticity',
-    percentage: 97,
-  },
+  { name: 'authenticity', percentage: 97 },
   {
     name: 'curiosity',
     percentage: 96,
-  }
+  },
 ];
 
 // Services-specific data
@@ -231,10 +230,10 @@ const SERVICES_BULLET_POINTS: IAboutBulletPoint[] = [
     route: '/services/personal-training',
   },
   {
-    name: 'Strategic Business & Legal Architecture',
+    name: 'Life Coaching & The Resonance Core',
     description:
-      'Designing layered business ecosystems—from LLC structuring to asset protection—with a focus on longevity, tax efficiency, and legacy.',
-    route: '/services/business',
+      'Guiding individuals through transformative life coaching and personal development using the Resonance Core methodology.',
+    route: '/services/resonance-core',
   },
 ];
 
@@ -316,36 +315,35 @@ const PERSONAL_TRAINING_BULLET_POINTS: IAboutBulletPoint[] = [
   },
 ];
 
-const BUSINESS_BULLET_POINTS: IAboutBulletPoint[] = [
+const RESONANCE_CORE_BULLET_POINTS: IAboutBulletPoint[] = [
   {
-    name: 'Business Structuring',
+    name: '1:1 Coaching Sessions',
     description:
-      'LLC structuring, asset protection, and tax efficiency for long-term success',
+      'Personalized guidance through emotional emergence, clarity rituals, and breakthrough mapping',
   },
   {
-    name: 'Legal Architecture',
+    name: 'Curriculum-Based Modules',
     description:
-      'Designing legal frameworks that support business growth and compliance',
+      'Structured phases of transformation, each with symbolic tools and emotional pacing',
   },
   {
-    name: 'Strategic Planning',
-    description:
-      'Long-term business strategies that align with your vision and goals',
+    name: 'Breakthrough Documentation',
+    description: 'Turning insights into templates, rituals, and legacy assets',
   },
   {
-    name: 'Financial Systems Design',
+    name: 'Shadow & Resonance Work',
     description:
-      'Creating financial structures that optimize cash flow and investment',
+      'Reframing limiting beliefs, integrating emotional contrast, and activating core values',
   },
   {
-    name: 'Brand Evolution Strategy',
+    name: 'Sovereignty Practices',
     description:
-      'Guiding brands through growth phases with a focus on adaptability and resonance',
+      'Daily rituals for individual clarity, boundaries, and personal alignment',
   },
   {
-    name: 'Brand Modularity',
+    name: 'Digital Library & Emotional Scoring',
     description:
-      'Designing brands that can flex and scale with your business and individual identity needs',
+      'Personalized framework to understand your DRIVEs, resonances, and role in life, society, and community',
   },
 ];
 
@@ -478,8 +476,8 @@ const SERVICES_EXPORTS = {
   ABOUT_BULLET_POINTS,
   ABOUT_PERCENTAGE_POINTS,
   ABOUT_PROFESSIONAL_SUMMARY,
-  BUSINESS_BULLET_POINTS,
-  BUSINESS_SUMMARY,
+  RESONANCE_CORE_BULLET_POINTS,
+  RESONANCE_CORE_SUMMARY,
   CONSULTING_BULLET_POINTS,
   CONSULTING_SUMMARY,
   DESIGN_BULLET_POINTS,
