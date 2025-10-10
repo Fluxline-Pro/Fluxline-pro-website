@@ -4,8 +4,8 @@ const FLUXLINE_TAGLINE = "We're not done yet— \nbut we're already extraordinar
 const FLUXLINE_SECONDARY_TAGLINE = 'Modular by design. Resonant by nature.';
 
 const ABOUT_PROFESSIONAL_SUMMARY = [
-  'Fluxline helps visionary teams build systems that <strong>grow with them</strong>. We specialize in <em>modular web development</em>, <em>scalable design ecosystems</em>, and <em>human-centered technology</em>—blending emotional clarity with <strong>strategic innovation</strong>. Whether you’re launching a brand, evolving your infrastructure, or architecting a long-term solution, we design with <em>transformation</em> in mind.',
-  'At Fluxline, we combine advanced architecture, creative storytelling, and intentional coaching to help you build more than just products—we help you build <em>philosophies</em>, <em>living identities</em>, and <em>frameworks</em> that adapt to change. We engineer resonance, resilience, and results—so your vision doesn’t just launch: <strong>It lives and breathes</strong> as your identity evolves.',
+  'Fluxline architects transformative systems, brand experiences, and human-centric technology solutions, specializing in modular web development, IT infrastructure, and scalable design ecosystems with a focus on emotional clarity, strategic innovation, and long-term impact.',
+  'We bring together advanced architecture, creative storytelling, and intentional coaching to help clients build not just solutions but philosophies, brands, and living identities that evolve with them. We engineer resonance, resilience, and results—helping you build frameworks that adapt to growth, not restrict it. Let us make your vision a reality!',
 ];
 
 const FLUXLINE_MISSION_VISION = [
