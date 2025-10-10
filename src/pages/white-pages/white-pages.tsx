@@ -112,7 +112,7 @@ export const WhitePagesView: React.FC = () => {
                     fontSize='0.9rem'
                     style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                   >
-                    <span>📄</span> View White Paper
+                    <span role="img" aria-label="Document">📄</span> View White Paper
                   </Typography>
                 </div>
               ))}
