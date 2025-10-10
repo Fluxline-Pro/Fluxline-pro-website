@@ -92,9 +92,9 @@ const routes: RouteObject[] = [
             element: <ServicesPage contentType='design' />,
           },
           {
-            path: 'business',
-            element: <ServicesPage contentType='business' />,
-          }
+            path: 'resonance-core',
+            element: <ServicesPage contentType='resonance-core' />,
+          },
         ],
       },
       {

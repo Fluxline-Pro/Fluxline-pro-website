@@ -14,7 +14,7 @@ const routeToTitleMap: RouteToTitleMap = {
   '/services/consulting': 'Consulting',
   '/services/development': 'Development',
   '/services/design': 'Design',
-  '/services/business': 'Business',
+  '/services/resonance-core': 'Resonance Core',
   '/blog': 'Blog',
   '/contact-me': 'Contact Us',
   '/books': 'Books',

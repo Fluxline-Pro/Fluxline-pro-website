@@ -62,7 +62,7 @@ interface ServicesProps {
     | 'services'
     | 'education-training'
     | 'personal-training'
-    | 'business'
+    | 'resonance-core'
     | 'consulting'
     | 'development'
     | 'design';
@@ -129,7 +129,9 @@ export const WhitePagesSection: React.FC<{
   const { theme } = useAppTheme();
   const orientation = useDeviceOrientation();
   const navigate = useNavigate();
-  const [selectedPdf, setSelectedPdf] = useState<typeof WHITE_PAGES[0] | null>(null);
+  const [selectedPdf, setSelectedPdf] = useState<
+    (typeof WHITE_PAGES)[0] | null
+  >(null);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   // Only show on services main page and specific service pages
@@ -384,8 +386,8 @@ export const ProfessionalSummary: React.FC<{
         return SERVICES_EXPORTS.SERVICES_BULLET_POINTS;
       case 'personal-training':
         return SERVICES_EXPORTS.PERSONAL_TRAINING_BULLET_POINTS;
-      case 'business':
-        return SERVICES_EXPORTS.BUSINESS_BULLET_POINTS;
+      case 'resonance-core':
+        return SERVICES_EXPORTS.RESONANCE_CORE_BULLET_POINTS;
       case 'education-training':
         return SERVICES_EXPORTS.EDUCATION_TRAINING_BULLET_POINTS;
       case 'consulting':
@@ -409,8 +411,8 @@ export const ProfessionalSummary: React.FC<{
         return 'Coaching, Education & Leadership';
       case 'consulting':
         return 'IT & Systems Consulting';
-      case 'business':
-        return 'Strategic Business & Legal Architecture';
+      case 'resonance-core':
+        return 'Life Coaching & The Resonance Core';
       case 'development':
         return 'Web & Application Development';
       case 'design':
@@ -430,8 +432,8 @@ export const ProfessionalSummary: React.FC<{
         return SERVICES_EXPORTS.PERSONAL_TRAINING_SUMMARY;
       case 'consulting':
         return SERVICES_EXPORTS.CONSULTING_SUMMARY;
-      case 'business':
-        return SERVICES_EXPORTS.BUSINESS_SUMMARY;
+      case 'resonance-core':
+        return SERVICES_EXPORTS.RESONANCE_CORE_SUMMARY;
       case 'development':
         return SERVICES_EXPORTS.DEVELOPMENT_SUMMARY;
       case 'design':

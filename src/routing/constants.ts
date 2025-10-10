@@ -64,8 +64,8 @@ export const ROUTES: Routes[] = [
     isContentScreen: false,
   },
   {
-    name: 'business',
-    path: 'services/business',
+    name: 'resonance-core',
+    path: 'services/resonance-core',
     isMenuItem: false,
     isContentScreen: false,
   },
@@ -81,7 +81,15 @@ export const ROUTES: Routes[] = [
     isMenuItem: false,
     isContentScreen: false,
   },
-  { name: 'github', path: 'github', isMenuItem: false, isContentScreen: true, isComingSoon: false, isExternal: true, externalUrl: 'https://github.com/AplUSAndmINUS' },
+  {
+    name: 'github',
+    path: 'github',
+    isMenuItem: false,
+    isContentScreen: true,
+    isComingSoon: false,
+    isExternal: true,
+    externalUrl: 'https://github.com/AplUSAndmINUS',
+  },
   {
     name: 'books',
     path: 'books',
