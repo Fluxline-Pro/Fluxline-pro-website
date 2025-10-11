@@ -37,8 +37,7 @@ export const BookingsButton = ({
         minHeight: orientation === 'portrait' ? '40px' : undefined,
         minWidth: '250px',
         maxWidth: '500px',
-        width:
-          animateSubHeader || orientation === 'portrait' ? '100%' : 'auto',
+        width: animateSubHeader || orientation === 'portrait' ? '100%' : 'auto',
         fontSize: `${
           orientation === 'mobile-landscape'
             ? theme.typography.fonts.h6.fontSize
@@ -55,7 +54,7 @@ export const BookingsButton = ({
           opacity: 0,
           transform: 'translateY(20px)',
           animation: 'slideInUp 0.4s ease-in-out forwards',
-          animationDelay: '1.5s',
+          animationDelay: '2.1s',
         }),
         ...(animateSubHeader === false &&
           !willAnimate && {

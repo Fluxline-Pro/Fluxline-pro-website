@@ -235,7 +235,7 @@ export const baseGradients = {
       light: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
     },
     button: {
-      dark: 'linear-gradient(90deg, #3ABAB4 0%, #2E2E3A 100%)',
+      dark: 'linear-gradient(90deg, #4A9B96 0%, #2E2E3A 100%)',
       light: 'linear-gradient(90deg, #F5C85C 0%, #FFFFFF 100%)',
     },
     modal: {
@@ -431,10 +431,10 @@ export const typography = {
     // Headings
     h1: {
       fontFamily:
-        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+        'Inter Variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(8cqi, min(10cqi, 10cqh), min(14cqi, 14cqh))',
-      fontWeight: '700' as '700',
-      fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
+      fontWeight: '800' as '800',
+      fontVariationSettings: '"wght" 800, "wdth" 200, "slnt" 0',
       letterSpacing: '0.1px',
       textShadow: 'var(--text-shadow-textBig)',
       textTransform: 'uppercase' as const,
@@ -442,10 +442,10 @@ export const typography = {
     },
     h2: {
       fontFamily:
-        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+        'Inter Variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(2cqi, min(5cqi, 5cqh), min(7cqi, 7cqh))',
-      fontWeight: '700' as '700',
-      fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
+      fontWeight: '800' as '800',
+      fontVariationSettings: '"wght" 800, "wdth" 200, "slnt" 0',
       letterSpacing: '0.1px',
       textShadow: 'none',
       textTransform: 'uppercase' as const,
@@ -453,8 +453,8 @@ export const typography = {
     },
     h3: {
       fontFamily:
-        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-      fontSize: 'clamp(1.25rem, 3cqi, 2rem)',
+        'Inter Variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontSize: 'clamp(1rem, 2cqi, 1.5rem)',
       fontWeight: '700' as '700',
       fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
@@ -521,7 +521,6 @@ export const typography = {
       fontSize: 'clamp(3cqi, min(6cqi, 6cqh), min(8cqi, 8cqh))',
       fontWeight: '500' as '500', // Inter Medium
       fontVariationSettings: '"wght" 500, "wdth" 125, "slnt" 0',
-      textTransform: 'lowercase' as const, // Humble tone
       lineHeight: '1.6',
     },
     paragraph: {
@@ -886,7 +885,7 @@ export const lightTheme: IExtendedTheme = createExtendedTheme(
       neutralLight: '#FFFFFF',
 
       // Fluxline Accent – Emotional resonance
-      accent: '#3ABAB4', // Fluxline Teal – flow, clarity
+      accent: '#4A9B96', // Fluxline Teal – flow, clarity
       black: '#000000',
       white: '#FFFFFF',
     },
@@ -934,7 +933,7 @@ export const darkTheme: IExtendedTheme = createExtendedTheme(
     palette: {
       // Fluxline Pro Dark Primary Palette – Resonance Core
       themePrimary: '#AFCAFC', // Slate blue – sovereign structure
-      themeSecondary: '#3ABAB4', // Fluxline teal – intuitive clarity
+      themeSecondary: '#4A9B96', // Fluxline teal – intuitive clarity (accessible)
       themeTertiary: '#5A7CA0', // UI layering
       themeLight: '#F8FAFC', // Light overlay for contrast
       themeDark: '#1F1F1F', // Resonance Core
@@ -965,9 +964,9 @@ export const darkTheme: IExtendedTheme = createExtendedTheme(
       // State Colors – Emotional clarity
       errorText: '#B0303C', // Somatic rose – soft red
       errorBackground: '#2D1617',
-      successText: '#3ABAB4', // Fluxline teal
+      successText: '#4A9B96', // Fluxline teal
       successBackground: '#1A2D2A',
-      successIcon: '#3ABAB4',
+      successIcon: '#4A9B96',
       messageText: '#F5C85C', // Mythic gold
       warningText: '#F5C85C',
       warningBackground: '#2D2A17',
