@@ -71,8 +71,8 @@ export const FluentButton: React.FC<ButtonProps> = ({
       case 'primary':
         return theme.themeMode === 'high-contrast'
           ? theme.palette.themePrimary
-            : theme.themeMode === 'dark'
-              ? theme.palette.themeTertiary
+          : theme.themeMode === 'dark'
+            ? theme.palette.themeTertiary
             : theme.themeMode === 'grayscale-dark'
               ? theme.palette.neutralTertiary
               : theme.palette.themePrimary;
@@ -91,7 +91,7 @@ export const FluentButton: React.FC<ButtonProps> = ({
             ? theme.semanticColors.errorBackground
             : theme.themeMode === 'grayscale-dark'
               ? theme.palette.neutralQuaternaryAlt
-            : theme.semanticColors.errorText;
+              : theme.semanticColors.errorText;
       case 'warning':
         return theme.semanticColors.warningText;
       case 'info':
@@ -112,40 +112,35 @@ export const FluentButton: React.FC<ButtonProps> = ({
         return theme.themeMode === 'high-contrast'
           ? theme.palette.themeDarker
           : theme.themeMode === 'dark'
-            ? theme.palette.themeSecondary
+            ? theme.palette.themePrimary // Use primary for consistent hierarchy
             : theme.themeMode === 'grayscale-dark'
               ? theme.palette.neutralQuaternary
-            : theme.palette.themeSecondary;
+              : theme.palette.themeDark; // Darker blue for light mode
       case 'secondary':
         if (theme.themeMode === 'protanopia') {
           return theme.palette.themePrimary;
         }
-        return theme.palette.themeDarker;
+        // Use tertiary as hover state for secondary - creates proper visual progression
+        return theme.palette.themeTertiary;
       case 'tertiary':
-        return theme.palette.themeDarker;
+        return theme.palette.themeSecondary; // Step up to secondary on hover
       case 'success':
         return theme.themeMode === 'protanopia'
-          ? theme.palette.neutralDark
-          : theme.palette.neutralDark;
+          ? theme.palette.neutralQuaternary
+          : theme.semanticColors.successText;
       case 'error':
         if (theme.themeMode === 'protanopia') {
-          return theme.palette.neutralDark;
-        }
-        if (theme.themeMode === 'light' || theme.themeMode === 'dark') {
-          return theme.semanticColors.errorBackground;
-        }
-        if (theme.themeMode === 'grayscale-dark') {
           return theme.palette.neutralQuaternary;
         }
-        return theme.palette.neutralDark;
+        return theme.semanticColors.errorText;
       case 'warning':
-        return theme.palette.neutralDark;
+        return theme.semanticColors.warningText;
       case 'info':
-        return theme.palette.themeDarker;
+        return theme.palette.themePrimary;
       default:
         return theme.isInverted
-          ? theme.palette.themeDarker
-          : theme.palette.themeDarker;
+          ? theme.palette.themePrimary
+          : theme.palette.themeDark;
     }
   };
 
@@ -231,6 +226,18 @@ export const FluentButton: React.FC<ButtonProps> = ({
     return rotate !== 0 ? `rotate(${rotate}deg) scale(0.98)` : 'scale(0.98)';
   };
 
+  const getFontWeight = (): 400 | 500 | 600 => {
+    switch (variant) {
+      case 'primary':
+        return theme.typography.fontWeights.semiBold as 600; // More prominent
+      case 'secondary':
+      case 'tertiary':
+        return theme.typography.fontWeights.medium as 500; // Less prominent
+      default:
+        return theme.typography.fontWeights.regular as 400; // Default
+    }
+  };
+
   const getDisabledStyles = () => ({
     opacity: 0.5,
     backgroundColor: isOutlined
@@ -243,16 +250,13 @@ export const FluentButton: React.FC<ButtonProps> = ({
     cursor: 'not-allowed',
   });
 
-  const getStrongHoverColor = (variant: string) => {
-    if (
-      theme.themeMode === 'deuteranopia' ||
-      theme.themeMode === 'protanopia'
-    ) {
-      if (variant === 'error') return theme.semanticColors.errorText;
-      // For navigation/primary, use themePrimary
-      return theme.palette.themePrimary;
+  const getHoverColor = (variant: string) => {
+    // For outlined buttons, use the base color as background on hover
+    if (isOutlined) {
+      return getColorFromVariant(variant);
     }
-    return getColorFromVariant(variant);
+    // For filled buttons, use the lighter color
+    return getLighterColor(variant);
   };
 
   const buttonStyles: IButtonStyles = {
@@ -269,25 +273,19 @@ export const FluentButton: React.FC<ButtonProps> = ({
       padding: getPadding(),
       animation:
         nudged && !removeNudge ? 'nudgeInKeyframes 0.5s ease-in-out' : 'none',
-      textTransform: 'lowercase',
       selectors: {
         ':hover': isDisabled
           ? { cursor: 'not-allowed' }
-          : isOutlined
-            ? {
-                backgroundColor: getStrongHoverColor(variant),
-                color: theme.palette.white,
-                border: `1px solid ${getStrongHoverColor(variant)}`,
-                animation: 'none',
-              }
-            : {
-                backgroundColor: getLighterColor(variant),
-                color: theme.isInverted
-                  ? theme.palette.black
-                  : theme.palette.white,
-                border: `1px solid ${getLighterColor(variant)}`,
-                animation: 'none',
-              },
+          : {
+              backgroundColor: getHoverColor(variant),
+              color: theme.palette.white,
+              border: `1px solid ${getHoverColor(variant)}`,
+              animation: 'none',
+              transform: 'translateY(-1px)', // Subtle lift effect
+              boxShadow: theme.isInverted 
+                ? '0 4px 8px rgba(255,255,255,0.1)' 
+                : '0 4px 8px rgba(0,0,0,0.15)',
+            },
         ':active': {
           backgroundColor:
             theme.themeMode === 'high-contrast'
@@ -306,41 +304,34 @@ export const FluentButton: React.FC<ButtonProps> = ({
           backgroundColor: getBackgroundColor(),
           border: getBorderStyle(),
           selectors: {
-            ':hover': isOutlined
-              ? {
-                  backgroundColor: getStrongHoverColor(variant),
-                  color: theme.palette.white,
-                  border: `1px solid ${getStrongHoverColor(variant)}`,
-                }
-              : {
-                  backgroundColor: `${getLighterColor(variant)} !important`,
-                  color: `${theme.palette.white} !important`,
-                  border: `1px solid ${getLighterColor(variant)} !important`,
-                },
+            ':hover': {
+              backgroundColor: `${getHoverColor(variant)} !important`,
+              color: `${theme.palette.white} !important`,
+              border: `1px solid ${getHoverColor(variant)} !important`,
+              transform: 'translateY(-1px)',
+              boxShadow: theme.isInverted 
+                ? '0 4px 8px rgba(255,255,255,0.1)' 
+                : '0 4px 8px rgba(0,0,0,0.15)',
+            },
           },
         },
         '&.ms-Button': {
           selectors: {
-            ':hover': isOutlined
-              ? {
-                  backgroundColor: getColorFromVariant(variant),
-                  color:
-                    variant === 'warning'
-                      ? theme.palette.black
-                      : theme.palette.white,
-                  border: `1px solid ${getColorFromVariant(variant)}`,
-                }
-              : {
-                  backgroundColor: `${getLighterColor(variant)} !important`,
-                  color: `${theme.palette.white} !important`,
-                  border: `1px solid ${getLighterColor(variant)} !important`,
-                },
+            ':hover': {
+              backgroundColor: `${getHoverColor(variant)} !important`,
+              color: `${theme.palette.white} !important`,
+              border: `1px solid ${getHoverColor(variant)} !important`,
+              transform: 'translateY(-1px)',
+              boxShadow: theme.isInverted 
+                ? '0 4px 8px rgba(255,255,255,0.1)' 
+                : '0 4px 8px rgba(0,0,0,0.15)',
+            },
           },
         },
       },
     },
     label: {
-      fontWeight: theme.typography.fontWeights.regular as 400,
+      fontWeight: getFontWeight(),
       fontSize: 'inherit',
       color: 'inherit',
       display: 'flex',

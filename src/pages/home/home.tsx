@@ -1,5 +1,5 @@
 import React from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
@@ -14,6 +14,7 @@ import { LayoutGrid } from '../../theme/layouts/LayoutGrid';
 import { Typography } from '../../theme/components/typography/typography';
 // import { ProgressBar } from '../../theme/components/progress-bar/progress-bar';
 import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
+import { FluentButton } from '../../theme/components/button/button';
 
 export const UnderConstruction = () => {
   const { theme } = useAppTheme();
@@ -92,6 +93,7 @@ const HomeContent: React.FC<{
 }> = ({ isMobile }) => {
   const { theme, themeMode } = useAppTheme();
   const orientation = useDeviceOrientation();
+  const navigate = useNavigate();
   const [animateDivider, setAnimateDivider] = React.useState(false);
   const [animateHeader, setAnimateHeader] = React.useState(false);
   const [animateSubHeader, setAnimateSubHeader] = React.useState(false);
@@ -229,7 +231,7 @@ const HomeContent: React.FC<{
             themeMode === 'grayscale'
               ? theme.palette.neutralTertiary
               : theme.palette.themePrimary,
-          marginBottom: 0,
+          marginBottom: '-0.5rem',
           opacity: 0,
           transform: 'translateX(-20px)',
           ...(animateHeader && animationStyles.slideInRight),
@@ -254,9 +256,11 @@ const HomeContent: React.FC<{
         style={{
           ...theme.typography.fonts.h1,
           color: theme.palette.neutralLighterAlt,
-          marginBottom: `${orientation === 'mobile-landscape' ? theme.spacing.xxs : theme.spacing.s}`,
+          marginBottom: `${orientation === 'mobile-landscape' ? theme.spacing.xxs : 0}`,
           fontSize: theme.typography.fonts.h1.fontSize,
-          textShadow: theme.typography.textShadows.textBig,
+          fontWeight: theme.typography.fonts.h1.fontWeight,
+          fontVariationSettings:
+            theme.typography.fonts.h1.fontVariationSettings,
           opacity: 0,
           transform: 'translateX(-20px)',
           ...(animateHeader && {
@@ -300,8 +304,8 @@ const HomeContent: React.FC<{
 
       <div
         style={{
-          marginTop: `${orientation === 'mobile-landscape' ? theme.spacing.xxs : theme.spacing.m}`,
-          marginBottom: `${orientation === 'mobile-landscape' ? theme.spacing.xxs : theme.spacing.l}`,
+          marginTop: `${orientation === 'mobile-landscape' ? theme.spacing.xs : theme.spacing.l}`,
+          marginBottom: `${orientation === 'mobile-landscape' ? theme.spacing.s : theme.spacing.xl}`,
         }}
       >
         <Typography
@@ -310,23 +314,23 @@ const HomeContent: React.FC<{
             color:
               themeMode === 'grayscale'
                 ? theme.palette.neutralTertiary
-                : theme.palette.themeSecondary,
+                : theme.palette.themeTertiary,
             ...theme.typography.fonts.homeH3,
             lineHeight: theme.typography.lineHeights.tight,
             fontWeight: theme.typography.fontWeights.extraLight,
             fontSize: theme.typography.fonts.homeH3.fontSize,
             ...(orientation === 'portrait' && {
-              fontSize: 'clamp(1.5rem, 4cqi, 2rem)',
+              fontSize: 'clamp(1.2rem, 3.5cqi, 1.8rem)',
             }),
             ...(orientation === 'square' && {
-              fontSize: 'clamp(2rem, 6cqi, 3rem)',
+              fontSize: 'clamp(1.5rem, 5cqi, 2.5rem)',
             }),
             ...(orientation === 'mobile-landscape' && {
-              fontSize: 'clamp(1.5rem, 4cqi, 2rem)',
+              fontSize: 'clamp(1.2rem, 3.5cqi, 1.8rem)',
             }),
             ...((orientation === 'landscape' ||
               orientation === 'ultrawide') && {
-              fontSize: 'clamp(2.5rem, 3cqi, 3.5rem)',
+              fontSize: 'clamp(2rem, 2.5cqi, 3rem)',
             }),
           }}
         >
@@ -364,11 +368,64 @@ const HomeContent: React.FC<{
               ...(animateSubHeaderLines[3] && animationStyles.slideInDown),
             }}
           >
-            <HighlightText text='mentoring' /> and coaching
+            <HighlightText text='mentoring' /> &amp; coaching
           </div>
         </Typography>
       </div>
-      <BookingsButton animateSubHeader={animateSubHeader} willAnimate={true} />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+          width: '100%',
+          maxWidth: '500px',
+        }}
+      >
+        <BookingsButton
+          animateSubHeader={animateSubHeader}
+          willAnimate={true}
+        />
+        <FluentButton
+          variant='secondary'
+          onClick={() => navigate('/about')}
+          style={{
+            padding: '10px 16px',
+            minHeight: orientation === 'portrait' ? '40px' : undefined,
+            minWidth: '250px',
+            maxWidth: '500px',
+            width: '100%',
+            fontSize: `${
+              orientation === 'mobile-landscape'
+                ? theme.typography.fonts.h6.fontSize
+                : theme.typography.fonts.h5.fontSize
+            }`,
+            fontWeight: '500',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.08)',
+            // Always start hidden, only show when animation triggers
+            opacity: 0,
+            transform: 'translateY(20px)',
+            ...(animateSubHeader === true && {
+              animation: 'slideInUp 0.4s ease-in-out forwards',
+              animationDelay: '2.5s',
+            }),
+            ...(orientation === 'portrait' && {
+              fontSize: 'clamp(1rem, 2.8cqi, 1.6rem)',
+            }),
+            ...(orientation === 'square' && {
+              fontSize: 'clamp(1.1rem, 3.2cqi, 1.2rem)',
+            }),
+            ...((orientation === 'landscape' ||
+              orientation === 'ultrawide') && {
+              fontSize: 'clamp(1.1rem, 2cqi, 1.3rem)',
+            }),
+            ...(orientation === 'mobile-landscape' && {
+              fontSize: 'clamp(1rem, 2.8cqi, 1.3rem)',
+            }),
+          }}
+        >
+          About Fluxline
+        </FluentButton>
+      </div>
     </LayoutGrid>
   );
 };
