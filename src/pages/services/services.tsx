@@ -53,7 +53,12 @@ const styles = {
     color: theme.palette.themePrimary,
     margin: '1rem 0 0.5rem 0',
     fontSize: theme.typography.fontSizes.clamp7,
-    fontVariationSettings: 'wght 400,wdth 300,slnt 0',
+    fontFamily: theme.typography.fonts.h2.fontFamily,
+    fontWeight: theme.typography.fonts.h2.fontWeight,
+    fontVariationSettings: theme.typography.fonts.h2.fontVariationSettings,
+    textTransform: theme.typography.fonts.h2.textTransform,
+    letterSpacing: theme.typography.fonts.h2.letterSpacing,
+    lineHeight: theme.typography.fonts.h2.lineHeight,
   }),
 };
 interface ServicesProps {

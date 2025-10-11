@@ -269,7 +269,6 @@ export const FluentButton: React.FC<ButtonProps> = ({
       padding: getPadding(),
       animation:
         nudged && !removeNudge ? 'nudgeInKeyframes 0.5s ease-in-out' : 'none',
-      textTransform: 'lowercase',
       selectors: {
         ':hover': isDisabled
           ? { cursor: 'not-allowed' }
