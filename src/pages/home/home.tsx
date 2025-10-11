@@ -401,15 +401,12 @@ const HomeContent: React.FC<{
             }`,
             fontWeight: '500',
             boxShadow: '0 2px 4px rgba(0,0,0,0.08)',
+            // Always start hidden, only show when animation triggers
+            opacity: 0,
+            transform: 'translateY(20px)',
             ...(animateSubHeader === true && {
-              opacity: 0,
-              transform: 'translateY(20px)',
               animation: 'slideInUp 0.4s ease-in-out forwards',
               animationDelay: '2.5s',
-            }),
-            ...(animateSubHeader === false && {
-              opacity: 1,
-              transform: 'translateY(0)',
             }),
             ...(orientation === 'portrait' && {
               fontSize: 'clamp(1rem, 2.8cqi, 1.6rem)',
