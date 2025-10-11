@@ -42,7 +42,7 @@ const DESIGN_SUMMARY =
 
 const ABOUT_BULLET_POINTS: IAboutBulletPoint[] = [
   {
-    name: 'Personable and Approachable',
+    name: 'Personable & Approachable',
     description:
       'Fluxline prioritizes human connection and empathy—building systems around how people feel, think, and grow.',
   },

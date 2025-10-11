@@ -203,7 +203,7 @@ export const WhitePagesSection: React.FC<{
             gridTemplateColumns: isMobile
               ? '1fr'
               : currentView === 'services'
-                ? 'repeat(auto-fit, minmax(280px, 1fr))'
+                ? 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))'
                 : '1fr',
             gap: '1.5rem',
           }}
@@ -291,6 +291,11 @@ export const AboutSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
   const { theme } = useAppTheme();
+  const orientation = useDeviceOrientation();
+  const isMobile =
+    orientation === 'portrait' ||
+    orientation === 'tablet-portrait' ||
+    orientation === 'large-portrait';
 
   // Only show for 'about' view
   if (currentView !== 'about') {
@@ -334,7 +339,9 @@ export const AboutSection: React.FC<{
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr',
+          gridTemplateColumns: isMobile
+            ? '1fr'
+            : 'repeat(auto-fit, minmax(min(250px, 100%), 1fr))',
           gap: '1.5rem',
           margin: '2rem auto',
         }}
