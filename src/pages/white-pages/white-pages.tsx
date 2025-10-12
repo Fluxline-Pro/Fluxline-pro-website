@@ -95,13 +95,13 @@ export const WhitePagesView: React.FC = () => {
             </Container>
             <Typography
               variant='p'
-              textAlign='center'
+              textAlign='left'
               color={theme.palette.neutralPrimary}
               marginBottom='2rem'
               noHyphens
             >
-              Explore detailed information about each of our services. Click on
-              any service below to view the complete white paper.
+              Explore detailed information about each of our services through
+              our white pages below. 
             </Typography>
 
             <div style={styles.cardContainer(isMobile)}>

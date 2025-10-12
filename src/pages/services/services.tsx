@@ -185,7 +185,7 @@ export const WhitePagesSection: React.FC<{
           style={styles.textContent}
         >
           {currentView === 'services'
-            ? 'Explore detailed information about each of our services. Click on any service below to view the complete white paper.'
+            ? 'Explore detailed information about each of our services through our white pages.'
             : 'View the detailed white paper for this service.'}
         </Typography>
 
