@@ -131,7 +131,7 @@ export const LegalPage: React.FC = () => {
       fontFamily: theme.typography.fonts.h2.fontFamily,
       fontWeight: theme.typography.fonts.h2.fontWeight,
       fontVariationSettings: theme.typography.fonts.h2.fontVariationSettings,
-      textTransform: theme.typography.fonts.h2.textTransform as any,
+      textTransform: theme.typography.fonts.h2.textTransform as string,
       letterSpacing: theme.typography.fonts.h2.letterSpacing,
       lineHeight: theme.typography.fonts.h2.lineHeight,
       margin: 0,
