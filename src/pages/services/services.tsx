@@ -1081,7 +1081,6 @@ export const Services: React.FC<ServicesProps> = ({
             <AboutSection currentView={actualView} />
             <TaglineHeader currentView={actualView} />
             <MissionVisionSection currentView={actualView} />
-            <CTACallout variant='services' currentView={actualView} />
             <TechnicalSkillsSection
               isMobile={orientation === 'portrait'}
               currentView={actualView}
@@ -1089,6 +1088,11 @@ export const Services: React.FC<ServicesProps> = ({
             <GuidingPrinciplesSection
               isMobile={orientation === 'portrait'}
               currentView={actualView}
+            />
+            <CTACallout
+              variant='services'
+              currentView={actualView}
+              hideBottomHR={true}
             />
             <CTACallout variant='legal' currentView={actualView} />
             <GetStarted />
