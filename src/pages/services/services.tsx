@@ -14,6 +14,7 @@ import { BookingsButton } from '../../theme/components/button/bookings-button/bo
 import { NavigationArrow } from '../../theme/components/navigation-arrow/navigation-arrow';
 import { PdfModal } from '../../theme/components/modal/pdf-modal';
 import { WhitePageItem } from '../white-pages/white-pages-constants';
+import { WhitePageCard } from '../../theme/components/card/white-page-card/white-page-card';
 
 // Reusable style objects
 const styles = {
@@ -23,7 +24,10 @@ const styles = {
     marginBottom: '3rem',
   },
   sectionBox: (theme: any) => ({
-    background: theme.palette.neutralLight,
+    background:
+      theme.themeMode === 'high-contrast'
+        ? theme.semanticColors.warningBackground
+        : theme.palette.neutralLight,
     padding: '2rem',
     borderRadius: '4px',
     marginBottom: '4rem',
@@ -144,18 +148,6 @@ export const WhitePagesSection: React.FC<{
     orientation === 'tablet-portrait' ||
     orientation === 'large-portrait';
 
-  const cardStyle = (isHovered: boolean) => ({
-    backgroundColor: theme.palette.neutralLight,
-    borderRadius: theme.borderRadius.container.button,
-    padding: '1.25rem',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    border: `2px solid ${isHovered ? theme.palette.themePrimary : 'transparent'}`,
-    boxShadow: isHovered ? theme.shadows.xl : theme.shadows.card,
-    transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
-    height: '100%',
-  });
-
   // Filter white pages for current view
   const getRelevantWhitePages = () => {
     const whitePages = SERVICES_EXPORTS.getWhitePagesFromServices();
@@ -193,7 +185,7 @@ export const WhitePagesSection: React.FC<{
           style={styles.textContent}
         >
           {currentView === 'services'
-            ? 'Explore detailed information about each of our services. Click on any service below to view the complete white paper.'
+            ? 'Explore detailed information about each of our services through our white pages.'
             : 'View the detailed white paper for this service.'}
         </Typography>
 
@@ -209,44 +201,15 @@ export const WhitePagesSection: React.FC<{
           }}
         >
           {relevantWhitePages.map((whitePage) => (
-            <div
+            <WhitePageCard
               key={whitePage.id}
-              style={cardStyle(hoveredCard === whitePage.id)}
-              onClick={() => setSelectedPdf(whitePage)}
+              whitePage={whitePage}
+              isHovered={hoveredCard === whitePage.id}
+              onClick={setSelectedPdf}
               onMouseEnter={() => setHoveredCard(whitePage.id)}
               onMouseLeave={() => setHoveredCard(null)}
-            >
-              <Typography
-                variant='h3'
-                color={theme.palette.themePrimary}
-                marginBottom='0.5rem'
-                fontSize={theme.typography.fontSizes.clamp5}
-              >
-                {whitePage.title}
-              </Typography>
-              <Typography
-                variant='p'
-                color={theme.palette.neutralPrimary}
-                fontSize='0.95rem'
-                marginBottom='1rem'
-              >
-                {whitePage.description}
-              </Typography>
-              <Typography
-                variant='p'
-                color={theme.palette.themePrimary}
-                marginTop='0.5rem'
-                fontWeight='600'
-                fontSize='0.9rem'
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                }}
-              >
-                <span>📄</span> View White Paper
-              </Typography>
-            </div>
+              variant='compact'
+            />
           ))}
         </div>
 
@@ -393,7 +356,10 @@ export const AboutSection: React.FC<{
                 <div
                   data-subheading
                   style={{
-                    background: theme.palette.themeSecondary,
+                    background:
+                      theme.themeMode === 'high-contrast'
+                        ? theme.palette.neutralDark
+                        : theme.palette.themeSecondary,
                     color: 'white',
                     padding: '0.5rem 1rem',
                     borderRadius: '4px 4px 0 0',
@@ -412,7 +378,10 @@ export const AboutSection: React.FC<{
                   data-tile
                   style={{
                     padding: '1rem',
-                    background: theme.palette.neutralLight,
+                    background:
+                      theme.themeMode === 'high-contrast'
+                        ? theme.palette.neutralDark
+                        : theme.palette.neutralLight,
                     borderRadius: '0 0 4px 4px',
                     height: 'calc(100% - 3.5rem)', // Adjust for subheading height
                     border: `2px solid ${theme.palette.themeSecondary}`,

@@ -33,7 +33,7 @@ export const ColorblindSettings: React.FC<{ isOnboarding?: boolean }> = ({
 
   const colorBlindStyles: Partial<IDropdownStyles> = {
     root: {
-      width: '50%',
+      width: '75%',
       fontFamily: theme.typography.fonts.body.fontFamily,
       fontVariationSettings: theme.typography.fonts.body.fontVariationSettings,
     },

@@ -39,7 +39,7 @@ export const ROUTES: Routes[] = [
     isContentScreen: false,
   },
   {
-    name: 'collab & connect',
+    name: "let's connect",
     path: 'contact-me',
     isMenuItem: true,
     isContentScreen: false,
