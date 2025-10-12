@@ -189,11 +189,11 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
   },
   {
     name: 'empathy',
-    percentage: 100,
+    percentage: 99,
   },
   {
     name: 'courage',
-    percentage: 98,
+    percentage: 97,
   },
   { name: 'authenticity', percentage: 97 },
   {

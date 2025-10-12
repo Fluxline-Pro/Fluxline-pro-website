@@ -393,11 +393,11 @@ export const AboutSection: React.FC<{
                 <div
                   data-subheading
                   style={{
-                    background: theme.palette.themePrimary,
+                    background: theme.palette.themeSecondary,
                     color: 'white',
                     padding: '0.5rem 1rem',
                     borderRadius: '4px 4px 0 0',
-                    border: `2px solid ${theme.palette.themePrimary}`,
+                    border: `2px solid ${theme.palette.themeSecondary}`,
                     fontFamily: theme.typography.fontFamilies.base,
                     fontWeight: 'bold',
                     fontSize: '1.25rem',
@@ -415,7 +415,7 @@ export const AboutSection: React.FC<{
                     background: theme.palette.neutralLight,
                     borderRadius: '0 0 4px 4px',
                     height: 'calc(100% - 3.5rem)', // Adjust for subheading height
-                    border: `2px solid ${theme.palette.themePrimary}`,
+                    border: `2px solid ${theme.palette.themeSecondary}`,
                     borderTop: 'none',
                     transition: 'all 0.3s ease',
                   }}
