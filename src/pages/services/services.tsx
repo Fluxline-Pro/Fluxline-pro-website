@@ -346,28 +346,95 @@ export const AboutSection: React.FC<{
           margin: '2rem auto',
         }}
       >
-        {SERVICES_EXPORTS.ABOUT_BULLET_POINTS.slice(0, 3).map((point) => (
-          <div
-            key={point.name}
-            style={{
-              padding: '1rem',
-              background: theme.palette.neutralLight,
-              borderRadius: '4px',
-              height: '100%',
-            }}
-          >
-            <Typography
-              variant='h4'
-              color={theme.palette.themePrimary}
-              marginBottom='0.5rem'
-            >
-              {point.name}
-            </Typography>
-            <Typography variant='p' color={theme.palette.neutralPrimary}>
-              {point.description}
-            </Typography>
-          </div>
-        ))}
+        {SERVICES_EXPORTS.ABOUT_BULLET_POINTS.slice(0, 3).map(
+          (point, index) => {
+            const categories = [
+              'What We Do',
+              'What We Deliver',
+              'How We Do It',
+            ];
+            return (
+              <div
+                key={point.name}
+                style={{
+                  height: '100%',
+                  transition: 'all 0.3s ease',
+                  cursor: 'default',
+                }}
+                onMouseEnter={(e) => {
+                  const subheading = e.currentTarget.querySelector(
+                    '[data-subheading]'
+                  ) as HTMLElement;
+                  const tile = e.currentTarget.querySelector(
+                    '[data-tile]'
+                  ) as HTMLElement;
+                  if (subheading && tile) {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    subheading.style.boxShadow =
+                      '0 4px 16px rgba(0, 0, 0, 0.12)';
+                    tile.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.12)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  const subheading = e.currentTarget.querySelector(
+                    '[data-subheading]'
+                  ) as HTMLElement;
+                  const tile = e.currentTarget.querySelector(
+                    '[data-tile]'
+                  ) as HTMLElement;
+                  if (subheading && tile) {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    subheading.style.boxShadow = 'none';
+                    tile.style.boxShadow = 'none';
+                  }
+                }}
+              >
+                {/* Categorical Subheading */}
+                <div
+                  data-subheading
+                  style={{
+                    background: theme.palette.themePrimary,
+                    color: 'white',
+                    padding: '0.5rem 1rem',
+                    borderRadius: '4px 4px 0 0',
+                    border: `2px solid ${theme.palette.themePrimary}`,
+                    fontFamily: theme.typography.fontFamilies.base,
+                    fontWeight: 'bold',
+                    fontSize: '1.25rem',
+                    textAlign: 'center',
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  {categories[index]}
+                </div>
+                {/* Tile Content */}
+                <div
+                  data-tile
+                  style={{
+                    padding: '1rem',
+                    background: theme.palette.neutralLight,
+                    borderRadius: '0 0 4px 4px',
+                    height: 'calc(100% - 3.5rem)', // Adjust for subheading height
+                    border: `2px solid ${theme.palette.themePrimary}`,
+                    borderTop: 'none',
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  <Typography
+                    variant='h4'
+                    color={theme.palette.themePrimary}
+                    marginBottom='0.5rem'
+                  >
+                    {point.name}
+                  </Typography>
+                  <Typography variant='p' color={theme.palette.neutralPrimary}>
+                    {point.description}
+                  </Typography>
+                </div>
+              </div>
+            );
+          }
+        )}
       </div>
     </div>
   );
@@ -646,8 +713,21 @@ export const FluxlineEthosSection: React.FC<{
   }
 
   return (
-    <>
-      <H2Title name='Fluxline Ethos' />
+    <div
+      style={{
+        ...styles.sectionContainer,
+        display: 'flex',
+        flexDirection: 'column',
+        marginBottom: 0,
+      }}
+    >
+      <Typography
+        variant='h3'
+        color={theme.palette.themePrimary}
+        marginBottom='1rem'
+      >
+        Fluxline Ethos
+      </Typography>
       <Typography
         variant='p'
         textAlign='left'
@@ -668,7 +748,7 @@ export const FluxlineEthosSection: React.FC<{
           </React.Fragment>
         ))}
       </Typography>
-    </>
+    </div>
   );
 };
 
@@ -933,48 +1013,59 @@ export const TaglineHeader: React.FC<{
     return null;
   }
 
+  const hrStyles = {
+    margin: '2rem 0',
+    border: 'none',
+    height: '1px',
+    backgroundColor: theme.palette.themePrimary,
+    opacity: 0.3,
+  };
+
   return (
-    <div
-      style={{
-        ...styles.sectionBox(theme),
-        textAlign: 'center',
-        padding: '0',
-        borderLeft: `4px solid ${theme.palette.themePrimary}`,
-        maxWidth: '800px',
-        marginBottom: '3rem',
-        margin: '2rem auto',
-      }}
-    >
-      <Typography
-        variant='h3'
-        textAlign='center'
-        color={theme.palette.themePrimary}
-        margin='1rem 0 0'
-        fontSize={theme.typography.fontSizes.clamp7}
+    <>
+      <hr style={hrStyles} />
+      <div
         style={{
-          fontStyle: 'italic',
-          textTransform: 'none',
-          letterSpacing: '-0.02em',
-          ...styles.textContent,
+          textAlign: 'center',
+          padding: '0',
+          borderLeft: `6px solid ${theme.semanticColors.messageText}`,
+          maxWidth: '800px',
+          marginBottom: '3rem',
+          margin: '2rem auto',
         }}
       >
-        {SERVICES_EXPORTS.FLUXLINE_TAGLINE}
-      </Typography>
-      <Typography
-        variant='p'
-        textAlign='center'
-        color={theme.palette.neutralPrimary}
-        marginTop='0'
-        fontSize={theme.typography.fontSizes.clamp5}
-        style={{
-          fontStyle: 'italic',
-          ...styles.textContent,
-          maxWidth: '80%',
-        }}
-      >
-        {SERVICES_EXPORTS.FLUXLINE_SECONDARY_TAGLINE}
-      </Typography>
-    </div>
+        <Typography
+          variant='h3'
+          textAlign='center'
+          color={theme.palette.themePrimary}
+          margin='1rem 0 0'
+          fontSize={theme.typography.fontSizes.clamp7}
+          style={{
+            fontStyle: 'italic',
+            textTransform: 'none',
+            letterSpacing: '-0.02em',
+            ...styles.textContent,
+          }}
+        >
+          {SERVICES_EXPORTS.FLUXLINE_TAGLINE}
+        </Typography>
+        <Typography
+          variant='p'
+          textAlign='center'
+          color={theme.palette.neutralPrimary}
+          marginTop='0'
+          fontSize={theme.typography.fontSizes.clamp5}
+          style={{
+            fontStyle: 'italic',
+            ...styles.textContent,
+            maxWidth: '80%',
+          }}
+        >
+          {SERVICES_EXPORTS.FLUXLINE_SECONDARY_TAGLINE}
+        </Typography>
+      </div>
+      <hr style={hrStyles} />
+    </>
   );
 };
 
@@ -1006,20 +1097,16 @@ export const Services: React.FC<ServicesProps> = ({
     <FadeUp key={actualView} delay={0}>
       <div>
         {actualView === 'about' ? (
-          // Rearranged About page sections with improved visual hierarchy
+          // Optimized About page with improved visual hierarchy and flow
           <>
             <AboutSection currentView={actualView} />
-            <hr style={{ margin: '2rem 0' }} />
             <TaglineHeader currentView={actualView} />
-            <hr style={{ margin: '2rem 0' }} />
             <MissionVisionSection currentView={actualView} />
-            {/* <FluxlineEthosSection currentView={actualView} /> */}
-            <ServicesSection currentView={actualView} />
-            <GuidingPrinciplesSection
+            <TechnicalSkillsSection
               isMobile={orientation === 'portrait'}
               currentView={actualView}
             />
-            <TechnicalSkillsSection
+            <GuidingPrinciplesSection
               isMobile={orientation === 'portrait'}
               currentView={actualView}
             />

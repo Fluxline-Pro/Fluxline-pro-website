@@ -76,7 +76,26 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       return theme.palette.white;
     }
 
-    // 4. For standard mobile (non-landscape) on non-home pages without scrolling, use white
+  // 4. For pages with light logo background (about, services, contact-me) in light mode,
+    //    use neutralPrimary to ensure visibility against white logo background
+    const lightLogoPages = ['/about', '/services', '/contact-me'];
+    const isLightLogoPage = lightLogoPages.some((page) =>
+      location.includes(page)
+    );
+
+    if (
+      !isNotMobile &&
+      !isHomePage &&
+      !isMenuOpen &&
+      !isSettingsOpen &&
+      !isScrolledPast &&
+      isLightLogoPage &&
+      theme.themeMode === 'light'
+    ) {
+      return theme.palette.neutralPrimary;
+    }
+
+    // 5. For standard mobile (non-landscape) on non-home pages without scrolling, use white
     if (
       !isNotMobile &&
       !isHomePage &&
@@ -87,7 +106,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       return theme.palette.white;
     }
 
-    // 5. Default to neutralPrimary for all other cases
+    // 6. Default to neutralPrimary for all other cases
     return theme.palette.neutralPrimary;
   };
 
@@ -104,11 +123,12 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
   const isLeftHanded = pendingLayout === 'left-handed';
 
   // Determine if hire me button should be shown based on orientation
-  const shouldShowHireMeButton = !isMenuOpen && !isSettingsOpen && (
-    orientation === 'landscape' ||
-    orientation === 'large-portrait' ||
-    orientation === 'ultrawide'
-  );
+  const shouldShowHireMeButton =
+    !isMenuOpen &&
+    !isSettingsOpen &&
+    (orientation === 'landscape' ||
+      orientation === 'large-portrait' ||
+      orientation === 'ultrawide');
 
   const menuStyles = {
     menuButtonWithText: {
@@ -201,7 +221,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
           <BookingsButton isNavigationButton={true} />
         </div>
       )}
-      
+
       {/* Theme Button */}
       {(themeMode === 'light' || themeMode === 'dark') && (
         <NavigationButton
@@ -249,7 +269,6 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
           transform: `${isSettingsHovered ? 'rotate(90deg)' : 'rotate(0)'} ${isSettingsOpen ? 'rotate(0)' : 'rotate(-180deg)'}`,
         }}
       />
-
 
       {/* Menu Button */}
       <NavigationButton

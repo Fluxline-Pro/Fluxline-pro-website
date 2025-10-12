@@ -5,13 +5,19 @@ const FLUXLINE_TAGLINE =
 const FLUXLINE_SECONDARY_TAGLINE = 'Modular by design. Resonant by nature.';
 
 const ABOUT_PROFESSIONAL_SUMMARY = [
-  'Fluxline architects transformative systems, brand experiences, and human-centric technology solutions, specializing in modular web development, IT infrastructure, and scalable design ecosystems with a focus on emotional clarity, strategic innovation, and long-term impact.',
-  'We bring together advanced architecture, creative storytelling, and intentional coaching to help clients build not just solutions but philosophies, brands, and living identities that evolve with them. We engineer resonance, resilience, and results—helping you build frameworks that adapt to growth, not restrict it. Let us make your vision a reality!',
+  `<strong>Fluxline</strong> architects transformative systems, brand experiences, and human-centered technology—blending <em>emotional intelligence</em>, <em>financial clarity</em>, and <em>somatic discipline</em>.<br />
+We specialize in <em>modular web development</em>, <em>scalable design ecosystems</em>, and <em>strategic innovation</em> that evolves with you.<br /><br />
+
+<strong>Whether you're an individual seeking personal growth or a business ready to scale with purpose,</strong><br />
+our <em>coaching</em>, <em>wellness programs</em>, and <em>infrastructure design</em> help you align your <strong>drive</strong> with your <em>innate identity</em>. We believe transformation isn’t just about metrics—it’s about honoring <em>emotional rhythm</em>, <em>creative truth</em>, and <em>legacy resonance</em>.<br /><br />
+
+<strong>Fluxline</strong> builds <em>systems that breathe</em>, <em>brands that feel</em>, and <em>legacies that last</em>.<br />
+Let’s make your vision real—through <strong>ritual</strong>, <strong>resonance</strong>, and <strong>iteration</strong>.`,
 ];
 
 const FLUXLINE_MISSION_VISION = [
-  'We seek to architect multidimensional systems that fuse emotional intelligence, financial clarity, and somatic discipline—empowering individuals and brands to live with modular precision and legacy-driven resonance.',
-  'Fluxline envisions a world where every person becomes a self-authored steward of their inner and outer architecture—where dashboards track not just dollars and reps, but moments of truth, love, and creativity. It sees businesses as living organisms shaped by values, not just value. It sees monthly plans as mirrors, and relationships as sacred protocols of presence. Through these lenses of entity and endless spirality, Fluxline guides individuals and brands to design lives and legacies that echo beyond the present moment while also ritualizing the now.',
+  'We seek to architect multidimensional systems that fuse <em>emotional intelligence</em>, <em>financial clarity</em>, and <em>somatic discipline</em>—empowering individuals and brands to live with <strong>modular precision</strong> and <strong>legacy-driven resonance</strong>.',
+  'Fluxline envisions a world where individuals and businesses become <em>self-authored stewards</em> of their inner and outer architecture—where identity is revealed through <strong>ritual</strong>, <strong>resonance</strong>, and <strong>iteration</strong>.<br />We believe dashboards should track not just dollars and reps, but <em>moments of truth</em>, <em>creativity</em>, and <em>emotional shift</em>. We see businesses as living organisms shaped by values, not just value. We see monthly plans as mirrors, and relationships as sacred protocols of presence.<br />Through these lenses of <em>identity</em>, <em>resonance</em>, and <em>spirality</em>, Fluxline guides people and brands to design lives and legacies that echo beyond the present moment—while anchoring the now with <strong>clarity</strong>, <strong>drive</strong>, and <strong>emotional sovereignty</strong>.',
 ];
 
 const FLUXLINE_ETHOS = [
@@ -42,19 +48,24 @@ const DESIGN_SUMMARY =
 
 const ABOUT_BULLET_POINTS: IAboutBulletPoint[] = [
   {
-    name: 'Personable & Approachable',
+    name: 'Creative & Modular Thinker',
     description:
-      'Fluxline prioritizes human connection and empathy—building systems around how people feel, think, and grow.',
+      'We architect transformative brands, systems, and digital experiences that scale with your vision—fusing creative storytelling with technical precision to build frameworks that evolve, not restrict.',
+  },
+  {
+    name: 'Results with Resonance',
+    description:
+      'Every project delivers measurable outcomes and emotional impact. We create solutions that drive business growth while building authentic connections between you and your audience.',
+  },
+  {
+    name: 'Human-Centered Approach',
+    description:
+      'We prioritize empathy, collaboration, belonging, and intentional communication—designing every interaction around how people actually think, feel, and make decisions.',
   },
   {
     name: 'Technologically Curious',
     description:
       'We integrate emerging trends in design, AI, and backend architecture to fuel innovation and unlock new possibilities.',
-  },
-  {
-    name: 'Creative & Modular Thinker',
-    description:
-      'Fluxline architects brands and systems that flex, scale, and resonate—balancing creativity with precision.',
   },
   {
     name: 'Intentional Learner',
@@ -75,11 +86,6 @@ const ABOUT_BULLET_POINTS: IAboutBulletPoint[] = [
     name: 'Proactive strategist',
     description:
       'We don’t wait for clarity--we design it. We move early, test intelligently, and pivot with intention.',
-  },
-  {
-    name: 'Results + resonance',
-    description:
-      'We deliver outcomes clients can measure—and frameworks they can feel. Impact isn’t just numeric, it’s experiential.',
   },
 ];
 
