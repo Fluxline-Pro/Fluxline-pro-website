@@ -179,8 +179,8 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
     if (orientation === 'portrait') {
       return placeItemsRight;
     }
-    
-    // For all other devices (tablet-portrait, large-portrait, mobile-landscape, 
+
+    // For all other devices (tablet-portrait, large-portrait, mobile-landscape,
     // ultrawide, square, landscape), use scrollability-based logic:
     // - 'start' if content is scrollable (prevents content cutoff at top)
     // - 'center' if content is not scrollable (provides better visual centering)
@@ -194,6 +194,7 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
       fullWidth={fullscreen}
       direction={isHomePage ? 'ltr' : readingDirection}
       display='grid'
+      gap={orientation === 'portrait' ? '1rem' : undefined}
       style={{
         ...containerStyle,
         overflow: nested ? 'hidden' : 'visible',
@@ -230,6 +231,11 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
                   //   ? '2 / -1' // Move to right side in mobile landscape + left-handed
                   '1 / 2', // Default position
             placeItems: placeItemsLeft,
+            // Ensure left content doesn't overflow on mobile
+            overflow: 'hidden',
+            maxWidth: '100%',
+            width: '100%',
+            boxSizing: 'border-box',
           }}
         >
           {leftChildren}
@@ -258,7 +264,8 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
             placeItems: rightPlaceItems, // Use calculated placeItems based on device orientation and scrollability
             marginTop: isTablet ? '3rem' : '0', // adjusts marginTop for tablet only
             paddingLeft: isTablet ? '1.5rem' : '0', // adjusts paddingLeft for tablet only
-            paddingRight: isTablet || orientation === 'tablet-portrait' ? '1.125rem' : '0', // Increased right padding to prevent scrollbar overlap
+            paddingRight:
+              isTablet || orientation === 'tablet-portrait' ? '1.125rem' : '0', // Increased right padding to prevent scrollbar overlap
           }}
         >
           {rightChildren}

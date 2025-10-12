@@ -3,7 +3,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAppTheme } from '../../hooks/useAppTheme';
-import { createTypographyStyles } from './settings/fontsize-settings';
 
 interface NavigationItemProps {
   isHovered: boolean;
@@ -20,7 +19,6 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
 }) => {
   const { theme, layoutPreference } = useAppTheme();
   const isLeftHanded = layoutPreference === 'left-handed';
-  const typographyStyles = createTypographyStyles(theme);
 
   const styles = {
     navItem: {
@@ -49,7 +47,12 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
       transition: 'all 0.2s ease-in-out',
     },
     navTooltip: {
-      ...typographyStyles.menuTitle,
+      ...theme.typography.fonts.h2,
+      fontSize: 'clamp(2rem, 4vh, 2rem)',
+      fontWeight: theme.typography.fontWeights.medium,
+      letterSpacing: '-1.5px',
+      textTransform: 'capitalize' as const,
+      textShadow: 'none',
       color: theme.palette.themePrimary,
       fontVariationSettings: isHovered ? '"wght" 600' : '"wght" 200',
       transform: `translateX(${isHovered ? (isLeftHanded ? '6px' : '-6px') : '0'}) scale(${isHovered ? 1.07 : 1})`,

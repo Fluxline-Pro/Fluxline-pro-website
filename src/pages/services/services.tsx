@@ -661,6 +661,7 @@ export const MissionVisionSection: React.FC<{
         display: 'flex',
         flexDirection: 'column',
         gap: '2rem',
+        marginBottom: '0'
       }}
     >
       <div>
@@ -677,7 +678,11 @@ export const MissionVisionSection: React.FC<{
           noHyphens
           style={styles.textContent}
         >
-          {SERVICES_EXPORTS.FLUXLINE_MISSION_VISION[0]}
+          <div
+            dangerouslySetInnerHTML={{
+              __html: SERVICES_EXPORTS.FLUXLINE_MISSION_VISION[0],
+            }}
+          />
         </Typography>
       </div>
 
@@ -695,7 +700,11 @@ export const MissionVisionSection: React.FC<{
           style={styles.textContent}
           noHyphens
         >
-          {SERVICES_EXPORTS.FLUXLINE_MISSION_VISION[1]}
+          <div
+            dangerouslySetInnerHTML={{
+              __html: SERVICES_EXPORTS.FLUXLINE_MISSION_VISION[1],
+            }}
+          />
         </Typography>
       </div>
     </div>

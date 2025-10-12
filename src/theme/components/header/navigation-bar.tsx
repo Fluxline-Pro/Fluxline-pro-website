@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 import { useAppTheme } from '../../hooks/useAppTheme';
 import { useMobileScroll } from '../../hooks/useMobileScroll';
 import { NavigationButtons } from './navigation-buttons';
-import { createTypographyStyles } from './settings/fontsize-settings';
 import { LayoutGrid } from '../../layouts/LayoutGrid';
 import { useDeviceOrientation, useIsMobile } from '../../hooks/useMediaQuery';
 import useGetPageTitle from './hooks/useGetPageTitle';
@@ -34,7 +33,6 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
   const isPortrait = useDeviceOrientation() === 'portrait';
   const isScrolledPast = useMobileScroll();
   const isMobile = useIsMobile();
-  const typographyStyles = createTypographyStyles(theme);
   const currentView = useLocation().pathname;
   const isHomePage = currentView === '/';
   const title = useGetPageTitle();
@@ -53,12 +51,20 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
   const shouldShowBackdrop = isScrolledPast && !isMenuOpen && !isSettingsOpen;
 
   const pageTitleStyles = {
-    ...typographyStyles.pageTitle,
+    ...theme.typography.fonts.h2,
+    color: theme.isInverted ? theme.palette.white : theme.palette.black,
+    fontSize: 'clamp(2rem, 3vh, 3rem)',
+    fontWeight: theme.typography.fontWeights.bold,
+    fontVariationSettings: "'wght' 300, 'wdth' 100, 'slnt' 0",
+    textShadow: theme.isInverted
+      ? theme.typography.textShadows.cardImage
+      : '1px 1px 2px rgba(0, 0, 0, 0.5)',
     textAlign: readingDirection === 'rtl' ? 'right' : 'left',
     transform: `translateY(${isScrolledPast ? '0' : '20px'})`,
     opacity: isScrolledPast && !isMenuOpen && !isSettingsOpen ? 1 : 0,
     transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
-    visibility: isScrolledPast && !isMenuOpen && !isSettingsOpen ? 'visible' : 'hidden',
+    visibility:
+      isScrolledPast && !isMenuOpen && !isSettingsOpen ? 'visible' : 'hidden',
     pointerEvents: 'auto',
   } as React.CSSProperties;
 
@@ -83,22 +89,20 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
       width='100%'
       style={{
         zIndex: theme.zIndices.menu + 1,
-        backgroundColor:
-          shouldShowBackdrop
-            ? theme.isInverted
-              ? 'rgba(37, 37, 37, 0.9)'
-              : 'rgba(255, 255, 255, 0.8)'
-            : 'transparent',
-        backdropFilter:
-          shouldShowBackdrop
-            ? 'blur(10px)'
-            : 'none',
+        backgroundColor: shouldShowBackdrop
+          ? theme.isInverted
+            ? 'rgba(37, 37, 37, 0.9)'
+            : 'rgba(255, 255, 255, 0.8)'
+          : 'transparent',
+        backdropFilter: shouldShowBackdrop ? 'blur(10px)' : 'none',
         transition: 'all 0.2s ease-in-out',
         boxSizing: 'border-box',
         pointerEvents: 'none',
       }}
     >
-      <Typography variant='h2' style={pageTitleStyles}>{title || 'terence'}</Typography>
+      <Typography variant='h2' style={pageTitleStyles}>
+        {title || 'terence'}
+      </Typography>
       {!(currentView === 'onboarding' && isMobileLandscape) && (
         <NavigationButtons
           onSettingsClick={onSettingsClick}
