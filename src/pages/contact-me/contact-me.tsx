@@ -155,13 +155,11 @@ const ContactForm: React.FC = () => {
   }, [submitSuccess, clearSubmissionStatus]);
 
   return (
-    <Container maxWidth='1000px'>
+    <Container maxWidth='1000px' paddingBottom={theme.spacing.xl}>
       <Typography
-        variant='h2'
+        variant='h3'
         textAlign='left'
         color={theme.palette.themePrimary}
-        fontSize={theme.typography.fontSizes.clamp7}
-        fontVariationSettings='wght 400,wdth 300,slnt 0'
         marginTop={isMobile ? theme.spacing.m : undefined}
         marginBottom={theme.spacing.m}
       >
@@ -175,136 +173,134 @@ const ContactForm: React.FC = () => {
       >
         Let's discuss your needs and goals! Whether you're seeking project
         estimates, personalized training, strategic consulting, or web
-        development, we're happy to help. Click the button below to book a free, no
-        obligation consultation. You may also download and view my business card below for future reference.
+        development, we're happy to help. Click the button below to book a free,
+        no obligation consultation. My business card is also below for download.
       </Typography>
       <BookingsButton />
       <Typography
-        variant='h2'
+        variant='h3'
         textAlign='left'
         color={theme.palette.themePrimary}
-        fontSize={theme.typography.fontSizes.clamp7}
-        fontVariationSettings='wght 400,wdth 300,slnt 0'
         marginTop={isMobile ? theme.spacing.m : theme.spacing.xxl}
         marginBottom={isMobile ? theme.spacing.m : theme.spacing.l}
       >
         Business Card
       </Typography>
       <Container display='flex' flexDirection='row' justifyContent='flex-start'>
-          <div
-            className='business-card-container'
-            onClick={() => {
-              setSelectedImage({
-                src: BusinessCardFront,
-                alt: 'Fluxline Business Card Front',
-              });
-              setModalOpen(true);
-            }}
+        <div
+          className='business-card-container'
+          onClick={() => {
+            setSelectedImage({
+              src: BusinessCardFront,
+              alt: 'Fluxline Business Card Front',
+            });
+            setModalOpen(true);
+          }}
+          style={{
+            cursor: 'pointer',
+            display: 'flex',
+            justifyContent: 'center',
+            position: 'relative',
+            transition: 'all 0.3s ease',
+          }}
+        >
+          <img
+            src={BusinessCardFront}
+            alt='Fluxline Business Card Front'
             style={{
-              cursor: 'pointer',
-              display: 'flex',
-              justifyContent: 'center',
-              position: 'relative',
+              width: '50%',
+              borderRadius: theme.borderRadius.container.button,
               transition: 'all 0.3s ease',
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            }}
+            className='business-card-image'
+          />
+          <div
+            className='overlay'
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              opacity: 0,
+              transition: 'all 0.3s ease',
+              color: 'white',
+              borderRadius: theme.borderRadius.container.button,
             }}
           >
-            <img
-              src={BusinessCardFront}
-              alt='Fluxline Business Card Front'
+            <span
               style={{
-                width: '50%',
-                borderRadius: theme.borderRadius.container.button,
-                transition: 'all 0.3s ease',
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-              }}
-              className='business-card-image'
-            />
-            <div
-              className='overlay'
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                opacity: 0,
-                transition: 'all 0.3s ease',
-                color: 'white',
-                borderRadius: theme.borderRadius.container.button,
+                background: 'rgba(0,0,0,0.5)',
+                padding: '8px 12px',
+                borderRadius: '4px',
+                backdropFilter: 'blur(2px)',
               }}
             >
-              <span
-                style={{
-                  background: 'rgba(0,0,0,0.5)',
-                  padding: '8px 12px',
-                  borderRadius: '4px',
-                  backdropFilter: 'blur(2px)',
-                }}
-              >
-                Click to expand
-              </span>
-            </div>
+              Click to expand
+            </span>
           </div>
-          <div
-            className='business-card-container'
-            onClick={() => {
-              setSelectedImage({
-                src: BusinessCardBack,
-                alt: 'Fluxline Business Card Back',
-              });
-              setModalOpen(true);
-            }}
+        </div>
+        <div
+          className='business-card-container'
+          onClick={() => {
+            setSelectedImage({
+              src: BusinessCardBack,
+              alt: 'Fluxline Business Card Back',
+            });
+            setModalOpen(true);
+          }}
+          style={{
+            cursor: 'pointer',
+            display: 'flex',
+            justifyContent: 'center',
+            position: 'relative',
+            transition: 'all 0.3s ease',
+          }}
+        >
+          <img
+            src={BusinessCardBack}
+            alt='Fluxline Business Card Back'
             style={{
-              cursor: 'pointer',
-              display: 'flex',
-              justifyContent: 'center',
-              position: 'relative',
+              width: '50%',
+              borderRadius: theme.borderRadius.container.button,
               transition: 'all 0.3s ease',
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            }}
+            className='business-card-image'
+          />
+          <div
+            className='overlay'
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              opacity: 0,
+              transition: 'all 0.3s ease',
+              color: 'white',
+              borderRadius: theme.borderRadius.container.button,
             }}
           >
-            <img
-              src={BusinessCardBack}
-              alt='Fluxline Business Card Back'
+            <span
               style={{
-                width: '50%',
-                borderRadius: theme.borderRadius.container.button,
-                transition: 'all 0.3s ease',
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-              }}
-              className='business-card-image'
-            />
-            <div
-              className='overlay'
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                opacity: 0,
-                transition: 'all 0.3s ease',
-                color: 'white',
-                borderRadius: theme.borderRadius.container.button,
+                background: 'rgba(0,0,0,0.5)',
+                padding: '8px 12px',
+                borderRadius: '4px',
+                backdropFilter: 'blur(2px)',
               }}
             >
-              <span
-                style={{
-                  background: 'rgba(0,0,0,0.5)',
-                  padding: '8px 12px',
-                  borderRadius: '4px',
-                  backdropFilter: 'blur(2px)',
-                }}
-              >
-                Click to expand
-              </span>
-            </div>
+              Click to expand
+            </span>
           </div>
+        </div>
       </Container>
 
       {/* Image Modal for fullscreen viewing */}

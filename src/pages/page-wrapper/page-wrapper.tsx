@@ -56,7 +56,7 @@ const PAGE_CONFIGS = {
     imageText: 'Web & App Development',
   },
   '/services/resonance-core': {
-    image: 'https://picsum.photos/400/600?random=resonance',
+    image: require('../../assets/images/LifeCoachingResonanceCore.jpg'),
     imageText: 'Life Coaching: Resonance Core',
   },
   '/services/design': {

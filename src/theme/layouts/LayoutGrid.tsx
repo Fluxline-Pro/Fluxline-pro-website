@@ -124,6 +124,9 @@ export const LayoutGrid: React.FC<LayoutGridProps> = ({
     flexGrow,
     flexShrink,
     flexBasis,
+    // Ensure grid doesn't overflow on mobile
+    overflowX: 'hidden',
+    boxSizing: 'border-box',
     ...(position === 'fixed' && {
       overflow: 'hidden',
       maxHeight: '100vh',

@@ -454,7 +454,7 @@ export const typography = {
     h3: {
       fontFamily:
         'Inter Variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-      fontSize: 'clamp(1rem, 2cqi, 1.5rem)',
+      fontSize: 'clamp(1.375rem, 2cqi, 1.75rem)',
       fontWeight: '700' as '700',
       fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
