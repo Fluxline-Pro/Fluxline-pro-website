@@ -1,19 +1,22 @@
 # COPILOT_INSTRUCTIONS.md
 
 ## Purpose
-This repository contains the Fluxline Resonance Group's web platform. It is built with **React 19.1.0** (not Next.js) using **Create React App** and follows strict design, layout, and architectural guidelines for maintainability, UI consistency, and future integration with Azure backend services.
+
+This repository contains the Fluxline Resonance Group's web platform. It is built with **React 19.1.0** (not Next.js--there is no server-side rendering) using **Create React App** and follows strict design, layout, and architectural guidelines for maintainability, UI consistency, and future integration with Azure backend services.
 
 ---
 
 ## General Development Guidelines
 
 ### Theme & Design System
+
 - **Always use `theme.ts` and Fluent UI v8 design standards**
   - All new components and features must utilize pre-defined theming, spacing, typography, and color palettes located in `/src/theme/theme.ts`
   - The theme system supports dark mode (default), light mode, and high-contrast mode
   - Fluent UI v8.122.17+ provides the core component library
 
 ### Package Management
+
 - **Use the `yarn` package manager exclusively** for all dependency management and scripts
   - Do not use `npm` for installs, scripts, or lockfiles
   - Current Node.js requirement: **>= 20.0.0** (specified in `package.json`)
@@ -21,6 +24,7 @@ This repository contains the Fluxline Resonance Group's web platform. It is buil
   - If a version upgrade is required for any packages, do so under a separate feature branch request for full testing
 
 ### Node & Environment
+
 - The project uses **Node.js >= 20.0.0**
 - `.nvmrc` file should be maintained if Node version needs to be pinned for consistency
 - Environment variables should be configured in `.env.local` (see `.env.example` for reference)
@@ -28,6 +32,7 @@ This repository contains the Fluxline Resonance Group's web platform. It is buil
 - Production build: `yarn build`
 
 ### Styling
+
 - **Priority order: Fluent UI DSM → Theme.ts → SCSS**
   - Primary styling should be achieved with **Fluent UI** themed components and built-in typography
   - Use `theme.ts` constants for spacing, colors, breakpoints, and z-indices
@@ -37,6 +42,7 @@ This repository contains the Fluxline Resonance Group's web platform. It is buil
   - Auto-generated SCSS type definitions (`*.module.scss.d.ts`) are ignored in git
 
 ### Component Reuse & Layout
+
 - **Favor reusing existing components**, including:
   - **ViewportGrid** and **LayoutGrid**: Core responsive layout components
   - **Container**: Wrapper components with consistent padding and max-width
@@ -48,6 +54,7 @@ This repository contains the Fluxline Resonance Group's web platform. It is buil
 - Use the component generator for new components: `yarn generate:component ComponentName`
 
 ### State & Data Handling
+
 - **Use Zustand exclusively for client-side state management**
   - All data points, API payloads, callback results, and local data should use Zustand stores
   - Existing stores are located in `/src/store/store-specs/`:
@@ -59,7 +66,8 @@ This repository contains the Fluxline Resonance Group's web platform. It is buil
 - Document data shapes and API integration requirements clearly
 
 ### Markdown & Content
-- All business/legal document content (Terms, Privacy, Stewardship, Glossary) must be loaded from Markdown/JSX
+
+- All business/legal document content (Terms, Privacy, Stewardship, Glossary) must be loaded from Markdown/JSX (Future state--for now is Mock data)
 - Render using Fluxline's Typography components from `/src/theme/components/typography/`
 - **Use relative URLs for document routes**: `/terms`, `/privacy-policy`, `/stewardship`, `/glossary`
 - Update legacy Notion links to use local routes
@@ -67,11 +75,13 @@ This repository contains the Fluxline Resonance Group's web platform. It is buil
 - Dynamic content uses the **UnifiedContentPage** system
 
 ### Navigation
+
 - All new features/pages must be added to `/src/theme/components/header/navigation-menu.tsx`
 - Follow consistent navigation patterns defined in `navigation.config.tsx` and `navigation.types.ts`
 - Navigation state is managed via `navigationStore.ts`
 
 ### Backend & API
+
 - Future backend integration will use **Azure Storage** and **Azure Functions**
   - Reference implementation: [tw-az-functions-platform](https://github.com/AplUSAndmINUS/tw-az-functions-platform)
   - Current API layer documentation in `/src/api/README.md` shows Azure Functions integration patterns
@@ -88,17 +98,20 @@ This repository contains the Fluxline Resonance Group's web platform. It is buil
 ## Coding Best Practices
 
 ### TypeScript
+
 - Maintain **strict TypeScript typing** throughout the codebase
 - No implicit `any` types - define proper interfaces and types
 - Type definitions for external libraries should be kept up to date
 
 ### Component Development
+
 - Use **functional components and hooks exclusively**
 - Follow React 19.1.0 best practices
 - Prefer composition over inheritance
 - Keep components focused and single-responsibility
 
 ### Styling Approach
+
 - **Adhere to JSX Fluent UI DSM practices and theme.ts BEFORE SCSS**
   - Example: Use `theme.palette.themePrimary` instead of hardcoded colors
   - Example: Use `theme.spacing.xl` instead of custom margin values
@@ -110,6 +123,7 @@ This repository contains the Fluxline Resonance Group's web platform. It is buil
   - Follow BEM naming conventions for SCSS classes
 
 ### Accessibility & Responsiveness
+
 - Follow all **WCAG 2.1 AA accessibility guidelines**
 - Ensure keyboard navigation works throughout
 - Provide appropriate ARIA labels and roles
@@ -124,6 +138,7 @@ This repository contains the Fluxline Resonance Group's web platform. It is buil
   - xxl: 1920px+ (high-resolution desktop)
 
 ### Theme Support
+
 - Ensure all pages/components work with Fluxline's theme modes:
   - **Dark mode** (default): Deep black (`#010101`) background
   - **Light mode**: Clean, airy aesthetic
@@ -132,6 +147,7 @@ This repository contains the Fluxline Resonance Group's web platform. It is buil
 - Use theme-aware colors from `theme.palette` for all color references
 
 ### Documentation
+
 - Keep DSM conventions central to all UI/UX decisions
 - **Document all new features, data shapes, and key logic flows**:
   - Code comments for complex logic
@@ -144,6 +160,7 @@ This repository contains the Fluxline Resonance Group's web platform. It is buil
   - Integration points and requirements
 
 ### Technical Debt & Quality
+
 - **Actively remove technical debt found along the way**
   - Refactor outdated patterns when encountered
   - Test functionality after cleanup to ensure nothing breaks
@@ -159,27 +176,32 @@ This repository contains the Fluxline Resonance Group's web platform. It is buil
 ## Technology Stack
 
 ### Core Framework
+
 - **React 19.1.0** - Frontend framework (NOT Next.js)
 - **Create React App 5.0.1** - Build tooling and development server
 - **TypeScript 5.8.3+** - Type safety and developer experience
 
 ### UI & Styling
+
 - **Fluent UI 8.122.17+** - Microsoft's design system components
 - **Sass 1.88.0+** - CSS preprocessing (SCSS modules)
 - **Bootstrap 5.3.6+** - CSS framework (supplemental, used sparingly)
 - **Framer Motion 12.23.0+** - Animation library for subtle entrance animations
 
 ### Routing & State
+
 - **React Router Dom 7.6.0+** - Client-side routing
 - **Zustand 5.0.4+** - State management (all stores)
 
 ### Build & Development Tools
+
 - **typed-scss-modules** - Auto-generate TypeScript definitions for SCSS modules
 - **concurrently** - Run multiple scripts simultaneously (`yarn start`)
 - **Prettier 3.5.3+** - Code formatting
 - **Jest & React Testing Library** - Testing infrastructure
 
 ### Backend Integration (Planned)
+
 - **Azure Static Web Apps** - Hosting platform
 - **Azure Functions** - Serverless API backend
 - **Azure Storage** - Media and asset storage
@@ -191,7 +213,7 @@ This repository contains the Fluxline Resonance Group's web platform. It is buil
 
 ### Key Directories
 
-```
+```Typescript
 /src
 ├── /api              # API client layer, types, and Zustand stores
 ├── /assets           # Images, SVGs, fonts, and static assets
@@ -231,28 +253,33 @@ This repository contains the Fluxline Resonance Group's web platform. It is buil
 ## Development Workflow
 
 ### Starting Development
+
 ```bash
 yarn install          # Install dependencies
 yarn start            # Start dev server + SCSS type generation watch
 ```
 
 ### Building for Production
+
 ```bash
 yarn build            # Create optimized production build
 ```
 
 ### Running Tests
+
 ```bash
 yarn test             # Run Jest test suite
 ```
 
 ### Component Generation
+
 ```bash
 yarn generate:component ComponentName
 # Creates component with .tsx, .module.scss, .storybook.tsx, and .test.ts files
 ```
 
 ### SCSS Type Generation
+
 ```bash
 yarn scss-types       # Generate TypeScript definitions once
 yarn scss-types:watch # Watch mode (included in yarn start)
@@ -282,12 +309,14 @@ yarn scss-types:watch # Watch mode (included in yarn start)
    - Accessibility requirements
 
 ### Branching Strategy
+
 - Create feature branches from `develop`
 - Use descriptive branch names: `feature/add-glossary-page`, `fix/navigation-mobile`
 - Ensure all linting and build checks pass before PR
 - Include tests for new features when applicable
 
 ### Code Review Checklist
+
 - [ ] Follows theme.ts and Fluent UI DSM patterns
 - [ ] Uses yarn (not npm) for any dependency changes
 - [ ] TypeScript types are properly defined
@@ -311,7 +340,7 @@ yarn scss-types:watch # Watch mode (included in yarn start)
   - API base URLs in configuration
   - `staticwebapp.config.json` for Azure deployment
   - CDN URLs for media assets
-- The project uses **Create React App**, not Next.js - there is no server-side rendering
+- The project uses **Create React App**, not Next.js
 - All routing is client-side via React Router Dom
 - Build output goes to `/build` directory for Azure Static Web Apps deployment
 
@@ -319,4 +348,4 @@ yarn scss-types:watch # Watch mode (included in yarn start)
 
 **Built with strategic precision for modern business transformation.**
 
-*Last Updated: 2025-10-12*
+### Last Updated: 2025-10-12
