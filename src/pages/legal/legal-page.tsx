@@ -223,6 +223,8 @@ export const LegalPage: React.FC = () => {
                     onMouseEnter={() => setHoveredCard(doc.id)}
                     onMouseLeave={() => setHoveredCard(null)}
                     variant='compact'
+                    isPdf={doc.isPdf}
+                    context='legal'
                   />
                 );
               })}
