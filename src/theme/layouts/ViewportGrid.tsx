@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { useAppTheme } from '../hooks/useAppTheme';
 import { useReducedMotion } from '../hooks/useReducedMotion';
@@ -57,6 +58,7 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
   const orientation = useDeviceOrientation();
   const isXLScreen = useIsLargeDesktop();
   const isTablet = useIsTablet();
+  const location = useLocation();
 
   // Create ref for right content area to detect scrollability
   const rightContentRef = React.useRef<HTMLDivElement>(null);
@@ -84,6 +86,24 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
     );
     return () => clearTimeout(timer);
   }, [isHomePage, backgroundImage, orientation, shouldReduceMotion]);
+
+  // Auto-scroll to top on navigation if not already at top
+  React.useEffect(() => {
+    const scrollToTop = () => {
+      // Check if the page is not at the top (with small tolerance for precision)
+      if (window.scrollY > 5) {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: shouldReduceMotion ? 'auto' : 'smooth',
+        });
+      }
+    };
+
+    // Small delay to ensure the route has fully changed
+    const timer = setTimeout(scrollToTop, 50);
+    return () => clearTimeout(timer);
+  }, [location.pathname, location.search, location.hash, shouldReduceMotion]);
 
   // Handle scroll behavior
   React.useEffect(() => {
