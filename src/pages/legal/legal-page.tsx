@@ -297,6 +297,11 @@ export const LegalPage: React.FC = () => {
                   font-size: ${theme.typography.fontSizes.clamp4};
                   line-height: 1.8;
                   color: ${theme.palette.neutralPrimary};
+                  display: block;
+                }
+
+                .legal-document-content p:last-child {
+                  margin-bottom: 0;
                 }
 
                 .legal-document-content ul {
@@ -305,15 +310,27 @@ export const LegalPage: React.FC = () => {
                   list-style-type: disc;
                 }
 
-                .legal-document-content li:last-of-type {
+                .legal-document-content li:last-of-type, .legal-document-content ul li:last-child {
                   margin-bottom: 0;
                 }
 
                 .legal-document-content ul li {
-                  line-height: 1.2;
+                  line-height: 1.6;
                   font-family: ${theme.typography.fonts.body.fontFamily};
                   font-size: ${theme.typography.fontSizes.clamp4};
                   color: ${theme.palette.neutralPrimary};
+                  margin-bottom: ${theme.spacing.xs};
+                }
+
+                .legal-document-content a {
+                  color: ${theme.palette.themePrimary};
+                  text-decoration: none;
+                  border-bottom: 1px solid transparent;
+                  transition: border-bottom-color 0.2s ease;
+                }
+
+                .legal-document-content a:hover {
+                  border-bottom-color: ${theme.palette.themePrimary};
                 }
 
                 .legal-document-content strong {
@@ -327,8 +344,8 @@ export const LegalPage: React.FC = () => {
 
                 .legal-document-content hr {
                   border: none;
-                  border-top: 1px solid ${theme.palette.neutralQuaternary};
-                  margin: ${theme.spacing.xl} 0;
+                  border-top: 1px solid ${theme.palette.neutralSecondary};
+                  margin: ${theme.spacing.m} 0 0;
                   opacity: 0.3;
                 }
 
