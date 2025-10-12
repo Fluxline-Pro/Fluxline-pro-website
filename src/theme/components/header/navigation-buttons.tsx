@@ -19,6 +19,7 @@ interface NavigationButtonsProps {
   pendingLayout?: 'left-handed' | 'right-handed';
   style?: React.CSSProperties;
   fadeStage?: 'in' | 'out';
+  isPdfModalOpen?: boolean; // Add prop to detect PDF modal state
 }
 
 export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
@@ -33,6 +34,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
   pendingLayout = 'right-handed',
   style,
   fadeStage = 'in',
+  isPdfModalOpen = false, // Add default value for PDF modal state
 }) => {
   const { theme, themeMode } = useAppTheme();
   const location = useLocation().pathname;
@@ -76,7 +78,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       return theme.palette.white;
     }
 
-  // 4. For pages with light logo background (about, services, contact-me) in light mode,
+    // 4. For pages with light logo background (about, services, contact-me) in light mode,
     //    use neutralPrimary to ensure visibility against white logo background
     const lightLogoPages = ['/about', '/services', '/contact-me'];
     const isLightLogoPage = lightLogoPages.some((page) =>
@@ -122,8 +124,9 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
 
   const isLeftHanded = pendingLayout === 'left-handed';
 
-  // Determine if hire me button should be shown based on orientation
+  // Determine if hire me button should be shown based on orientation and PDF modal state
   const shouldShowHireMeButton =
+    !isPdfModalOpen && // Hide when PDF modal is open
     !isMenuOpen &&
     !isSettingsOpen &&
     (orientation === 'landscape' ||

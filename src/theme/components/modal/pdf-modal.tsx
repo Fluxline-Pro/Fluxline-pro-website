@@ -16,6 +16,15 @@ export const PdfModal: React.FC<PdfModalProps> = ({
 }) => {
   const { theme } = useAppTheme();
 
+  // Notify when PDF modal state changes
+  useEffect(() => {
+    if (isOpen) {
+      window.dispatchEvent(new Event('pdf-modal-open'));
+    } else {
+      window.dispatchEvent(new Event('pdf-modal-close'));
+    }
+  }, [isOpen]);
+
   // Handle Escape key press to close modal
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -86,9 +95,11 @@ export const PdfModal: React.FC<PdfModalProps> = ({
           <h3
             style={{
               margin: 0,
-              color: theme.palette.themePrimary,
+              color: theme.palette.black, // Use black text for better readability in both light and dark modes
               fontSize: theme.typography.fontSizes.clamp5,
               fontWeight: 600,
+              textTransform: 'capitalize',
+              textShadow: 'none'
             }}
           >
             {pdfTitle}
@@ -116,11 +127,12 @@ export const PdfModal: React.FC<PdfModalProps> = ({
               }}
               onMouseOut={(e) => {
                 e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.backgroundColor = theme.palette.themePrimary;
+                e.currentTarget.style.backgroundColor =
+                  theme.palette.themePrimary;
               }}
             >
-              📥 Download
-            </button>
+              Download
+            </button>{' '}
             <button
               onClick={onClose}
               style={{

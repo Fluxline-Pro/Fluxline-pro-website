@@ -16,6 +16,7 @@ interface NavigationBarProps {
   onThemeClick: () => void;
   isMenuOpen?: boolean;
   isSettingsOpen?: boolean;
+  isPdfModalOpen?: boolean; // Add prop to detect PDF modal state
 }
 
 export const NavigationBar: React.FC<NavigationBarProps> = ({
@@ -24,6 +25,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
   onThemeClick,
   isMenuOpen = false,
   isSettingsOpen = false,
+  isPdfModalOpen = false, // Add default value
 }) => {
   const { theme, readingDirection, layoutPreference } = useAppTheme();
   const [fadeStage, setFadeStage] = React.useState<'in' | 'out'>('in');
@@ -113,6 +115,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
           isScrolledPast={isScrolledPast}
           fadeStage={fadeStage}
           pendingLayout={pendingLayout}
+          isPdfModalOpen={isPdfModalOpen}
           style={{ pointerEvents: 'auto' }}
         />
       )}
