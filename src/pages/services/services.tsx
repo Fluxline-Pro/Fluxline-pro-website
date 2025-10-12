@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { BulletPoint } from '../../theme/components/bullet-point/bullet-point';
 import { PercentageBullet } from '../../theme/components/percentage-bullet/percentage-bullet';
@@ -10,7 +10,6 @@ import { FadeUp } from '../../theme/components/animations/fade-animations';
 import SERVICES_EXPORTS from './constants';
 import { useDeviceOrientation } from '../../theme/hooks/useMediaQuery';
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
-import { useNavigate } from 'react-router-dom';
 import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
 import { NavigationArrow } from '../../theme/components/navigation-arrow/navigation-arrow';
 import { PdfModal } from '../../theme/components/modal/pdf-modal';

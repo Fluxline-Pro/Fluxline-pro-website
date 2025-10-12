@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { useDeviceOrientation } from '../../theme/hooks/useMediaQuery';
 import { Typography } from '../../theme/components/typography/typography';
@@ -7,6 +9,8 @@ import { PdfModal } from '../../theme/components/modal/pdf-modal';
 import PageWrapper from '../page-wrapper/page-wrapper';
 import { getWhitePagesFromServices } from '../services/constants';
 import { WhitePageItem } from './white-pages-constants';
+import NavigationArrow from '../../theme/components/navigation-arrow/navigation-arrow';
+import { Container } from '../../theme/layouts/Container';
 
 const styles = {
   sectionContainer: {
@@ -50,6 +54,7 @@ export const WhitePagesView: React.FC = () => {
   const orientation = useDeviceOrientation();
   const [selectedPdf, setSelectedPdf] = useState<WhitePageItem | null>(null);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const isMobile =
     orientation === 'portrait' ||
@@ -72,14 +77,31 @@ export const WhitePagesView: React.FC = () => {
       <FadeUp delay={0}>
         <div>
           <div style={styles.sectionContainer}>
-            <Typography
-              variant='h2'
-              style={styles.h2Title(theme)}
-              textAlign='center'
-              margin='0 0 1.5rem 0'
+            <Container
+              display='flex'
+              flexDirection='row'
+              justifyContent='flex-start'
+              alignItems='center'
+              paddingLeft='0'
+              marginLeft='0'
+              marginBottom='1rem'
+              gap={theme.spacing.s}
+              style={{ padding: '0' }}
             >
-              Services White Pages
-            </Typography>
+              <NavigationArrow
+                direction='backward'
+                navigate={() => navigate('/services')}
+                size={isMobile ? 'large' : 'medium'}
+                showBackground={false}
+              />
+              <Typography
+                variant='h2'
+                style={styles.h2Title(theme)}
+                textAlign='center'
+              >
+                Services White Pages
+              </Typography>
+            </Container>
             <Typography
               variant='p'
               textAlign='center'
