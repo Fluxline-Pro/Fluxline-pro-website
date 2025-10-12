@@ -119,7 +119,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
           <div style={iconStyle}>
             <span
               style={{
-                color: theme.palette.black,
+                color: theme.palette.neutralLight,
                 fontSize: '24px',
               }}
             >

@@ -227,29 +227,29 @@ a {
   color: inherit;
 }
 
-/* Apply typography styles */
-h1 {
-  @include typography.heading-1;
-}
-h2 {
-  @include typography.heading-2;
-}
-h3 {
-  @include typography.heading-3;
-}
-h4 {
-  @include typography.heading-4;
-}
-h5 {
-  @include typography.heading-5;
-}
-h6 {
-  @include typography.heading-6;
-}
-p {
-  @include typography.body-text;
-}
-code,
-pre {
-  @include typography.mono-text;
-}
+// /* Apply typography styles */
+// h1 {
+//   @include typography.heading-1;
+// }
+// h2 {
+//   @include typography.heading-2;
+// }
+// h3 {
+//   @include typography.heading-3;
+// }
+// h4 {
+//   @include typography.heading-4;
+// }
+// h5 {
+//   @include typography.heading-5;
+// }
+// h6 {
+//   @include typography.heading-6;
+// }
+// p {
+//   @include typography.body-text;
+// }
+// code,
+// pre {
+//   @include typography.mono-text;
+// }

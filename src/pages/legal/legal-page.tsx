@@ -13,45 +13,7 @@ import FluentSpinner from '../../theme/components/loading-spinner/loading-spinne
 import { WhitePageCard } from '../../theme/components/card/white-page-card/white-page-card';
 import { LEGAL_PAGES, LegalPageItem } from './legal-constants';
 import { WhitePageItem } from '../white-pages/white-pages-constants';
-
-// Helper function to convert markdown to HTML
-const basicMarkdownToHtml = (markdown: string): string => {
-  let html = markdown;
-
-  // Convert headers
-  html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-  html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-  html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-
-  // Convert bold
-  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
-
-  // Convert italic
-  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-  html = html.replace(/_(.+?)_/g, '<em>$1</em>');
-
-  // Convert lists
-  html = html.replace(/^- (.+)$/gim, '<li>$1</li>');
-  // Wrap consecutive <li> elements in a single <ul>
-  html = html.replace(/((?:<li>[\s\S]*?<\/li>\s*)+)/g, '<ul>$1</ul>');
-
-  // Convert line breaks
-  html = html.replace(/\n\n/g, '</p><p>');
-  html = html.replace(/\n/g, '<br/>');
-
-  // Wrap in paragraph tags
-  html = '<p>' + html + '</p>';
-
-  // Clean up empty paragraphs
-  html = html.replace(/<p><\/p>/g, '');
-  html = html.replace(/<p><h/g, '<h');
-  html = html.replace(/<\/h([1-6])><\/p>/g, '</h$1>');
-  html = html.replace(/<p><ul>/g, '<ul>');
-  html = html.replace(/<\/ul><\/p>/g, '</ul>');
-
-  return html;
-};
+import { basicMarkdownToHtml } from '../../theme/hooks/useBasicMarkdownToHtml';
 
 // Helper function to convert LegalPageItem to WhitePageItem format
 const convertLegalToWhitePage = (legalItem: LegalPageItem): WhitePageItem => ({
@@ -286,52 +248,72 @@ export const LegalPage: React.FC = () => {
               <style>{`
                 .legal-document-content {
                   line-height: 1.8;
+                  max-width: 800px;
+                  margin: 0 auto;
+                  text-align: left;
                 }
 
                 .legal-document-content h1 {
                   font-size: ${theme.typography.fontSizes.clamp7};
-                  margin-top: 0;
-                  margin-bottom: ${theme.spacing.xl};
-                  line-height: 1.3;
+                  margin: 0;
+                  line-height: ${theme.typography.fonts.h1.lineHeight};
                   color: ${theme.palette.themePrimary};
                   font-family: ${theme.typography.fonts.h1.fontFamily};
                   font-weight: ${theme.typography.fonts.h1.fontWeight};
+                  font-variation-settings: ${theme.typography.fonts.h1.fontVariationSettings};
+                  text-transform: ${theme.typography.fonts.h1.textTransform};
+                  letter-spacing: ${theme.typography.fonts.h1.letterSpacing};
                 }
 
                 .legal-document-content h2 {
                   font-size: ${theme.typography.fontSizes.clamp6};
-                  margin-top: ${theme.spacing.xxl};
-                  margin-bottom: ${theme.spacing.l};
-                  line-height: 1.4;
+                  margin: ${theme.spacing.l} 0 0;
+                  line-height: ${theme.typography.fonts.h2.lineHeight};
                   color: ${theme.palette.themePrimary};
                   font-family: ${theme.typography.fonts.h2.fontFamily};
                   font-weight: ${theme.typography.fonts.h2.fontWeight};
+                  font-variation-settings: ${theme.typography.fonts.h2.fontVariationSettings};
+                  text-transform: ${theme.typography.fonts.h2.textTransform};
+                  letter-spacing: ${theme.typography.fonts.h2.letterSpacing};
                 }
 
                 .legal-document-content h3 {
                   font-size: ${theme.typography.fontSizes.clamp5};
-                  margin-top: ${theme.spacing.xl};
-                  margin-bottom: ${theme.spacing.m};
-                  line-height: 1.4;
+                  margin: ${theme.spacing.m} 0 0;
+                  line-height: ${theme.typography.fonts.h3.lineHeight};
                   color: ${theme.palette.themePrimary};
                   font-family: ${theme.typography.fonts.h3.fontFamily};
                   font-weight: ${theme.typography.fonts.h3.fontWeight};
+                  font-variation-settings: ${theme.typography.fonts.h3.fontVariationSettings};
+                  text-transform: ${theme.typography.fonts.h3.textTransform};
+                  letter-spacing: ${theme.typography.fonts.h3.letterSpacing};
                 }
 
                 .legal-document-content p {
                   margin-bottom: ${theme.spacing.l};
                   text-align: left;
+                  padding-left: ${theme.spacing.l};
+                  font-family: ${theme.typography.fonts.body.fontFamily};
+                  font-size: ${theme.typography.fontSizes.clamp4};
+                  line-height: 1.8;
+                  color: ${theme.palette.neutralPrimary};
                 }
 
                 .legal-document-content ul {
-                  margin: ${theme.spacing.l} 0;
+                  margin: ${theme.spacing.l} 0 0;
                   padding-left: ${theme.spacing.xl};
                   list-style-type: disc;
                 }
 
+                .legal-document-content li:last-of-type {
+                  margin-bottom: 0;
+                }
+
                 .legal-document-content ul li {
-                  margin-bottom: ${theme.spacing.s};
-                  line-height: 1.6;
+                  line-height: 1.2;
+                  font-family: ${theme.typography.fonts.body.fontFamily};
+                  font-size: ${theme.typography.fontSizes.clamp4};
+                  color: ${theme.palette.neutralPrimary};
                 }
 
                 .legal-document-content strong {
@@ -347,19 +329,33 @@ export const LegalPage: React.FC = () => {
                   border: none;
                   border-top: 1px solid ${theme.palette.neutralQuaternary};
                   margin: ${theme.spacing.xl} 0;
+                  opacity: 0.3;
                 }
 
+                /* Remove excessive spacing and ensure consistent gaps */
+                .legal-document-content br + br {
+                  display: none;
+                }
+
+                /* Ensure first paragraph after headings has no top margin */
+                .legal-document-content h1 + p,
+                .legal-document-content h2 + p,
+                .legal-document-content h3 + p {
+                  margin-top: 0;
+                }
+
+                /* Mobile responsive adjustments matching services.tsx */
                 @media (max-width: 768px) {
                   .legal-document-content {
                     font-size: 0.95rem;
                   }
 
                   .legal-document-content h1 {
-                    margin-top: 0;
+                    margin: 0 0 1rem 0;
                   }
 
                   .legal-document-content h2 {
-                    margin-top: ${theme.spacing.xl};
+                    margin: ${theme.spacing.l} 0 0;
                   }
 
                   .legal-document-content h3 {
@@ -367,13 +363,20 @@ export const LegalPage: React.FC = () => {
                   }
 
                   .legal-document-content ul {
-                    padding-left: ${theme.spacing.l};
+                    padding-left: ${theme.spacing.s};
+                  }
+
+                  .legal-document-content p {
+                    margin-bottom: 0.75rem;
                   }
                 }
               `}</style>
               <div
                 dangerouslySetInnerHTML={{
-                  __html: basicMarkdownToHtml(documentContent),
+                  __html: basicMarkdownToHtml(
+                    documentContent,
+                    selectedDoc.title
+                  ),
                 }}
                 style={{
                   fontFamily: theme.typography.fonts.body.fontFamily,
