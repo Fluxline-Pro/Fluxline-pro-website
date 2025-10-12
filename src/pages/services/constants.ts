@@ -202,45 +202,95 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
   },
 ];
 
-// Services-specific data
+// Services-specific data with white pages integration
 const SERVICES_BULLET_POINTS: IAboutBulletPoint[] = [
   {
-    name: 'information technology & systems consulting',
+    name: 'Intentional Wellness & Personal Training',
     description:
-      'Modular IT strategies, infrastructure planning, and tech stack alignment for startups, creators, and visionary brands.',
-    route: '/services/consulting',
-  },
-  {
-    name: 'Web & Application Development',
-    description:
-      'Crafting full-stack digital products using modern technologies—with an emphasis on modularity, usability, and long-term maintainability.',
-    route: '/services/development',
+      'Fitness and life training through a systems lens. Tailored programs for founders and creatives to align body, mind, and mission.',
+    route: '/services/personal-training',
+    // White pages integration
+    id: 'personal-training',
+    title: 'Personal Training & Wellness',
+    displayName: 'Personal Training',
+    pdfPath: require('../../assets/white-pages/Fluxline-Personal-Training.pdf'),
+    category: 'personal-training' as const,
   },
   {
     name: 'Brand Identity & Experience Design',
     description:
       'End-to-end brand architecture and emotionally intelligent UI/UX design that reflects your evolution and resonates.',
     route: '/services/design',
+    // White pages integration
+    id: 'graphic-design',
+    title: 'Brand Identity & Experience Design',
+    displayName: 'Graphic Design',
+    pdfPath: require('../../assets/white-pages/Fluxline-Graphic-Design.pdf'),
+    category: 'design' as const,
+  },
+  {
+    name: 'Web & Application Development',
+    description:
+      'Crafting full-stack digital products using modern technologies—with an emphasis on modularity, usability, and long-term maintainability.',
+    route: '/services/development',
+    // White pages integration
+    id: 'development',
+    title: 'Web & Application Development',
+    displayName: 'App & Web Development',
+    pdfPath: require('../../assets/white-pages/Fluxline-App-and-Web-Development.pdf'),
+    category: 'development' as const,
+  },
+  {
+    name: 'information technology & systems consulting',
+    description:
+      'Modular IT strategies, infrastructure planning, and tech stack alignment for startups, creators, and visionary brands.',
+    route: '/services/consulting',
+    // White pages integration
+    id: 'consulting',
+    title: 'IT & Systems Consulting',
+    displayName: 'Business IT Consulting',
+    pdfPath: require('../../assets/white-pages/Fluxline-Business-IT-Consulting.pdf'),
+    category: 'consulting' as const,
   },
   {
     name: 'Coaching, Education & Leadership',
     description:
       'Transformational coaching, founder mentorship, and emotionally intelligent team leadership for those who build with purpose.',
     route: '/services/education-training',
-  },
-  {
-    name: 'Intentional Wellness & Personal Training',
-    description:
-      'Fitness and life training through a systems lens. Tailored programs for founders and creatives to align body, mind, and mission.',
-    route: '/services/personal-training',
+    // White pages integration
+    id: 'education-training',
+    title: 'Coaching, Education & Leadership',
+    displayName: 'Education & Mentoring',
+    pdfPath: require('../../assets/white-pages/Fluxline-Education-Mentoring.pdf'),
+    category: 'education-training' as const,
   },
   {
     name: 'Life Coaching & The Resonance Core',
     description:
       'Guiding individuals through transformative life coaching and personal development using the Resonance Core methodology.',
     route: '/services/resonance-core',
+    // White pages integration
+    id: 'resonance-core',
+    title: 'Life Coaching & The Resonance Core',
+    displayName: 'Life Coaching & Resonance Core',
+    pdfPath: require('../../assets/white-pages/Fluxline-Life-Coaching-Resonance-Core.pdf'),
+    category: 'resonance-core' as const,
   },
 ];
+
+// Helper function to convert services to white pages format
+export const getWhitePagesFromServices = () => {
+  return SERVICES_BULLET_POINTS.filter(
+    (service) => service.id && service.pdfPath
+  ).map((service) => ({
+    id: service.id!,
+    title: service.title!,
+    displayName: service.displayName!,
+    description: service.description,
+    pdfPath: service.pdfPath!,
+    category: service.category!,
+  }));
+};
 
 const EDUCATION_TRAINING_BULLET_POINTS: IAboutBulletPoint[] = [
   {
@@ -499,6 +549,8 @@ const SERVICES_EXPORTS = {
   PERSONAL_TRAINING_SUMMARY,
   SERVICES_BULLET_POINTS,
   SERVICES_SUMMARY,
+  // White pages helper
+  getWhitePagesFromServices,
 };
 
 export default SERVICES_EXPORTS;

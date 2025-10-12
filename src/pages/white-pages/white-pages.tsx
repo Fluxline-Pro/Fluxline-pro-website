@@ -5,7 +5,8 @@ import { Typography } from '../../theme/components/typography/typography';
 import { FadeUp } from '../../theme/components/animations/fade-animations';
 import { PdfModal } from '../../theme/components/modal/pdf-modal';
 import PageWrapper from '../page-wrapper/page-wrapper';
-import WHITE_PAGES, { WhitePageItem } from './white-pages-constants';
+import { getWhitePagesFromServices } from '../services/constants';
+import { WhitePageItem } from './white-pages-constants';
 
 const styles = {
   sectionContainer: {
@@ -15,7 +16,9 @@ const styles = {
   },
   cardContainer: (isMobile: boolean) => ({
     display: 'grid',
-    gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+    gridTemplateColumns: isMobile
+      ? '1fr'
+      : 'repeat(auto-fit, minmax(280px, 1fr))',
     gap: '1.5rem',
     marginTop: '2rem',
   }),
@@ -33,7 +36,12 @@ const styles = {
     color: theme.palette.themePrimary,
     margin: '1rem 0 0.5rem 0',
     fontSize: theme.typography.fontSizes.clamp7,
-    fontVariationSettings: 'wght 400,wdth 300,slnt 0',
+    fontFamily: theme.typography.fonts.h2.fontFamily,
+    fontWeight: theme.typography.fonts.h2.fontWeight,
+    fontVariationSettings: theme.typography.fonts.h2.fontVariationSettings,
+    textTransform: theme.typography.fonts.h2.textTransform,
+    letterSpacing: theme.typography.fonts.h2.letterSpacing,
+    lineHeight: theme.typography.fonts.h2.lineHeight,
   }),
 };
 
@@ -47,6 +55,9 @@ export const WhitePagesView: React.FC = () => {
     orientation === 'portrait' ||
     orientation === 'tablet-portrait' ||
     orientation === 'large-portrait';
+
+  // Get white pages data from consolidated services data
+  const whitePages = getWhitePagesFromServices();
 
   const handleCardClick = (whitePage: WhitePageItem) => {
     setSelectedPdf(whitePage);
@@ -76,12 +87,12 @@ export const WhitePagesView: React.FC = () => {
               marginBottom='2rem'
               noHyphens
             >
-              Explore detailed information about each of our services. Click on any
-              service below to view the complete white paper.
+              Explore detailed information about each of our services. Click on
+              any service below to view the complete white paper.
             </Typography>
 
             <div style={styles.cardContainer(isMobile)}>
-              {WHITE_PAGES.map((whitePage) => (
+              {whitePages.map((whitePage) => (
                 <div
                   key={whitePage.id}
                   style={styles.card(theme, hoveredCard === whitePage.id)}
@@ -110,9 +121,16 @@ export const WhitePagesView: React.FC = () => {
                     marginTop='1rem'
                     fontWeight='600'
                     fontSize='0.9rem'
-                    style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                    }}
                   >
-                    <span role="img" aria-label="Document">📄</span> View White Paper
+                    <span role='img' aria-label='Document'>
+                      📄
+                    </span>{' '}
+                    View White Paper
                   </Typography>
                 </div>
               ))}
