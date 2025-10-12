@@ -3,7 +3,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAppTheme } from '../../hooks/useAppTheme';
-import { createTypographyStyles } from './settings/fontsize-settings';
 
 interface NavigationItemProps {
   isHovered: boolean;
@@ -20,7 +19,6 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
 }) => {
   const { theme, layoutPreference } = useAppTheme();
   const isLeftHanded = layoutPreference === 'left-handed';
-  const typographyStyles = createTypographyStyles(theme);
 
   const styles = {
     navItem: {
@@ -33,8 +31,10 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
         ? 'left'
         : ('right' as React.CSSProperties['textAlign']),
       fontFamily: theme.typography.fonts.medium.fontFamily,
-      fontSize: theme.typography.fonts.homeH3.fontSize,
-      fontWeight: isHovered ? 600 : 200,
+      fontSize: 'clamp(1.5rem, 5vw, 2.25rem)', // Override with viewport-based sizing for navigation menu
+      fontWeight: isHovered
+        ? theme.typography.fontWeights.semiBold
+        : theme.typography.fontWeights.light,
       fontVariationSettings:
         theme.typography.fonts.medium.fontVariationSettings,
       letterSpacing: theme.typography.fonts.medium.letterSpacing,
@@ -49,9 +49,16 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
       transition: 'all 0.2s ease-in-out',
     },
     navTooltip: {
-      ...typographyStyles.menuTitle,
+      ...theme.typography.fonts.h2,
+      fontSize: 'clamp(1.5rem, 5vw, 2.25rem)', // Override with viewport-based sizing for navigation
+      fontWeight: theme.typography.fontWeights.medium,
+      letterSpacing: '-1.5px',
+      textTransform: 'capitalize' as const,
+      textShadow: 'none',
       color: theme.palette.themePrimary,
-      fontVariationSettings: isHovered ? '"wght" 600' : '"wght" 200',
+      fontVariationSettings: isHovered
+        ? `"wght" ${theme.typography.fontWeights.semiBold}`
+        : `"wght" ${theme.typography.fontWeights.light}`,
       transform: `translateX(${isHovered ? (isLeftHanded ? '6px' : '-6px') : '0'}) scale(${isHovered ? 1.07 : 1})`,
       transition: `${theme.themeMode === 'high-contrast' ? 'none' : 'font-variation-settings 0.2s ease-in-out, all 0.2s ease-in-out'}`,
     },

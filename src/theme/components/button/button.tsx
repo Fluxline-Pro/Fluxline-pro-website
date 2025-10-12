@@ -282,8 +282,8 @@ export const FluentButton: React.FC<ButtonProps> = ({
               border: `1px solid ${getHoverColor(variant)}`,
               animation: 'none',
               transform: 'translateY(-1px)', // Subtle lift effect
-              boxShadow: theme.isInverted 
-                ? '0 4px 8px rgba(255,255,255,0.1)' 
+              boxShadow: theme.isInverted
+                ? '0 4px 8px rgba(255,255,255,0.1)'
                 : '0 4px 8px rgba(0,0,0,0.15)',
             },
         ':active': {
@@ -309,8 +309,8 @@ export const FluentButton: React.FC<ButtonProps> = ({
               color: `${theme.palette.white} !important`,
               border: `1px solid ${getHoverColor(variant)} !important`,
               transform: 'translateY(-1px)',
-              boxShadow: theme.isInverted 
-                ? '0 4px 8px rgba(255,255,255,0.1)' 
+              boxShadow: theme.isInverted
+                ? '0 4px 8px rgba(255,255,255,0.1)'
                 : '0 4px 8px rgba(0,0,0,0.15)',
             },
           },
@@ -322,8 +322,8 @@ export const FluentButton: React.FC<ButtonProps> = ({
               color: `${theme.palette.white} !important`,
               border: `1px solid ${getHoverColor(variant)} !important`,
               transform: 'translateY(-1px)',
-              boxShadow: theme.isInverted 
-                ? '0 4px 8px rgba(255,255,255,0.1)' 
+              boxShadow: theme.isInverted
+                ? '0 4px 8px rgba(255,255,255,0.1)'
                 : '0 4px 8px rgba(0,0,0,0.15)',
             },
           },
@@ -376,25 +376,7 @@ export const FluentButton: React.FC<ButtonProps> = ({
       styles={buttonStyles}
       className={className}
     >
-      {iconPosition === 'start' && icon && (
-        <span
-          className='ms-Button-icon'
-          style={{ width: '1em', height: '1em' }}
-        >
-          <i
-            className={`ms-Icon ms-Icon--${typeof icon === 'string' ? icon : (icon as IIconProps).iconName}`}
-          />
-        </span>
-      )}
       {children || text}
-      {iconPosition === 'end' && icon && (
-        <span className='ms-Button-icon'>
-          <i
-            className={`ms-Icon ms-Icon--${typeof icon === 'string' ? icon : (icon as IIconProps).iconName}`}
-            style={{ width: '1em', height: '1em' }}
-          />
-        </span>
-      )}
     </ButtonComponent>
   );
 };
