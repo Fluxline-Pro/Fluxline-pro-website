@@ -773,6 +773,115 @@ export const CorePrinciplesSection: React.FC<PercentageCirclesProps> = ({
   );
 };
 
+export const ServicesCTA: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+  const navigate = useNavigate();
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Only show for 'about' view
+  if (currentView !== 'about') {
+    return null;
+  }
+
+  const hrStyles = {
+    margin: '2rem 0',
+    border: 'none',
+    height: '1px',
+    backgroundColor: theme.palette.themePrimary,
+    opacity: 0.3,
+  };
+
+  const ctaContainerStyle = {
+    textAlign: 'center' as const,
+    padding: '2rem',
+    background:
+      theme.themeMode === 'high-contrast'
+        ? theme.palette.neutralDark
+        : theme.palette.neutralLight,
+    borderRadius: '8px',
+    borderLeft: `6px solid ${theme.semanticColors.messageText}`,
+    maxWidth: '800px',
+    marginBottom: '3rem',
+    margin: '2rem auto',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',
+    boxShadow: isHovered ? theme.shadows.xl : theme.shadows.card,
+  };
+
+  const arrowStyle = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '40px',
+    height: '40px',
+    backgroundColor: theme.palette.themePrimary,
+    borderRadius: '50%',
+    marginLeft: '1rem',
+    transition: 'all 0.3s ease',
+    transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
+  };
+
+  return (
+    <>
+      <hr style={hrStyles} />
+      <div
+        style={ctaContainerStyle}
+        onClick={() => navigate('/services')}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Typography
+            variant='h3'
+            color={theme.palette.themePrimary}
+            fontSize={theme.typography.fontSizes.clamp6}
+            style={{
+              fontStyle: 'italic',
+              textTransform: 'none',
+              letterSpacing: '-0.02em',
+              margin: 0,
+            }}
+          >
+            Explore Our Services
+          </Typography>
+          <div style={arrowStyle}>
+            <span
+              style={{
+                color: theme.palette.black,
+                fontSize: '24px',
+              }}
+            >
+              ➤
+            </span>
+          </div>
+        </div>
+        <Typography
+          variant='p'
+          color={theme.palette.neutralPrimary}
+          marginTop='0.5rem'
+          fontSize={theme.typography.fontSizes.clamp4}
+          style={{
+            fontStyle: 'italic',
+            opacity: 0.8,
+          }}
+        >
+          Discover how we can help transform your vision into reality
+        </Typography>
+      </div>
+      <hr style={hrStyles} />
+    </>
+  );
+};
+
 export const TechnicalSkillsSection: React.FC<PercentageCirclesProps> = ({
   isMobile,
   currentView,
@@ -1080,6 +1189,7 @@ export const Services: React.FC<ServicesProps> = ({
             <AboutSection currentView={actualView} />
             <TaglineHeader currentView={actualView} />
             <MissionVisionSection currentView={actualView} />
+            <ServicesCTA currentView={actualView} />
             <TechnicalSkillsSection
               isMobile={orientation === 'portrait'}
               currentView={actualView}

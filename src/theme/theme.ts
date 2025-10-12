@@ -215,17 +215,21 @@ export const shadows = {
 export const baseGradients = {
   dark: {
     solid: '#010101',
-    background: 'linear-gradient(135deg, #2E2E3A 0%, #010101 100%)',
+    background:
+      'radial-gradient(ellipse at left, #2E2E3A 0%, #1A1A1A 40%, #010101 100%)',
     menu: 'linear-gradient(135deg, #1A1A1A 0%, #010101 100%)',
-    radial: 'radial-gradient(circle at center, #2E2E3A 0%, #010101 100%)',
+    radial:
+      'radial-gradient(ellipse at left, #2E2E3A 0%, #1A1A1A 40%, #010101 100%)',
     vignette: 'radial-gradient(circle at center, transparent 0%, #010101 100%)',
     linear: 'linear-gradient(90deg, #2E2E3A 0%, #010101 100%)',
   },
   light: {
     solid: '#FFFFFF',
-    background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+    background:
+      'radial-gradient(ellipse at left, #F8FAFC 0%, #F5F5F5 40%, #F0F0F0 100%)',
     menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
-    radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+    radial:
+      'radial-gradient(ellipse at left, #F8FAFC 0%, #F5F5F5 40%, #F0F0F0 100%)',
     vignette: 'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
     linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
   },
