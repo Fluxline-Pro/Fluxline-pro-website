@@ -52,17 +52,15 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
 
   const pageTitleStyles = {
     ...theme.typography.fonts.h2,
+    fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', // Override with viewport-based sizing for navigation
     color: theme.isInverted ? theme.palette.white : theme.palette.black,
-    fontSize: 'clamp(2rem, 3vh, 3rem)',
-    fontWeight: theme.typography.fontWeights.bold,
-    fontVariationSettings: "'wght' 300, 'wdth' 100, 'slnt' 0",
     textShadow: theme.isInverted
       ? theme.typography.textShadows.cardImage
-      : '1px 1px 2px rgba(0, 0, 0, 0.5)',
+      : theme.typography.textShadows.h2,
     textAlign: readingDirection === 'rtl' ? 'right' : 'left',
     transform: `translateY(${isScrolledPast ? '0' : '20px'})`,
     opacity: isScrolledPast && !isMenuOpen && !isSettingsOpen ? 1 : 0,
-    transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
+    transition: theme.animations.transitions.fade.enter,
     visibility:
       isScrolledPast && !isMenuOpen && !isSettingsOpen ? 'visible' : 'hidden',
     pointerEvents: 'auto',

@@ -31,8 +31,10 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
         ? 'left'
         : ('right' as React.CSSProperties['textAlign']),
       fontFamily: theme.typography.fonts.medium.fontFamily,
-      fontSize: theme.typography.fonts.homeH3.fontSize,
-      fontWeight: isHovered ? 600 : 200,
+      fontSize: 'clamp(1.5rem, 5vw, 2.25rem)', // Override with viewport-based sizing for navigation menu
+      fontWeight: isHovered
+        ? theme.typography.fontWeights.semiBold
+        : theme.typography.fontWeights.light,
       fontVariationSettings:
         theme.typography.fonts.medium.fontVariationSettings,
       letterSpacing: theme.typography.fonts.medium.letterSpacing,
@@ -48,13 +50,15 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
     },
     navTooltip: {
       ...theme.typography.fonts.h2,
-      fontSize: 'clamp(2rem, 4vh, 2rem)',
+      fontSize: 'clamp(1.5rem, 5vw, 2.25rem)', // Override with viewport-based sizing for navigation
       fontWeight: theme.typography.fontWeights.medium,
       letterSpacing: '-1.5px',
       textTransform: 'capitalize' as const,
       textShadow: 'none',
       color: theme.palette.themePrimary,
-      fontVariationSettings: isHovered ? '"wght" 600' : '"wght" 200',
+      fontVariationSettings: isHovered
+        ? `"wght" ${theme.typography.fontWeights.semiBold}`
+        : `"wght" ${theme.typography.fontWeights.light}`,
       transform: `translateX(${isHovered ? (isLeftHanded ? '6px' : '-6px') : '0'}) scale(${isHovered ? 1.07 : 1})`,
       transition: `${theme.themeMode === 'high-contrast' ? 'none' : 'font-variation-settings 0.2s ease-in-out, all 0.2s ease-in-out'}`,
     },

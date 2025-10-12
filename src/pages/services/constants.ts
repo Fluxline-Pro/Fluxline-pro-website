@@ -5,10 +5,9 @@ const FLUXLINE_TAGLINE =
 const FLUXLINE_SECONDARY_TAGLINE = 'Modular by design. Resonant by nature.';
 
 const ABOUT_PROFESSIONAL_SUMMARY = [
-  `<strong>Fluxline</strong> architects transformative systems, brand experiences, and human-centered technology—blending <em>emotional intelligence</em>, <em>financial clarity</em>, and <em>somatic discipline</em>.<br />
-We specialize in <em>modular web development</em>, <em>scalable design ecosystems</em>, and <em>strategic innovation</em> that evolves with you.<br /><br />
+  `<strong>Fluxline</strong> architects transformative systems, brand experiences, and human-centered technology—blending <em>emotional intelligence</em>, <em>financial clarity</em>, and <em>somatic discipline</em>. We specialize in <em>modular web development</em>, <em>scalable design ecosystems</em>, and <em>strategic innovation</em> that evolves with you.<br /><br />
 
-<strong>Whether you're an individual seeking personal growth or a business ready to scale with purpose,</strong><br />
+<strong>Whether you're an individual seeking personal growth or a business ready to scale with purpose,</strong>
 our <em>coaching</em>, <em>wellness programs</em>, and <em>infrastructure design</em> help you align your <strong>drive</strong> with your <em>innate identity</em>. We believe transformation isn’t just about metrics—it’s about honoring <em>emotional rhythm</em>, <em>creative truth</em>, and <em>legacy resonance</em>.<br /><br />
 
 <strong>Fluxline</strong> builds <em>systems that breathe</em>, <em>brands that feel</em>, and <em>legacies that last</em>.<br />

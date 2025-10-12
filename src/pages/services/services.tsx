@@ -307,7 +307,7 @@ export const AboutSection: React.FC<{
       <Typography
         variant='h2'
         style={styles.h2Title(theme)}
-        margin='0 0 1.5rem 0'
+        margin={isMobile ? '1.5rem 0' : '0 0 1.5rem 0'}
       >
         About Fluxline
       </Typography>
@@ -697,7 +697,7 @@ export const MissionVisionSection: React.FC<{
         <Typography
           variant='p'
           color={theme.palette.neutralPrimary}
-          style={styles.textContent}
+          style={{...styles.textContent, marginBottom: '1rem' }}
           noHyphens
         >
           <div
