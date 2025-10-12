@@ -577,7 +577,7 @@ export const ProfessionalSummary: React.FC<{
             <NavigationArrow
               direction='backward'
               navigate={() => navigate('/services')}
-              size='medium'
+              size={isMobile ? 'large' : 'medium'}
               showBackground={false}
             />
           )}
