@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
 import { NavigationArrow } from '../../theme/components/navigation-arrow/navigation-arrow';
 import { PdfModal } from '../../theme/components/modal/pdf-modal';
-import WHITE_PAGES from '../white-pages/white-pages-constants';
+import { WhitePageItem } from '../white-pages/white-pages-constants';
 
 // Reusable style objects
 const styles = {
@@ -132,9 +132,7 @@ export const WhitePagesSection: React.FC<{
   const { theme } = useAppTheme();
   const orientation = useDeviceOrientation();
   const navigate = useNavigate();
-  const [selectedPdf, setSelectedPdf] = useState<
-    (typeof WHITE_PAGES)[0] | null
-  >(null);
+  const [selectedPdf, setSelectedPdf] = useState<WhitePageItem | null>(null);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   // Only show on services main page and specific service pages
@@ -161,11 +159,14 @@ export const WhitePagesSection: React.FC<{
 
   // Filter white pages for current view
   const getRelevantWhitePages = () => {
+    const whitePages = SERVICES_EXPORTS.getWhitePagesFromServices();
     if (currentView === 'services') {
-      return WHITE_PAGES;
+      return whitePages;
     }
     // For specific service pages, show only the relevant white page
-    return WHITE_PAGES.filter((wp) => wp.category === currentView);
+    return whitePages.filter(
+      (wp: WhitePageItem) => wp.category === currentView
+    );
   };
 
   const relevantWhitePages = getRelevantWhitePages();
@@ -661,7 +662,7 @@ export const MissionVisionSection: React.FC<{
         display: 'flex',
         flexDirection: 'column',
         gap: '2rem',
-        marginBottom: '0'
+        marginBottom: '0',
       }}
     >
       <div>
@@ -697,7 +698,7 @@ export const MissionVisionSection: React.FC<{
         <Typography
           variant='p'
           color={theme.palette.neutralPrimary}
-          style={{...styles.textContent, marginBottom: '1rem' }}
+          style={{ ...styles.textContent, marginBottom: '1rem' }}
           noHyphens
         >
           <div
