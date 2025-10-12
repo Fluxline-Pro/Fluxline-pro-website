@@ -11,43 +11,7 @@ import { getWhitePagesFromServices } from '../services/constants';
 import { WhitePageItem } from './white-pages-constants';
 import NavigationArrow from '../../theme/components/navigation-arrow/navigation-arrow';
 import { Container } from '../../theme/layouts/Container';
-
-const styles = {
-  sectionContainer: {
-    maxWidth: '900px',
-    margin: '0 auto',
-    marginBottom: '3rem',
-  },
-  cardContainer: (isMobile: boolean) => ({
-    display: 'grid',
-    gridTemplateColumns: isMobile
-      ? '1fr'
-      : 'repeat(auto-fit, minmax(280px, 1fr))',
-    gap: '1.5rem',
-    marginTop: '2rem',
-  }),
-  card: (theme: any, isHovered: boolean) => ({
-    backgroundColor: theme.palette.neutralLight,
-    borderRadius: theme.borderRadius.container.button,
-    padding: '1.5rem',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    border: `2px solid ${isHovered ? theme.palette.themePrimary : 'transparent'}`,
-    boxShadow: isHovered ? theme.shadows.xl : theme.shadows.card,
-    transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
-  }),
-  h2Title: (theme: any) => ({
-    color: theme.palette.themePrimary,
-    margin: '1rem 0 0.5rem 0',
-    fontSize: theme.typography.fontSizes.clamp7,
-    fontFamily: theme.typography.fonts.h2.fontFamily,
-    fontWeight: theme.typography.fonts.h2.fontWeight,
-    fontVariationSettings: theme.typography.fonts.h2.fontVariationSettings,
-    textTransform: theme.typography.fonts.h2.textTransform,
-    letterSpacing: theme.typography.fonts.h2.letterSpacing,
-    lineHeight: theme.typography.fonts.h2.lineHeight,
-  }),
-};
+import { WhitePageCard } from '../../theme/components/card/white-page-card/white-page-card';
 
 export const WhitePagesView: React.FC = () => {
   const { theme } = useAppTheme();
@@ -70,6 +34,33 @@ export const WhitePagesView: React.FC = () => {
 
   const handleCloseModal = () => {
     setSelectedPdf(null);
+  };
+
+  const styles = {
+    sectionContainer: {
+      maxWidth: '900px',
+      margin: '0 auto',
+      marginBottom: '3rem',
+    },
+    cardContainer: (isMobile: boolean) => ({
+      display: 'grid',
+      gridTemplateColumns: isMobile
+        ? '1fr'
+        : 'repeat(auto-fit, minmax(280px, 1fr))',
+      gap: '1.5rem',
+      marginTop: '2rem',
+    }),
+    h2Title: (theme: any) => ({
+      color: theme.palette.themePrimary,
+      margin: '1rem 0 0.5rem 0',
+      fontSize: theme.typography.fontSizes.clamp7,
+      fontFamily: theme.typography.fonts.h2.fontFamily,
+      fontWeight: theme.typography.fonts.h2.fontWeight,
+      fontVariationSettings: theme.typography.fonts.h2.fontVariationSettings,
+      textTransform: theme.typography.fonts.h2.textTransform,
+      letterSpacing: theme.typography.fonts.h2.letterSpacing,
+      lineHeight: theme.typography.fonts.h2.lineHeight,
+    }),
   };
 
   return (
@@ -115,46 +106,15 @@ export const WhitePagesView: React.FC = () => {
 
             <div style={styles.cardContainer(isMobile)}>
               {whitePages.map((whitePage) => (
-                <div
+                <WhitePageCard
                   key={whitePage.id}
-                  style={styles.card(theme, hoveredCard === whitePage.id)}
-                  onClick={() => handleCardClick(whitePage)}
+                  whitePage={whitePage}
+                  isHovered={hoveredCard === whitePage.id}
+                  onClick={handleCardClick}
                   onMouseEnter={() => setHoveredCard(whitePage.id)}
                   onMouseLeave={() => setHoveredCard(null)}
-                >
-                  <Typography
-                    variant='h3'
-                    color={theme.palette.themePrimary}
-                    marginBottom='0.5rem'
-                    fontSize={theme.typography.fontSizes.clamp5}
-                  >
-                    {whitePage.title}
-                  </Typography>
-                  <Typography
-                    variant='p'
-                    color={theme.palette.neutralPrimary}
-                    fontSize='0.95rem'
-                  >
-                    {whitePage.description}
-                  </Typography>
-                  <Typography
-                    variant='p'
-                    color={theme.palette.themePrimary}
-                    marginTop='1rem'
-                    fontWeight='600'
-                    fontSize='0.9rem'
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.5rem',
-                    }}
-                  >
-                    <span role='img' aria-label='Document'>
-                      📄
-                    </span>{' '}
-                    View White Paper
-                  </Typography>
-                </div>
+                  variant='default'
+                />
               ))}
             </div>
           </div>
