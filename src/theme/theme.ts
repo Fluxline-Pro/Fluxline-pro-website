@@ -1122,7 +1122,7 @@ export const protanopiaTheme: IExtendedTheme = createExtendedTheme(
       bodyText: '#333333',
       bodyBackground: '#ffffff',
       errorText: '#B34C4C', // Dark teal for error states
-      errorBackground: '#A91B16', // Light teal background
+      errorBackground: '#FDE7E7', // Light red background
       successText: '#1B5E20', // Dark green for success states
       successBackground: '#E8F5E9', // Light green background
       messageText: '#FFB900',
@@ -1137,38 +1137,42 @@ export const protanopiaTheme: IExtendedTheme = createExtendedTheme(
     ...baseExtendedProps,
     gradients: {
       dark: {
-        solid: '#121212',
-        background: '#121212',
-        menu: '#121212',
-        radial: '#121212',
-        vignette: '#121212',
-        linear: '#121212',
+        solid: '#ffffff',
+        background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+        menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+        radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+        vignette:
+          'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+        linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
       },
       light: {
-        solid: '#121212',
-        background: '#121212',
-        menu: '#121212',
-        radial: '#121212',
-        vignette: '#121212',
-        linear: '#121212',
+        solid: '#ffffff',
+        background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+        menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+        radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+        vignette:
+          'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+        linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
       },
       symbolic: {
-        fluxlineAscension: '#121212',
-        glyphGateFade: '#121212',
-        mythicHorizon: '#121212',
+        fluxlineAscension:
+          'linear-gradient(135deg, #0078D4 0%, #005A9E 50%, #FFB900 100%)',
+        glyphGateFade: 'linear-gradient(to bottom, #FFB900 0%, #F5F5F5 100%)',
+        mythicHorizon:
+          'linear-gradient(90deg, #FFB900 0%, #0078D4 50%, #005A9E 100%)',
       },
       components: {
         card: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+          light: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
         },
         button: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'linear-gradient(90deg, #0078D4 0%, #FFFFFF 100%)',
+          light: 'linear-gradient(90deg, #FFB900 0%, #FFFFFF 100%)',
         },
         modal: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+          light: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
         },
       },
     },
@@ -1232,38 +1236,42 @@ export const deuteranopiaTheme: IExtendedTheme = createExtendedTheme(
     ...baseExtendedProps,
     gradients: {
       dark: {
-        solid: '#121212',
-        background: '#121212',
-        menu: '#121212',
-        radial: '#121212',
-        vignette: '#121212',
-        linear: '#121212',
+        solid: '#ffffff',
+        background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+        menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+        radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+        vignette:
+          'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+        linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
       },
       light: {
-        solid: '#121212',
-        background: '#121212',
-        menu: '#121212',
-        radial: '#121212',
-        vignette: '#121212',
-        linear: '#121212',
+        solid: '#ffffff',
+        background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+        menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+        radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+        vignette:
+          'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+        linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
       },
       symbolic: {
-        fluxlineAscension: '#121212',
-        glyphGateFade: '#121212',
-        mythicHorizon: '#121212',
+        fluxlineAscension:
+          'linear-gradient(135deg, #0063B1 0%, #4894FE 50%, #E6B800 100%)',
+        glyphGateFade: 'linear-gradient(to bottom, #E6B800 0%, #F5F5F5 100%)',
+        mythicHorizon:
+          'linear-gradient(90deg, #E6B800 0%, #0063B1 50%, #4894FE 100%)',
       },
       components: {
         card: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+          light: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
         },
         button: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'linear-gradient(90deg, #0063B1 0%, #FFFFFF 100%)',
+          light: 'linear-gradient(90deg, #E6B800 0%, #FFFFFF 100%)',
         },
         modal: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+          light: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
         },
       },
     },
@@ -1327,38 +1335,42 @@ export const tritanopiaTheme: IExtendedTheme = createExtendedTheme(
     ...baseExtendedProps,
     gradients: {
       dark: {
-        solid: '#121212',
-        background: '#121212',
-        menu: '#121212',
-        radial: '#121212',
-        vignette: '#121212',
-        linear: '#121212',
+        solid: '#ffffff',
+        background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+        menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+        radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+        vignette:
+          'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+        linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
       },
       light: {
-        solid: '#121212',
-        background: '#121212',
-        menu: '#121212',
-        radial: '#121212',
-        vignette: '#121212',
-        linear: '#121212',
+        solid: '#ffffff',
+        background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+        menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+        radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+        vignette:
+          'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+        linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
       },
       symbolic: {
-        fluxlineAscension: '#121212',
-        glyphGateFade: '#121212',
-        mythicHorizon: '#121212',
+        fluxlineAscension:
+          'linear-gradient(135deg, #D13438 0%, #FF8C00 50%, #107C10 100%)',
+        glyphGateFade: 'linear-gradient(to bottom, #FF8C00 0%, #F5F5F5 100%)',
+        mythicHorizon:
+          'linear-gradient(90deg, #FF8C00 0%, #D13438 50%, #107C10 100%)',
       },
       components: {
         card: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+          light: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
         },
         button: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'linear-gradient(90deg, #D13438 0%, #FFFFFF 100%)',
+          light: 'linear-gradient(90deg, #FF8C00 0%, #FFFFFF 100%)',
         },
         modal: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+          light: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
         },
       },
     },
@@ -1409,38 +1421,42 @@ export const grayscaleTheme: IExtendedTheme = createExtendedTheme(
     ...baseExtendedProps,
     gradients: {
       dark: {
-        solid: '#121212',
-        background: '#121212',
-        menu: '#121212',
-        radial: '#121212',
-        vignette: '#121212',
-        linear: '#121212',
+        solid: '#ffffff',
+        background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+        menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+        radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+        vignette:
+          'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+        linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
       },
       light: {
-        solid: '#121212',
-        background: '#121212',
-        menu: '#121212',
-        radial: '#121212',
-        vignette: '#121212',
-        linear: '#121212',
+        solid: '#ffffff',
+        background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+        menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+        radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+        vignette:
+          'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+        linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
       },
       symbolic: {
-        fluxlineAscension: '#121212',
-        glyphGateFade: '#121212',
-        mythicHorizon: '#121212',
+        fluxlineAscension:
+          'linear-gradient(135deg, #404040 0%, #666666 50%, #808080 100%)',
+        glyphGateFade: 'linear-gradient(to bottom, #666666 0%, #F5F5F5 100%)',
+        mythicHorizon:
+          'linear-gradient(90deg, #666666 0%, #404040 50%, #808080 100%)',
       },
       components: {
         card: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+          light: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
         },
         button: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'linear-gradient(90deg, #404040 0%, #FFFFFF 100%)',
+          light: 'linear-gradient(90deg, #666666 0%, #FFFFFF 100%)',
         },
         modal: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+          light: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
         },
       },
     },
