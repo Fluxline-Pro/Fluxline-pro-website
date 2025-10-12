@@ -155,9 +155,9 @@ const ContactForm: React.FC = () => {
   }, [submitSuccess, clearSubmissionStatus]);
 
   return (
-    <Container maxWidth='1000px'>
+    <Container maxWidth='1000px' paddingBottom={theme.spacing.xl}>
       <Typography
-        variant='h2'
+        variant='h3'
         textAlign='left'
         color={theme.palette.themePrimary}
         marginTop={isMobile ? theme.spacing.m : undefined}
@@ -174,12 +174,11 @@ const ContactForm: React.FC = () => {
         Let's discuss your needs and goals! Whether you're seeking project
         estimates, personalized training, strategic consulting, or web
         development, we're happy to help. Click the button below to book a free,
-        no obligation consultation. You may also download and view my business
-        card below for future reference.
+        no obligation consultation. My business card is also below for download.
       </Typography>
       <BookingsButton />
       <Typography
-        variant='h2'
+        variant='h3'
         textAlign='left'
         color={theme.palette.themePrimary}
         marginTop={isMobile ? theme.spacing.m : theme.spacing.xxl}
