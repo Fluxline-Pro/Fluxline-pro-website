@@ -33,7 +33,8 @@ const basicMarkdownToHtml = (markdown: string): string => {
 
   // Convert lists
   html = html.replace(/^\- (.+)$/gim, '<li>$1</li>');
-  html = html.replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>');
+  // Wrap consecutive <li> elements in a single <ul>
+  html = html.replace(/((?:<li>.*?<\/li>\s*)+)/gs, '<ul>$1</ul>');
 
   // Convert line breaks
   html = html.replace(/\n\n/g, '</p><p>');
