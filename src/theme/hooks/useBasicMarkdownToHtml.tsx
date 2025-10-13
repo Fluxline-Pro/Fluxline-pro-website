@@ -29,13 +29,21 @@ export const basicMarkdownToHtml = (
   // Convert horizontal rules (--- becomes <hr>)
   html = html.replace(/^---\s*$/gim, '<hr>');
 
-  // Convert links [text](url) to <a> tags
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
-
   // Convert headers
   html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
   html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
   html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+
+  // Convert lists (handle indented lists)
+  html = html.replace(/^ {2,}- (.+)$/gim, '<li>$1</li>');
+  html = html.replace(/^\t+- (.+)$/gim, '<li>$1</li>');
+  html = html.replace(/^- (.+)$/gim, '<li>$1</li>');
+
+  // Wrap consecutive <li> elements in <ul>
+  html = html.replace(/((?:<li[^>]*>[\s\S]*?<\/li>\s*)+)/g, '<ul>$1</ul>');
+
+  // Convert links [text](url) to <a> tags
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 
   // Convert bold
   html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
@@ -45,66 +53,35 @@ export const basicMarkdownToHtml = (
   html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
   html = html.replace(/_(.+?)_/g, '<em>$1</em>');
 
-  // Convert nested lists (handle indented lists)
-  // First handle nested items (indented with spaces or tabs)
-  html = html.replace(/^ {2}- (.+)$/gim, '<li class="nested">$1</li>');
-  html = html.replace(/^\t- (.+)$/gim, '<li class="nested">$1</li>');
+  // Convert single line breaks to double <br /> for proper spacing
+  html = html.replace(/\n/g, '<br /><br />');
 
-  // Then handle regular list items
-  html = html.replace(/^- (.+)$/gim, '<li>$1</li>');
+  // Comprehensive list cleanup (remove any br tags around ALL list elements)
+  html = html.replace(
+    /<li([^>]*)>([^<]*?)<br\s*\/?>\s*<br\s*\/?>/g,
+    '<li$1>$2'
+  );
+  html = html.replace(/<li([^>]*)>([^<]*?)<br\s*\/?>/g, '<li$1>$2');
+  html = html.replace(/<br\s*\/?>\s*<br\s*\/?>\s*<\/li>/g, '</li>');
+  html = html.replace(/<br\s*\/?>\s*<\/li>/g, '</li>');
+  html = html.replace(/(<\/li>)\s*<br\s*\/?>\s*<br\s*\/?>\s*(<li)/g, '$1$2');
+  html = html.replace(/(<\/li>)\s*<br\s*\/?>\s*(<li)/g, '$1$2');
+  html = html.replace(/(<\/li>)\s*<br\s*\/?>\s*<br\s*\/?>/g, '$1');
+  html = html.replace(/(<\/li>)\s*<br\s*\/?>/g, '$1');
+  html = html.replace(/(<ul[^>]*>)\s*<br\s*\/?>\s*<br\s*\/?>/g, '$1');
+  html = html.replace(/(<ul[^>]*>)\s*<br\s*\/?>/g, '$1');
+  html = html.replace(/<br\s*\/?>\s*<br\s*\/?>\s*(<\/ul>)/g, '$1');
+  html = html.replace(/<br\s*\/?>\s*(<\/ul>)/g, '$1');
 
-  // Wrap consecutive <li> elements in <ul>, handling nested lists
-  html = html.replace(/((?:<li[^>]*>[\s\S]*?<\/li>\s*)+)/g, (match) => {
-    if (match.includes('class="nested"')) {
-      // For nested items, wrap in a nested ul
-      return match
-        .replace(/<li class="nested">/g, '<ul><li>')
-        .replace(/<\/li>/g, '</li></ul>');
-    }
-    return '<ul>' + match + '</ul>';
-  });
+  // Add spacing after structural elements (but not immediately after list elements)
+  html = html.replace(/(<\/ul>)\s*<br\s*\/?>\s*<br\s*\/?>/g, '$1');
+  html = html.replace(/(<\/ul>)\s*<br\s*\/?>/g, '$1');
+  html = html.replace(/(<\/ul>)(?!\s*<br)/g, '$1<br /><br />');
+  html = html.replace(/(<\/h[1-6]>)(?!\s*<br)/g, '$1<br /><br />');
+  html = html.replace(/(<hr>)(?!\s*<br)/g, '$1<br /><br />');
 
-  // Convert line breaks - handle paragraphs first, then single breaks
-  // Split by double newlines to create separate paragraphs
-  const paragraphs = html.split(/\n\n+/);
-
-  // Process each paragraph separately
-  html = paragraphs
-    .filter((para) => para.trim().length > 0) // Remove empty paragraphs
-    .map((para) => {
-      let processedPara = para.trim();
-
-      // Don't wrap headers, lists, or HR in paragraph tags
-      if (
-        processedPara.match(
-          /^<h[1-6]>|^<ul>|^<\/ul>|^<li>|^<hr>|^<strong>\*\*|^\*\*/
-        )
-      ) {
-        // For headers and structural elements, keep single line breaks as <br/>
-        return processedPara.replace(/\n/g, '<br/>');
-      }
-
-      // For regular content, remove single line breaks (they should be paragraph breaks)
-      // and wrap the entire content as a paragraph
-      processedPara = processedPara.replace(/\n/g, ' ');
-
-      // Only wrap in <p> tags if it's not already wrapped and contains actual content
-      if (!processedPara.match(/^<[^>]+>/) && processedPara.length > 0) {
-        return `<p>${processedPara}</p>`;
-      }
-
-      return processedPara;
-    })
-    .join('\n\n'); // Add double newlines between processed chunks
-
-  // Clean up any malformed structure
-  html = html.replace(/<p><\/p>/g, '');
-  html = html.replace(/<p>(<h[1-6]>.*?<\/h[1-6]>)<\/p>/g, '$1');
-  html = html.replace(/<p>(<ul>[\s\S]*?<\/ul>)<\/p>/g, '$1');
-  html = html.replace(/<p>(<hr>)<\/p>/g, '$1');
-
-  // Final cleanup - remove any residual excessive line breaks
-  html = html.replace(/\n{3,}/g, '\n\n');
+  // Clean up excessive breaks
+  html = html.replace(/(<br \/><br \/>){3,}/g, '<br /><br />');
 
   return html;
 };

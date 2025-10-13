@@ -300,6 +300,22 @@ export const LegalPage: React.FC = () => {
                   display: block;
                 }
 
+                /* Enhanced spacing for text blocks separated by br tags */
+                .legal-document-content br + br {
+                  display: block;
+                  margin: ${theme.spacing.m} 0;
+                  height: ${theme.spacing.s};
+                }
+
+                /* Ensure text blocks have proper paragraph-like spacing */
+                .legal-document-content {
+                  text-align: left;
+                }
+
+                .legal-document-content > * + * {
+                  margin-top: ${theme.spacing.m};
+                }
+
                 .legal-document-content p:last-child {
                   margin-bottom: 0;
                 }

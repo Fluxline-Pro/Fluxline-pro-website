@@ -11,6 +11,9 @@
   box-sizing: border-box;
 }
 
+/* No hyphenation by default */
+*, body, html { -webkit-hyphens: none; hyphens: none; word-break: break-word; }
+
 /* Remove default margin and padding */
 html,
 body,

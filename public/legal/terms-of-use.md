@@ -1,6 +1,7 @@
 # Terms of Use: Fluxline Resonance Group, LLC
 
 **Effective Date:** October 19, 2025
+
 **Last Updated:** October 12, 2025
 
 By accessing or using any materials, frameworks, coaching services, or digital content provided by Fluxline Resonance Group, LLC ("Fluxline," "we," "us," or "our"), you ("client," "your", "user," or "users") agree to the following Terms of Use. These terms form a living covenant between you and Fluxline, designed to uphold the integrity, stewardship, and mythic resonance of our offerings.
@@ -84,9 +85,9 @@ Upon completion of the trial period, clients agree to a **full monthly charge** 
 - After 30 days, all payments are considered final and non-refundable.
 - Time purchased cannot be paused or suspended except under emergency circumstances at the discretion of Fluxline.
 - You may cancel future sessions by notifying us prior to the start of your next billing cycle, but refunds will not be issued for unused time beyond the 30-day window.
-  - For example: You sign up for a 3-month period of time for services rendered. The 30-day window has expired, and you wish to cancel for the remainder of the program on day 40.
-  - This agreement states Fluxline will not issue a refund for the remaining 50 days, as the 30-day window has passed.
 - For issues arising from the program, please contact us directly at [support@fluxline.pro]<mailto:support@fluxline.pro> so we may promptly resolve your issue in good faith.
+
+**For example:** You sign up for a 3-month period of time for services rendered. The 30-day window has expired, and you wish to cancel for the remainder of the program on day 40. This agreement states Fluxline will not issue a refund for the remaining 50 days, as the 30-day window has passed.
 
 ---
 
@@ -107,6 +108,8 @@ Fluxline may integrate with third-party platforms (e.g., Notion, Stripe, payment
 The materials on Fluxline's website and in our services are provided on an "as is" basis. Fluxline makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
 
 Fluxline offers tools rooted in emotional stewardship, modular design, and mythic self-authorship. While many experience profound transformation, results are not guaranteed. You remain responsible for your own decisions, actions, and outcomes.
+
+As part of this disclaimer of services provided, to summarize:
 
 - We do not offer medical, legal, or financial advice.
 - All guidance is educational and experiential in nature.
