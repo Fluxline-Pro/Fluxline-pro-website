@@ -7,22 +7,36 @@ export const basicMarkdownToHtml = (
 
   // Remove duplicate title if it matches the document title
   if (documentTitle) {
-    // Create regex patterns to match the title in various formats
-    const titlePatterns = [
-      new RegExp(`^# ${documentTitle}\\s*$`, 'gim'), // # TITLE
-      new RegExp(`^# ${documentTitle.toUpperCase()}\\s*$`, 'gim'), // # TITLE (uppercase)
-      new RegExp(`^# ${documentTitle.toLowerCase()}\\s*$`, 'gim'), // # title (lowercase)
-      new RegExp(`^${documentTitle}\\s*$`, 'gim'), // TITLE (no markdown)
-      new RegExp(`^${documentTitle.toUpperCase()}\\s*$`, 'gim'), // TITLE (uppercase, no markdown)
-      // Handle title with subtitle format
-      new RegExp(`^# ${documentTitle}:.*$`, 'gim'), // # TITLE: subtitle
-      new RegExp(`^${documentTitle}:.*$`, 'gim'), // TITLE: subtitle (no markdown)
-    ];
+    // Split the content into lines to check the first few lines
+    const lines = html.split('\n');
+    let titleRemoved = false;
 
-    // Remove the first occurrence of any title pattern at the beginning
-    for (const pattern of titlePatterns) {
-      html = html.replace(pattern, '').replace(/^\n+/, ''); // Also remove leading newlines
-      break; // Only remove the first match
+    // Check the first 3 lines for title patterns that include the document title
+    for (let i = 0; i < Math.min(3, lines.length) && !titleRemoved; i++) {
+      const line = lines[i].trim();
+
+      // Check if line contains the document title (case insensitive)
+      const containsTitle = line
+        .toLowerCase()
+        .includes(documentTitle.toLowerCase());
+
+      // Check if it's a markdown header or plain text title
+      const isMarkdownHeader = line.startsWith('#');
+      const isPlainTitle = !isMarkdownHeader && line.length > 0;
+
+      if (containsTitle && (isMarkdownHeader || isPlainTitle)) {
+        // Remove this line
+        lines.splice(i, 1);
+
+        // Also remove the next line if it's empty (this removes the extra break)
+        if (i < lines.length && lines[i].trim() === '') {
+          lines.splice(i, 1);
+        }
+
+        // Rebuild the HTML and remove leading newlines
+        html = lines.join('\n').replace(/^\n+/, '');
+        titleRemoved = true;
+      }
     }
   }
 
@@ -79,6 +93,10 @@ export const basicMarkdownToHtml = (
   html = html.replace(/(<\/ul>)(?!\s*<br)/g, '$1<br /><br />');
   html = html.replace(/(<\/h[1-6]>)(?!\s*<br)/g, '$1<br /><br />');
   html = html.replace(/(<hr>)(?!\s*<br)/g, '$1<br /><br />');
+
+  // Add hidden spacer elements between text blocks for visual separation
+  // Replace groups of 4 or more <br /> tags with hidden <hr> spacers
+  html = html.replace(/(<br\s*\/>\s*){4,}/g, '<hr class="text-spacer" />');
 
   // Clean up excessive breaks
   html = html.replace(/(<br \/><br \/>){3,}/g, '<br /><br />');

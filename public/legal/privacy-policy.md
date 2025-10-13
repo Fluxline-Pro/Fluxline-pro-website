@@ -96,4 +96,4 @@ If you have questions or concerns about this Privacy Policy, please contact us t
 
 &copy; 2025–Present Fluxline Resonance Group. All rights reserved.
 
-**Last Updated**: January 2025
+**Last Updated**: October 12, 2025

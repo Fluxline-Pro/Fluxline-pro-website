@@ -1,8 +1,6 @@
 # Terms of Use: Fluxline Resonance Group, LLC
 
-**Effective Date:** October 19, 2025
-
-**Last Updated:** October 12, 2025
+## Introduction
 
 By accessing or using any materials, frameworks, coaching services, or digital content provided by Fluxline Resonance Group, LLC ("Fluxline," "we," "us," or "our"), you ("client," "your", "user," or "users") agree to the following Terms of Use. These terms form a living covenant between you and Fluxline, designed to uphold the integrity, stewardship, and mythic resonance of our offerings.
 
@@ -93,7 +91,7 @@ Upon completion of the trial period, clients agree to a **full monthly charge** 
 
 ### 5. Confidentiality & Data Use
 
-Any personal information shared through coaching, journaling, or feedback is treated with confidentiality and emotional stewardship and is never shared with anyone outside of Fluxline without written permission from you. Please refer to our Privacy Policy for full details.
+Any personal information shared through coaching, journaling, or feedback is treated with confidentiality and emotional stewardship and is never shared with anyone outside of Fluxline without written permission from you. Please refer to our Privacy Policy for full details. Use of our services is limited to those who are at least 18 years of age or older.
 
 ---
 
@@ -143,7 +141,7 @@ If the amended terms are not agreeable, you may cancel your agreement before the
 
 ---
 
-### 11. Arbitration and Dispute Resolution
+### 11. Arbitration & Dispute Resolution
 
 Disagreements and/or issues are natural parts of any journey. If you experience any issues while working with Fluxline, **please reach out to us directly at [support@fluxline.pro](mailto:support@fluxline.pro)**. We'll review your concern in good faith and work with you to find a respectful, mutually beneficial resolution.
 
@@ -186,3 +184,5 @@ By engaging with Fluxline services, you acknowledge and accept these terms as pa
 ---
 
 &copy; 2025–Present Fluxline Resonance Group, LLC. All rights reserved.
+
+**Last Updated:** October 12, 2025

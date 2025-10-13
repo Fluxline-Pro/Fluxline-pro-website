@@ -321,7 +321,7 @@ export const LegalPage: React.FC = () => {
                 }
 
                 .legal-document-content ul {
-                  margin: ${theme.spacing.l} 0 0;
+                  margin: 0 !important;
                   padding-left: ${theme.spacing.xl};
                   list-style-type: disc;
                 }
@@ -363,6 +363,16 @@ export const LegalPage: React.FC = () => {
                   border-top: 1px solid ${theme.palette.neutralSecondary};
                   margin: ${theme.spacing.m} 0 0;
                   opacity: 0.3;
+                }
+
+                /* Hidden spacer elements for text separation */
+                .legal-document-content hr.text-spacer {
+                  border: none;
+                  width: 5%;
+                  height: 0.25rem;
+                  margin: 0.25rem !important;
+                  visibility: hidden;
+                  opacity: 0;
                 }
 
                 /* Remove excessive spacing and ensure consistent gaps */
