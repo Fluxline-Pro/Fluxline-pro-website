@@ -43,6 +43,22 @@ const PAGE_CONFIGS = {
     image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
     imageText: '',
   },
+  '/legal/terms-of-use': {
+    image: require('../../assets/images/ConsultingPortrait.jpg'),
+    imageText: 'Terms of Use',
+  },
+  '/legal/privacy-policy': {
+    image: require('../../assets/images/PersonalTrainingPortrait.jpg'),
+    imageText: 'Privacy Policy',
+  },
+  '/legal/glossary': {
+    image: require('../../assets/images/EducationTrainingPortrait.jpg'),
+    imageText: 'Glossary of Terms',
+  },
+  '/legal/stewardship-contract': {
+    image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
+    imageText: '',
+  },
   '/services/education-training': {
     image: require('../../assets/images/EducationTrainingPortrait.jpg'),
     imageText: 'Education & Training',
