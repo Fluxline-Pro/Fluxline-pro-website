@@ -31,7 +31,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
         ? 'left'
         : ('right' as React.CSSProperties['textAlign']),
       fontFamily: theme.typography.fonts.medium.fontFamily,
-      fontSize: 'clamp(1.5rem, 5vw, 2.25rem)', // Override with viewport-based sizing for navigation menu
+      fontSize: 'clamp(1.75rem, 4vw, 2.25rem)', // Better mobile base size with smoother scaling
       fontWeight: isHovered
         ? theme.typography.fontWeights.semiBold
         : theme.typography.fontWeights.light,
@@ -50,7 +50,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
     },
     navTooltip: {
       ...theme.typography.fonts.h2,
-      fontSize: 'clamp(1.5rem, 5vw, 2.25rem)', // Override with viewport-based sizing for navigation
+      fontSize: 'clamp(1.75rem, 4vw, 2.25rem)', // Match navigation item font size
       fontWeight: theme.typography.fontWeights.medium,
       letterSpacing: '-1.5px',
       textTransform: 'capitalize' as const,
