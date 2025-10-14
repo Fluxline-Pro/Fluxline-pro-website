@@ -6,6 +6,8 @@ import { useDeviceOrientation } from '../../theme/hooks/useMediaQuery';
 import { useContentFilterStore } from '../../store/store-specs/contentFilterStore';
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { ThemeMode } from '../../theme/theme';
+import { AnimatePresence } from 'framer-motion';
+import { FadeUp } from '../../theme/components/animations/fade-animations';
 
 // Helper function to get the appropriate Fluxline logo based on theme mode
 const getFluxlineLogo = (themeMode: ThemeMode): string => {
@@ -48,7 +50,7 @@ const PAGE_CONFIGS = {
     imageText: 'Terms of Use',
   },
   '/legal/privacy-policy': {
-    image: require('../../assets/images/PersonalTrainingPortrait.jpg'),
+    image: require('../../assets/images/GitHubPortrait.jpg'),
     imageText: 'Privacy Policy',
   },
   '/legal/glossary': {
@@ -56,7 +58,7 @@ const PAGE_CONFIGS = {
     imageText: 'Glossary of Terms',
   },
   '/legal/stewardship-contract': {
-    image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
+    image: require('../../assets/images/LifeCoachingResonanceCore.jpg'),
     imageText: '',
   },
   '/services/education-training': {
@@ -243,7 +245,15 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
             minWidth: 0, // Allow shrinking
           }}
         >
-          {children}
+          <AnimatePresence mode='wait'>
+            <FadeUp
+              key={location.pathname + (id || '')}
+              delay={0.1}
+              duration={0.5}
+            >
+              {children}
+            </FadeUp>
+          </AnimatePresence>
         </div>
       }
       respectLayoutPreference={true}

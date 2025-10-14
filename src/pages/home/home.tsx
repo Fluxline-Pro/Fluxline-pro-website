@@ -15,6 +15,8 @@ import { Typography } from '../../theme/components/typography/typography';
 // import { ProgressBar } from '../../theme/components/progress-bar/progress-bar';
 import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
 import { FluentButton } from '../../theme/components/button/button';
+import { AnimatePresence } from 'framer-motion';
+import { FadeUp } from '../../theme/components/animations/fade-animations';
 
 export const UnderConstruction = () => {
   const { theme } = useAppTheme();
@@ -456,8 +458,28 @@ export const Home: React.FC = () => {
 
   return (
     <ViewportGrid
-      leftChildren={<HomeContent isMobile={isMobile} />}
-      rightChildren={<HomeContent isMobile={isMobile} />}
+      leftChildren={
+        <AnimatePresence mode='wait'>
+          <FadeUp
+            key={`home-left-${backgroundImage}`}
+            delay={0.1}
+            duration={0.5}
+          >
+            <HomeContent isMobile={isMobile} />
+          </FadeUp>
+        </AnimatePresence>
+      }
+      rightChildren={
+        <AnimatePresence mode='wait'>
+          <FadeUp
+            key={`home-right-${backgroundImage}`}
+            delay={0.1}
+            duration={0.5}
+          >
+            <HomeContent isMobile={isMobile} />
+          </FadeUp>
+        </AnimatePresence>
+      }
       isHomePage={true}
       respectLayoutPreference={true}
       backgroundImage={backgroundImage as 'one' | 'two'}

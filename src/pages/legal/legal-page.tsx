@@ -5,7 +5,6 @@ import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { useDeviceOrientation } from '../../theme/hooks/useMediaQuery';
 import { Typography } from '../../theme/components/typography/typography';
 import { Container } from '../../theme/layouts/Container';
-import { FadeUp } from '../../theme/components/animations/fade-animations';
 import { PdfModal } from '../../theme/components/modal/pdf-modal';
 import PageWrapper from '../page-wrapper/page-wrapper';
 import NavigationArrow from '../../theme/components/navigation-arrow/navigation-arrow';
@@ -132,65 +131,63 @@ export const LegalPage: React.FC = () => {
     },
   };
 
-  // Render document list view
-  if (!id || !selectedDoc) {
-    return (
-      <PageWrapper showImageTitle={true}>
-        <FadeUp delay={0}>
-          <div style={styles.sectionContainer}>
-            <Container
-              display='flex'
-              flexDirection='row'
-              justifyContent='flex-start'
-              alignItems='center'
-              paddingLeft='0'
-              marginLeft='0'
-              marginBottom='1rem'
-              gap={theme.spacing.s}
-              style={{ padding: '0' }}
-            >
-              <NavigationArrow
-                direction='backward'
-                navigate={() => navigate('/')}
-                size={isMobile ? 'large' : 'medium'}
-                showBackground={false}
-              />
-              <Typography variant='h2' style={styles.h2Title}>
-                Legal & Reference
-              </Typography>
-            </Container>
-
-            <Typography
-              variant='p'
-              textAlign='left'
-              color={theme.palette.neutralPrimary}
-              marginBottom='2rem'
-              noHyphens
-              style={styles.textContent}
-            >
-              Access important legal documents and reference materials for the
-              Fluxline Resonance Group. These documents outline our policies,
-              terms, and core definitions.
+  return (
+    <PageWrapper showImageTitle={true}>
+      {/* Render document list view */}
+      {!id || !selectedDoc ? (
+        <div style={styles.sectionContainer}>
+          <Container
+            display='flex'
+            flexDirection='row'
+            justifyContent='flex-start'
+            alignItems='center'
+            paddingLeft='0'
+            marginLeft='0'
+            marginBottom='1rem'
+            gap={theme.spacing.s}
+            style={{ padding: '0' }}
+          >
+            <NavigationArrow
+              direction='backward'
+              navigate={() => navigate('/about')}
+              size={isMobile ? 'large' : 'medium'}
+              showBackground={false}
+            />
+            <Typography variant='h2' style={styles.h2Title}>
+              Legal & Reference
             </Typography>
+          </Container>
 
-            <div style={styles.cardContainer}>
-              {LEGAL_PAGES.map((doc) => {
-                const whitePageItem = convertLegalToWhitePage(doc);
-                return (
-                  <WhitePageCard
-                    key={doc.id}
-                    whitePage={whitePageItem}
-                    isHovered={hoveredCard === doc.id}
-                    onClick={handleCardClick}
-                    onMouseEnter={() => setHoveredCard(doc.id)}
-                    onMouseLeave={() => setHoveredCard(null)}
-                    variant='compact'
-                    isPdf={doc.isPdf}
-                    context='legal'
-                  />
-                );
-              })}
-            </div>
+          <Typography
+            variant='p'
+            textAlign='left'
+            color={theme.palette.neutralPrimary}
+            marginBottom='2rem'
+            noHyphens
+            style={styles.textContent}
+          >
+            Access important legal documents and reference materials for the
+            Fluxline Resonance Group. These documents outline our policies,
+            terms, and core definitions.
+          </Typography>
+
+          <div style={styles.cardContainer}>
+            {LEGAL_PAGES.map((doc) => {
+              const whitePageItem = convertLegalToWhitePage(doc);
+              return (
+                <WhitePageCard
+                  key={doc.id}
+                  whitePage={whitePageItem}
+                  isHovered={hoveredCard === doc.id}
+                  onClick={handleCardClick}
+                  onMouseEnter={() => setHoveredCard(doc.id)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                  variant='compact'
+                  isPdf={doc.isPdf}
+                  context='legal'
+                />
+              );
+            })}
           </div>
 
           {/* PDF Modal */}
@@ -202,15 +199,9 @@ export const LegalPage: React.FC = () => {
               pdfTitle={selectedDoc.title}
             />
           )}
-        </FadeUp>
-      </PageWrapper>
-    );
-  }
-
-  // Render individual document view
-  return (
-    <PageWrapper showImageTitle={true}>
-      <FadeUp delay={0}>
+        </div>
+      ) : (
+        /* Render individual document view */
         <div style={styles.sectionContainer}>
           <Container
             display='flex'
@@ -432,7 +423,7 @@ export const LegalPage: React.FC = () => {
             </div>
           )}
         </div>
-      </FadeUp>
+      )}
     </PageWrapper>
   );
 };

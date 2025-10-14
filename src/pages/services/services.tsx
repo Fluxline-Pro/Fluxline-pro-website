@@ -6,6 +6,7 @@ import { PercentageBullet } from '../../theme/components/percentage-bullet/perce
 import { Container } from '../../theme/layouts/Container';
 import { Typography } from '../../theme/components/typography/typography';
 import { FadeUp } from '../../theme/components/animations/fade-animations';
+import { AnimatePresence } from 'framer-motion';
 
 import SERVICES_EXPORTS from './constants';
 import { useDeviceOrientation } from '../../theme/hooks/useMediaQuery';
@@ -1073,40 +1074,42 @@ export const Services: React.FC<ServicesProps> = ({
   const actualView = getViewFromPath();
 
   return (
-    <FadeUp key={actualView} delay={0}>
-      <div>
-        {actualView === 'about' ? (
-          // Optimized About page with improved visual hierarchy and flow
-          <>
-            <AboutSection currentView={actualView} />
-            <TaglineHeader currentView={actualView} />
-            <MissionVisionSection currentView={actualView} />
-            <TechnicalSkillsSection
-              isMobile={orientation === 'portrait'}
-              currentView={actualView}
-            />
-            <GuidingPrinciplesSection
-              isMobile={orientation === 'portrait'}
-              currentView={actualView}
-            />
-            <CTACallout
-              variant='services'
-              currentView={actualView}
-              hideBottomHR={true}
-            />
-            <CTACallout variant='legal' currentView={actualView} />
-            <GetStarted />
-          </>
-        ) : (
-          // Original layout for other service pages
-          <>
-            <ProfessionalSummary currentView={actualView} />
-            <WhitePagesSection currentView={actualView} />
-            <GetStarted />
-          </>
-        )}
-      </div>
-    </FadeUp>
+    <AnimatePresence mode='wait'>
+      <FadeUp key={actualView} delay={0.1} duration={0.5}>
+        <div>
+          {actualView === 'about' ? (
+            // Optimized About page with improved visual hierarchy and flow
+            <>
+              <AboutSection currentView={actualView} />
+              <TaglineHeader currentView={actualView} />
+              <MissionVisionSection currentView={actualView} />
+              <TechnicalSkillsSection
+                isMobile={orientation === 'portrait'}
+                currentView={actualView}
+              />
+              <GuidingPrinciplesSection
+                isMobile={orientation === 'portrait'}
+                currentView={actualView}
+              />
+              <CTACallout
+                variant='services'
+                currentView={actualView}
+                hideBottomHR={true}
+              />
+              <CTACallout variant='legal' currentView={actualView} />
+              <GetStarted />
+            </>
+          ) : (
+            // Original layout for other service pages
+            <>
+              <ProfessionalSummary currentView={actualView} />
+              <WhitePagesSection currentView={actualView} />
+              <GetStarted />
+            </>
+          )}
+        </div>
+      </FadeUp>
+    </AnimatePresence>
   );
 };
 
