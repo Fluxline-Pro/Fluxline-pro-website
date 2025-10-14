@@ -91,7 +91,7 @@ const PAGE_CONFIGS = {
   },
   '/press': {
     image: require('../../assets/images/Content1280x1815.jpg'),
-    imageText: 'Press Release',
+    imageText: 'Press Releases',
   },
   '/contact-me': {
     image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
