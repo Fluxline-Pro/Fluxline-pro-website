@@ -92,7 +92,8 @@ export const UnderConstruction = () => {
 
 const HomeContent: React.FC<{
   isMobile: boolean;
-}> = ({ isMobile }) => {
+  shouldStartAnimations: boolean;
+}> = ({ isMobile, shouldStartAnimations }) => {
   const { theme, themeMode } = useAppTheme();
   const orientation = useDeviceOrientation();
   const navigate = useNavigate();
@@ -107,6 +108,9 @@ const HomeContent: React.FC<{
   ]);
 
   React.useEffect(() => {
+    // Only start animations when background is ready
+    if (!shouldStartAnimations) return;
+
     // First line animation
     setTimeout(() => {
       setAnimateHeader(true);
@@ -135,7 +139,7 @@ const HomeContent: React.FC<{
     setTimeout(() => {
       setAnimateSubHeaderLines([true, true, true, true]);
     }, 2800);
-  }, []);
+  }, [shouldStartAnimations]);
 
   const HighlightText = ({ text }: { text: string }) => (
     <span
@@ -438,8 +442,52 @@ export const Home: React.FC = () => {
   // );
   const { backgroundImage } = useBackgroundImage(); // Much simpler now!
   const isMobile = useIsMobile();
+  const orientation = useDeviceOrientation();
+  const [backgroundLoaded, setBackgroundLoaded] = React.useState(false);
+  const [shouldStartAnimations, setShouldStartAnimations] =
+    React.useState(false);
   // const [isLoading, setIsLoading] = React.useState(false);
   // const navigate = useNavigate();
+
+  // Preload the background image based on orientation and background type
+  React.useEffect(() => {
+    const getBackgroundImageSrc = () => {
+      // Import the actual background images used in BackgroundLayer
+      const backgroundImageOneLandscape = require('../../assets/images/HomePageCover4kLandscape.jpg');
+      const backgroundImageOnePortrait = require('../../assets/images/HomePageCover4kPortrait.jpeg');
+
+      // For now, we only use background 'one' as per useBackgroundImage
+      return orientation === 'landscape' || orientation === 'ultrawide'
+        ? backgroundImageOneLandscape
+        : orientation === 'portrait'
+          ? backgroundImageOnePortrait
+          : backgroundImageOneLandscape;
+    };
+
+    const imageUrl = getBackgroundImageSrc();
+    const img = new Image();
+
+    img.onload = () => {
+      setBackgroundLoaded(true);
+      // Start animations after background loads + small delay for smooth transition
+      setTimeout(() => {
+        setShouldStartAnimations(true);
+      }, 200);
+    };
+
+    img.onerror = () => {
+      // If image fails to load, still proceed with animations
+      setBackgroundLoaded(true);
+      setShouldStartAnimations(true);
+    };
+
+    img.src = imageUrl;
+
+    return () => {
+      img.onload = null;
+      img.onerror = null;
+    };
+  }, [backgroundImage, orientation]);
 
   // React.useEffect(() => {
   //   // Only navigate to onboarding if not done and not already on onboarding path
@@ -461,28 +509,35 @@ export const Home: React.FC = () => {
       leftChildren={
         <AnimatePresence mode='wait'>
           <FadeUp
-            key={`home-left-${backgroundImage}`}
-            delay={0.1}
+            key={`home-left-${backgroundImage}-${backgroundLoaded}`}
+            delay={backgroundLoaded ? 0.1 : 0}
             duration={0.5}
           >
-            <HomeContent isMobile={isMobile} />
+            <HomeContent
+              isMobile={isMobile}
+              shouldStartAnimations={shouldStartAnimations}
+            />
           </FadeUp>
         </AnimatePresence>
       }
       rightChildren={
         <AnimatePresence mode='wait'>
           <FadeUp
-            key={`home-right-${backgroundImage}`}
-            delay={0.1}
+            key={`home-right-${backgroundImage}-${backgroundLoaded}`}
+            delay={backgroundLoaded ? 0.1 : 0}
             duration={0.5}
           >
-            <HomeContent isMobile={isMobile} />
+            <HomeContent
+              isMobile={isMobile}
+              shouldStartAnimations={shouldStartAnimations}
+            />
           </FadeUp>
         </AnimatePresence>
       }
       isHomePage={true}
       respectLayoutPreference={true}
       backgroundImage={backgroundImage as 'one' | 'two'}
+      backgroundLoaded={backgroundLoaded}
     />
   );
 };

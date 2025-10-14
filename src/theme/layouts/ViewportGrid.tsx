@@ -33,6 +33,7 @@ interface ViewportGridProps {
   rightMaxWidth?: string | number;
   isHomePage?: boolean;
   backgroundImage?: 'one' | 'two';
+  backgroundLoaded?: boolean;
 }
 
 export const ViewportGrid: React.FC<ViewportGridProps> = ({
@@ -50,6 +51,7 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
   nested = false,
   isHomePage = false,
   backgroundImage = 'one',
+  backgroundLoaded,
 }) => {
   const { layoutPreference, readingDirection, theme, themeMode } =
     useAppTheme();
@@ -230,6 +232,7 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
         themeMode={themeMode}
         theme={theme}
         layoutPreference={layoutPreference}
+        backgroundLoaded={backgroundLoaded}
       />
 
       {shouldShowLeftChildren && leftChildren && (
