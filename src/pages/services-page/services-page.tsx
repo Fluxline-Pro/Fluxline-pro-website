@@ -9,7 +9,7 @@ interface ServicesPageProps {
     | 'personal-training'
     | 'education-training'
     | 'consulting'
-    | 'business'
+    | 'resonance-core'
     | 'development'
     | 'design';
 }

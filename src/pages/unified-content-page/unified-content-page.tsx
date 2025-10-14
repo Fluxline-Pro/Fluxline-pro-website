@@ -28,6 +28,7 @@ import {
   generateMockContent,
 } from '../../utils/contentDataManager';
 import { FadeUp } from '../../theme/components/animations/fade-animations';
+import { AnimatePresence } from 'framer-motion';
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { borderRadius, shadows } from '../../theme/theme';
 
@@ -64,7 +65,7 @@ interface UnifiedContentPageProps {
     | 'press'
     | 'personal-training'
     | 'education-training'
-    | 'business'
+    | 'resonance-core'
     | 'consulting'
     | 'development'
     | 'design'
@@ -467,10 +468,14 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
               // Special handling for GitHub: show "Coming Soon!" but enable external link
               const isGitHub = route.name === 'github';
               const shouldShowComingSoon = route.isComingSoon || isGitHub;
-              
+
               const handleClick = () => {
                 if (route.isExternal && route.externalUrl) {
-                  window.open(route.externalUrl, '_blank', 'noopener,noreferrer');
+                  window.open(
+                    route.externalUrl,
+                    '_blank',
+                    'noopener,noreferrer'
+                  );
                 } else if (!route.isComingSoon) {
                   navigate(`/${route.path}`);
                 }
@@ -507,7 +512,7 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
     contentType === 'about' ||
     contentType === 'services' ||
     contentType === 'personal-training' ||
-    contentType === 'business' ||
+    contentType === 'resonance-core' ||
     contentType === 'education-training' ||
     contentType === 'consulting' ||
     contentType === 'development' ||
@@ -533,12 +538,28 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
         />
       );
     }
-    return <ContentView post={displayPost} contentType={contentType} allPosts={displayPosts} />;
+    return (
+      <AnimatePresence mode='wait'>
+        <FadeUp key={`detail-${id}`} delay={0.1} duration={0.5}>
+          <ContentView
+            post={displayPost}
+            contentType={contentType}
+            allPosts={displayPosts}
+          />
+        </FadeUp>
+      </AnimatePresence>
+    );
   }
 
   // If calendar is open, show calendar
   if (isCalendarOpen) {
-    return <Calendar />;
+    return (
+      <AnimatePresence mode='wait'>
+        <FadeUp key='calendar-view' delay={0.1} duration={0.5}>
+          <Calendar />
+        </FadeUp>
+      </AnimatePresence>
+    );
   }
 
   // Grid columns configuration
@@ -692,11 +713,17 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
     <Container>
       <FilterToolbar />
       {/* <ApiStatusIndicator /> */}
-      <FadeUp key={viewType}>
-        <LayoutGrid columns={columns} gap='1rem' margin='0 0 1.25rem 0'>
-          {displayPosts.map(renderCard)}
-        </LayoutGrid>
-      </FadeUp>
+      <AnimatePresence mode='wait'>
+        <FadeUp
+          key={`list-${viewType}-${displayPosts.length}`}
+          delay={0.1}
+          duration={0.5}
+        >
+          <LayoutGrid columns={columns} gap='1rem' margin='0 0 1.25rem 0'>
+            {displayPosts.map(renderCard)}
+          </LayoutGrid>
+        </FadeUp>
+      </AnimatePresence>
       <Outlet />
     </Container>
   );
@@ -716,7 +743,7 @@ export const UnifiedContentPage: React.FC<UnifiedContentPageProps> = ({
       if (
         contentType === 'personal-training' ||
         contentType === 'education-training' ||
-        contentType === 'business' ||
+        contentType === 'resonance-core' ||
         contentType === 'consulting' ||
         contentType === 'development' ||
         contentType === 'design' ||

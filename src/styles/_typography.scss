@@ -199,39 +199,39 @@ $text-shadow-card: 0px 3px 3px 0px rgba(0, 0, 0, 0.5);
   letter-spacing: $letter-spacing-normal;
 }
 
-// Apply base styles
-h1 {
-  @include heading-1;
-}
+// // Apply base styles
+// h1 {
+//   @include heading-1;
+// }
 
-h2 {
-  @include heading-2;
-}
+// h2 {
+//   @include heading-2;
+// }
 
-h3 {
-  @include heading-3;
-}
+// h3 {
+//   @include heading-3;
+// }
 
-h4 {
-  @include heading-4;
-}
+// h4 {
+//   @include heading-4;
+// }
 
-h5 {
-  @include heading-5;
-}
+// h5 {
+//   @include heading-5;
+// }
 
-h6 {
-  @include heading-6;
-}
+// h6 {
+//   @include heading-6;
+// }
 
-p {
-  @include body-text;
-}
+// p {
+//   @include body-text;
+// }
 
-code,
-pre {
-  @include mono-text;
-}
+// code,
+// pre {
+//   @include mono-text;
+// }
 
 // Responsive Typography Mixins
 @mixin responsive-typography(

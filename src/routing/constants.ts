@@ -33,7 +33,19 @@ export const ROUTES: Routes[] = [
     isContentScreen: false,
   },
   {
-    name: 'collab & connect',
+    name: 'white pages',
+    path: 'white-pages',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'legal',
+    path: 'legal',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: "let's connect",
     path: 'contact-me',
     isMenuItem: true,
     isContentScreen: false,
@@ -58,8 +70,8 @@ export const ROUTES: Routes[] = [
     isContentScreen: false,
   },
   {
-    name: 'business',
-    path: 'services/business',
+    name: 'resonance-core',
+    path: 'services/resonance-core',
     isMenuItem: false,
     isContentScreen: false,
   },
@@ -75,7 +87,15 @@ export const ROUTES: Routes[] = [
     isMenuItem: false,
     isContentScreen: false,
   },
-  { name: 'github', path: 'github', isMenuItem: false, isContentScreen: true, isComingSoon: false, isExternal: true, externalUrl: 'https://github.com/AplUSAndmINUS' },
+  {
+    name: 'github',
+    path: 'github',
+    isMenuItem: false,
+    isContentScreen: true,
+    isComingSoon: false,
+    isExternal: true,
+    externalUrl: 'https://github.com/AplUSAndmINUS',
+  },
   {
     name: 'books',
     path: 'books',
