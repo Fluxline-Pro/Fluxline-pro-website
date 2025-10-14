@@ -73,9 +73,9 @@ export const TestimonialModal: React.FC<TestimonialModalProps> = ({
         padding: isMobile ? '1rem' : '2rem',
       }}
       onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="testimonial-modal-title"
+      role='dialog'
+      aria-modal='true'
+      aria-labelledby='testimonial-modal-title'
     >
       <div
         style={{
@@ -94,7 +94,7 @@ export const TestimonialModal: React.FC<TestimonialModalProps> = ({
         {/* Close button */}
         <button
           onClick={onClose}
-          aria-label="Close modal"
+          aria-label='Close modal'
           style={{
             position: 'absolute',
             top: isMobile ? '1rem' : '1.5rem',
@@ -128,15 +128,17 @@ export const TestimonialModal: React.FC<TestimonialModalProps> = ({
 
         {/* Modal content */}
         <Container
-          display="flex"
-          flexDirection="column"
+          display='flex'
+          flexDirection='column'
           gap={theme.spacing.xl}
           padding={isMobile ? theme.spacing.xl : theme.spacing.xxl}
-          style={{ paddingTop: isMobile ? theme.spacing.xxl : theme.spacing.xxxl }}
+          style={{
+            paddingTop: isMobile ? theme.spacing.xxl : theme.spacing.xxxl,
+          }}
         >
           {/* Header with avatar and client info */}
           <Container
-            display="flex"
+            display='flex'
             flexDirection={isMobile ? 'column' : 'row'}
             alignItems={isMobile ? 'center' : 'flex-start'}
             gap={theme.spacing.m}
@@ -157,15 +159,19 @@ export const TestimonialModal: React.FC<TestimonialModalProps> = ({
               />
             )}
             <Container
-              display="flex"
-              flexDirection="column"
+              display='flex'
+              flexDirection='column'
               gap={theme.spacing.s1}
               alignItems={isMobile ? 'center' : 'flex-start'}
               style={{ flex: 1 }}
             >
               <Typography
-                variant="h2"
-                fontSize={isMobile ? theme.typography.fontSizes.clamp6 : theme.typography.fontSizes.clamp7}
+                variant='h2'
+                fontSize={
+                  isMobile
+                    ? theme.typography.fontSizes.clamp6
+                    : theme.typography.fontSizes.clamp7
+                }
                 color={theme.palette.neutralPrimary}
                 textAlign={isMobile ? 'center' : 'left'}
               >
@@ -173,7 +179,7 @@ export const TestimonialModal: React.FC<TestimonialModalProps> = ({
               </Typography>
               {testimonial.jobTitle && (
                 <Typography
-                  variant="p"
+                  variant='p'
                   fontSize={theme.typography.fontSizes.clamp4}
                   color={theme.palette.neutralSecondary}
                   fontWeight={600}
@@ -184,7 +190,7 @@ export const TestimonialModal: React.FC<TestimonialModalProps> = ({
               )}
               {testimonial.company && (
                 <Typography
-                  variant="p"
+                  variant='p'
                   fontSize={theme.typography.fontSizes.clamp3}
                   color={theme.palette.neutralTertiary}
                   textAlign={isMobile ? 'center' : 'left'}
@@ -194,7 +200,7 @@ export const TestimonialModal: React.FC<TestimonialModalProps> = ({
               )}
               {testimonial.services && (
                 <Typography
-                  variant="caption"
+                  variant='caption'
                   fontSize={theme.typography.fontSizes.clamp2}
                   color={theme.palette.themePrimary}
                   textAlign={isMobile ? 'center' : 'left'}
@@ -219,10 +225,10 @@ export const TestimonialModal: React.FC<TestimonialModalProps> = ({
               }}
             >
               <Typography
-                variant="p"
+                variant='p'
                 fontSize={theme.typography.fontSizes.clamp4}
                 color={theme.palette.neutralPrimary}
-                lineHeight="1.6"
+                lineHeight='1.6'
                 style={{ fontStyle: 'italic' }}
               >
                 "{testimonial.quote}"
@@ -234,10 +240,10 @@ export const TestimonialModal: React.FC<TestimonialModalProps> = ({
           {testimonial.fullText && (
             <Container>
               <Typography
-                variant="p"
+                variant='p'
                 fontSize={theme.typography.fontSizes.clamp3}
                 color={theme.palette.neutralPrimary}
-                lineHeight="1.8"
+                lineHeight='1.8'
               >
                 {testimonial.fullText}
               </Typography>
@@ -247,8 +253,8 @@ export const TestimonialModal: React.FC<TestimonialModalProps> = ({
           {/* Rating display */}
           {testimonial.rating && (
             <Container
-              display="flex"
-              alignItems="center"
+              display='flex'
+              alignItems='center'
               justifyContent={isMobile ? 'center' : 'flex-start'}
               gap={theme.spacing.s1}
             >
@@ -262,13 +268,13 @@ export const TestimonialModal: React.FC<TestimonialModalProps> = ({
                         ? theme.palette.themePrimary
                         : theme.palette.neutralLight,
                   }}
-                  aria-hidden="true"
+                  aria-hidden='true'
                 >
                   ★
                 </span>
               ))}
               <Typography
-                variant="caption"
+                variant='caption'
                 fontSize={theme.typography.fontSizes.clamp2}
                 color={theme.palette.neutralSecondary}
                 style={{ marginLeft: theme.spacing.s1 }}

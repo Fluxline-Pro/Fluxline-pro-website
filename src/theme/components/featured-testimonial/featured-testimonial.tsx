@@ -27,9 +27,9 @@ export const FeaturedTestimonial: React.FC<FeaturedTestimonialProps> = ({
 
   return (
     <Container
-      display="flex"
+      display='flex'
       flexDirection={isMobile ? 'column' : 'row'}
-      alignItems="center"
+      alignItems='center'
       gap={isMobile ? theme.spacing.m : theme.spacing.xl}
       padding={isMobile ? theme.spacing.l : theme.spacing.xxl}
       style={{
@@ -91,7 +91,7 @@ export const FeaturedTestimonial: React.FC<FeaturedTestimonialProps> = ({
               fontWeight: 'bold',
               boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
             }}
-            aria-label="Featured"
+            aria-label='Featured'
           >
             ★
           </div>
@@ -100,8 +100,8 @@ export const FeaturedTestimonial: React.FC<FeaturedTestimonialProps> = ({
 
       {/* Content */}
       <Container
-        display="flex"
-        flexDirection="column"
+        display='flex'
+        flexDirection='column'
         gap={theme.spacing.m}
         alignItems={isMobile ? 'center' : 'flex-start'}
         style={{ flex: 1 }}
@@ -118,10 +118,14 @@ export const FeaturedTestimonial: React.FC<FeaturedTestimonialProps> = ({
             }}
           >
             <Typography
-              variant="p"
-              fontSize={isMobile ? theme.typography.fontSizes.clamp4 : theme.typography.fontSizes.clamp5}
+              variant='p'
+              fontSize={
+                isMobile
+                  ? theme.typography.fontSizes.clamp4
+                  : theme.typography.fontSizes.clamp5
+              }
               color={theme.palette.neutralPrimary}
-              lineHeight="1.6"
+              lineHeight='1.6'
               textAlign={isMobile ? 'center' : 'left'}
               style={{ fontStyle: 'italic' }}
             >
@@ -132,13 +136,13 @@ export const FeaturedTestimonial: React.FC<FeaturedTestimonialProps> = ({
 
         {/* Client info */}
         <Container
-          display="flex"
-          flexDirection="column"
+          display='flex'
+          flexDirection='column'
           gap={theme.spacing.s1}
           alignItems={isMobile ? 'center' : 'flex-start'}
         >
           <Typography
-            variant="h3"
+            variant='h3'
             fontSize={theme.typography.fontSizes.clamp5}
             color={theme.palette.neutralPrimary}
             fontWeight={700}
@@ -148,7 +152,7 @@ export const FeaturedTestimonial: React.FC<FeaturedTestimonialProps> = ({
           </Typography>
           {testimonial.jobTitle && (
             <Typography
-              variant="p"
+              variant='p'
               fontSize={theme.typography.fontSizes.clamp3}
               color={theme.palette.neutralSecondary}
               fontWeight={600}
@@ -159,7 +163,7 @@ export const FeaturedTestimonial: React.FC<FeaturedTestimonialProps> = ({
           )}
           {testimonial.company && (
             <Typography
-              variant="p"
+              variant='p'
               fontSize={theme.typography.fontSizes.clamp3}
               color={theme.palette.neutralTertiary}
               textAlign={isMobile ? 'center' : 'left'}
@@ -171,8 +175,8 @@ export const FeaturedTestimonial: React.FC<FeaturedTestimonialProps> = ({
           {/* Rating */}
           {testimonial.rating && (
             <Container
-              display="flex"
-              alignItems="center"
+              display='flex'
+              alignItems='center'
               gap={theme.spacing.s1}
               marginTop={theme.spacing.s1}
             >
@@ -186,7 +190,7 @@ export const FeaturedTestimonial: React.FC<FeaturedTestimonialProps> = ({
                         ? theme.palette.themePrimary
                         : theme.palette.neutralLight,
                   }}
-                  aria-hidden="true"
+                  aria-hidden='true'
                 >
                   ★
                 </span>
@@ -198,7 +202,7 @@ export const FeaturedTestimonial: React.FC<FeaturedTestimonialProps> = ({
         {/* CTA Button */}
         {onViewFull && (
           <FluentButton
-            text="View Full Testimonial"
+            text='View Full Testimonial'
             onClick={onViewFull}
             iconProps={{ iconName: 'ChevronRight' }}
             styles={{

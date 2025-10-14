@@ -22,17 +22,18 @@ const Testimonials: React.FC = () => {
   const isTablet = useIsTablet();
 
   // Generate mock testimonials data
-  const [testimonials] = useState<ContentItem[]>(() => 
+  const [testimonials] = useState<ContentItem[]>(() =>
     generateMockContent('testimonials', 12)
   );
 
   // State for modal
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedTestimonial, setSelectedTestimonial] = useState<ContentItem | null>(null);
+  const [selectedTestimonial, setSelectedTestimonial] =
+    useState<ContentItem | null>(null);
 
   // Get featured testimonials (first 2)
-  const featuredTestimonials = testimonials.filter(t => t.featured);
-  const regularTestimonials = testimonials.filter(t => !t.featured);
+  const featuredTestimonials = testimonials.filter((t) => t.featured);
+  const regularTestimonials = testimonials.filter((t) => !t.featured);
 
   // Determine grid columns based on screen size
   const columns = isMobile ? 1 : isTablet ? 2 : 3;
@@ -48,26 +49,24 @@ const Testimonials: React.FC = () => {
   };
 
   return (
-    <PageWrapper
-      showImageTitle={false}
-    >
+    <PageWrapper showImageTitle={false}>
       <Container
-        display="flex"
-        flexDirection="column"
+        display='flex'
+        flexDirection='column'
         gap={theme.spacing.xxl}
         paddingBottom={theme.spacing.xxl}
       >
         {/* Page Header */}
         <Container
-          display="flex"
-          flexDirection="column"
+          display='flex'
+          flexDirection='column'
           gap={theme.spacing.m}
-          alignItems="center"
+          alignItems='center'
         >
           <Container
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
+            display='flex'
+            alignItems='center'
+            justifyContent='center'
             gap={theme.spacing.s}
             style={{ padding: '0', position: 'relative', width: '100%' }}
           >
@@ -80,24 +79,28 @@ const Testimonials: React.FC = () => {
               />
             </div>
             <Typography
-              variant="h1"
-              fontSize={isMobile ? theme.typography.fontSizes.clamp8 : theme.typography.fontSizes.clamp8}
+              variant='h1'
+              fontSize={
+                isMobile
+                  ? theme.typography.fontSizes.clamp8
+                  : theme.typography.fontSizes.clamp8
+              }
               color={theme.palette.themePrimary}
-              fontVariationSettings="wght 600,wdth 300,slnt 0"
-              textAlign="center"
+              fontVariationSettings='wght 600,wdth 300,slnt 0'
+              textAlign='center'
             >
               What Our Clients Say
             </Typography>
           </Container>
           <Typography
-            variant="p"
+            variant='p'
             fontSize={theme.typography.fontSizes.clamp4}
             color={theme.palette.neutralSecondary}
-            maxWidth="800px"
-            textAlign="center"
+            maxWidth='800px'
+            textAlign='center'
           >
-            Hear from the businesses and individuals we've helped transform through
-            strategic consulting, training, and development services.
+            Hear from the businesses and individuals we've helped transform
+            through strategic consulting, training, and development services.
           </Typography>
         </Container>
 
@@ -105,20 +108,22 @@ const Testimonials: React.FC = () => {
         {featuredTestimonials.length > 0 && (
           <FadeUp>
             <Container
-              display="flex"
-              flexDirection="column"
+              display='flex'
+              flexDirection='column'
               gap={theme.spacing.m}
             >
               <Typography
-                variant="h2"
+                variant='h2'
                 fontSize={theme.typography.fontSizes.clamp6}
                 color={theme.palette.neutralPrimary}
-                fontVariationSettings="wght 500,wdth 300,slnt 0"
+                fontVariationSettings='wght 500,wdth 300,slnt 0'
               >
                 Featured Testimonials
               </Typography>
               <TestimonialCarousel
-                onItemClick={(index) => handleCardClick(featuredTestimonials[index])}
+                onItemClick={(index) =>
+                  handleCardClick(featuredTestimonials[index])
+                }
               >
                 {featuredTestimonials.map((testimonial) => (
                   <FeaturedTestimonial
@@ -143,19 +148,19 @@ const Testimonials: React.FC = () => {
         {/* All Testimonials Grid */}
         <FadeUp delay={200}>
           <Container
-            display="flex"
-            flexDirection="column"
+            display='flex'
+            flexDirection='column'
             gap={theme.spacing.m}
           >
             <Typography
-              variant="h2"
+              variant='h2'
               fontSize={theme.typography.fontSizes.clamp6}
               color={theme.palette.neutralPrimary}
-              fontVariationSettings="wght 500,wdth 300,slnt 0"
+              fontVariationSettings='wght 500,wdth 300,slnt 0'
             >
               All Testimonials
             </Typography>
-            <LayoutGrid columns={columns} gap="1.5rem">
+            <LayoutGrid columns={columns} gap='1.5rem'>
               {regularTestimonials.map((testimonial) => (
                 <UnifiedCard
                   key={testimonial.id}
@@ -164,9 +169,9 @@ const Testimonials: React.FC = () => {
                   description={testimonial.quote || testimonial.description}
                   imageUrl={testimonial.imageUrl}
                   imageAlt={testimonial.imageAlt}
-                  viewType="grid"
+                  viewType='grid'
                   onClick={() => handleCardClick(testimonial)}
-                  elevation="medium"
+                  elevation='medium'
                   leftChildren={
                     testimonial.imageUrl ? (
                       <div
@@ -182,7 +187,9 @@ const Testimonials: React.FC = () => {
                       >
                         <img
                           src={testimonial.imageUrl}
-                          alt={testimonial.imageAlt || `${testimonial.title} photo`}
+                          alt={
+                            testimonial.imageAlt || `${testimonial.title} photo`
+                          }
                           style={{
                             width: '70px',
                             height: '70px',
@@ -204,15 +211,15 @@ const Testimonials: React.FC = () => {
         {/* Testimonials Carousel Preview (Bottom of page) */}
         <FadeUp delay={400}>
           <Container
-            display="flex"
-            flexDirection="column"
+            display='flex'
+            flexDirection='column'
             gap={theme.spacing.m}
           >
             <Typography
-              variant="h2"
+              variant='h2'
               fontSize={theme.typography.fontSizes.clamp6}
               color={theme.palette.neutralPrimary}
-              fontVariationSettings="wght 500,wdth 300,slnt 0"
+              fontVariationSettings='wght 500,wdth 300,slnt 0'
             >
               Browse Testimonials
             </Typography>
@@ -227,8 +234,8 @@ const Testimonials: React.FC = () => {
                   description={testimonial.quote || testimonial.description}
                   imageUrl={testimonial.imageUrl}
                   imageAlt={testimonial.imageAlt}
-                  viewType="small"
-                  elevation="low"
+                  viewType='small'
+                  elevation='low'
                 />
               ))}
             </TestimonialCarousel>
