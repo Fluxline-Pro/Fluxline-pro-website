@@ -45,6 +45,8 @@ export interface UnifiedCardProps {
   contentContainerStyle?: React.CSSProperties;
   // Flag to indicate this card is used as the left panel in ViewportGrid
   isViewportLeftPanel?: boolean;
+  // Flag to skip dark mode filter (useful for dark logos)
+  skipDarkModeFilter?: boolean;
 }
 
 export const UnifiedCard: React.FC<UnifiedCardProps> = ({
@@ -67,12 +69,13 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
   imageContainerStyle,
   contentContainerStyle,
   isViewportLeftPanel = false,
+  skipDarkModeFilter = false,
 }) => {
   const { theme } = useAppTheme();
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
   const deviceOrientation = useDeviceOrientation();
-  const { filter } = useColorVisionFilter();
+  const { filter } = useColorVisionFilter(skipDarkModeFilter);
   const formattedDate = useDateFormatter(date || '');
   const { shouldReduceMotion } = useReducedMotion();
 

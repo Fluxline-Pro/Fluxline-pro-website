@@ -39,6 +39,26 @@ const PAGE_CONFIGS = {
     image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
     imageText: '',
   },
+  '/legal': {
+    image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
+    imageText: '',
+  },
+  '/legal/terms-of-use': {
+    image: require('../../assets/images/ConsultingPortrait.jpg'),
+    imageText: 'Terms of Use',
+  },
+  '/legal/privacy-policy': {
+    image: require('../../assets/images/PersonalTrainingPortrait.jpg'),
+    imageText: 'Privacy Policy',
+  },
+  '/legal/glossary': {
+    image: require('../../assets/images/EducationTrainingPortrait.jpg'),
+    imageText: 'Glossary of Terms',
+  },
+  '/legal/stewardship-contract': {
+    image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
+    imageText: '',
+  },
   '/services/education-training': {
     image: require('../../assets/images/EducationTrainingPortrait.jpg'),
     imageText: 'Education & Training',
@@ -183,6 +203,11 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
       ? selectedPost.title
       : config.imageText || '';
 
+  // Check if we're using the dark mode logo to skip dark mode filter
+  const isUsingDarkLogo =
+    config.image === 'FLUXLINE_LOGO' &&
+    ['dark', 'high-contrast', 'grayscale-dark'].includes(themeMode);
+
   return (
     <ViewportGrid
       leftChildren={
@@ -198,6 +223,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
           delay={0.1}
           useSpinner={true}
           isViewportLeftPanel={true} // Mark this card as being in the ViewportGrid's left panel
+          skipDarkModeFilter={isUsingDarkLogo} // Skip dark mode filter for Fluxline dark logo
         />
       }
       rightChildren={
