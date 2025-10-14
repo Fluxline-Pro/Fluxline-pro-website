@@ -372,11 +372,11 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
       filter: filter,
       opacity: imageLoaded ? 1 : 0,
       // Image transitions should be timed differently than the container
-      // Fade in slowly to match legal page timing (0.5s duration)
+      // Fade in slowly to match legal page timing (0.5s duration) + 200ms slower
       transition: shouldReduceMotion
         ? 'none'
-        : `opacity 0.7s ease-out, 
-           transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.15s`,
+        : `opacity 0.9s ease-out, 
+           transform 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.15s`,
       // Remove minWidth/minHeight constraints that force overflow
       transform: cardDimensions.transform,
       margin: '0 auto',
@@ -612,7 +612,7 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
     display: 'block' as const,
     filter: filter,
     opacity: imageLoaded ? 1 : 0,
-    transition: 'opacity 0.7s ease-in-out', // Match legal page timing
+    transition: 'opacity 0.9s ease-in-out', // Match legal page timing + 200ms slower
   };
 
   // Typography classes

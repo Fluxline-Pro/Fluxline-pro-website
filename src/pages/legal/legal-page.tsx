@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { useDeviceOrientation } from '../../theme/hooks/useMediaQuery';
 import { Typography } from '../../theme/components/typography/typography';
 import { Container } from '../../theme/layouts/Container';
+import { FadeUp } from '../../theme/components/animations/fade-animations';
 import { PdfModal } from '../../theme/components/modal/pdf-modal';
 import PageWrapper from '../page-wrapper/page-wrapper';
 import NavigationArrow from '../../theme/components/navigation-arrow/navigation-arrow';
@@ -51,8 +53,14 @@ export const LegalPage: React.FC = () => {
         }
       }
     } else {
-      setSelectedDoc(null);
-      setDocumentContent('');
+      // Delay state clearing to allow fade-out animation to complete
+      // This prevents abrupt visual changes during page transitions
+      const clearStateTimeout = setTimeout(() => {
+        setSelectedDoc(null);
+        setDocumentContent('');
+      }, 100); // Small delay to allow PageWrapper animation to start
+
+      return () => clearTimeout(clearStateTimeout);
     }
   }, [id]);
 
@@ -133,110 +141,118 @@ export const LegalPage: React.FC = () => {
 
   return (
     <PageWrapper showImageTitle={true}>
-      {/* Render document list view */}
-      {!id || !selectedDoc ? (
-        <div style={styles.sectionContainer}>
-          <Container
-            display='flex'
-            flexDirection='row'
-            justifyContent='flex-start'
-            alignItems='center'
-            paddingLeft='0'
-            marginLeft='0'
-            marginBottom='1rem'
-            gap={theme.spacing.s}
-            style={{ padding: '0' }}
-          >
-            <NavigationArrow
-              direction='backward'
-              navigate={() => navigate('/about')}
-              size={isMobile ? 'large' : 'medium'}
-              showBackground={false}
-            />
-            <Typography variant='h2' style={styles.h2Title}>
-              Legal & Reference
-            </Typography>
-          </Container>
-
-          <Typography
-            variant='p'
-            textAlign='left'
-            color={theme.palette.neutralPrimary}
-            marginBottom='2rem'
-            noHyphens
-            style={styles.textContent}
-          >
-            Access important legal documents and reference materials for the
-            Fluxline Resonance Group. These documents outline our policies,
-            terms, and core definitions.
-          </Typography>
-
-          <div style={styles.cardContainer}>
-            {LEGAL_PAGES.map((doc) => {
-              const whitePageItem = convertLegalToWhitePage(doc);
-              return (
-                <WhitePageCard
-                  key={doc.id}
-                  whitePage={whitePageItem}
-                  isHovered={hoveredCard === doc.id}
-                  onClick={handleCardClick}
-                  onMouseEnter={() => setHoveredCard(doc.id)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                  variant='compact'
-                  isPdf={doc.isPdf}
-                  context='legal'
+      <AnimatePresence mode='wait'>
+        {/* Render document list view */}
+        {!id || !selectedDoc ? (
+          <FadeUp key='legal-list-view' delay={0.1} duration={0.5}>
+            <div style={styles.sectionContainer}>
+              <Container
+                display='flex'
+                flexDirection='row'
+                justifyContent='flex-start'
+                alignItems='center'
+                paddingLeft='0'
+                marginLeft='0'
+                marginBottom='1rem'
+                gap={theme.spacing.s}
+                style={{ padding: '0' }}
+              >
+                <NavigationArrow
+                  direction='backward'
+                  navigate={() => navigate('/about')}
+                  size={isMobile ? 'large' : 'medium'}
+                  showBackground={false}
                 />
-              );
-            })}
-          </div>
+                <Typography variant='h2' style={styles.h2Title}>
+                  Legal & Reference
+                </Typography>
+              </Container>
 
-          {/* PDF Modal */}
-          {selectedDoc?.isPdf && (
-            <PdfModal
-              isOpen={pdfModalOpen}
-              onClose={handleClosePdfModal}
-              pdfSrc={selectedDoc.path}
-              pdfTitle={selectedDoc.title}
-            />
-          )}
-        </div>
-      ) : (
-        /* Render individual document view */
-        <div style={styles.sectionContainer}>
-          <Container
-            display='flex'
-            flexDirection='row'
-            justifyContent='flex-start'
-            alignItems='center'
-            paddingLeft='0'
-            marginLeft='0'
-            marginBottom='1rem'
-            gap={theme.spacing.s}
-            style={{ padding: '0' }}
+              <Typography
+                variant='p'
+                textAlign='left'
+                color={theme.palette.neutralPrimary}
+                marginBottom='2rem'
+                noHyphens
+                style={styles.textContent}
+              >
+                Access important legal documents and reference materials for the
+                Fluxline Resonance Group. These documents outline our policies,
+                terms, and core definitions.
+              </Typography>
+
+              <div style={styles.cardContainer}>
+                {LEGAL_PAGES.map((doc) => {
+                  const whitePageItem = convertLegalToWhitePage(doc);
+                  return (
+                    <WhitePageCard
+                      key={doc.id}
+                      whitePage={whitePageItem}
+                      isHovered={hoveredCard === doc.id}
+                      onClick={handleCardClick}
+                      onMouseEnter={() => setHoveredCard(doc.id)}
+                      onMouseLeave={() => setHoveredCard(null)}
+                      variant='compact'
+                      isPdf={doc.isPdf}
+                      context='legal'
+                    />
+                  );
+                })}
+              </div>
+
+              {/* PDF Modal */}
+              {selectedDoc?.isPdf && (
+                <PdfModal
+                  isOpen={pdfModalOpen}
+                  onClose={handleClosePdfModal}
+                  pdfSrc={selectedDoc.path}
+                  pdfTitle={selectedDoc.title}
+                />
+              )}
+            </div>
+          </FadeUp>
+        ) : (
+          /* Render individual document view */
+          <FadeUp
+            key={`legal-document-${selectedDoc?.id || 'unknown'}`}
+            delay={0.1}
+            duration={0.5}
           >
-            <NavigationArrow
-              direction='backward'
-              navigate={handleBackToList}
-              size={isMobile ? 'large' : 'medium'}
-              showBackground={false}
-            />
-            <Typography variant='h2' style={styles.h2Title}>
-              {selectedDoc.title}
-            </Typography>
-          </Container>
+            <div style={styles.sectionContainer}>
+              <Container
+                display='flex'
+                flexDirection='row'
+                justifyContent='flex-start'
+                alignItems='center'
+                paddingLeft='0'
+                marginLeft='0'
+                marginBottom='1rem'
+                gap={theme.spacing.s}
+                style={{ padding: '0' }}
+              >
+                <NavigationArrow
+                  direction='backward'
+                  navigate={handleBackToList}
+                  size={isMobile ? 'large' : 'medium'}
+                  showBackground={false}
+                />
+                <Typography variant='h2' style={styles.h2Title}>
+                  {selectedDoc?.title}
+                </Typography>
+              </Container>
 
-          {isLoading ? (
-            <Container
-              display='flex'
-              justifyContent='center'
-              alignItems='center'
-              padding='4rem'
-            >
-              <FluentSpinner label='Loading document...' showLabel={true} />
-            </Container>
-          ) : (
-            <div style={styles.contentContainer}>
-              <style>{`
+              {isLoading ? (
+                <Container
+                  display='flex'
+                  justifyContent='center'
+                  alignItems='center'
+                  padding='4rem'
+                >
+                  <FluentSpinner label='Loading document...' showLabel={true} />
+                </Container>
+              ) : (
+                <div style={styles.contentContainer}>
+                  <style>{`
                 .legal-document-content {
                   line-height: 1.8;
                   max-width: 800px;
@@ -405,25 +421,27 @@ export const LegalPage: React.FC = () => {
                   }
                 }
               `}</style>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: basicMarkdownToHtml(
-                    documentContent,
-                    selectedDoc.title
-                  ),
-                }}
-                style={{
-                  fontFamily: theme.typography.fonts.body.fontFamily,
-                  fontSize: theme.typography.fontSizes.clamp4,
-                  lineHeight: '1.8',
-                  color: theme.palette.neutralPrimary,
-                }}
-                className='legal-document-content'
-              />
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: basicMarkdownToHtml(
+                        documentContent,
+                        selectedDoc.title
+                      ),
+                    }}
+                    style={{
+                      fontFamily: theme.typography.fonts.body.fontFamily,
+                      fontSize: theme.typography.fontSizes.clamp4,
+                      lineHeight: '1.8',
+                      color: theme.palette.neutralPrimary,
+                    }}
+                    className='legal-document-content'
+                  />
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      )}
+          </FadeUp>
+        )}
+      </AnimatePresence>
     </PageWrapper>
   );
 };
