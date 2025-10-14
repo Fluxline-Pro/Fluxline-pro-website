@@ -12,6 +12,7 @@ import { generateMockContent } from '../../utils/contentDataManager';
 import { TestimonialModal } from '../../theme/components/modal/testimonial-modal';
 import { TestimonialCarousel } from '../../theme/components/carousel/testimonial-carousel';
 import { FeaturedTestimonial } from '../../theme/components/featured-testimonial/featured-testimonial';
+import { NavigationArrow } from '../../theme/components/navigation-arrow/navigation-arrow';
 import { ContentItem } from '../unified-content-page/unified-content-page';
 
 const Testimonials: React.FC = () => {
@@ -63,15 +64,31 @@ const Testimonials: React.FC = () => {
           gap={theme.spacing.m}
           alignItems="center"
         >
-          <Typography
-            variant="h1"
-            fontSize={isMobile ? theme.typography.fontSizes.clamp8 : theme.typography.fontSizes.clamp8}
-            color={theme.palette.themePrimary}
-            fontVariationSettings="wght 600,wdth 300,slnt 0"
-            textAlign="center"
+          <Container
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            gap={theme.spacing.s}
+            style={{ padding: '0', position: 'relative', width: '100%' }}
           >
-            What Our Clients Say
-          </Typography>
+            <div style={{ position: 'absolute', left: 0 }}>
+              <NavigationArrow
+                direction='backward'
+                navigate={() => navigate('/about')}
+                size={isMobile ? 'large' : 'medium'}
+                showBackground={false}
+              />
+            </div>
+            <Typography
+              variant="h1"
+              fontSize={isMobile ? theme.typography.fontSizes.clamp8 : theme.typography.fontSizes.clamp8}
+              color={theme.palette.themePrimary}
+              fontVariationSettings="wght 600,wdth 300,slnt 0"
+              textAlign="center"
+            >
+              What Our Clients Say
+            </Typography>
+          </Container>
           <Typography
             variant="p"
             fontSize={theme.typography.fontSizes.clamp4}
@@ -167,11 +184,12 @@ const Testimonials: React.FC = () => {
                           src={testimonial.imageUrl}
                           alt={testimonial.imageAlt || `${testimonial.title} photo`}
                           style={{
-                            width: '80px',
-                            height: '80px',
+                            width: '70px',
+                            height: '70px',
                             borderRadius: '50%',
                             objectFit: 'cover',
                             border: `2px solid ${theme.palette.themePrimary}`,
+                            boxShadow: theme.shadows.cardImage,
                           }}
                         />
                       </div>

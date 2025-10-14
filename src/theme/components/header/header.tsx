@@ -13,8 +13,23 @@ const Header: React.FC = () => {
     'menu' | 'settings' | null
   >(null);
   const [isViewTransitioning, setIsViewTransitioning] = React.useState(false);
+  const [isPdfModalOpen, setIsPdfModalOpen] = React.useState(false); // Track PDF modal state
   const { themeMode, setThemeMode } = useAppTheme();
   const isMobileLandscape = useDeviceOrientation() === 'mobile-landscape';
+
+  // Listen for PDF modal state changes via custom events
+  React.useEffect(() => {
+    const handlePdfModalOpen = () => setIsPdfModalOpen(true);
+    const handlePdfModalClose = () => setIsPdfModalOpen(false);
+
+    window.addEventListener('pdf-modal-open', handlePdfModalOpen);
+    window.addEventListener('pdf-modal-close', handlePdfModalClose);
+
+    return () => {
+      window.removeEventListener('pdf-modal-open', handlePdfModalOpen);
+      window.removeEventListener('pdf-modal-close', handlePdfModalClose);
+    };
+  }, []);
 
   const handleModalClose = () => {
     setActiveModal(null);
@@ -61,6 +76,7 @@ const Header: React.FC = () => {
         onThemeClick={handleThemeClick}
         isMenuOpen={activeModal === 'menu'}
         isSettingsOpen={activeModal === 'settings'}
+        isPdfModalOpen={isPdfModalOpen}
       />
       <NavigationModal
         isMobileLandscape={isMobileLandscape}
@@ -78,9 +94,7 @@ const Header: React.FC = () => {
           {activeModal === 'menu' && (
             <NavigationMenu onClose={handleModalClose} />
           )}
-          {activeModal === 'settings' && (
-            <NavigationSettings />
-          )}
+          {activeModal === 'settings' && <NavigationSettings />}
         </div>
       </NavigationModal>
     </div>

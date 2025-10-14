@@ -215,17 +215,21 @@ export const shadows = {
 export const baseGradients = {
   dark: {
     solid: '#010101',
-    background: 'linear-gradient(135deg, #2E2E3A 0%, #010101 100%)',
+    background:
+      'radial-gradient(ellipse at left, #2E2E3A 0%, #1A1A1A 40%, #010101 100%)',
     menu: 'linear-gradient(135deg, #1A1A1A 0%, #010101 100%)',
-    radial: 'radial-gradient(circle at center, #2E2E3A 0%, #010101 100%)',
+    radial:
+      'radial-gradient(ellipse at left, #2E2E3A 0%, #1A1A1A 40%, #010101 100%)',
     vignette: 'radial-gradient(circle at center, transparent 0%, #010101 100%)',
     linear: 'linear-gradient(90deg, #2E2E3A 0%, #010101 100%)',
   },
   light: {
     solid: '#FFFFFF',
-    background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+    background:
+      'radial-gradient(ellipse at left, #F8FAFC 0%, #F5F5F5 40%, #F0F0F0 100%)',
     menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
-    radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+    radial:
+      'radial-gradient(ellipse at left, #F8FAFC 0%, #F5F5F5 40%, #F0F0F0 100%)',
     vignette: 'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
     linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
   },
@@ -235,7 +239,7 @@ export const baseGradients = {
       light: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
     },
     button: {
-      dark: 'linear-gradient(90deg, #3ABAB4 0%, #2E2E3A 100%)',
+      dark: 'linear-gradient(90deg, #4A9B96 0%, #2E2E3A 100%)',
       light: 'linear-gradient(90deg, #F5C85C 0%, #FFFFFF 100%)',
     },
     modal: {
@@ -431,10 +435,10 @@ export const typography = {
     // Headings
     h1: {
       fontFamily:
-        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+        'Inter Variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(8cqi, min(10cqi, 10cqh), min(14cqi, 14cqh))',
-      fontWeight: '700' as '700',
-      fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
+      fontWeight: '800' as '800',
+      fontVariationSettings: '"wght" 800, "wdth" 200, "slnt" 0',
       letterSpacing: '0.1px',
       textShadow: 'var(--text-shadow-textBig)',
       textTransform: 'uppercase' as const,
@@ -442,10 +446,10 @@ export const typography = {
     },
     h2: {
       fontFamily:
-        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+        'Inter Variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
       fontSize: 'clamp(2cqi, min(5cqi, 5cqh), min(7cqi, 7cqh))',
-      fontWeight: '700' as '700',
-      fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
+      fontWeight: '800' as '800',
+      fontVariationSettings: '"wght" 800, "wdth" 200, "slnt" 0',
       letterSpacing: '0.1px',
       textShadow: 'none',
       textTransform: 'uppercase' as const,
@@ -453,8 +457,8 @@ export const typography = {
     },
     h3: {
       fontFamily:
-        'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-      fontSize: 'clamp(1.25rem, 3cqi, 2rem)',
+        'Inter Variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+      fontSize: 'clamp(1.375rem, 2cqi, 1.75rem)',
       fontWeight: '700' as '700',
       fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
@@ -521,7 +525,6 @@ export const typography = {
       fontSize: 'clamp(3cqi, min(6cqi, 6cqh), min(8cqi, 8cqh))',
       fontWeight: '500' as '500', // Inter Medium
       fontVariationSettings: '"wght" 500, "wdth" 125, "slnt" 0',
-      textTransform: 'lowercase' as const, // Humble tone
       lineHeight: '1.6',
     },
     paragraph: {
@@ -886,7 +889,7 @@ export const lightTheme: IExtendedTheme = createExtendedTheme(
       neutralLight: '#FFFFFF',
 
       // Fluxline Accent – Emotional resonance
-      accent: '#3ABAB4', // Fluxline Teal – flow, clarity
+      accent: '#4A9B96', // Fluxline Teal – flow, clarity
       black: '#000000',
       white: '#FFFFFF',
     },
@@ -934,7 +937,7 @@ export const darkTheme: IExtendedTheme = createExtendedTheme(
     palette: {
       // Fluxline Pro Dark Primary Palette – Resonance Core
       themePrimary: '#AFCAFC', // Slate blue – sovereign structure
-      themeSecondary: '#3ABAB4', // Fluxline teal – intuitive clarity
+      themeSecondary: '#4A9B96', // Fluxline teal – intuitive clarity (accessible)
       themeTertiary: '#5A7CA0', // UI layering
       themeLight: '#F8FAFC', // Light overlay for contrast
       themeDark: '#1F1F1F', // Resonance Core
@@ -965,9 +968,9 @@ export const darkTheme: IExtendedTheme = createExtendedTheme(
       // State Colors – Emotional clarity
       errorText: '#B0303C', // Somatic rose – soft red
       errorBackground: '#2D1617',
-      successText: '#3ABAB4', // Fluxline teal
+      successText: '#4A9B96', // Fluxline teal
       successBackground: '#1A2D2A',
-      successIcon: '#3ABAB4',
+      successIcon: '#4A9B96',
       messageText: '#F5C85C', // Mythic gold
       warningText: '#F5C85C',
       warningBackground: '#2D2A17',
@@ -1123,7 +1126,7 @@ export const protanopiaTheme: IExtendedTheme = createExtendedTheme(
       bodyText: '#333333',
       bodyBackground: '#ffffff',
       errorText: '#B34C4C', // Dark teal for error states
-      errorBackground: '#A91B16', // Light teal background
+      errorBackground: '#FDE7E7', // Light red background
       successText: '#1B5E20', // Dark green for success states
       successBackground: '#E8F5E9', // Light green background
       messageText: '#FFB900',
@@ -1138,38 +1141,42 @@ export const protanopiaTheme: IExtendedTheme = createExtendedTheme(
     ...baseExtendedProps,
     gradients: {
       dark: {
-        solid: '#121212',
-        background: '#121212',
-        menu: '#121212',
-        radial: '#121212',
-        vignette: '#121212',
-        linear: '#121212',
+        solid: '#ffffff',
+        background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+        menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+        radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+        vignette:
+          'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+        linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
       },
       light: {
-        solid: '#121212',
-        background: '#121212',
-        menu: '#121212',
-        radial: '#121212',
-        vignette: '#121212',
-        linear: '#121212',
+        solid: '#ffffff',
+        background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+        menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+        radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+        vignette:
+          'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+        linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
       },
       symbolic: {
-        fluxlineAscension: '#121212',
-        glyphGateFade: '#121212',
-        mythicHorizon: '#121212',
+        fluxlineAscension:
+          'linear-gradient(135deg, #0078D4 0%, #005A9E 50%, #FFB900 100%)',
+        glyphGateFade: 'linear-gradient(to bottom, #FFB900 0%, #F5F5F5 100%)',
+        mythicHorizon:
+          'linear-gradient(90deg, #FFB900 0%, #0078D4 50%, #005A9E 100%)',
       },
       components: {
         card: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+          light: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
         },
         button: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'linear-gradient(90deg, #0078D4 0%, #FFFFFF 100%)',
+          light: 'linear-gradient(90deg, #FFB900 0%, #FFFFFF 100%)',
         },
         modal: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+          light: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
         },
       },
     },
@@ -1233,38 +1240,42 @@ export const deuteranopiaTheme: IExtendedTheme = createExtendedTheme(
     ...baseExtendedProps,
     gradients: {
       dark: {
-        solid: '#121212',
-        background: '#121212',
-        menu: '#121212',
-        radial: '#121212',
-        vignette: '#121212',
-        linear: '#121212',
+        solid: '#ffffff',
+        background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+        menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+        radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+        vignette:
+          'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+        linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
       },
       light: {
-        solid: '#121212',
-        background: '#121212',
-        menu: '#121212',
-        radial: '#121212',
-        vignette: '#121212',
-        linear: '#121212',
+        solid: '#ffffff',
+        background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+        menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+        radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+        vignette:
+          'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+        linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
       },
       symbolic: {
-        fluxlineAscension: '#121212',
-        glyphGateFade: '#121212',
-        mythicHorizon: '#121212',
+        fluxlineAscension:
+          'linear-gradient(135deg, #0063B1 0%, #4894FE 50%, #E6B800 100%)',
+        glyphGateFade: 'linear-gradient(to bottom, #E6B800 0%, #F5F5F5 100%)',
+        mythicHorizon:
+          'linear-gradient(90deg, #E6B800 0%, #0063B1 50%, #4894FE 100%)',
       },
       components: {
         card: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+          light: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
         },
         button: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'linear-gradient(90deg, #0063B1 0%, #FFFFFF 100%)',
+          light: 'linear-gradient(90deg, #E6B800 0%, #FFFFFF 100%)',
         },
         modal: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+          light: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
         },
       },
     },
@@ -1328,38 +1339,42 @@ export const tritanopiaTheme: IExtendedTheme = createExtendedTheme(
     ...baseExtendedProps,
     gradients: {
       dark: {
-        solid: '#121212',
-        background: '#121212',
-        menu: '#121212',
-        radial: '#121212',
-        vignette: '#121212',
-        linear: '#121212',
+        solid: '#ffffff',
+        background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+        menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+        radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+        vignette:
+          'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+        linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
       },
       light: {
-        solid: '#121212',
-        background: '#121212',
-        menu: '#121212',
-        radial: '#121212',
-        vignette: '#121212',
-        linear: '#121212',
+        solid: '#ffffff',
+        background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+        menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+        radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+        vignette:
+          'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+        linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
       },
       symbolic: {
-        fluxlineAscension: '#121212',
-        glyphGateFade: '#121212',
-        mythicHorizon: '#121212',
+        fluxlineAscension:
+          'linear-gradient(135deg, #D13438 0%, #FF8C00 50%, #107C10 100%)',
+        glyphGateFade: 'linear-gradient(to bottom, #FF8C00 0%, #F5F5F5 100%)',
+        mythicHorizon:
+          'linear-gradient(90deg, #FF8C00 0%, #D13438 50%, #107C10 100%)',
       },
       components: {
         card: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+          light: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
         },
         button: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'linear-gradient(90deg, #D13438 0%, #FFFFFF 100%)',
+          light: 'linear-gradient(90deg, #FF8C00 0%, #FFFFFF 100%)',
         },
         modal: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+          light: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
         },
       },
     },
@@ -1410,38 +1425,42 @@ export const grayscaleTheme: IExtendedTheme = createExtendedTheme(
     ...baseExtendedProps,
     gradients: {
       dark: {
-        solid: '#121212',
-        background: '#121212',
-        menu: '#121212',
-        radial: '#121212',
-        vignette: '#121212',
-        linear: '#121212',
+        solid: '#ffffff',
+        background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+        menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+        radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+        vignette:
+          'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+        linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
       },
       light: {
-        solid: '#121212',
-        background: '#121212',
-        menu: '#121212',
-        radial: '#121212',
-        vignette: '#121212',
-        linear: '#121212',
+        solid: '#ffffff',
+        background: 'linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%)',
+        menu: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+        radial: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+        vignette:
+          'radial-gradient(circle at center, transparent 0%, #F5F5F5 100%)',
+        linear: 'linear-gradient(90deg, #F8FAFC 0%, #FFFFFF 100%)',
       },
       symbolic: {
-        fluxlineAscension: '#121212',
-        glyphGateFade: '#121212',
-        mythicHorizon: '#121212',
+        fluxlineAscension:
+          'linear-gradient(135deg, #404040 0%, #666666 50%, #808080 100%)',
+        glyphGateFade: 'linear-gradient(to bottom, #666666 0%, #F5F5F5 100%)',
+        mythicHorizon:
+          'linear-gradient(90deg, #666666 0%, #404040 50%, #808080 100%)',
       },
       components: {
         card: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+          light: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
         },
         button: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'linear-gradient(90deg, #404040 0%, #FFFFFF 100%)',
+          light: 'linear-gradient(90deg, #666666 0%, #FFFFFF 100%)',
         },
         modal: {
-          dark: '#121212',
-          light: '#121212',
+          dark: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
+          light: 'radial-gradient(circle at center, #F8FAFC 0%, #FFFFFF 100%)',
         },
       },
     },

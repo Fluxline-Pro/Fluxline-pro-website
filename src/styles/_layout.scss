@@ -264,15 +264,10 @@ body {
       // Allow the left container to shrink more aggressively
       min-width: 0 !important;
       max-width: 35%; // Limit left column to prevent text overlap
-      
-      // Image card specific adjustments for tablet portrait
-      #imageCard {
-        min-width: 200px !important; // Override any larger minWidth
-        max-width: 100%;
-        width: 100% !important;
-      }
+
+      // Removed imageCard specific adjustments - now handled in JSX
     }
-    
+
     .viewport-right {
       // Ensure text area has enough space and proper overflow handling
       min-width: 65%;

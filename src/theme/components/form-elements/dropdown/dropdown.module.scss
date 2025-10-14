@@ -7,10 +7,9 @@
     font-size: $font-size-clamp4 !important;
     @include font-variation-settings($font-weight-regular, $font-width-normal);
     background-color: transparent !important;
-    border-color: var(--themeDark) !important;
 
     &::after {
-      border-color: var(--themeDark) !important;
+      border-color: currentColor !important;
     }
   }
 
@@ -22,9 +21,6 @@
     height: 36px !important;
     display: flex !important;
     align-items: center !important;
-    background-color: var(--neutralLight) !important;
-    color: var(--neutralPrimary) !important;
-    border-color: var(--themeDark) !important;
     @include font-variation-settings($font-weight-regular, $font-width-normal);
   }
 
@@ -32,7 +28,6 @@
   .dropdownOptionText-136 {
     font-family: $font-family !important;
     font-size: $font-size-clamp4 !important;
-    color: var(--neutralPrimary) !important;
     @include font-variation-settings($font-weight-regular, $font-width-normal);
   }
 
@@ -41,48 +36,20 @@
     font-size: $font-size-clamp4 !important;
     @include font-variation-settings($font-weight-regular, $font-width-normal);
     padding: 4px 0 !important;
-    background-color: var(--neutralLight) !important;
-    border-color: var(--themeDark) !important;
   }
 
   .ms-Dropdown-item {
     font-family: $font-family !important;
     font-size: $font-size-clamp4 !important;
     padding: 8px !important;
-    color: var(--neutralPrimary) !important;
-    background-color: var(--neutralLight) !important;
     @include font-variation-settings($font-weight-regular, $font-width-normal);
 
-    &:hover {
-      background-color: var(--themeDark) !important;
-      color: var(--white) !important;
-
-      .ms-Dropdown-optionText {
-        color: var(--white) !important;
-      }
-    }
-
-    &.is-selected {
-      background-color: var(--themeDark) !important;
-      color: var(--white) !important;
-
-      .ms-Dropdown-optionText {
-        color: var(--white) !important;
-      }
-    }
-
     &::after {
-      border-color: var(--themeDark) !important;
-      background-color: var(--themeDark) !important;
+      background-color: currentColor !important;
     }
   }
 
   .ms-Button.ms-Dropdown-item {
     padding: 8px !important;
-  }
-
-  // Caret color
-  .ms-Dropdown-caretDown {
-    color: var(--themePrimary) !important;
   }
 }

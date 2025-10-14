@@ -28,6 +28,7 @@ import ServicesPage from '../pages/services-page/services-page';
 import { UnifiedContentPage } from '../pages/unified-content-page/unified-content-page';
 import Testimonials from '../pages/testimonials/testimonials';
 import WhitePagesView from '../pages/white-pages/white-pages';
+import LegalPage from '../pages/legal/legal-page';
 import ProgressBar from '../theme/components/progress-bar/progress-bar';
 import { useAppTheme } from '../theme/hooks/useAppTheme';
 
@@ -226,6 +227,14 @@ const routes: RouteObject[] = [
       {
         path: 'testimonials',
         element: <Testimonials />,
+      },
+      {
+        path: 'legal',
+        element: <LegalPage />,
+      },
+      {
+        path: 'legal/:id',
+        element: <LegalPage />,
       },
       // {
       //   path: 'onboarding',

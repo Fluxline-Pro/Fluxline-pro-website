@@ -28,6 +28,7 @@ import {
   generateMockContent,
 } from '../../utils/contentDataManager';
 import { FadeUp } from '../../theme/components/animations/fade-animations';
+import { AnimatePresence } from 'framer-motion';
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { borderRadius, shadows } from '../../theme/theme';
 
@@ -539,17 +540,27 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
       );
     }
     return (
-      <ContentView
-        post={displayPost}
-        contentType={contentType}
-        allPosts={displayPosts}
-      />
+      <AnimatePresence mode='wait'>
+        <FadeUp key={`detail-${id}`} delay={0.1} duration={0.5}>
+          <ContentView
+            post={displayPost}
+            contentType={contentType}
+            allPosts={displayPosts}
+          />
+        </FadeUp>
+      </AnimatePresence>
     );
   }
 
   // If calendar is open, show calendar
   if (isCalendarOpen) {
-    return <Calendar />;
+    return (
+      <AnimatePresence mode='wait'>
+        <FadeUp key='calendar-view' delay={0.1} duration={0.5}>
+          <Calendar />
+        </FadeUp>
+      </AnimatePresence>
+    );
   }
 
   // Grid columns configuration
@@ -703,11 +714,17 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
     <Container>
       <FilterToolbar />
       {/* <ApiStatusIndicator /> */}
-      <FadeUp key={viewType}>
-        <LayoutGrid columns={columns} gap='1rem' margin='0 0 1.25rem 0'>
-          {displayPosts.map(renderCard)}
-        </LayoutGrid>
-      </FadeUp>
+      <AnimatePresence mode='wait'>
+        <FadeUp
+          key={`list-${viewType}-${displayPosts.length}`}
+          delay={0.1}
+          duration={0.5}
+        >
+          <LayoutGrid columns={columns} gap='1rem' margin='0 0 1.25rem 0'>
+            {displayPosts.map(renderCard)}
+          </LayoutGrid>
+        </FadeUp>
+      </AnimatePresence>
       <Outlet />
     </Container>
   );

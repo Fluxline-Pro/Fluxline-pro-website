@@ -130,8 +130,9 @@ export const TestimonialModal: React.FC<TestimonialModalProps> = ({
         <Container
           display="flex"
           flexDirection="column"
-          gap={theme.spacing.l}
-          padding={isMobile ? theme.spacing.l : theme.spacing.xl}
+          gap={theme.spacing.xl}
+          padding={isMobile ? theme.spacing.xl : theme.spacing.xxl}
+          style={{ paddingTop: isMobile ? theme.spacing.xxl : theme.spacing.xxxl }}
         >
           {/* Header with avatar and client info */}
           <Container
@@ -145,12 +146,13 @@ export const TestimonialModal: React.FC<TestimonialModalProps> = ({
                 src={testimonial.imageUrl}
                 alt={testimonial.imageAlt || `${testimonial.title} photo`}
                 style={{
-                  width: isMobile ? '120px' : '150px',
-                  height: isMobile ? '120px' : '150px',
+                  width: isMobile ? '80px' : '100px',
+                  height: isMobile ? '80px' : '100px',
                   borderRadius: '50%',
                   objectFit: 'cover',
                   border: `3px solid ${theme.palette.themePrimary}`,
-                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                  boxShadow: theme.shadows.cardImage,
+                  flexShrink: 0,
                 }}
               />
             )}

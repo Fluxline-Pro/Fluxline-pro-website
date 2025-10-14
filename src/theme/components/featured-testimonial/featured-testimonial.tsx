@@ -65,12 +65,12 @@ export const FeaturedTestimonial: React.FC<FeaturedTestimonialProps> = ({
             src={testimonial.imageUrl}
             alt={testimonial.imageAlt || `${testimonial.title} photo`}
             style={{
-              width: isMobile ? '120px' : '180px',
-              height: isMobile ? '120px' : '180px',
+              width: isMobile ? '100px' : '120px',
+              height: isMobile ? '100px' : '120px',
               borderRadius: '50%',
               objectFit: 'cover',
               border: `4px solid ${theme.palette.themePrimary}`,
-              boxShadow: '0 8px 16px rgba(0, 0, 0, 0.15)',
+              boxShadow: theme.shadows.cardImage,
             }}
           />
           {/* Featured badge */}

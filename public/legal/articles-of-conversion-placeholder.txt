@@ -1,0 +1,9 @@
+Articles of Conversion PDF Placeholder
+
+This is a placeholder for the Articles of Conversion document.
+The actual PDF should be placed at: /public/legal/articles-of-conversion.pdf
+
+Instructions for adding the real PDF:
+1. Replace this file with the actual Articles of Conversion PDF
+2. Name it: articles-of-conversion.pdf
+3. The legal page component will automatically link to it
