@@ -12,7 +12,7 @@ import useBackgroundImage from '../../theme/hooks/useBackgroundImage';
 import { ViewportGrid } from '../../theme/layouts/ViewportGrid';
 import { LayoutGrid } from '../../theme/layouts/LayoutGrid';
 import { Typography } from '../../theme/components/typography/typography';
-// import { ProgressBar } from '../../theme/components/progress-bar/progress-bar';
+import { ProgressBar } from '../../theme/components/progress-bar/progress-bar';
 import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
 import { FluentButton } from '../../theme/components/button/button';
 import { AnimatePresence } from 'framer-motion';
@@ -503,6 +503,96 @@ export const Home: React.FC = () => {
   // if (isLoading) {
   //   return <ProgressBar label='Loading...' />;
   // }
+
+  // Show loading screen while background image is loading
+  if (!backgroundLoaded) {
+    return (
+      <ViewportGrid
+        leftChildren={
+          <LayoutGrid
+            display='flex'
+            alignItems='center'
+            justifyContent='center'
+            width='100%'
+            height='100vh'
+            flexDirection='column'
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.1)',
+              zIndex: 1000,
+            }}
+          >
+            <div
+              style={{
+                width: '100%',
+                maxWidth: '600px',
+                padding: '2rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <ProgressBar
+                label='Loading Fluxline...'
+                description='Preparing your experience'
+                autoCenter={true}
+                intervalDelay={150}
+                intervalIncrement={2}
+              />
+            </div>
+          </LayoutGrid>
+        }
+        rightChildren={
+          <LayoutGrid
+            display='flex'
+            alignItems='center'
+            justifyContent='center'
+            width='100%'
+            height='100vh'
+            flexDirection='column'
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.1)',
+              zIndex: 1000,
+            }}
+          >
+            <div
+              style={{
+                width: '100%',
+                maxWidth: '600px',
+                padding: '2rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <ProgressBar
+                label='Loading Fluxline...'
+                description='Preparing your experience'
+                autoCenter={true}
+                intervalDelay={150}
+                intervalIncrement={2}
+              />
+            </div>
+          </LayoutGrid>
+        }
+        isHomePage={true}
+        respectLayoutPreference={true}
+        backgroundImage={backgroundImage as 'one' | 'two'}
+        backgroundLoaded={false} // Force loading state
+      />
+    );
+  }
 
   return (
     <ViewportGrid
