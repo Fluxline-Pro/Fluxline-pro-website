@@ -30,7 +30,9 @@ export const PageStepper: React.FC<PageStepperProps> = ({
   const location = useLocation();
   const { isAtBottom, canNavigateForward } = usePageScrollNavigation();
   const isHomePage = location.pathname === '/';
-  const stepperColor = isHomePage ? theme.palette.white : theme.palette.themePrimary;
+  const stepperColor = isHomePage
+    ? theme.palette.white
+    : theme.palette.themePrimary;
 
   // Consolidated styles - moved outside conditional to fix React Hooks rule
   const styles = React.useMemo(
@@ -63,6 +65,12 @@ export const PageStepper: React.FC<PageStepperProps> = ({
         margin: 0,
         cursor: 'pointer',
         transition: `all ${theme.animations.durations.normal} ${theme.animations.easing.primary}`,
+        transform: 'translateY(0px)',
+      },
+      pageNameTextHover: {
+        fontWeight: 600,
+        letterSpacing: '0.12em',
+        transform: 'translateY(-4px)',
       },
     }),
     [stepperColor, theme]
@@ -104,10 +112,16 @@ export const PageStepper: React.FC<PageStepperProps> = ({
 
   const getNextRoute = React.useCallback(() => {
     const currentIndex = getCurrentRouteIndex();
+
+    // Special case: Legal page should navigate to About
+    if (location.pathname.startsWith('/legal')) {
+      return { path: '/about', name: 'about us' };
+    }
+
     if (currentIndex === -1 || currentIndex >= getNavigationFlow.length - 1)
       return null;
     return getNavigationFlow[currentIndex + 1];
-  }, [getCurrentRouteIndex, getNavigationFlow]);
+  }, [getCurrentRouteIndex, getNavigationFlow, location.pathname]);
 
   const navigateToNext = React.useCallback(() => {
     const nextRoute = getNextRoute();
@@ -195,10 +209,21 @@ export const PageStepper: React.FC<PageStepperProps> = ({
             const chevronContainer = e.currentTarget.querySelector(
               '[data-chevron]'
             ) as HTMLElement;
+            const textContainer = e.currentTarget.querySelector(
+              '[data-page-name]'
+            ) as HTMLElement;
+
             if (chevronContainer) {
               Object.assign(chevronContainer.style, {
                 ...styles.chevronButton,
                 ...styles.chevronButtonHover,
+              });
+            }
+
+            if (textContainer) {
+              Object.assign(textContainer.style, {
+                ...styles.pageNameText,
+                ...styles.pageNameTextHover,
               });
             }
           }}
@@ -206,15 +231,25 @@ export const PageStepper: React.FC<PageStepperProps> = ({
             const chevronContainer = e.currentTarget.querySelector(
               '[data-chevron]'
             ) as HTMLElement;
+            const textContainer = e.currentTarget.querySelector(
+              '[data-page-name]'
+            ) as HTMLElement;
+
             if (chevronContainer) {
               Object.assign(chevronContainer.style, styles.chevronButton);
+            }
+
+            if (textContainer) {
+              Object.assign(textContainer.style, styles.pageNameText);
             }
           }}
           tabIndex={0}
           role='button'
           aria-label={`Navigate to next page: ${nextRoute?.name}`}
         >
-          <div style={styles.pageNameText}>{nextRoute?.name}</div>
+          <div data-page-name style={styles.pageNameText}>
+            {nextRoute?.name}
+          </div>
           <div data-chevron style={styles.chevronButton}>
             <FluentIcon
               iconName='ChevronDown'
