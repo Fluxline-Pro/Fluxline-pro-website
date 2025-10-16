@@ -71,8 +71,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     }
   }, [layoutPreference, pendingLayout]);
 
-  const shouldShowBackdrop =
-    (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile;
+  const shouldShowBackdrop = true; // Always show backdrop for consistent styling
 
   const pageTitleStyles = {
     ...theme.typography.fonts.h2,
@@ -80,14 +79,10 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     color: theme.isInverted ? theme.palette.white : theme.palette.black,
     textShadow: 'none',
     textAlign: readingDirection === 'rtl' ? 'right' : 'left',
-    transform: `translateY(${isScrolledPast ? '0' : '20px'})`,
-    opacity:
-      (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile ? 1 : 0,
+    transform: `translateY(${isScrolledPast ? '0' : isMobile ? '0' : '20px'})`, // Don't push down on mobile when not scrolled
+    opacity: !isMenuOpen && !isSettingsOpen ? 1 : 0, // Show title when menus are closed
     transition: theme.animations.transitions.fade.enter,
-    visibility:
-      (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile
-        ? 'visible'
-        : 'hidden',
+    visibility: !isMenuOpen && !isSettingsOpen ? 'visible' : 'hidden',
     pointerEvents: 'auto',
   } as React.CSSProperties;
 
@@ -95,7 +90,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     <LayoutGrid
       display='flex'
       flexDirection={isLeftHanded || isMobileLandscape ? 'row-reverse' : 'row'}
-      justifyContent={isScrolledPast || isMobile ? 'space-between' : 'flex-end'}
+      justifyContent='space-between' // Always use space-between for consistent layout
       alignItems='center'
       position='fixed'
       gap={isMobile || isMobileLandscape ? '0.25rem' : '1rem'}

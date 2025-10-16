@@ -30,7 +30,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
   isSettingsOpen = false,
   isMobileLandscape = false,
   isHomePage = false,
-  isScrolledPast = false,
+  isScrolledPast = true,
   pendingLayout = 'right-handed',
   style,
   fadeStage = 'in',

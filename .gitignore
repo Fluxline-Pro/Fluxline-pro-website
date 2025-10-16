@@ -150,3 +150,4 @@ package-lock.json
 *.tmp
 src/theme/components/cta/cta-callout.tsx
 src/theme/layouts/ViewportGrid.tsx
+.vscode/settings.json

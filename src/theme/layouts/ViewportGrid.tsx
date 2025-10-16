@@ -8,7 +8,7 @@ import {
   useIsLargeDesktop,
   useIsTablet,
   useIsPortrait,
-  useIsMobile
+  useIsMobile,
 } from '../hooks/useMediaQuery';
 import { useLayoutConfig } from '../hooks/useLayoutConfig';
 import { useContentScrollable } from '../hooks/useContentScrollable';
@@ -264,7 +264,8 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
             maxWidth: '100%',
             width: '100%',
             boxSizing: 'border-box',
-            paddingTop: isMobile && !homePage ? '7rem' : '0', // Add top padding on mobile for fixed header
+            // Add top padding on mobile for fixed header, but not when it interferes with image card title positioning
+            paddingTop: isMobile && !homePage ? '7rem' : '0',
           }}
         >
           {leftChildren}
