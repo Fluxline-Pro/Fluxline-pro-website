@@ -71,7 +71,8 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     }
   }, [layoutPreference, pendingLayout]);
 
-  const shouldShowBackdrop = true; // Always show backdrop for consistent styling
+  const shouldShowBackdrop =
+    (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile;
 
   const pageTitleStyles = {
     ...theme.typography.fonts.h2,
@@ -79,10 +80,13 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     color: theme.isInverted ? theme.palette.white : theme.palette.black,
     textShadow: 'none',
     textAlign: readingDirection === 'rtl' ? 'right' : 'left',
-    transform: `translateY(${isScrolledPast ? '0' : isMobile ? '0' : '20px'})`, // Don't push down on mobile when not scrolled
-    opacity: !isMenuOpen && !isSettingsOpen ? 1 : 0, // Show title when menus are closed
+    opacity:
+      (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile ? 1 : 0,
     transition: theme.animations.transitions.fade.enter,
-    visibility: !isMenuOpen && !isSettingsOpen ? 'visible' : 'hidden',
+    visibility:
+      (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile
+        ? 'visible'
+        : 'hidden',
     pointerEvents: 'auto',
   } as React.CSSProperties;
 
