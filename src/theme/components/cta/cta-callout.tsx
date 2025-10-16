@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppTheme } from '../../hooks/useAppTheme';
 import { Typography } from '../typography/typography';
 import { Container } from '../../layouts/Container';
+import { useIsMobile } from '../../hooks/useMediaQuery';
 
 export interface CTACalloutProps {
   variant: 'services' | 'legal' | 'consultation' | 'getStarted';
@@ -20,6 +21,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
   const { theme } = useAppTheme();
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
+  const isMobile = useIsMobile();
 
   // Only show for specified views
   if (showOnlyFor.length > 0 && !showOnlyFor.includes(currentView || '')) {
@@ -91,11 +93,11 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '52px',
-    height: '48px',
+    width: isMobile ? '36px' : '52px',
+    height: isMobile ? '36px' : '48px',
     backgroundColor: theme.palette.themePrimary,
     borderRadius: '50%',
-    marginRight: '1rem',
+    marginRight: isMobile ? undefined : '1rem',
     transition: 'all 0.3s ease',
     transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
   };
@@ -112,7 +114,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
     <>
       <hr style={hrStyles} />
       <Container
-        padding='0.5rem 1rem'
+        padding='2rem 1rem'
         marginBottom='3rem'
         style={ctaContainerStyle}
         onClick={handleClick}
@@ -123,14 +125,13 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
           display='flex'
           alignItems='center'
           justifyContent='space-between'
-          padding='2rem'
         >
           <Container
             display='flex'
             flexDirection='column'
             justifyContent='flex-start'
             alignItems='flex-start'
-            paddingRight='3rem'
+            paddingRight={isMobile ? '1rem' : '3rem'}
           >
             <Typography
               variant='h3'
@@ -162,7 +163,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
             <span
               style={{
                 color: theme.palette.neutralLight,
-                fontSize: '1.75rem',
+                fontSize: isMobile ? '1.25rem' : '1.75rem',
               }}
             >
               {currentConfig.icon}

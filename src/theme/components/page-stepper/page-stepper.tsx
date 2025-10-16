@@ -6,6 +6,7 @@ import { usePageScrollNavigation } from '../../hooks/usePageScrollNavigation';
 import { FluentIcon } from '../fluent-icon/fluent-icon';
 import { Container } from '../../layouts/Container';
 import { ROUTES } from '../../../routing/constants';
+import { useIsMobile } from '../../hooks/useMediaQuery';
 
 interface PageStepperProps {
   autoNavigateOnScroll?: boolean;
@@ -28,11 +29,13 @@ export const PageStepper: React.FC<PageStepperProps> = ({
   const { theme } = useAppTheme();
   const navigate = useNavigate();
   const location = useLocation();
-  const { isAtBottom, canNavigateForward } = usePageScrollNavigation();
+  const { canNavigateForward, pullToRefreshTriggered } =
+    usePageScrollNavigation();
   const isHomePage = location.pathname === '/';
   const stepperColor = isHomePage
     ? theme.palette.white
     : theme.palette.themePrimary;
+  const isMobile = useIsMobile();
 
   // Consolidated styles - moved outside conditional to fix React Hooks rule
   const styles = React.useMemo(
@@ -130,23 +133,20 @@ export const PageStepper: React.FC<PageStepperProps> = ({
     }
   }, [getNextRoute, navigate]);
 
-  // Auto-navigation when scrolled to bottom/top
+  // Auto-navigation when pull-to-refresh gesture is detected
   React.useEffect(() => {
     if (!autoNavigateOnScroll) return;
 
-    let timeoutId: NodeJS.Timeout;
-
-    if (canNavigateForward && isAtBottom) {
-      // Delay navigation to prevent accidental triggers
-      timeoutId = setTimeout(() => {
-        navigateToNext();
-      }, 1500); // 1.5 second delay
+    if (pullToRefreshTriggered && canNavigateForward) {
+      // Immediate navigation since gesture detection already includes intentionality
+      navigateToNext();
     }
-
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, [canNavigateForward, isAtBottom, navigateToNext, autoNavigateOnScroll]);
+  }, [
+    pullToRefreshTriggered,
+    canNavigateForward,
+    navigateToNext,
+    autoNavigateOnScroll,
+  ]);
 
   // Don't show on home page unless explicitly requested
   if (location.pathname === '/' && !showOnHomePage) {
@@ -175,7 +175,7 @@ export const PageStepper: React.FC<PageStepperProps> = ({
     <Container
       className={className}
       position='fixed'
-      bottom={theme.spacing.xl}
+      bottom={isMobile ? theme.spacing.m : theme.spacing.xl}
       left='50%'
       style={{
         transform: 'translateX(-50%)',

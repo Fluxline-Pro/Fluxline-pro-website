@@ -30,6 +30,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
   const { theme, readingDirection, layoutPreference } = useAppTheme();
   const [fadeStage, setFadeStage] = React.useState<'in' | 'out'>('in');
   const [pendingLayout, setPendingLayout] = React.useState(layoutPreference);
+  const [isImageModalOpen, setIsImageModalOpen] = React.useState(false);
   const isLeftHanded = pendingLayout === 'left-handed';
   const isMobileLandscape = useDeviceOrientation() === 'mobile-landscape';
   const isPortrait = useDeviceOrientation() === 'portrait';
@@ -38,6 +39,26 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
   const currentView = useLocation().pathname;
   const isHomePage = currentView === '/';
   const title = useGetPageTitle();
+
+  // Check for image modal state
+  React.useEffect(() => {
+    const checkModalState = () => {
+      const isModalOpen = document.body.hasAttribute('data-image-modal-open');
+      setIsImageModalOpen(isModalOpen);
+    };
+
+    // Check immediately
+    checkModalState();
+
+    // Set up observer for body attribute changes
+    const observer = new MutationObserver(checkModalState);
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['data-image-modal-open'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   React.useEffect(() => {
     if (layoutPreference !== pendingLayout) {
@@ -50,21 +71,23 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     }
   }, [layoutPreference, pendingLayout]);
 
-  const shouldShowBackdrop = isScrolledPast && !isMenuOpen && !isSettingsOpen;
+  const shouldShowBackdrop =
+    (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile;
 
   const pageTitleStyles = {
     ...theme.typography.fonts.h2,
     fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', // Override with viewport-based sizing for navigation
     color: theme.isInverted ? theme.palette.white : theme.palette.black,
-    textShadow: theme.isInverted
-      ? theme.typography.textShadows.cardImage
-      : theme.typography.textShadows.h2,
+    textShadow: 'none',
     textAlign: readingDirection === 'rtl' ? 'right' : 'left',
     transform: `translateY(${isScrolledPast ? '0' : '20px'})`,
-    opacity: isScrolledPast && !isMenuOpen && !isSettingsOpen ? 1 : 0,
+    opacity:
+      (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile ? 1 : 0,
     transition: theme.animations.transitions.fade.enter,
     visibility:
-      isScrolledPast && !isMenuOpen && !isSettingsOpen ? 'visible' : 'hidden',
+      (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile
+        ? 'visible'
+        : 'hidden',
     pointerEvents: 'auto',
   } as React.CSSProperties;
 
@@ -72,7 +95,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     <LayoutGrid
       display='flex'
       flexDirection={isLeftHanded || isMobileLandscape ? 'row-reverse' : 'row'}
-      justifyContent={isScrolledPast ? 'space-between' : 'flex-end'}
+      justifyContent={isScrolledPast || isMobile ? 'space-between' : 'flex-end'}
       alignItems='center'
       position='fixed'
       gap={isMobile || isMobileLandscape ? '0.25rem' : '1rem'}
@@ -103,22 +126,23 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
       <Typography variant='h2' style={pageTitleStyles}>
         {title || 'terence'}
       </Typography>
-      {!(currentView === 'onboarding' && isMobileLandscape) && (
-        <NavigationButtons
-          onSettingsClick={onSettingsClick}
-          onMenuClick={onMenuClick}
-          onThemeClick={onThemeClick}
-          isHomePage={isHomePage}
-          isMenuOpen={isMenuOpen}
-          isMobileLandscape={isMobileLandscape}
-          isSettingsOpen={isSettingsOpen}
-          isScrolledPast={isScrolledPast}
-          fadeStage={fadeStage}
-          pendingLayout={pendingLayout}
-          isPdfModalOpen={isPdfModalOpen}
-          style={{ pointerEvents: 'auto' }}
-        />
-      )}
+      {!(currentView === 'onboarding' && isMobileLandscape) &&
+        !isImageModalOpen && (
+          <NavigationButtons
+            onSettingsClick={onSettingsClick}
+            onMenuClick={onMenuClick}
+            onThemeClick={onThemeClick}
+            isHomePage={isHomePage}
+            isMenuOpen={isMenuOpen}
+            isMobileLandscape={isMobileLandscape}
+            isSettingsOpen={isSettingsOpen}
+            isScrolledPast={isScrolledPast}
+            fadeStage={fadeStage}
+            pendingLayout={pendingLayout}
+            isPdfModalOpen={isPdfModalOpen}
+            style={{ pointerEvents: 'auto' }}
+          />
+        )}
     </LayoutGrid>
   );
 };
