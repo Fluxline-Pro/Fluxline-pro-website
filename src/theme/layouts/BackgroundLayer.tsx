@@ -22,6 +22,7 @@ interface BackgroundLayerProps {
   themeMode: ThemeMode;
   theme: IExtendedTheme;
   layoutPreference: 'left-handed' | 'right-handed';
+  backgroundLoaded?: boolean;
 }
 
 export const BackgroundLayer: React.FC<BackgroundLayerProps> = ({
@@ -31,6 +32,7 @@ export const BackgroundLayer: React.FC<BackgroundLayerProps> = ({
   themeMode,
   theme,
   layoutPreference,
+  backgroundLoaded = true,
 }) => {
   const { filter } = useColorVisionFilter();
   const { shouldReduceMotion } = useReducedMotion();
@@ -135,7 +137,7 @@ export const BackgroundLayer: React.FC<BackgroundLayerProps> = ({
         filter: filter,
         zIndex: -1,
         transition: shouldReduceMotion ? 'none' : 'all 0.5s ease-in-out',
-        opacity: 1,
+        opacity: backgroundLoaded ? 1 : 0,
         willChange: 'background-image, opacity',
       }}
     />

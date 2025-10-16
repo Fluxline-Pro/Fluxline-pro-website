@@ -5,15 +5,18 @@ interface ColorVisionFilter {
   filter: string;
 }
 
-export const useColorVisionFilter = (): ColorVisionFilter => {
+export const useColorVisionFilter = (
+  skipDarkModeFilter?: boolean
+): ColorVisionFilter => {
   const { themeMode, theme } = useAppTheme();
 
   const getFilter = (mode: ThemeMode): string => {
-    const darkModeBrightness = theme.themeMode === 'dark'
-      ? 'brightness(90%)'
-      : theme.themeMode === 'grayscale-dark'
-        ? 'brightness(100%)'
-      : 'brightness(105%)';
+    const darkModeBrightness =
+      theme.themeMode === 'dark'
+        ? 'brightness(90%)'
+        : theme.themeMode === 'grayscale-dark'
+          ? 'brightness(100%)'
+          : 'brightness(105%)';
     const darkModeContrast =
       theme.themeMode === 'grayscale-dark'
         ? 'contrast(105%)'
@@ -41,6 +44,10 @@ export const useColorVisionFilter = (): ColorVisionFilter => {
       case 'tritanopia':
         return `saturate(105%) ${darkModeContrast} hue-rotate(90deg) ${darkModeBrightness}`;
       default:
+        // Skip dark mode filter if explicitly requested (e.g., for Fluxline dark logo)
+        if (skipDarkModeFilter && theme.isInverted) {
+          return 'none';
+        }
         return theme.isInverted ? 'brightness(85%)' : 'none';
     }
   };

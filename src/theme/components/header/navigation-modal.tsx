@@ -38,7 +38,7 @@ export const NavigationModal: React.FC<NavigationModalProps> = ({
       transform: isOpen
         ? 'translateX(0)'
         : `translateX(${isLeftHanded || isMobileLandscape ? '-100%' : '100%'})`,
-      transition: shouldReduceMotion ? 'none' : 'transform 0.3s ease-in-out',
+      transition: shouldReduceMotion ? 'none' : 'transform 0.5s ease-in-out',
       background: theme.gradients[theme.isInverted ? 'dark' : 'light'].menu,
       zIndex: theme.zIndices.menu,
       boxShadow: theme.shadows.menu,
@@ -61,7 +61,7 @@ export const NavigationModal: React.FC<NavigationModalProps> = ({
       zIndex: theme.zIndices.menu - 1,
       display: 'block',
       cursor: 'pointer',
-      transition: shouldReduceMotion ? 'none' : 'opacity 0.4s ease-in-out',
+      transition: shouldReduceMotion ? 'none' : 'opacity 0.5s ease-in-out',
       pointerEvents: isOpen ? ('auto' as const) : ('none' as const),
     },
   };
@@ -75,7 +75,7 @@ export const NavigationModal: React.FC<NavigationModalProps> = ({
       setShouldShow(false);
       const timeout = setTimeout(
         () => setIsVisible(false),
-        shouldReduceMotion ? 1 : 300
+        shouldReduceMotion ? 1 : 500
       );
       return () => clearTimeout(timeout);
     }
@@ -100,7 +100,7 @@ export const NavigationModal: React.FC<NavigationModalProps> = ({
     opacity: fadeStage === 'in' ? 1 : 0,
     transition: shouldReduceMotion
       ? 'none'
-      : 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
+      : 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out',
     right: handedness || isMobileLandscape ? 'auto' : 0,
     left: handedness || isMobileLandscape ? 0 : 'auto',
     transform: shouldShow

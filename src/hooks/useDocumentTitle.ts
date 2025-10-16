@@ -1,41 +1,55 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { ROUTES } from '../routing/constants';
 
-interface RouteToTitleMap {
-  [key: string]: string;
-}
-
-const routeToTitleMap: RouteToTitleMap = {
-  '/': 'Home',
-  '/about': 'About Us',
-  '/services': 'Services',
-  '/services/personal-training': 'Personal Training',
-  '/services/education-training': 'Education Training',
-  '/services/consulting': 'Consulting',
-  '/services/development': 'Development',
-  '/services/design': 'Design',
-  '/services/business': 'Business',
-  '/blog': 'Blog',
-  '/contact-me': 'Contact Us',
-  '/books': 'Books',
-  '/events': 'Events',
-  '/github': 'GitHub',
-  '/music': 'Music',
-  '/my-content': 'My Content',
-  '/portfolio': 'Portfolio',
-  '/videos': 'Videos',
-  '/livestreams': 'Livestreams',
-  '/onboarding': 'Onboarding',
-  '/onboarding/animation': 'Onboarding',
-  '/onboarding/welcome': 'Onboarding',
-  '/onboarding/name': 'Onboarding',
-  '/onboarding/layout': 'Onboarding',
-  '/onboarding/font-size': 'Onboarding',
-  '/onboarding/theme': 'Onboarding',
-  '/onboarding/accessibility': 'Onboarding',
-  '/onboarding/complete': 'Onboarding',
-  '/onboarding/skip': 'Onboarding',
+// Helper function to capitalize route names
+const capitalizeRouteName = (name: string): string => {
+  return name
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
 };
+
+// Generate route to title map from ROUTES constants
+const generateRouteToTitleMap = () => {
+  const map: { [key: string]: string } = {};
+
+  ROUTES.forEach((route) => {
+    const path = route.path === '' ? '/' : `/${route.path}`;
+    let title = capitalizeRouteName(route.name);
+
+    // Handle special cases for better titles
+    switch (route.name.toLowerCase()) {
+      case 'about us':
+        title = 'About Us';
+        break;
+      case "let's connect":
+        title = 'Contact Us';
+        break;
+      case 'my-content':
+        title = 'My Content';
+        break;
+      case 'white pages':
+        title = 'White Pages';
+        break;
+      case 'education & training':
+        title = 'Education & Training';
+        break;
+      case 'resonance-core':
+        title = 'Resonance Core';
+        break;
+      default:
+        // Use the capitalized version
+        break;
+    }
+
+    map[path] = title;
+  });
+
+  return map;
+};
+
+const routeToTitleMap = generateRouteToTitleMap();
 
 export const useDocumentTitle = (): void => {
   const location = useLocation();

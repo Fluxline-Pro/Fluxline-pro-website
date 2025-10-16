@@ -7,16 +7,22 @@ import { useContentFilterStore } from '../../store/store-specs/contentFilterStor
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { ThemeMode } from '../../theme/theme';
 import { PageStepper } from '../../theme/components/page-stepper';
+import { AnimatePresence } from 'framer-motion';
+import { FadeUp } from '../../theme/components/animations/fade-animations';
 
 // Helper function to get the appropriate Fluxline logo based on theme mode
 const getFluxlineLogo = (themeMode: ThemeMode): string => {
   // Dark mode themes: dark, high-contrast, grayscale-dark
-  const darkModeThemes: ThemeMode[] = ['dark', 'high-contrast', 'grayscale-dark'];
-  
+  const darkModeThemes: ThemeMode[] = [
+    'dark',
+    'high-contrast',
+    'grayscale-dark',
+  ];
+
   if (darkModeThemes.includes(themeMode)) {
     return require('../../assets/images/FluxlineLogoDarkMode.png');
   }
-  
+
   // Light mode themes: light, protanopia, deuteranopia, tritanopia, grayscale
   return require('../../assets/images/FluxlineLogoLightMode.png');
 };
@@ -30,6 +36,30 @@ const PAGE_CONFIGS = {
   },
   '/services': {
     image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
+    imageText: '',
+  },
+  '/white-pages': {
+    image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
+    imageText: '',
+  },
+  '/legal': {
+    image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
+    imageText: '',
+  },
+  '/legal/terms-of-use': {
+    image: require('../../assets/images/ConsultingPortrait.jpg'),
+    imageText: 'Terms of Use',
+  },
+  '/legal/privacy-policy': {
+    image: require('../../assets/images/GitHubPortrait.jpg'),
+    imageText: 'Privacy Policy',
+  },
+  '/legal/glossary': {
+    image: require('../../assets/images/EducationTrainingPortrait.jpg'),
+    imageText: 'Glossary of Terms',
+  },
+  '/legal/stewardship-contract': {
+    image: require('../../assets/images/LifeCoachingResonanceCore.jpg'),
     imageText: '',
   },
   '/services/education-training': {
@@ -48,9 +78,9 @@ const PAGE_CONFIGS = {
     image: require('../../assets/images/GitHubPortrait.jpg'),
     imageText: 'Web & App Development',
   },
-  '/services/business': {
-    image: 'https://picsum.photos/400/600?random=business',
-    imageText: 'Business & Legal Strategy',
+  '/services/resonance-core': {
+    image: require('../../assets/images/LifeCoachingResonanceCore.jpg'),
+    imageText: 'Life Coaching: Resonance Core',
   },
   '/services/design': {
     image: require('../../assets/images/Portfolio1280x1815.jpg'),
@@ -164,7 +194,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
   if (configImage === 'FLUXLINE_LOGO') {
     configImage = getFluxlineLogo(themeMode);
   }
-  
+
   const imageToDisplay =
     id && selectedPost && selectedPost.imageUrl
       ? selectedPost.imageUrl
@@ -175,6 +205,11 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
     id && selectedPost && selectedPost.title
       ? selectedPost.title
       : config.imageText || '';
+
+  // Check if we're using the dark mode logo to skip dark mode filter
+  const isUsingDarkLogo =
+    config.image === 'FLUXLINE_LOGO' &&
+    ['dark', 'high-contrast', 'grayscale-dark'].includes(themeMode);
 
   return (
     <ViewportGrid
@@ -191,6 +226,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
           delay={0.1}
           useSpinner={true}
           isViewportLeftPanel={true} // Mark this card as being in the ViewportGrid's left panel
+          skipDarkModeFilter={isUsingDarkLogo} // Skip dark mode filter for Fluxline dark logo
         />
       }
       rightChildren={
@@ -210,8 +246,15 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
             minWidth: 0, // Allow shrinking
           }}
         >
-          {children}
-          {/* Add PageStepper to all wrapped pages */}
+          <AnimatePresence mode='wait'>
+            <FadeUp
+              key={location.pathname + (id || '')}
+              delay={0.1}
+              duration={0.5}
+            >
+              {children}
+            </FadeUp>
+          </AnimatePresence>
           <PageStepper autoNavigateOnScroll={true} />
         </div>
       }

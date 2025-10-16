@@ -1,6 +1,6 @@
 import React from 'react';
-// import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import {
@@ -12,9 +12,11 @@ import useBackgroundImage from '../../theme/hooks/useBackgroundImage';
 import { ViewportGrid } from '../../theme/layouts/ViewportGrid';
 import { LayoutGrid } from '../../theme/layouts/LayoutGrid';
 import { Typography } from '../../theme/components/typography/typography';
-// import { ProgressBar } from '../../theme/components/progress-bar/progress-bar';
+import { ProgressBar } from '../../theme/components/progress-bar/progress-bar';
 import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
 import { PageStepper } from '../../theme/components/page-stepper';
+import { FadeUp } from '../../theme/components/animations/fade-animations';
+import { FluentButton } from '../../theme/components/button/button';
 
 export const UnderConstruction = () => {
   const { theme } = useAppTheme();
@@ -90,9 +92,11 @@ export const UnderConstruction = () => {
 
 const HomeContent: React.FC<{
   isMobile: boolean;
-}> = ({ isMobile }) => {
+  shouldStartAnimations: boolean;
+}> = ({ isMobile, shouldStartAnimations }) => {
   const { theme, themeMode } = useAppTheme();
   const orientation = useDeviceOrientation();
+  const navigate = useNavigate();
   const [animateDivider, setAnimateDivider] = React.useState(false);
   const [animateHeader, setAnimateHeader] = React.useState(false);
   const [animateSubHeader, setAnimateSubHeader] = React.useState(false);
@@ -104,6 +108,9 @@ const HomeContent: React.FC<{
   ]);
 
   React.useEffect(() => {
+    // Only start animations when background is ready
+    if (!shouldStartAnimations) return;
+
     // First line animation
     setTimeout(() => {
       setAnimateHeader(true);
@@ -132,7 +139,7 @@ const HomeContent: React.FC<{
     setTimeout(() => {
       setAnimateSubHeaderLines([true, true, true, true]);
     }, 2800);
-  }, []);
+  }, [shouldStartAnimations]);
 
   const HighlightText = ({ text }: { text: string }) => (
     <span
@@ -230,7 +237,7 @@ const HomeContent: React.FC<{
             themeMode === 'grayscale'
               ? theme.palette.neutralTertiary
               : theme.palette.themePrimary,
-          marginBottom: 0,
+          marginBottom: '-0.5rem',
           opacity: 0,
           transform: 'translateX(-20px)',
           ...(animateHeader && animationStyles.slideInRight),
@@ -255,9 +262,11 @@ const HomeContent: React.FC<{
         style={{
           ...theme.typography.fonts.h1,
           color: theme.palette.neutralLighterAlt,
-          marginBottom: `${orientation === 'mobile-landscape' ? theme.spacing.xxs : theme.spacing.s}`,
+          marginBottom: `${orientation === 'mobile-landscape' ? theme.spacing.xxs : 0}`,
           fontSize: theme.typography.fonts.h1.fontSize,
-          textShadow: theme.typography.textShadows.textBig,
+          fontWeight: theme.typography.fonts.h1.fontWeight,
+          fontVariationSettings:
+            theme.typography.fonts.h1.fontVariationSettings,
           opacity: 0,
           transform: 'translateX(-20px)',
           ...(animateHeader && {
@@ -301,8 +310,8 @@ const HomeContent: React.FC<{
 
       <div
         style={{
-          marginTop: `${orientation === 'mobile-landscape' ? theme.spacing.xxs : theme.spacing.m}`,
-          marginBottom: `${orientation === 'mobile-landscape' ? theme.spacing.xxs : theme.spacing.l}`,
+          marginTop: `${orientation === 'mobile-landscape' ? theme.spacing.xs : theme.spacing.l}`,
+          marginBottom: `${orientation === 'mobile-landscape' ? theme.spacing.s : theme.spacing.xl}`,
         }}
       >
         <Typography
@@ -311,23 +320,23 @@ const HomeContent: React.FC<{
             color:
               themeMode === 'grayscale'
                 ? theme.palette.neutralTertiary
-                : theme.palette.themeSecondary,
+                : theme.palette.themeTertiary,
             ...theme.typography.fonts.homeH3,
             lineHeight: theme.typography.lineHeights.tight,
             fontWeight: theme.typography.fontWeights.extraLight,
             fontSize: theme.typography.fonts.homeH3.fontSize,
             ...(orientation === 'portrait' && {
-              fontSize: 'clamp(1.5rem, 4cqi, 2rem)',
+              fontSize: 'clamp(1.2rem, 3.5cqi, 1.8rem)',
             }),
             ...(orientation === 'square' && {
-              fontSize: 'clamp(2rem, 6cqi, 3rem)',
+              fontSize: 'clamp(1.5rem, 5cqi, 2.5rem)',
             }),
             ...(orientation === 'mobile-landscape' && {
-              fontSize: 'clamp(1.5rem, 4cqi, 2rem)',
+              fontSize: 'clamp(1.2rem, 3.5cqi, 1.8rem)',
             }),
             ...((orientation === 'landscape' ||
               orientation === 'ultrawide') && {
-              fontSize: 'clamp(2.5rem, 3cqi, 3.5rem)',
+              fontSize: 'clamp(2rem, 2.5cqi, 3rem)',
             }),
           }}
         >
@@ -365,11 +374,64 @@ const HomeContent: React.FC<{
               ...(animateSubHeaderLines[3] && animationStyles.slideInDown),
             }}
           >
-            <HighlightText text='mentoring' /> and coaching
+            <HighlightText text='mentoring' /> &amp; coaching
           </div>
         </Typography>
       </div>
-      <BookingsButton animateSubHeader={animateSubHeader} willAnimate={true} />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+          width: '100%',
+          maxWidth: '500px',
+        }}
+      >
+        <BookingsButton
+          animateSubHeader={animateSubHeader}
+          willAnimate={true}
+        />
+        <FluentButton
+          variant='secondary'
+          onClick={() => navigate('/about')}
+          style={{
+            padding: '10px 16px',
+            minHeight: orientation === 'portrait' ? '40px' : undefined,
+            minWidth: '250px',
+            maxWidth: '500px',
+            width: '100%',
+            fontSize: `${
+              orientation === 'mobile-landscape'
+                ? theme.typography.fonts.h6.fontSize
+                : theme.typography.fonts.h5.fontSize
+            }`,
+            fontWeight: '500',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.08)',
+            // Always start hidden, only show when animation triggers
+            opacity: 0,
+            transform: 'translateY(20px)',
+            ...(animateSubHeader === true && {
+              animation: 'slideInUp 0.4s ease-in-out forwards',
+              animationDelay: '2.5s',
+            }),
+            ...(orientation === 'portrait' && {
+              fontSize: 'clamp(1rem, 2.8cqi, 1.6rem)',
+            }),
+            ...(orientation === 'square' && {
+              fontSize: 'clamp(1.1rem, 3.2cqi, 1.2rem)',
+            }),
+            ...((orientation === 'landscape' ||
+              orientation === 'ultrawide') && {
+              fontSize: 'clamp(1.1rem, 2cqi, 1.3rem)',
+            }),
+            ...(orientation === 'mobile-landscape' && {
+              fontSize: 'clamp(1rem, 2.8cqi, 1.3rem)',
+            }),
+          }}
+        >
+          About Fluxline
+        </FluentButton>
+      </div>
     </LayoutGrid>
   );
 };
@@ -380,8 +442,52 @@ export const Home: React.FC = () => {
   // );
   const { backgroundImage } = useBackgroundImage(); // Much simpler now!
   const isMobile = useIsMobile();
+  const orientation = useDeviceOrientation();
+  const [backgroundLoaded, setBackgroundLoaded] = React.useState(false);
+  const [shouldStartAnimations, setShouldStartAnimations] =
+    React.useState(false);
   // const [isLoading, setIsLoading] = React.useState(false);
   // const navigate = useNavigate();
+
+  // Preload the background image based on orientation and background type
+  React.useEffect(() => {
+    const getBackgroundImageSrc = () => {
+      // Import the actual background images used in BackgroundLayer
+      const backgroundImageOneLandscape = require('../../assets/images/HomePageCover4kLandscape.jpg');
+      const backgroundImageOnePortrait = require('../../assets/images/HomePageCover4kPortrait.jpeg');
+
+      // For now, we only use background 'one' as per useBackgroundImage
+      return orientation === 'landscape' || orientation === 'ultrawide'
+        ? backgroundImageOneLandscape
+        : orientation === 'portrait'
+          ? backgroundImageOnePortrait
+          : backgroundImageOneLandscape;
+    };
+
+    const imageUrl = getBackgroundImageSrc();
+    const img = new Image();
+
+    img.onload = () => {
+      setBackgroundLoaded(true);
+      // Start animations after background loads + small delay for smooth transition
+      setTimeout(() => {
+        setShouldStartAnimations(true);
+      }, 200);
+    };
+
+    img.onerror = () => {
+      // If image fails to load, still proceed with animations
+      setBackgroundLoaded(true);
+      setShouldStartAnimations(true);
+    };
+
+    img.src = imageUrl;
+
+    return () => {
+      img.onload = null;
+      img.onerror = null;
+    };
+  }, [backgroundImage, orientation]);
 
   // React.useEffect(() => {
   //   // Only navigate to onboarding if not done and not already on onboarding path
@@ -398,17 +504,134 @@ export const Home: React.FC = () => {
   //   return <ProgressBar label='Loading...' />;
   // }
 
-  return (
-    <>
+  // Show loading screen while background image is loading
+  if (!backgroundLoaded) {
+    return (
       <ViewportGrid
-        leftChildren={<HomeContent isMobile={isMobile} />}
-        rightChildren={<HomeContent isMobile={isMobile} />}
+        leftChildren={
+          <LayoutGrid
+            display='flex'
+            alignItems='center'
+            justifyContent='center'
+            width='100%'
+            height='100vh'
+            flexDirection='column'
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.1)',
+              zIndex: 1000,
+            }}
+          >
+            <div
+              style={{
+                width: '100%',
+                maxWidth: '600px',
+                padding: '2rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <ProgressBar
+                label='Loading Fluxline...'
+                description='Preparing your experience'
+                autoCenter={true}
+                intervalDelay={150}
+                intervalIncrement={2}
+              />
+            </div>
+          </LayoutGrid>
+        }
+        rightChildren={
+          <LayoutGrid
+            display='flex'
+            alignItems='center'
+            justifyContent='center'
+            width='100%'
+            height='100vh'
+            flexDirection='column'
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.1)',
+              zIndex: 1000,
+            }}
+          >
+            <div
+              style={{
+                width: '100%',
+                maxWidth: '600px',
+                padding: '2rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <ProgressBar
+                label='Loading Fluxline...'
+                description='Preparing your experience'
+                autoCenter={true}
+                intervalDelay={150}
+                intervalIncrement={2}
+              />
+            </div>
+          </LayoutGrid>
+        }
         isHomePage={true}
         respectLayoutPreference={true}
         backgroundImage={backgroundImage as 'one' | 'two'}
+        backgroundLoaded={false} // Force loading state
+      />
+    );
+  }
+
+  return (
+    <>
+    <ViewportGrid
+      leftChildren={
+        <AnimatePresence mode='wait'>
+          <FadeUp
+            key={`home-left-${backgroundImage}-${backgroundLoaded}`}
+            delay={backgroundLoaded ? 0.1 : 0}
+            duration={0.5}
+          >
+            <HomeContent
+              isMobile={isMobile}
+              shouldStartAnimations={shouldStartAnimations}
+            />
+          </FadeUp>
+        </AnimatePresence>
+      }
+      rightChildren={
+        <AnimatePresence mode='wait'>
+          <FadeUp
+            key={`home-right-${backgroundImage}-${backgroundLoaded}`}
+            delay={backgroundLoaded ? 0.1 : 0}
+            duration={0.5}
+          >
+            <HomeContent
+              isMobile={isMobile}
+              shouldStartAnimations={shouldStartAnimations}
+            />
+          </FadeUp>
+        </AnimatePresence>
+      }
+      isHomePage={true}
+      respectLayoutPreference={true}
+      backgroundImage={backgroundImage as 'one' | 'two'}
+      backgroundLoaded={backgroundLoaded}
       />
       <PageStepper showOnHomePage={true} autoNavigateOnScroll={true} />
-    </>
+      </>
   );
 };
 
