@@ -596,42 +596,42 @@ export const Home: React.FC = () => {
 
   return (
     <>
-    <ViewportGrid
-      leftChildren={
-        <AnimatePresence mode='wait'>
-          <FadeUp
-            key={`home-left-${backgroundImage}-${backgroundLoaded}`}
-            delay={backgroundLoaded ? 0.1 : 0}
-            duration={0.5}
-          >
-            <HomeContent
-              isMobile={isMobile}
-              shouldStartAnimations={shouldStartAnimations}
-            />
-          </FadeUp>
-        </AnimatePresence>
-      }
-      rightChildren={
-        <AnimatePresence mode='wait'>
-          <FadeUp
-            key={`home-right-${backgroundImage}-${backgroundLoaded}`}
-            delay={backgroundLoaded ? 0.1 : 0}
-            duration={0.5}
-          >
-            <HomeContent
-              isMobile={isMobile}
-              shouldStartAnimations={shouldStartAnimations}
-            />
-          </FadeUp>
-        </AnimatePresence>
-      }
-      isHomePage={true}
-      respectLayoutPreference={true}
-      backgroundImage={backgroundImage as 'one' | 'two'}
-      backgroundLoaded={backgroundLoaded}
+      <ViewportGrid
+        leftChildren={
+          <AnimatePresence mode='wait'>
+            <FadeUp
+              key={`home-left-${backgroundImage}-${backgroundLoaded}`}
+              delay={backgroundLoaded ? 0.1 : 0}
+              duration={0.5}
+            >
+              <HomeContent
+                isMobile={isMobile}
+                shouldStartAnimations={shouldStartAnimations}
+              />
+            </FadeUp>
+          </AnimatePresence>
+        }
+        rightChildren={
+          <AnimatePresence mode='wait'>
+            <FadeUp
+              key={`home-right-${backgroundImage}-${backgroundLoaded}`}
+              delay={backgroundLoaded ? 0.1 : 0}
+              duration={0.5}
+            >
+              <HomeContent
+                isMobile={isMobile}
+                shouldStartAnimations={shouldStartAnimations}
+              />
+            </FadeUp>
+          </AnimatePresence>
+        }
+        isHomePage={true}
+        respectLayoutPreference={true}
+        backgroundImage={backgroundImage as 'one' | 'two'}
+        backgroundLoaded={backgroundLoaded}
       />
       <PageStepper showOnHomePage={true} autoNavigateOnScroll={true} />
-      </>
+    </>
   );
 };
 

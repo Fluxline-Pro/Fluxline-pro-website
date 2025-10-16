@@ -19,11 +19,16 @@ export const usePageScrollNavigation = () => {
     const isTop = scrollTop <= 50;
     setIsAtTop(isTop);
 
-    // Check if at bottom (within 100px of bottom)
-    const isBottom = scrollHeight - (scrollTop + clientHeight) <= 100;
+    // Check if there's scrollable content (page is taller than viewport)
+    const hasScrollableContent = scrollHeight > clientHeight + 10; // 10px buffer for minor differences
+
+    // Check if at bottom (within 100px of bottom) - only if there's scrollable content
+    const isBottom =
+      hasScrollableContent && scrollHeight - (scrollTop + clientHeight) <= 100;
     setIsAtBottom(isBottom);
 
     // Set navigation capabilities with some delay to prevent accidental triggers
+    // Only allow forward navigation if we're actually at the bottom of scrollable content
     setCanNavigateForward(isBottom);
     setCanNavigateBackward(isTop && scrollTop > 0);
   }, []);

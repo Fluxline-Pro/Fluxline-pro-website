@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppTheme } from '../../hooks/useAppTheme';
 import { usePageScrollNavigation } from '../../hooks/usePageScrollNavigation';
 import { FluentIcon } from '../fluent-icon/fluent-icon';
+import { Container } from '../../layouts/Container';
 import { ROUTES } from '../../../routing/constants';
 
 interface PageStepperProps {
@@ -14,7 +15,7 @@ interface PageStepperProps {
 
 /**
  * PageStepper Component
- * 
+ *
  * Provides bottom-centered navigation chevrons that appear based on scroll position
  * Automatically navigates between pages when scrolled to bottom/top
  * Follows the navigation flow: Home → About Us → Services → Contact
@@ -27,26 +28,70 @@ export const PageStepper: React.FC<PageStepperProps> = ({
   const { theme } = useAppTheme();
   const navigate = useNavigate();
   const location = useLocation();
-  const {
-    isAtBottom,
-    isAtTop,
-    canNavigateForward,
-    canNavigateBackward,
-  } = usePageScrollNavigation();
+  const { isAtBottom, canNavigateForward } = usePageScrollNavigation();
+  const isHomePage = location.pathname === '/';
+  const stepperColor = isHomePage ? theme.palette.white : theme.palette.themePrimary;
+
+  // Consolidated styles - moved outside conditional to fix React Hooks rule
+  const styles = React.useMemo(
+    () => ({
+      chevronButton: {
+        background: 'transparent',
+        border: 'none',
+        borderRadius: '50%',
+        width: '48px',
+        height: '48px',
+        display: 'flex' as const,
+        alignItems: 'center' as const,
+        justifyContent: 'center' as const,
+        cursor: 'pointer',
+        transition: `all ${theme.animations.durations.normal} ${theme.animations.easing.primary}`,
+        outline: 'none',
+        transform: 'translateY(0px)',
+      },
+      chevronButtonHover: {
+        transform: 'translateY(-4px)',
+      },
+      pageNameText: {
+        fontFamily: theme.typography.fonts.h3.fontFamily,
+        color: stepperColor,
+        fontSize: theme.typography.fontSizes.clamp6,
+        fontWeight: 300,
+        textTransform: 'capitalize' as const,
+        letterSpacing: '0.15em',
+        textAlign: 'center' as const,
+        margin: 0,
+        cursor: 'pointer',
+        transition: `all ${theme.animations.durations.normal} ${theme.animations.easing.primary}`,
+      },
+    }),
+    [stepperColor, theme]
+  );
 
   // Define the main navigation flow
   const getNavigationFlow = React.useMemo(() => {
-    const mainRoutes = ROUTES.filter(route => route.isMenuItem).map(route => ({
-      path: route.path === '' ? '/' : `/${route.path}`,
-      name: route.name,
-    }));
+    const mainRoutes = ROUTES.filter((route) => route.isMenuItem).map(
+      (route) => ({
+        path: route.path === '' ? '/' : `/${route.path}`,
+        name: route.name,
+      })
+    );
 
     // Ensure proper order: Home → About Us → Services → Contact
     const orderedRoutes = [
-      mainRoutes.find(r => r.path === '/') || { path: '/', name: 'home' },
-      mainRoutes.find(r => r.name === 'about us') || { path: '/about', name: 'about us' },
-      mainRoutes.find(r => r.name === 'services') || { path: '/services', name: 'services' },
-      mainRoutes.find(r => r.name === 'collab & connect') || { path: '/contact-me', name: 'collab & connect' },
+      mainRoutes.find((r) => r.path === '/') || { path: '/', name: 'home' },
+      mainRoutes.find((r) => r.name === 'about us') || {
+        path: '/about',
+        name: 'about us',
+      },
+      mainRoutes.find((r) => r.name === 'services') || {
+        path: '/services',
+        name: 'services',
+      },
+      mainRoutes.find((r) => r.name === "let's connect") || {
+        path: '/contact-me',
+        name: "let's connect",
+      },
     ].filter(Boolean);
 
     return orderedRoutes;
@@ -54,19 +99,14 @@ export const PageStepper: React.FC<PageStepperProps> = ({
 
   const getCurrentRouteIndex = React.useCallback(() => {
     const currentPath = location.pathname === '/' ? '/' : location.pathname;
-    return getNavigationFlow.findIndex(route => route.path === currentPath);
+    return getNavigationFlow.findIndex((route) => route.path === currentPath);
   }, [location.pathname, getNavigationFlow]);
 
   const getNextRoute = React.useCallback(() => {
     const currentIndex = getCurrentRouteIndex();
-    if (currentIndex === -1 || currentIndex >= getNavigationFlow.length - 1) return null;
+    if (currentIndex === -1 || currentIndex >= getNavigationFlow.length - 1)
+      return null;
     return getNavigationFlow[currentIndex + 1];
-  }, [getCurrentRouteIndex, getNavigationFlow]);
-
-  const getPreviousRoute = React.useCallback(() => {
-    const currentIndex = getCurrentRouteIndex();
-    if (currentIndex <= 0) return null;
-    return getNavigationFlow[currentIndex - 1];
   }, [getCurrentRouteIndex, getNavigationFlow]);
 
   const navigateToNext = React.useCallback(() => {
@@ -75,13 +115,6 @@ export const PageStepper: React.FC<PageStepperProps> = ({
       navigate(nextRoute.path);
     }
   }, [getNextRoute, navigate]);
-
-  const navigateToPrevious = React.useCallback(() => {
-    const previousRoute = getPreviousRoute();
-    if (previousRoute) {
-      navigate(previousRoute.path);
-    }
-  }, [getPreviousRoute, navigate]);
 
   // Auto-navigation when scrolled to bottom/top
   React.useEffect(() => {
@@ -107,50 +140,15 @@ export const PageStepper: React.FC<PageStepperProps> = ({
   }
 
   const nextRoute = getNextRoute();
-  const previousRoute = getPreviousRoute();
-  const showForwardChevron = nextRoute && (canNavigateForward || !autoNavigateOnScroll);
-  const showBackwardChevron = previousRoute && (canNavigateBackward || !autoNavigateOnScroll);
 
-  // Don't render if no navigation options available
-  if (!showForwardChevron && !showBackwardChevron) {
+  // Always show forward navigation if there's a next route available
+  // Scroll detection only affects auto-navigation, not button visibility
+  const showForwardChevron = !!nextRoute;
+
+  // Don't render if no forward navigation available
+  if (!showForwardChevron) {
     return null;
   }
-
-  const containerStyle: React.CSSProperties = {
-    position: 'fixed',
-    bottom: theme.spacing.xl,
-    left: '50%',
-    transform: 'translateX(-50%)',
-    zIndex: theme.zIndices.overlay,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: theme.spacing.s,
-    pointerEvents: 'none', // Allow clicks to pass through the container
-  };
-
-  const buttonStyle: React.CSSProperties = {
-    background: theme.palette.themePrimary,
-    border: `2px solid ${theme.palette.white}`,
-    borderRadius: '50%',
-    width: '60px',
-    height: '60px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    cursor: 'pointer',
-    transition: `all ${theme.animations.durations.fast} ${theme.animations.easing.primary}`,
-    boxShadow: theme.shadows.m,
-    pointerEvents: 'auto', // Enable clicks on buttons
-    position: 'relative',
-    outline: 'none',
-  };
-
-  const hoverStyle: React.CSSProperties = {
-    background: theme.palette.themeDark,
-    transform: 'scale(1.1)',
-    boxShadow: theme.shadows.l,
-  };
 
   const handleKeyDown = (event: React.KeyboardEvent, action: () => void) => {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -160,45 +158,73 @@ export const PageStepper: React.FC<PageStepperProps> = ({
   };
 
   return (
-    <div className={className} style={containerStyle}>
-      {showBackwardChevron && (
-        <button
-          style={buttonStyle}
-          onClick={navigateToPrevious}
-          onMouseEnter={(e) => Object.assign(e.currentTarget.style, hoverStyle)}
-          onMouseLeave={(e) => Object.assign(e.currentTarget.style, buttonStyle)}
-          onKeyDown={(e) => handleKeyDown(e, navigateToPrevious)}
-          aria-label={`Navigate to previous page: ${previousRoute?.name}`}
-          title={`Go to ${previousRoute?.name}`}
-          tabIndex={0}
-        >
-          <FluentIcon
-            iconName="ChevronUp"
-            color={theme.palette.white}
-            size="medium"
-          />
-        </button>
-      )}
-      
+    <Container
+      className={className}
+      position='fixed'
+      bottom={theme.spacing.xl}
+      left='50%'
+      style={{
+        transform: 'translateX(-50%)',
+        zIndex: theme.zIndices.overlay,
+        pointerEvents: 'none',
+      }}
+      display='flex'
+      flexDirection='row'
+      alignItems='center'
+      justifyContent='center'
+      gap={theme.spacing.xs}
+    >
+      {/* Only show forward navigation with page name */}
       {showForwardChevron && (
-        <button
-          style={buttonStyle}
+        <Container
+          display='flex'
+          flexDirection='row'
+          alignItems='center'
+          justifyContent='center'
+          gap={theme.spacing.xs}
+          style={{
+            cursor: 'pointer',
+            pointerEvents: 'auto',
+            transition: `all ${theme.animations.durations.normal} ${theme.animations.easing.primary}`,
+          }}
           onClick={navigateToNext}
-          onMouseEnter={(e) => Object.assign(e.currentTarget.style, hoverStyle)}
-          onMouseLeave={(e) => Object.assign(e.currentTarget.style, buttonStyle)}
-          onKeyDown={(e) => handleKeyDown(e, navigateToNext)}
-          aria-label={`Navigate to next page: ${nextRoute?.name}`}
-          title={`Go to ${nextRoute?.name}`}
+          onKeyDown={(e: React.KeyboardEvent) =>
+            handleKeyDown(e, navigateToNext)
+          }
+          onMouseEnter={(e) => {
+            const chevronContainer = e.currentTarget.querySelector(
+              '[data-chevron]'
+            ) as HTMLElement;
+            if (chevronContainer) {
+              Object.assign(chevronContainer.style, {
+                ...styles.chevronButton,
+                ...styles.chevronButtonHover,
+              });
+            }
+          }}
+          onMouseLeave={(e) => {
+            const chevronContainer = e.currentTarget.querySelector(
+              '[data-chevron]'
+            ) as HTMLElement;
+            if (chevronContainer) {
+              Object.assign(chevronContainer.style, styles.chevronButton);
+            }
+          }}
           tabIndex={0}
+          role='button'
+          aria-label={`Navigate to next page: ${nextRoute?.name}`}
         >
-          <FluentIcon
-            iconName="ChevronDown"
-            color={theme.palette.white}
-            size="medium"
-          />
-        </button>
+          <div style={styles.pageNameText}>{nextRoute?.name}</div>
+          <div data-chevron style={styles.chevronButton}>
+            <FluentIcon
+              iconName='ChevronDown'
+              color={stepperColor}
+              size='medium'
+            />
+          </div>
+        </Container>
       )}
-    </div>
+    </Container>
   );
 };
 

@@ -45,6 +45,8 @@ interface ContainerProps {
   left?: number | string;
   fullWidth?: boolean;
   fullHeight?: boolean;
+  tabIndex?: number;
+  role?: string;
   containerQuery?: {
     minWidth?: string;
     maxWidth?: string;
@@ -53,6 +55,7 @@ interface ContainerProps {
   };
   style?: React.CSSProperties;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
 }
@@ -99,9 +102,12 @@ export const Container: React.FC<ContainerProps> = ({
   left,
   fullWidth = false,
   fullHeight = false,
+  tabIndex,
+  role,
   containerQuery,
   style,
   onClick,
+  onKeyDown,
   onMouseEnter,
   onMouseLeave,
 }) => {
@@ -185,6 +191,9 @@ export const Container: React.FC<ContainerProps> = ({
       className={classes}
       style={containerStyle}
       onClick={onClick}
+      onKeyDown={onKeyDown}
+      tabIndex={tabIndex}
+      role={role}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       {...(boxSizing ? { boxSizing } : {})}
