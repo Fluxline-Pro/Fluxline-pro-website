@@ -148,3 +148,4 @@ package-lock.json
 # Temporary files and directories
 /tmp/
 *.tmp
+src/theme/components/cta/cta-callout.tsx

@@ -32,6 +32,7 @@ const VisionHappenSection: React.FC = () => {
   return (
     <CTACallout
       variant='consultation'
+      hideBottomHR
       showOnlyFor={[]} // Show on all views since this is the contact page
     />
   );
@@ -48,7 +49,7 @@ const AboutMeSection: React.FC = () => {
           theme.themeMode === 'high-contrast'
             ? theme.semanticColors.warningBackground
             : theme.palette.neutralLight,
-        padding: theme.spacing.xl,
+        padding: theme.spacing.xxl,
         borderRadius: theme.borderRadius.container.medium,
         marginBottom: theme.spacing.xl,
       }}
@@ -96,7 +97,7 @@ const AboutMeSection: React.FC = () => {
         alignItems={isMobile ? 'flex-start' : 'center'}
         justifyContent='space-between'
         marginTop={theme.spacing.l}
-        padding={theme.spacing.l}
+        padding={theme.spacing.xl}
         style={{
           background:
             theme.themeMode === 'high-contrast'
@@ -111,63 +112,48 @@ const AboutMeSection: React.FC = () => {
             variant='h4'
             color={theme.palette.themePrimary}
             fontWeight={theme.typography.fontWeights.semiBold}
+            lineHeight='1.8'
           >
             Terence Waters
+            <br />
           </Typography>
           <Typography
             variant='p'
-            color={theme.palette.neutralSecondary}
-            fontSize={theme.typography.fontSizes.clamp3}
+            color={theme.palette.neutralPrimary}
+            fontSize={theme.typography.fontSizes.clamp4}
           >
-            Founder, CEO, Personal Trainer & Mythic Architect
-          </Typography>
-          <Typography
-            variant='p'
-            color={theme.palette.neutralSecondary}
-            fontSize={theme.typography.fontSizes.clamp3}
-          >
-            Fluxline Resonance Group, LLC
-          </Typography>
-          <Typography
-            variant='p'
-            color={theme.palette.neutralSecondary}
-            fontSize={theme.typography.fontSizes.clamp3}
-          >
-            Salt Lake City, UT
-          </Typography>
-          <Typography
-            variant='p'
-            color={theme.palette.themePrimary}
-            fontSize={theme.typography.fontSizes.clamp3}
-            style={{ fontWeight: theme.typography.fontWeights.medium }}
-          >
-            📧 {getContactEmail()}
-          </Typography>
-          <Typography
-            variant='p'
-            color={theme.palette.themePrimary}
-            fontSize={theme.typography.fontSizes.clamp3}
-            style={{ fontWeight: theme.typography.fontWeights.medium }}
-          >
-            🌐 www.fluxline.pro
+            Founder, CEO, Personal Trainer & Mythic Architect <br />
+            Fluxline Resonance Group, LLC <br />
+            Salt Lake City, UT <br />
+            📧{' '}
+            <a
+              href={`mailto:${getContactEmail()}`}
+              style={{
+                color: theme.palette.themePrimary,
+                textDecoration: 'underline',
+              }}
+            >
+              {getContactEmail()}
+            </a>
           </Typography>
         </Container>
 
         <Container
           display='flex'
           flexDirection='column'
-          alignItems={isMobile ? 'flex-start' : 'center'}
+          alignItems='flex-start'
+          justifyContent='flex-start'
         >
           <Typography
-            variant='p'
-            color={theme.palette.neutralSecondary}
-            fontSize={theme.typography.fontSizes.clamp3}
+            variant='h6'
+            color={theme.palette.themePrimary}
+            fontSize={theme.typography.fontSizes.clamp5}
             marginBottom={theme.spacing.s}
-            textAlign={isMobile ? 'left' : 'center'}
+            textAlign='left'
           >
-            Connect with us:
+            Connect with us
           </Typography>
-          <SocialLinks isAuthorTagline={true} />
+          <SocialLinks />
         </Container>
       </Container>
     </Container>
@@ -321,6 +307,7 @@ const ContactForm: React.FC = () => {
       </Typography>
       <AboutMeSection />
       <VisionHappenSection />
+      <CTACallout variant='services' showOnlyFor={[]} />
       <Typography
         variant='h3'
         textAlign='left'

@@ -5,7 +5,7 @@ import { Typography } from '../typography/typography';
 import { Container } from '../../layouts/Container';
 
 export interface CTACalloutProps {
-  variant: 'services' | 'legal' | 'consultation';
+  variant: 'services' | 'legal' | 'consultation' | 'getStarted';
   currentView?: string;
   showOnlyFor?: string[]; // Which views to show this CTA on
   hideBottomHR?: boolean; // Option to hide the bottom HR when stacking CTAs
@@ -47,6 +47,14 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
       title: "Let's Make Your Vision Happen!",
       description:
         'Book a free consultation to discuss your project estimates, training, consulting, or development needs',
+      icon: '➤',
+      route: 'https://outlook.office.com/book/Bookings@terencewaters.com',
+      isExternal: true,
+    },
+    getStarted: {
+      title: 'Ready to Get Started?',
+      description:
+        "We'd love to help you with your next project! Click this button to book a free, no obligation consultation with us below.",
       icon: '➤',
       route: 'https://outlook.office.com/book/Bookings@terencewaters.com',
       isExternal: true,
@@ -104,9 +112,9 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
     <>
       <hr style={hrStyles} />
       <Container
-        style={ctaContainerStyle}
-        padding='2rem'
+        padding='0.5rem 1rem'
         marginBottom='3rem'
+        style={ctaContainerStyle}
         onClick={handleClick}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -115,6 +123,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
           display='flex'
           alignItems='center'
           justifyContent='space-between'
+          padding='2rem'
         >
           <Container
             display='flex'

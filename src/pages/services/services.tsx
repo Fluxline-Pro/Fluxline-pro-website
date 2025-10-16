@@ -101,33 +101,12 @@ const H2Title = ({
 };
 
 export const GetStarted: React.FC = () => {
-  const orientation = useDeviceOrientation();
-  const { theme } = useAppTheme();
-
   return (
-    <div
-      style={{
-        ...styles.sectionContainer,
-        marginTop:
-          orientation === 'portrait' || orientation === 'mobile-landscape'
-            ? '2rem'
-            : '3rem',
-      }}
-    >
-      <H2Title name='ready to get started?' />
-      <Typography
-        variant='p'
-        textAlign='left'
-        color={theme.palette.neutralPrimary}
-        marginBottom='1rem'
-        noHyphens
-        style={styles.textContent}
-      >
-        We'd love to help you with your next project! Click this button to book
-        a free, no obligation consultation with us below.
-      </Typography>
-      <BookingsButton />
-    </div>
+    <CTACallout
+      variant='getStarted'
+      showOnlyFor={[]} // Show on all views
+      hideBottomHR={true}
+    />
   );
 };
 
@@ -149,6 +128,15 @@ export const WhitePagesSection: React.FC<{
     orientation === 'portrait' ||
     orientation === 'tablet-portrait' ||
     orientation === 'large-portrait';
+  
+  const hrStyles = {
+    margin: '2rem 0',
+    border: 'none',
+    height: '1px',
+    backgroundColor: theme.palette.themePrimary,
+    opacity: 0.3,
+  };
+
 
   // Filter white pages for current view
   const getRelevantWhitePages = () => {
@@ -177,6 +165,7 @@ export const WhitePagesSection: React.FC<{
           marginBottom: '3rem',
         }}
       >
+        <hr style={hrStyles} />
         <H2Title name='Services White Pages' />
         <Typography
           variant='p'
@@ -221,7 +210,6 @@ export const WhitePagesSection: React.FC<{
               variant='p'
               color={theme.palette.neutralSecondary}
               fontSize='0.9rem'
-              style={{ fontStyle: 'italic' }}
             >
               Want to see all white pages in one place?{' '}
               <span
@@ -1091,12 +1079,6 @@ export const Services: React.FC<ServicesProps> = ({
                 isMobile={orientation === 'portrait'}
                 currentView={actualView}
               />
-              <CTACallout
-                variant='services'
-                currentView={actualView}
-                hideBottomHR={true}
-              />
-              <CTACallout variant='legal' currentView={actualView} />
               <GetStarted />
             </>
           ) : (
@@ -1104,6 +1086,12 @@ export const Services: React.FC<ServicesProps> = ({
             <>
               <ProfessionalSummary currentView={actualView} />
               <WhitePagesSection currentView={actualView} />
+              <CTACallout
+                variant='legal'
+                currentView={actualView}
+                showOnlyFor={[]}
+                hideBottomHR={true}
+              />
               <GetStarted />
             </>
           )}
