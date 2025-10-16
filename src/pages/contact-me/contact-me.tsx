@@ -269,8 +269,8 @@ const AboutMeSection: React.FC = () => {
         style={{
           background:
             theme.themeMode === 'high-contrast'
-              ? 'transparent'
-              : theme.palette.white,
+              ? theme.palette.neutralDark
+              : theme.palette.neutralLight,
           borderRadius: theme.borderRadius.container.small,
           border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
         }}

@@ -265,7 +265,7 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
             width: '100%',
             boxSizing: 'border-box',
             // Add top padding on mobile for fixed header, but not when it interferes with image card title positioning
-            paddingTop: isMobile && !homePage ? '7rem' : '0',
+            paddingTop: isMobile && !homePage ? '5rem' : '0',
           }}
         >
           {leftChildren}

@@ -91,7 +91,7 @@ const PAGE_CONFIGS = {
     imageText: 'Blog',
   },
   '/contact-me': {
-    image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
+    image: require('../../assets/images/LinkedInTerenceW1024x1536.jpeg'), // Special marker for dynamic logo
     imageText: '',
   },
   '/books': {

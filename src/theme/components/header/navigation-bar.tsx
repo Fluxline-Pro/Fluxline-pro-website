@@ -81,7 +81,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     textShadow: 'none',
     textAlign: readingDirection === 'rtl' ? 'right' : 'left',
     opacity:
-      (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile ? 1 : 0,
+      (isScrolledPast && !isMenuOpen && !isSettingsOpen) ? 1 : 0,
     transition: theme.animations.transitions.fade.enter,
     visibility:
       (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile
@@ -111,7 +111,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
       width='100%'
       style={{
         zIndex: theme.zIndices.menu + 1,
-        backgroundColor: shouldShowBackdrop
+        backgroundColor: shouldShowBackdrop && isScrolledPast
           ? theme.isInverted
             ? 'rgba(37, 37, 37, 0.9)'
             : 'rgba(255, 255, 255, 0.8)'
