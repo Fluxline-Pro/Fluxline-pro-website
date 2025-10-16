@@ -5,13 +5,14 @@ import { Typography } from '../../theme/components/typography/typography';
 import { Container } from '../../theme/layouts/Container';
 // import { FluentInput } from '../../theme/components/form-elements/input/input';
 // import { FluentButton } from '../../theme/components/button/button';
-import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
 import { useContactStore } from '../../store/store-specs/contactStore';
 import { useIsMobile } from '../../theme/hooks/useMediaQuery';
 import { ImageModal } from '../../theme/components/modal/image-modal';
+import { SocialLinks } from '../../theme/components/header/social-links';
 // Import business card images directly
 import BusinessCardFront from '../../assets/images/businessCardFront.png';
 import BusinessCardBack from '../../assets/images/businessCardBack.png';
+import { CTACallout } from '../../theme/components';
 // import { CONTENT_API_FLAGS, isApiAvailable } from '../../utils/contentDataManager';
 
 // interface FormValidation {
@@ -19,6 +20,159 @@ import BusinessCardBack from '../../assets/images/businessCardBack.png';
 //   email: string | null;
 //   message: string | null;
 // }
+
+// Obfuscated email to prevent spam crawlers
+const getContactEmail = (): string => {
+  const reversedLocal = 'ecneret'.split('').reverse().join('');
+  const domain = ['fluxline', 'pro'].join('.');
+  return `${reversedLocal}@${domain}`;
+};
+
+const VisionHappenSection: React.FC = () => {
+  return (
+    <CTACallout
+      variant='consultation'
+      showOnlyFor={[]} // Show on all views since this is the contact page
+    />
+  );
+};
+
+const AboutMeSection: React.FC = () => {
+  const { theme } = useAppTheme();
+  const isMobile = useIsMobile();
+
+  return (
+    <Container
+      style={{
+        background:
+          theme.themeMode === 'high-contrast'
+            ? theme.semanticColors.warningBackground
+            : theme.palette.neutralLight,
+        padding: theme.spacing.xl,
+        borderRadius: theme.borderRadius.container.medium,
+        marginBottom: theme.spacing.xl,
+      }}
+    >
+      <Typography
+        variant='p'
+        color={theme.palette.neutralPrimary}
+        marginBottom={theme.spacing.l}
+        noHyphens
+      >
+        Fluxline helps visionary people, entrepreneurs, and small businesses
+        build systems and wisdom that grow with them. We specialize in modular
+        web development, scalable design ecosystems, personal training and
+        nutrition, career development and life coaching, and human-centered
+        technology—blending emotional clarity with strategic innovation.
+      </Typography>
+
+      <Typography
+        variant='p'
+        color={theme.palette.neutralPrimary}
+        marginBottom={theme.spacing.l}
+        noHyphens
+      >
+        Whether you're launching a brand, evolving your infrastructure, seeking
+        personal innovation or improvement, or architecting a long-term
+        solution, we design and execute to help you transform.
+      </Typography>
+
+      <Typography
+        variant='p'
+        color={theme.palette.neutralPrimary}
+        marginBottom={theme.spacing.l}
+        noHyphens
+      >
+        Founded by Terence Waters, Fluxline combines advanced architecture,
+        creative storytelling, and intentional coaching to help you build more
+        than just products—we help you build philosophies, living identities,
+        and frameworks that adapt to change.
+      </Typography>
+
+      <Container
+        display='flex'
+        flexDirection={isMobile ? 'column' : 'row'}
+        gap={theme.spacing.l}
+        alignItems={isMobile ? 'flex-start' : 'center'}
+        justifyContent='space-between'
+        marginTop={theme.spacing.l}
+        padding={theme.spacing.l}
+        style={{
+          background:
+            theme.themeMode === 'high-contrast'
+              ? 'transparent'
+              : theme.palette.white,
+          borderRadius: theme.borderRadius.container.small,
+          border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+        }}
+      >
+        <Container display='flex' flexDirection='column' gap={theme.spacing.s}>
+          <Typography
+            variant='h4'
+            color={theme.palette.themePrimary}
+            fontWeight={theme.typography.fontWeights.semiBold}
+          >
+            Terence Waters
+          </Typography>
+          <Typography
+            variant='p'
+            color={theme.palette.neutralSecondary}
+            fontSize={theme.typography.fontSizes.clamp3}
+          >
+            Founder, CEO, Personal Trainer & Mythic Architect
+          </Typography>
+          <Typography
+            variant='p'
+            color={theme.palette.neutralSecondary}
+            fontSize={theme.typography.fontSizes.clamp3}
+          >
+            Fluxline Resonance Group, LLC
+          </Typography>
+          <Typography
+            variant='p'
+            color={theme.palette.neutralSecondary}
+            fontSize={theme.typography.fontSizes.clamp3}
+          >
+            Salt Lake City, UT
+          </Typography>
+          <Typography
+            variant='p'
+            color={theme.palette.themePrimary}
+            fontSize={theme.typography.fontSizes.clamp3}
+            style={{ fontWeight: theme.typography.fontWeights.medium }}
+          >
+            📧 {getContactEmail()}
+          </Typography>
+          <Typography
+            variant='p'
+            color={theme.palette.themePrimary}
+            fontSize={theme.typography.fontSizes.clamp3}
+            style={{ fontWeight: theme.typography.fontWeights.medium }}
+          >
+            🌐 www.fluxline.pro
+          </Typography>
+        </Container>
+
+        <Container
+          display='flex'
+          flexDirection='column'
+          alignItems={isMobile ? 'flex-start' : 'center'}
+        >
+          <Typography
+            variant='p'
+            color={theme.palette.neutralSecondary}
+            fontSize={theme.typography.fontSizes.clamp3}
+            marginBottom={theme.spacing.s}
+            textAlign={isMobile ? 'left' : 'center'}
+          >
+            Connect with us:
+          </Typography>
+          <SocialLinks isAuthorTagline={true} />
+        </Container>
+      </Container>
+    </Container>
+  );
+};
 
 const ContactForm: React.FC = () => {
   const { theme } = useAppTheme();
@@ -165,18 +319,8 @@ const ContactForm: React.FC = () => {
       >
         Let's connect!
       </Typography>
-      <Typography
-        variant='p'
-        color={theme.palette.neutralPrimary}
-        marginBottom={theme.spacing.m}
-        noHyphens
-      >
-        Let's discuss your needs and goals! Whether you're seeking project
-        estimates, personalized training, strategic consulting, or web
-        development, we're happy to help. Click the button below to book a free,
-        no obligation consultation. My business card is also below for download.
-      </Typography>
-      <BookingsButton />
+      <AboutMeSection />
+      <VisionHappenSection />
       <Typography
         variant='h3'
         textAlign='left'
