@@ -43,12 +43,6 @@
       }
     },
     {
-      "route": "/*",
-      "headers": {
-        "X-Robots-Tag": "noindex, nofollow"
-      }
-    },
-    {
       "route": "*",
       "allowedRoles": ["anonymous"],
       "headers": {
