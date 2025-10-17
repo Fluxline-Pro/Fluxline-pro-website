@@ -18,7 +18,6 @@ import FluentButton from '../../theme/components/button/button';
 import { Container } from '../../theme/layouts/Container';
 import Typography from '../../theme/components/typography/typography';
 import {
-  useDeviceOrientation,
   useIsLargeDesktop,
   useIsMobile,
   useIsTablet,
@@ -109,10 +108,7 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
 
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
-  const isMobileLandscape = useDeviceOrientation() === 'mobile-landscape';
-  const isTabletPortrait = useDeviceOrientation() === 'tablet-portrait';
   const isLargeScreen = useIsLargeDesktop();
-  const isSquare = useDeviceOrientation() === 'square';
   const { theme } = useAppTheme();
 
   // Get content data manager

@@ -783,6 +783,7 @@ export const useContentData = (contentType: string) => {
       portfolioStore,
       githubStore,
       authorsStore,
+      pressReleasesStore,
     ]
   );
 
