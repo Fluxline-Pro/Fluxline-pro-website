@@ -10,6 +10,8 @@ interface WhitePageCardProps {
   onMouseEnter: () => void;
   onMouseLeave: () => void;
   variant?: 'default' | 'compact';
+  isPdf?: boolean; // Whether this item links to a PDF
+  context?: 'whitepaper' | 'legal'; // Context to determine the display text
 }
 
 export const WhitePageCard: React.FC<WhitePageCardProps> = ({
@@ -19,8 +21,21 @@ export const WhitePageCard: React.FC<WhitePageCardProps> = ({
   onMouseEnter,
   onMouseLeave,
   variant = 'default',
+  isPdf = true, // Default to true for backward compatibility
+  context = 'whitepaper', // Default context
 }) => {
   const { theme } = useAppTheme();
+
+  // Determine the action text based on context and PDF status
+  const getActionText = () => {
+    if (!isPdf) {
+      return null; // Don't show action text for non-PDF items
+    }
+
+    return context === 'legal' ? 'View PDF' : 'View White Paper';
+  };
+
+  const actionText = getActionText();
 
   const cardStyle = () => ({
     backgroundColor:
@@ -61,23 +76,25 @@ export const WhitePageCard: React.FC<WhitePageCardProps> = ({
       >
         {whitePage.description}
       </Typography>
-      <Typography
-        variant='p'
-        color={theme.palette.themePrimary}
-        marginTop={variant === 'compact' ? '0.5rem' : '1rem'}
-        fontWeight='600'
-        fontSize='0.9rem'
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-        }}
-      >
-        <span role='img' aria-label='Document'>
-          📄
-        </span>{' '}
-        View White Paper
-      </Typography>
+      {actionText && (
+        <Typography
+          variant='p'
+          color={theme.palette.themePrimary}
+          marginTop={variant === 'compact' ? '0.5rem' : '1rem'}
+          fontWeight='600'
+          fontSize='0.9rem'
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+          }}
+        >
+          <span role='img' aria-label='Document'>
+            📄
+          </span>{' '}
+          {actionText}
+        </Typography>
+      )}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import {
   useDeviceOrientation,
   useIsLargeDesktop,
   useIsTablet,
+  useIsMobile,
 } from '../hooks/useMediaQuery';
 import { useLayoutConfig } from '../hooks/useLayoutConfig';
 import { useContentScrollable } from '../hooks/useContentScrollable';
@@ -33,6 +34,7 @@ interface ViewportGridProps {
   rightMaxWidth?: string | number;
   isHomePage?: boolean;
   backgroundImage?: 'one' | 'two';
+  backgroundLoaded?: boolean;
 }
 
 export const ViewportGrid: React.FC<ViewportGridProps> = ({
@@ -50,6 +52,7 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
   nested = false,
   isHomePage = false,
   backgroundImage = 'one',
+  backgroundLoaded,
 }) => {
   const { layoutPreference, readingDirection, theme, themeMode } =
     useAppTheme();
@@ -58,7 +61,9 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
   const orientation = useDeviceOrientation();
   const isXLScreen = useIsLargeDesktop();
   const isTablet = useIsTablet();
+  const isMobile = useIsMobile();
   const location = useLocation();
+  const homePage = location.pathname === '/';
 
   // Create ref for right content area to detect scrollability
   const rightContentRef = React.useRef<HTMLDivElement>(null);
@@ -230,6 +235,7 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
         themeMode={themeMode}
         theme={theme}
         layoutPreference={layoutPreference}
+        backgroundLoaded={backgroundLoaded}
       />
 
       {shouldShowLeftChildren && leftChildren && (
@@ -256,6 +262,8 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
             maxWidth: '100%',
             width: '100%',
             boxSizing: 'border-box',
+            // Add top padding on mobile for fixed header, but not when it interferes with image card title positioning
+            paddingTop: isMobile && !homePage ? '5rem' : '0',
           }}
         >
           {leftChildren}

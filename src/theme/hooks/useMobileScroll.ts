@@ -2,12 +2,13 @@ import React from 'react';
 import { useIsMobile } from '../hooks/useMediaQuery';
 
 export function useMobileScroll() {
-  const [isScrolledPast, setIsScrolledPast] = React.useState(false);
+  const [isScrolledPast, setIsScrolledPast] = React.useState(true);
+  // let isScrolledPast = true;
   const isMobile = useIsMobile();
 
   React.useEffect(() => {
     const handleScroll = () => {
-      if (!isMobile) return;
+      if (!isMobile) setIsScrolledPast(false);
 
       // Look for any element with id 'imageCard' or any UnifiedCard with viewType='image'
       const imageCardElement = document.getElementById('imageCard');

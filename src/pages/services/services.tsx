@@ -6,15 +6,16 @@ import { PercentageBullet } from '../../theme/components/percentage-bullet/perce
 import { Container } from '../../theme/layouts/Container';
 import { Typography } from '../../theme/components/typography/typography';
 import { FadeUp } from '../../theme/components/animations/fade-animations';
+import { AnimatePresence } from 'framer-motion';
 
 import SERVICES_EXPORTS from './constants';
 import { useDeviceOrientation } from '../../theme/hooks/useMediaQuery';
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
-import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
 import { NavigationArrow } from '../../theme/components/navigation-arrow/navigation-arrow';
 import { PdfModal } from '../../theme/components/modal/pdf-modal';
 import { WhitePageItem } from '../white-pages/white-pages-constants';
 import { WhitePageCard } from '../../theme/components/card/white-page-card/white-page-card';
+import { CTACallout } from '../../theme/components/cta';
 
 // Reusable style objects
 const styles = {
@@ -99,33 +100,12 @@ const H2Title = ({
 };
 
 export const GetStarted: React.FC = () => {
-  const orientation = useDeviceOrientation();
-  const { theme } = useAppTheme();
-
   return (
-    <div
-      style={{
-        ...styles.sectionContainer,
-        marginTop:
-          orientation === 'portrait' || orientation === 'mobile-landscape'
-            ? '2rem'
-            : '3rem',
-      }}
-    >
-      <H2Title name='ready to get started?' />
-      <Typography
-        variant='p'
-        textAlign='left'
-        color={theme.palette.neutralPrimary}
-        marginBottom='1rem'
-        noHyphens
-        style={styles.textContent}
-      >
-        We'd love to help you with your next project! Click this button to book
-        a free, no obligation consultation with us below.
-      </Typography>
-      <BookingsButton />
-    </div>
+    <CTACallout
+      variant='getStarted'
+      showOnlyFor={[]} // Show on all views
+      hideBottomHR={true}
+    />
   );
 };
 
@@ -147,6 +127,15 @@ export const WhitePagesSection: React.FC<{
     orientation === 'portrait' ||
     orientation === 'tablet-portrait' ||
     orientation === 'large-portrait';
+  
+  const hrStyles = {
+    margin: '2rem 0',
+    border: 'none',
+    height: '1px',
+    backgroundColor: theme.palette.themePrimary,
+    opacity: 0.3,
+  };
+
 
   // Filter white pages for current view
   const getRelevantWhitePages = () => {
@@ -175,6 +164,7 @@ export const WhitePagesSection: React.FC<{
           marginBottom: '3rem',
         }}
       >
+        <hr style={hrStyles} />
         <H2Title name='Services White Pages' />
         <Typography
           variant='p'
@@ -219,7 +209,6 @@ export const WhitePagesSection: React.FC<{
               variant='p'
               color={theme.palette.neutralSecondary}
               fontSize='0.9rem'
-              style={{ fontStyle: 'italic' }}
             >
               Want to see all white pages in one place?{' '}
               <span
@@ -773,115 +762,6 @@ export const CorePrinciplesSection: React.FC<PercentageCirclesProps> = ({
   );
 };
 
-export const ServicesCTA: React.FC<{
-  currentView: ServicesProps['currentView'];
-}> = ({ currentView }) => {
-  const { theme } = useAppTheme();
-  const navigate = useNavigate();
-  const [isHovered, setIsHovered] = useState(false);
-
-  // Only show for 'about' view
-  if (currentView !== 'about') {
-    return null;
-  }
-
-  const hrStyles = {
-    margin: '2rem 0',
-    border: 'none',
-    height: '1px',
-    backgroundColor: theme.palette.themePrimary,
-    opacity: 0.3,
-  };
-
-  const ctaContainerStyle = {
-    textAlign: 'center' as const,
-    padding: '2rem',
-    background:
-      theme.themeMode === 'high-contrast'
-        ? theme.palette.neutralDark
-        : theme.palette.neutralLight,
-    borderRadius: '8px',
-    borderLeft: `6px solid ${theme.semanticColors.messageText}`,
-    maxWidth: '800px',
-    marginBottom: '3rem',
-    margin: '2rem auto',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',
-    boxShadow: isHovered ? theme.shadows.xl : theme.shadows.card,
-  };
-
-  const arrowStyle = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '40px',
-    height: '40px',
-    backgroundColor: theme.palette.themePrimary,
-    borderRadius: '50%',
-    marginLeft: '1rem',
-    transition: 'all 0.3s ease',
-    transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
-  };
-
-  return (
-    <>
-      <hr style={hrStyles} />
-      <div
-        style={ctaContainerStyle}
-        onClick={() => navigate('/services')}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Typography
-            variant='h3'
-            color={theme.palette.themePrimary}
-            fontSize={theme.typography.fontSizes.clamp6}
-            style={{
-              fontStyle: 'italic',
-              textTransform: 'none',
-              letterSpacing: '-0.02em',
-              margin: 0,
-            }}
-          >
-            Explore Our Services
-          </Typography>
-          <div style={arrowStyle}>
-            <span
-              style={{
-                color: theme.palette.black,
-                fontSize: '24px',
-              }}
-            >
-              ➤
-            </span>
-          </div>
-        </div>
-        <Typography
-          variant='p'
-          color={theme.palette.neutralPrimary}
-          marginTop='0.5rem'
-          fontSize={theme.typography.fontSizes.clamp4}
-          style={{
-            fontStyle: 'italic',
-            opacity: 0.8,
-          }}
-        >
-          Discover how we can help transform your vision into reality
-        </Typography>
-      </div>
-      <hr style={hrStyles} />
-    </>
-  );
-};
-
 export const TechnicalSkillsSection: React.FC<PercentageCirclesProps> = ({
   isMobile,
   currentView,
@@ -947,7 +827,7 @@ export const GuidingPrinciplesSection: React.FC<PercentageCirclesProps> = ({
   // Get the main guiding principles (pick the most important ones)
   const guidingPrinciples = SERVICES_EXPORTS.ABOUT_PERCENTAGE_POINTS.slice(
     18,
-    28
+    30
   );
 
   return (
@@ -1181,35 +1061,42 @@ export const Services: React.FC<ServicesProps> = ({
   const actualView = getViewFromPath();
 
   return (
-    <FadeUp key={actualView} delay={0}>
-      <div>
-        {actualView === 'about' ? (
-          // Optimized About page with improved visual hierarchy and flow
-          <>
-            <AboutSection currentView={actualView} />
-            <TaglineHeader currentView={actualView} />
-            <MissionVisionSection currentView={actualView} />
-            <ServicesCTA currentView={actualView} />
-            <TechnicalSkillsSection
-              isMobile={orientation === 'portrait'}
-              currentView={actualView}
-            />
-            <GuidingPrinciplesSection
-              isMobile={orientation === 'portrait'}
-              currentView={actualView}
-            />
-            <GetStarted />
-          </>
-        ) : (
-          // Original layout for other service pages
-          <>
-            <ProfessionalSummary currentView={actualView} />
-            <WhitePagesSection currentView={actualView} />
-            <GetStarted />
-          </>
-        )}
-      </div>
-    </FadeUp>
+    <AnimatePresence mode='wait'>
+      <FadeUp key={actualView} delay={0.1} duration={0.5}>
+        <div>
+          {actualView === 'about' ? (
+            // Optimized About page with improved visual hierarchy and flow
+            <>
+              <AboutSection currentView={actualView} />
+              <TaglineHeader currentView={actualView} />
+              <MissionVisionSection currentView={actualView} />
+              <TechnicalSkillsSection
+                isMobile={orientation === 'portrait'}
+                currentView={actualView}
+              />
+              <GuidingPrinciplesSection
+                isMobile={orientation === 'portrait'}
+                currentView={actualView}
+              />
+              <GetStarted />
+            </>
+          ) : (
+            // Original layout for other service pages
+            <>
+              <ProfessionalSummary currentView={actualView} />
+              <WhitePagesSection currentView={actualView} />
+              <CTACallout
+                variant='legal'
+                currentView={actualView}
+                showOnlyFor={[]}
+                hideBottomHR={true}
+              />
+              <GetStarted />
+            </>
+          )}
+        </div>
+      </FadeUp>
+    </AnimatePresence>
   );
 };
 

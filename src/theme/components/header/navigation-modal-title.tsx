@@ -25,7 +25,7 @@ const ModalTitle: React.FC<{ isMobileLandscape?: boolean; title: string }> = ({
       color: theme.palette.themePrimary,
       fontSize: 'clamp(2rem, 3vh, 3rem)',
       fontWeight: theme.typography.fontWeights.thin,
-      textShadow: 'none',
+      textShadow: 'none !important',
       textAlign:
         layoutPreference === 'right-handed'
           ? orientation === 'mobile-landscape'

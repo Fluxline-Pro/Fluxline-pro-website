@@ -45,6 +45,8 @@ export interface UnifiedCardProps {
   contentContainerStyle?: React.CSSProperties;
   // Flag to indicate this card is used as the left panel in ViewportGrid
   isViewportLeftPanel?: boolean;
+  // Flag to skip dark mode filter (useful for dark logos)
+  skipDarkModeFilter?: boolean;
 }
 
 export const UnifiedCard: React.FC<UnifiedCardProps> = ({
@@ -67,12 +69,13 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
   imageContainerStyle,
   contentContainerStyle,
   isViewportLeftPanel = false,
+  skipDarkModeFilter = false,
 }) => {
   const { theme } = useAppTheme();
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
   const deviceOrientation = useDeviceOrientation();
-  const { filter } = useColorVisionFilter();
+  const { filter } = useColorVisionFilter(skipDarkModeFilter);
   const formattedDate = useDateFormatter(date || '');
   const { shouldReduceMotion } = useReducedMotion();
 
@@ -369,11 +372,11 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
       filter: filter,
       opacity: imageLoaded ? 1 : 0,
       // Image transitions should be timed differently than the container
-      // Fade in quickly, but transform with a delay after container has started to change
+      // Fade in slowly to match legal page timing (0.5s duration) + 200ms slower
       transition: shouldReduceMotion
         ? 'none'
-        : `opacity 0.3s ease-out, 
-           transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.15s`,
+        : `opacity 0.9s ease-out, 
+           transform 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.15s`,
       // Remove minWidth/minHeight constraints that force overflow
       transform: cardDimensions.transform,
       margin: '0 auto',
@@ -393,6 +396,7 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
     };
 
     const textStyles = {
+      opacity: isMobile ? 0 : 1,
       position: 'absolute' as const,
       bottom: '2rem',
       left: '2rem',
@@ -609,7 +613,7 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
     display: 'block' as const,
     filter: filter,
     opacity: imageLoaded ? 1 : 0,
-    transition: 'opacity 0.3s ease-in-out',
+    transition: 'opacity 0.9s ease-in-out', // Match legal page timing + 200ms slower
   };
 
   // Typography classes

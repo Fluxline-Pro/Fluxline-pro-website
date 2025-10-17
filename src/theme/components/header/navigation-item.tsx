@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAppTheme } from '../../hooks/useAppTheme';
+import { useIsMobile } from '../../hooks/useMediaQuery';
 
 interface NavigationItemProps {
   isHovered: boolean;
@@ -19,6 +20,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
 }) => {
   const { theme, layoutPreference } = useAppTheme();
   const isLeftHanded = layoutPreference === 'left-handed';
+  const isMobile = useIsMobile();
 
   const styles = {
     navItem: {
@@ -31,10 +33,11 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
         ? 'left'
         : ('right' as React.CSSProperties['textAlign']),
       fontFamily: theme.typography.fonts.medium.fontFamily,
-      fontSize: 'clamp(1.5rem, 5vw, 2.25rem)', // Override with viewport-based sizing for navigation menu
-      fontWeight: isHovered
-        ? theme.typography.fontWeights.semiBold
-        : theme.typography.fontWeights.light,
+      fontSize: 'clamp(1.75rem, 4vw, 2.25rem)', // Better mobile base size with smoother scaling
+      fontWeight:
+        isHovered || isMobile
+          ? theme.typography.fontWeights.semiBold
+          : theme.typography.fontWeights.light,
       fontVariationSettings:
         theme.typography.fonts.medium.fontVariationSettings,
       letterSpacing: theme.typography.fonts.medium.letterSpacing,
@@ -50,7 +53,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
     },
     navTooltip: {
       ...theme.typography.fonts.h2,
-      fontSize: 'clamp(1.5rem, 5vw, 2.25rem)', // Override with viewport-based sizing for navigation
+      fontSize: 'clamp(1.75rem, 4vw, 2.25rem)', // Match navigation item font size
       fontWeight: theme.typography.fontWeights.medium,
       letterSpacing: '-1.5px',
       textTransform: 'capitalize' as const,

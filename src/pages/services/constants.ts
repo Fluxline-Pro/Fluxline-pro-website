@@ -88,15 +88,16 @@ const ABOUT_BULLET_POINTS: IAboutBulletPoint[] = [
   },
 ];
 
+// never 100% because there's always more to learn
 const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
   // Technical Skills
   {
     name: 'design thinking',
-    percentage: 100,
+    percentage: 99,
   },
   {
     name: 'figma prototyping',
-    percentage: 100,
+    percentage: 99,
   },
   {
     name: 'relational brand design',
@@ -123,6 +124,14 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
     percentage: 98,
   },
   {
+    name: 'Agile methodology & Scrum',
+    percentage: 98,
+  },
+  {
+    name: 'project management',
+    percentage: 98,
+  },
+  {
     name: 'cloud & hybrid solutions',
     percentage: 97,
   },
@@ -139,15 +148,7 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
     percentage: 95,
   },
   {
-    name: 'project management',
-    percentage: 95,
-  },
-  {
     name: 'backend development',
-    percentage: 94,
-  },
-  {
-    name: 'business structuring',
     percentage: 94,
   },
   {
@@ -165,31 +166,36 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
   // Guiding Principles
   {
     name: 'intelligence',
-    percentage: 100,
-  },
-  {
-    name: 'influence',
-    percentage: 100,
-  },
-  {
-    name: 'creativity',
-    percentage: 100,
-  },
-  {
-    name: 'love',
-    percentage: 100,
+    percentage: 99,
   },
   {
     name: 'drive',
-    percentage: 100,
-  },
-  {
-    name: 'stillness',
-    percentage: 100,
+    percentage: 99,
   },
   {
     name: 'empathy',
     percentage: 99,
+  },
+  { name: 'integrity', percentage: 99 },
+  {
+    name: 'inclusivity',
+    percentage: 99,
+  },
+  {
+    name: 'creativity',
+    percentage: 98,
+  },
+  {
+    name: 'influence',
+    percentage: 98,
+  },
+  {
+    name: 'love',
+    percentage: 98,
+  },
+  {
+    name: 'stillness',
+    percentage: 98,
   },
   {
     name: 'courage',

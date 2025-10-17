@@ -147,7 +147,7 @@ export const PdfModal: React.FC<PdfModalProps> = ({
                 padding: '0',
               }}
             />
-j          </div>
+          </div>
         </div>
 
         {/* PDF Viewer */}
