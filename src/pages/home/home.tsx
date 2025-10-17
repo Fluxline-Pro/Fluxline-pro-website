@@ -1,6 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import {
@@ -12,11 +12,11 @@ import useBackgroundImage from '../../theme/hooks/useBackgroundImage';
 import { ViewportGrid } from '../../theme/layouts/ViewportGrid';
 import { LayoutGrid } from '../../theme/layouts/LayoutGrid';
 import { Typography } from '../../theme/components/typography/typography';
-// import { ProgressBar } from '../../theme/components/progress-bar/progress-bar';
+import { ProgressBar } from '../../theme/components/progress-bar/progress-bar';
 import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
-import { FluentButton } from '../../theme/components/button/button';
-import { AnimatePresence } from 'framer-motion';
+import { PageStepper } from '../../theme/components/page-stepper';
 import { FadeUp } from '../../theme/components/animations/fade-animations';
+import { FluentButton } from '../../theme/components/button/button';
 
 export const UnderConstruction = () => {
   const { theme } = useAppTheme();
@@ -310,8 +310,8 @@ const HomeContent: React.FC<{
 
       <div
         style={{
-          marginTop: `${orientation === 'mobile-landscape' ? theme.spacing.xs : theme.spacing.l}`,
-          marginBottom: `${orientation === 'mobile-landscape' ? theme.spacing.s : theme.spacing.xl}`,
+          marginTop: `${orientation === 'mobile-landscape' ? undefined : theme.spacing.l}`,
+          marginBottom: `${orientation === 'mobile-landscape' ? undefined : theme.spacing.xl}`,
         }}
       >
         <Typography
@@ -391,46 +391,48 @@ const HomeContent: React.FC<{
           animateSubHeader={animateSubHeader}
           willAnimate={true}
         />
-        <FluentButton
-          variant='secondary'
-          onClick={() => navigate('/about')}
-          style={{
-            padding: '10px 16px',
-            minHeight: orientation === 'portrait' ? '40px' : undefined,
-            minWidth: '250px',
-            maxWidth: '500px',
-            width: '100%',
-            fontSize: `${
-              orientation === 'mobile-landscape'
-                ? theme.typography.fonts.h6.fontSize
-                : theme.typography.fonts.h5.fontSize
-            }`,
-            fontWeight: '500',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.08)',
-            // Always start hidden, only show when animation triggers
-            opacity: 0,
-            transform: 'translateY(20px)',
-            ...(animateSubHeader === true && {
-              animation: 'slideInUp 0.4s ease-in-out forwards',
-              animationDelay: '2.5s',
-            }),
-            ...(orientation === 'portrait' && {
-              fontSize: 'clamp(1rem, 2.8cqi, 1.6rem)',
-            }),
-            ...(orientation === 'square' && {
-              fontSize: 'clamp(1.1rem, 3.2cqi, 1.2rem)',
-            }),
-            ...((orientation === 'landscape' ||
-              orientation === 'ultrawide') && {
-              fontSize: 'clamp(1.1rem, 2cqi, 1.3rem)',
-            }),
-            ...(orientation === 'mobile-landscape' && {
-              fontSize: 'clamp(1rem, 2.8cqi, 1.3rem)',
-            }),
-          }}
-        >
-          About Fluxline
-        </FluentButton>
+        {!isMobile && (
+          <FluentButton
+            variant='secondary'
+            onClick={() => navigate('/about')}
+            style={{
+              padding: '10px 16px',
+              minHeight: orientation === 'portrait' ? '40px' : undefined,
+              minWidth: '250px',
+              maxWidth: '500px',
+              width: '100%',
+              fontSize: `${
+                orientation === 'mobile-landscape'
+                  ? theme.typography.fonts.h6.fontSize
+                  : theme.typography.fonts.h5.fontSize
+              }`,
+              fontWeight: '500',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.08)',
+              // Always start hidden, only show when animation triggers
+              opacity: 0,
+              transform: 'translateY(20px)',
+              ...(animateSubHeader === true && {
+                animation: 'slideInUp 0.4s ease-in-out forwards',
+                animationDelay: '2.5s',
+              }),
+              ...(orientation === 'portrait' && {
+                fontSize: 'clamp(1rem, 2.8cqi, 1.6rem)',
+              }),
+              ...(orientation === 'square' && {
+                fontSize: 'clamp(1.1rem, 3.2cqi, 1.2rem)',
+              }),
+              ...((orientation === 'landscape' ||
+                orientation === 'ultrawide') && {
+                fontSize: 'clamp(1.1rem, 2cqi, 1.3rem)',
+              }),
+              ...(orientation === 'mobile-landscape' && {
+                fontSize: 'clamp(1rem, 2.8cqi, 1.3rem)',
+              }),
+            }}
+          >
+            About Fluxline
+          </FluentButton>
+        )}
       </div>
     </LayoutGrid>
   );
@@ -504,41 +506,134 @@ export const Home: React.FC = () => {
   //   return <ProgressBar label='Loading...' />;
   // }
 
+  // Show loading screen while background image is loading
+  if (!backgroundLoaded) {
+    return (
+      <ViewportGrid
+        leftChildren={
+          <LayoutGrid
+            display='flex'
+            alignItems='center'
+            justifyContent='center'
+            width='100%'
+            height='100vh'
+            flexDirection='column'
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.1)',
+              zIndex: 1000,
+            }}
+          >
+            <div
+              style={{
+                width: '100%',
+                maxWidth: '600px',
+                padding: '2rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <ProgressBar
+                label='Loading Fluxline...'
+                description='Preparing your experience'
+                autoCenter={true}
+                intervalDelay={150}
+                intervalIncrement={2}
+              />
+            </div>
+          </LayoutGrid>
+        }
+        rightChildren={
+          <LayoutGrid
+            display='flex'
+            alignItems='center'
+            justifyContent='center'
+            width='100%'
+            height='100vh'
+            flexDirection='column'
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.1)',
+              zIndex: 1000,
+            }}
+          >
+            <div
+              style={{
+                width: '100%',
+                maxWidth: '600px',
+                padding: '2rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <ProgressBar
+                label='Loading Fluxline...'
+                description='Preparing your experience'
+                autoCenter={true}
+                intervalDelay={150}
+                intervalIncrement={2}
+              />
+            </div>
+          </LayoutGrid>
+        }
+        isHomePage={true}
+        respectLayoutPreference={true}
+        backgroundImage={backgroundImage as 'one' | 'two'}
+        backgroundLoaded={false} // Force loading state
+      />
+    );
+  }
+
   return (
-    <ViewportGrid
-      leftChildren={
-        <AnimatePresence mode='wait'>
-          <FadeUp
-            key={`home-left-${backgroundImage}-${backgroundLoaded}`}
-            delay={backgroundLoaded ? 0.1 : 0}
-            duration={0.5}
-          >
-            <HomeContent
-              isMobile={isMobile}
-              shouldStartAnimations={shouldStartAnimations}
-            />
-          </FadeUp>
-        </AnimatePresence>
-      }
-      rightChildren={
-        <AnimatePresence mode='wait'>
-          <FadeUp
-            key={`home-right-${backgroundImage}-${backgroundLoaded}`}
-            delay={backgroundLoaded ? 0.1 : 0}
-            duration={0.5}
-          >
-            <HomeContent
-              isMobile={isMobile}
-              shouldStartAnimations={shouldStartAnimations}
-            />
-          </FadeUp>
-        </AnimatePresence>
-      }
-      isHomePage={true}
-      respectLayoutPreference={true}
-      backgroundImage={backgroundImage as 'one' | 'two'}
-      backgroundLoaded={backgroundLoaded}
-    />
+    <>
+      <ViewportGrid
+        leftChildren={
+          <AnimatePresence mode='wait'>
+            <FadeUp
+              key={`home-left-${backgroundImage}-${backgroundLoaded}`}
+              delay={backgroundLoaded ? 0.1 : 0}
+              duration={0.5}
+            >
+              <HomeContent
+                isMobile={isMobile}
+                shouldStartAnimations={shouldStartAnimations}
+              />
+            </FadeUp>
+          </AnimatePresence>
+        }
+        rightChildren={
+          <AnimatePresence mode='wait'>
+            <FadeUp
+              key={`home-right-${backgroundImage}-${backgroundLoaded}`}
+              delay={backgroundLoaded ? 0.1 : 0}
+              duration={0.5}
+            >
+              <HomeContent
+                isMobile={isMobile}
+                shouldStartAnimations={shouldStartAnimations}
+              />
+            </FadeUp>
+          </AnimatePresence>
+        }
+        isHomePage={true}
+        respectLayoutPreference={true}
+        backgroundImage={backgroundImage as 'one' | 'two'}
+        backgroundLoaded={backgroundLoaded}
+      />
+      <PageStepper showOnHomePage={true} autoNavigateOnScroll={true} />
+    </>
   );
 };
 

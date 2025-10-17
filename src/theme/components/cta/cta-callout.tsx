@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppTheme } from '../../hooks/useAppTheme';
 import { Typography } from '../typography/typography';
+import { Container } from '../../layouts/Container';
+import { useIsMobile } from '../../hooks/useMediaQuery';
 
 export interface CTACalloutProps {
-  variant: 'services' | 'legal';
+  variant: 'services' | 'legal' | 'consultation' | 'getStarted';
   currentView?: string;
   showOnlyFor?: string[]; // Which views to show this CTA on
   hideBottomHR?: boolean; // Option to hide the bottom HR when stacking CTAs
@@ -19,6 +21,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
   const { theme } = useAppTheme();
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
+  const isMobile = useIsMobile();
 
   // Only show for specified views
   if (showOnlyFor.length > 0 && !showOnlyFor.includes(currentView || '')) {
@@ -33,12 +36,30 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
         'Discover how we can help transform your vision into reality',
       icon: '➤',
       route: '/services',
+      isExternal: false,
     },
     legal: {
       title: 'Legal & Reference Documents',
       description: 'Access our policies, terms, and important legal documents',
       icon: '➤',
       route: '/legal',
+      isExternal: false,
+    },
+    consultation: {
+      title: "Let's Make Your Vision Happen!",
+      description:
+        'Book a free consultation to discuss your project estimates, training, consulting, or development needs',
+      icon: '➤',
+      route: 'https://outlook.office.com/book/Bookings@terencewaters.com',
+      isExternal: true,
+    },
+    getStarted: {
+      title: 'Ready to Get Started?',
+      description:
+        "We'd love to help you with your next project! Click this button to book a free, no obligation consultation with us to discuss your vision and needs.",
+      icon: '➤',
+      route: 'https://outlook.office.com/book/Bookings@terencewaters.com',
+      isExternal: true,
     },
   };
 
@@ -54,7 +75,6 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
 
   const ctaContainerStyle = {
     textAlign: 'center' as const,
-    padding: '2rem',
     background:
       theme.themeMode === 'high-contrast'
         ? theme.palette.neutralDark
@@ -62,7 +82,6 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
     borderRadius: '8px',
     borderLeft: `6px solid ${theme.semanticColors.messageText}`, // Mythic Gold color
     maxWidth: '800px',
-    marginBottom: '3rem',
     margin: '2rem auto',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
@@ -74,72 +93,84 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '40px',
-    height: '40px',
+    width: isMobile ? '36px' : '52px',
+    height: isMobile ? '36px' : '48px',
     backgroundColor: theme.palette.themePrimary,
     borderRadius: '50%',
-    marginLeft: '1rem',
+    marginRight: isMobile ? undefined : '1rem',
     transition: 'all 0.3s ease',
     transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
   };
 
   const handleClick = () => {
-    navigate(currentConfig.route);
+    if (currentConfig.isExternal) {
+      window.open(currentConfig.route, '_blank', 'noopener,noreferrer');
+    } else {
+      navigate(currentConfig.route);
+    }
   };
 
   return (
     <>
       <hr style={hrStyles} />
-      <div
+      <Container
+        padding='2rem 1rem'
+        marginBottom='3rem'
         style={ctaContainerStyle}
         onClick={handleClick}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
+        <Container
+          display='flex'
+          alignItems='center'
+          justifyContent='space-between'
         >
-          <Typography
-            variant='h3'
-            color={theme.palette.themePrimary}
-            fontSize={theme.typography.fontSizes.clamp6}
-            style={{
-              fontStyle: 'italic',
-              textTransform: 'none',
-              letterSpacing: '-0.02em',
-              margin: 0,
-            }}
+          <Container
+            display='flex'
+            flexDirection='column'
+            justifyContent='flex-start'
+            alignItems='flex-start'
+            paddingRight={isMobile ? '1rem' : '3rem'}
           >
-            {currentConfig.title}
-          </Typography>
-          <div style={iconStyle}>
+            <Typography
+              variant='h3'
+              color={theme.palette.themePrimary}
+              fontSize={theme.typography.fontSizes.clamp6}
+              textAlign='left'
+              style={{
+                textTransform: 'none',
+                letterSpacing: '-0.02em',
+                margin: 0,
+              }}
+            >
+              {currentConfig.title}
+            </Typography>
+            <Typography
+              variant='p'
+              color={theme.palette.neutralPrimary}
+              marginTop='0.5rem'
+              textAlign='left'
+              fontSize={theme.typography.fontSizes.clamp4}
+              style={{
+                opacity: 0.8,
+              }}
+            >
+              {currentConfig.description}
+            </Typography>
+          </Container>
+          <Container style={iconStyle}>
             <span
               style={{
                 color: theme.palette.neutralLight,
-                fontSize: '24px',
+                fontSize: isMobile ? '1.25rem' : '1.75rem',
               }}
             >
               {currentConfig.icon}
             </span>
-          </div>
-        </div>
-        <Typography
-          variant='p'
-          color={theme.palette.neutralPrimary}
-          marginTop='0.5rem'
-          fontSize={theme.typography.fontSizes.clamp4}
-          style={{
-            fontStyle: 'italic',
-            opacity: 0.8,
-          }}
-        >
-          {currentConfig.description}
-        </Typography>
-      </div>
+          </Container>
+        </Container>
+      </Container>
       {!hideBottomHR && <hr style={hrStyles} />}
     </>
   );

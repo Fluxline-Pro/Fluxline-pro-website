@@ -451,14 +451,14 @@ export const typography = {
       fontWeight: '800' as '800',
       fontVariationSettings: '"wght" 800, "wdth" 200, "slnt" 0',
       letterSpacing: '0.1px',
-      textShadow: 'none',
+      textShadow: 'none !important',
       textTransform: 'uppercase' as const,
       lineHeight: '1.3',
     },
     h3: {
       fontFamily:
         'Inter Variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-      fontSize: 'clamp(1.375rem, 2cqi, 1.75rem)',
+      fontSize: 'clamp(1.75rem, 3cqi, 2.25rem)',
       fontWeight: '700' as '700',
       fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
@@ -469,7 +469,7 @@ export const typography = {
     h4: {
       fontFamily:
         'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-      fontSize: 'clamp(1.25rem, 2.5cqi, 1.25rem)',
+      fontSize: 'clamp(1.5rem, 2.5cqi, 1.75rem)',
       fontWeight: '700' as '700',
       fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
@@ -480,7 +480,7 @@ export const typography = {
     h5: {
       fontFamily:
         'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-      fontSize: '1rem',
+      fontSize: 'clamp(1.25rem, 2cqi, 1.5rem)',
       fontWeight: '700' as '700',
       fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
@@ -491,7 +491,7 @@ export const typography = {
     h6: {
       fontFamily:
         'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-      fontSize: '1rem',
+      fontSize: 'clamp(1.125rem, 1.75cqi, 1.25rem)',
       fontWeight: '700' as '700',
       fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
