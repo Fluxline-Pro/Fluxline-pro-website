@@ -30,7 +30,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
   isSettingsOpen = false,
   isMobileLandscape = false,
   isHomePage = false,
-  isScrolledPast = false,
+  isScrolledPast = true,
   pendingLayout = 'right-handed',
   style,
   fadeStage = 'in',
@@ -204,7 +204,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
         display: 'flex',
         flexDirection:
           isMobileLandscape || isLeftHanded ? 'row-reverse' : 'row',
-        gap: isScrolledPast || shouldShowHireMeButton ? 0 : '1rem',
+        gap: shouldShowHireMeButton || isMobile ? 0 : '1rem',
         pointerEvents: 'auto',
         opacity: fadeStage === 'in' ? 1 : 0,
         transition: 'opacity 0.3s',

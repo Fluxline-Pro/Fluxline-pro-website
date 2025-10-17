@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAppTheme } from '../../hooks/useAppTheme';
+import { useIsMobile } from '../../hooks/useMediaQuery';
 
 interface NavigationItemProps {
   isHovered: boolean;
@@ -19,6 +20,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
 }) => {
   const { theme, layoutPreference } = useAppTheme();
   const isLeftHanded = layoutPreference === 'left-handed';
+  const isMobile = useIsMobile();
 
   const styles = {
     navItem: {
@@ -32,9 +34,10 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
         : ('right' as React.CSSProperties['textAlign']),
       fontFamily: theme.typography.fonts.medium.fontFamily,
       fontSize: 'clamp(1.75rem, 4vw, 2.25rem)', // Better mobile base size with smoother scaling
-      fontWeight: isHovered
-        ? theme.typography.fontWeights.semiBold
-        : theme.typography.fontWeights.light,
+      fontWeight:
+        isHovered || isMobile
+          ? theme.typography.fontWeights.semiBold
+          : theme.typography.fontWeights.light,
       fontVariationSettings:
         theme.typography.fonts.medium.fontVariationSettings,
       letterSpacing: theme.typography.fonts.medium.letterSpacing,

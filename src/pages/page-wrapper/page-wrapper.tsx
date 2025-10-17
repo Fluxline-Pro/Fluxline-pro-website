@@ -6,6 +6,7 @@ import { useDeviceOrientation } from '../../theme/hooks/useMediaQuery';
 import { useContentFilterStore } from '../../store/store-specs/contentFilterStore';
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { ThemeMode } from '../../theme/theme';
+import { PageStepper } from '../../theme/components/page-stepper';
 import { AnimatePresence } from 'framer-motion';
 import { FadeUp } from '../../theme/components/animations/fade-animations';
 
@@ -34,8 +35,8 @@ const PAGE_CONFIGS = {
     imageText: '',
   },
   '/services': {
-    image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
-    imageText: '',
+    image: require('../../assets/images/OurServices1197x1600.jpg'), // Business services illustration
+    imageText: 'Services',
   },
   '/white-pages': {
     image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
@@ -94,7 +95,7 @@ const PAGE_CONFIGS = {
     imageText: 'Press Releases',
   },
   '/contact-me': {
-    image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
+    image: require('../../assets/images/LinkedInTerenceW1024x1536.jpeg'), // Special marker for dynamic logo
     imageText: '',
   },
   '/books': {
@@ -258,6 +259,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
               {children}
             </FadeUp>
           </AnimatePresence>
+          <PageStepper autoNavigateOnScroll={true} />
         </div>
       }
       respectLayoutPreference={true}
