@@ -827,7 +827,7 @@ export const GuidingPrinciplesSection: React.FC<PercentageCirclesProps> = ({
   // Get the main guiding principles (pick the most important ones)
   const guidingPrinciples = SERVICES_EXPORTS.ABOUT_PERCENTAGE_POINTS.slice(
     18,
-    28
+    30
   );
 
   return (
