@@ -112,12 +112,8 @@ export const ImageModal: React.FC<ImageModalProps> = ({
             position: 'absolute',
             top: isMobile ? theme.spacing.l : '10px', // Changed from -30px to 10px
             right: isMobile ? theme.spacing.l : '10px', // Changed from -30px to 10px
-            background: isMobile
-              ? 'rgba(255, 255, 255, 0.9)'
-              : theme.palette.neutralLighterAlt,
-            color: isMobile
-              ? theme.palette.neutralDark
-              : theme.palette.neutralPrimary,
+            background: theme.semanticColors.errorText,
+            color: theme.palette.white,
             border: 'none',
             borderRadius: '50%',
             width: isMobile ? '48px' : '40px',
@@ -134,15 +130,9 @@ export const ImageModal: React.FC<ImageModalProps> = ({
             zIndex: 1001,
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = isMobile
-              ? 'rgba(255, 255, 255, 1)'
-              : theme.palette.neutralLight;
             e.currentTarget.style.transform = 'scale(1.1)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = isMobile
-              ? 'rgba(255, 255, 255, 0.9)'
-              : theme.palette.neutralLighterAlt;
             e.currentTarget.style.transform = 'scale(1)';
           }}
         >
