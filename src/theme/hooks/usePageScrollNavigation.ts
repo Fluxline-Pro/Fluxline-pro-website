@@ -77,7 +77,7 @@ export const usePageScrollNavigation = () => {
     }
 
     // Backward navigation (simple top detection)
-    setCanNavigateBackward(isTop && scrollTop > 0);
+    setCanNavigateBackward(isTop);
 
     // Update last scroll position
     lastScrollTopRef.current = scrollTop;
