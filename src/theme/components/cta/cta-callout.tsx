@@ -56,7 +56,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
     getStarted: {
       title: 'Ready to Get Started?',
       description:
-        "We'd love to help you with your next project! Click this button to book a free, no obligation consultation with us below.",
+        "We'd love to help you with your next project! Click this button to book a free, no obligation consultation with us to discuss your vision and needs.",
       icon: '➤',
       route: 'https://outlook.office.com/book/Bookings@terencewaters.com',
       isExternal: true,

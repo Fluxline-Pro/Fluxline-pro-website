@@ -149,7 +149,7 @@ export const PageStepper: React.FC<PageStepperProps> = ({
   ]);
 
   // Don't show on home page unless explicitly requested
-  if (location.pathname === '/' && !showOnHomePage) {
+  if (location.pathname === '/') {
     return null;
   }
 
