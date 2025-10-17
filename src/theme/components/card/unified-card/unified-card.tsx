@@ -396,6 +396,7 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
     };
 
     const textStyles = {
+      opacity: isMobile ? 0 : 1,
       position: 'absolute' as const,
       bottom: '2rem',
       left: '2rem',

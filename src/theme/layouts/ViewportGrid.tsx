@@ -7,7 +7,6 @@ import {
   useDeviceOrientation,
   useIsLargeDesktop,
   useIsTablet,
-  useIsPortrait,
   useIsMobile,
 } from '../hooks/useMediaQuery';
 import { useLayoutConfig } from '../hooks/useLayoutConfig';
@@ -62,7 +61,6 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
   const orientation = useDeviceOrientation();
   const isXLScreen = useIsLargeDesktop();
   const isTablet = useIsTablet();
-  const isPortrait = useIsPortrait();
   const isMobile = useIsMobile();
   const location = useLocation();
   const homePage = location.pathname === '/';

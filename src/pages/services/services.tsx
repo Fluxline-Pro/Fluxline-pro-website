@@ -11,7 +11,6 @@ import { AnimatePresence } from 'framer-motion';
 import SERVICES_EXPORTS from './constants';
 import { useDeviceOrientation } from '../../theme/hooks/useMediaQuery';
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
-import { BookingsButton } from '../../theme/components/button/bookings-button/bookings-button';
 import { NavigationArrow } from '../../theme/components/navigation-arrow/navigation-arrow';
 import { PdfModal } from '../../theme/components/modal/pdf-modal';
 import { WhitePageItem } from '../white-pages/white-pages-constants';
