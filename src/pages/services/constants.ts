@@ -132,11 +132,15 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
     percentage: 98,
   },
   {
+    name: 'technology consulting',
+    percentage: 98,
+  },
+  {
     name: 'cloud & hybrid solutions',
     percentage: 97,
   },
   {
-    name: 'cross-functional team leadership',
+    name: 'team leadership',
     percentage: 96,
   },
   {
@@ -144,20 +148,16 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
     percentage: 95,
   },
   {
-    name: 'IT strategy & consulting',
-    percentage: 95,
+    name: 'backend development',
+    percentage: 94,
   },
   {
-    name: 'backend development',
+    name: 'AI integration',
     percentage: 94,
   },
   {
     name: 'QA & automation',
     percentage: 92,
-  },
-  {
-    name: 'AI integration',
-    percentage: 91,
   },
   {
     name: 'motion design',

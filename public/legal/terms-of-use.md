@@ -2,6 +2,9 @@
 
 ## Introduction
 
+**Effective Date:** October 12, 2025
+**Last Updated:** October 12, 2025
+
 By accessing or using any materials, frameworks, coaching services, or digital content provided by Fluxline Resonance Group, LLC ("Fluxline," "we," "us," or "our"), you ("client," "your", "user," or "users") agree to the following Terms of Use. These terms form a living covenant between you and Fluxline, designed to uphold the integrity, stewardship, and mythic resonance of our offerings.
 
 ---

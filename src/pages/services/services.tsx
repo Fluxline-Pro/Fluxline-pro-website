@@ -9,7 +9,10 @@ import { FadeUp } from '../../theme/components/animations/fade-animations';
 import { AnimatePresence } from 'framer-motion';
 
 import SERVICES_EXPORTS from './constants';
-import { useDeviceOrientation } from '../../theme/hooks/useMediaQuery';
+import {
+  useDeviceOrientation,
+  useIsMobile,
+} from '../../theme/hooks/useMediaQuery';
 import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { NavigationArrow } from '../../theme/components/navigation-arrow/navigation-arrow';
 import { PdfModal } from '../../theme/components/modal/pdf-modal';
@@ -127,7 +130,7 @@ export const WhitePagesSection: React.FC<{
     orientation === 'portrait' ||
     orientation === 'tablet-portrait' ||
     orientation === 'large-portrait';
-  
+
   const hrStyles = {
     margin: '2rem 0',
     border: 'none',
@@ -135,7 +138,6 @@ export const WhitePagesSection: React.FC<{
     backgroundColor: theme.palette.themePrimary,
     opacity: 0.3,
   };
-
 
   // Filter white pages for current view
   const getRelevantWhitePages = () => {
@@ -294,8 +296,8 @@ export const AboutSection: React.FC<{
           gridTemplateColumns: isMobile
             ? '1fr'
             : 'repeat(auto-fit, minmax(min(250px, 100%), 1fr))',
-          gap: '1.5rem',
-          margin: '2rem auto',
+          gap: isMobile ? '0.5rem' : '1.5rem',
+          margin: isMobile ? '2rem auto 0 auto' : '2rem auto',
         }}
       >
         {SERVICES_EXPORTS.ABOUT_BULLET_POINTS.slice(0, 3).map(
@@ -350,7 +352,7 @@ export const AboutSection: React.FC<{
                         ? theme.palette.neutralDark
                         : theme.palette.themeSecondary,
                     color: 'white',
-                    padding: '0.5rem 1rem',
+                    padding: '0.25rem 0.75rem',
                     borderRadius: '4px 4px 0 0',
                     border: `2px solid ${theme.palette.themeSecondary}`,
                     fontFamily: theme.typography.fontFamilies.base,
@@ -385,7 +387,12 @@ export const AboutSection: React.FC<{
                   >
                     {point.name}
                   </Typography>
-                  <Typography variant='p' color={theme.palette.neutralPrimary}>
+                  <Typography
+                    variant='p'
+                    color={theme.palette.neutralPrimary}
+                    fontSize='1rem'
+                    paddingBottom='1rem'
+                  >
                     {point.description}
                   </Typography>
                 </div>
@@ -669,6 +676,7 @@ export const MissionVisionSection: React.FC<{
   );
 };
 
+// This section is not used in the about page currently, but kept for potential future use
 export const FluxlineEthosSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
@@ -974,6 +982,7 @@ export const TaglineHeader: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
   const { theme } = useAppTheme();
+  const isMobile = useIsMobile();
 
   // Only show for 'about' view
   if (currentView !== 'about') {
@@ -1006,7 +1015,11 @@ export const TaglineHeader: React.FC<{
           textAlign='center'
           color={theme.palette.themePrimary}
           margin='1rem 0 0'
-          fontSize={theme.typography.fontSizes.clamp7}
+          fontSize={
+            isMobile
+              ? theme.typography.fontSizes.clamp5
+              : theme.typography.fontSizes.clamp6
+          }
           style={{
             fontStyle: 'italic',
             textTransform: 'none',
@@ -1021,7 +1034,11 @@ export const TaglineHeader: React.FC<{
           textAlign='center'
           color={theme.palette.neutralPrimary}
           marginTop='0'
-          fontSize={theme.typography.fontSizes.clamp5}
+          fontSize={
+            isMobile
+              ? theme.typography.fontSizes.clamp4
+              : theme.typography.fontSizes.clamp5
+          }
           style={{
             fontStyle: 'italic',
             ...styles.textContent,
