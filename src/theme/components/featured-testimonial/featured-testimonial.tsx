@@ -39,6 +39,10 @@ export const FeaturedTestimonial: React.FC<FeaturedTestimonialProps> = ({
         boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)',
         position: 'relative',
         overflow: 'hidden',
+        background:
+          theme.themeMode === 'high-contrast'
+            ? theme.palette.neutralDark
+            : theme.palette.neutralLight,
       }}
     >
       {/* Decorative accent */}
@@ -49,7 +53,10 @@ export const FeaturedTestimonial: React.FC<FeaturedTestimonialProps> = ({
           left: 0,
           width: '100%',
           height: '4px',
-          background: `linear-gradient(90deg, ${theme.palette.themePrimary} 0%, ${theme.palette.themeSecondary} 100%)`,
+          background:
+            theme.themeMode === 'high-contrast'
+              ? theme.palette.neutralDark
+              : theme.palette.neutralLight,
         }}
       />
 
@@ -79,7 +86,10 @@ export const FeaturedTestimonial: React.FC<FeaturedTestimonialProps> = ({
               position: 'absolute',
               bottom: '5%',
               right: '5%',
-              backgroundColor: theme.palette.themePrimary,
+              backgroundColor:
+                theme.themeMode === 'high-contrast'
+                  ? theme.palette.neutralDark
+                  : theme.palette.themeSecondary,
               color: theme.palette.white,
               borderRadius: '50%',
               width: '40px',

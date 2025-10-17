@@ -93,7 +93,9 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                       justifyContent: 'center',
                       width: '100%',
                       height: '100%',
-                      backgroundColor: theme.palette.neutralLighterAlt,
+                      backgroundColor: theme.themeMode === 'high-contrast'
+                        ? theme.palette.neutralDark
+                        : theme.palette.neutralLight,
                       padding: theme.spacing.m,
                     }}
                   >
