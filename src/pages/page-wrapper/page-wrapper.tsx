@@ -38,6 +38,10 @@ const PAGE_CONFIGS = {
     image: require('../../assets/images/OurServices1197x1600.jpg'), // Business services illustration
     imageText: 'Services',
   },
+  '/case-studies': {
+    image: 'FLUXLINE_LOGO',
+    imageText: '',
+  },
   '/white-pages': {
     image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
     imageText: '',

@@ -12,7 +12,7 @@ import { SocialLinks } from '../../theme/components/header/social-links';
 // Import business card images directly
 import BusinessCardFront from '../../assets/images/businessCardFront.png';
 import BusinessCardBack from '../../assets/images/businessCardBack.png';
-import { CTACallout } from '../../theme/components';
+import { CTACallout } from '../../theme/components/cta/cta-callout';
 // import { CONTENT_API_FLAGS, isApiAvailable } from '../../utils/contentDataManager';
 
 // interface FormValidation {
