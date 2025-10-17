@@ -71,6 +71,7 @@ export const PercentageBullet: React.FC<PercentageBulletProps> = ({
     fontWidth: String(theme.typography.fontWidths.normal),
     fontStyle: String(theme.typography.fontSlants.normal),
     fontSize: theme.typography.fontSizes.clamp7,
+    width: '51px', // weird clipping issue of the number without this value
   });
 
   const textClass = mergeStyles({
