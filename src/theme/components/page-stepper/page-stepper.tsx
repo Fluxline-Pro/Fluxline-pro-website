@@ -99,9 +99,9 @@ export const PageStepper: React.FC<PageStepperProps> = ({
         path: '/services',
         name: 'services',
       },
-      mainRoutes.find((r) => r.name === "let's connect") || {
+      mainRoutes.find((r) => r.path === '/contact-me') || {
         path: '/contact-me',
-        name: "let's connect",
+        name: mainRoutes.find((r) => r.path === '/contact-me')?.name || "let's connect",
       },
     ].filter(Boolean);
 
