@@ -83,14 +83,17 @@ export const NavigationButton: React.FC<NavigationButtonProps> = ({
       left: '50%',
       transform: 'translateX(-50%)',
       opacity: 0,
+      width: '100px', // manual width to prevent wrapping
+      textAlign: 'center' as const,
       visibility: 'hidden',
       transition: 'opacity 0.2s ease-in-out, visibility 0.2s ease-in-out',
       fontSize: '0.9rem',
+      fontFamily: theme.typography.fontFamilies.base,
       lineHeight: '1.2',
       letterSpacing: theme.typography.letterSpacing.tight,
       fontWeight: theme.typography.fontWeights.semiBold,
       color: getThemeButtonColor(),
-      textTransform: 'lowercase' as const,
+      textTransform: 'capitalize' as const,
       backgroundColor:
         theme.themeMode === 'high-contrast'
           ? theme.palette.black

@@ -85,9 +85,10 @@ export const SocialLinks: React.FC<SocialLinksProps> = ({
                     'opacity 0.2s ease-in-out, visibility 0.2s ease-in-out',
                   fontSize: theme.typography.fontSizes.clamp3,
                   letterSpacing: theme.typography.letterSpacing.tight,
+                  fontFamily: theme.typography.fontFamilies.base,
                   fontWeight: theme.typography.fontWeights.semiBold,
                   color: theme.palette.themePrimary,
-                  textTransform: 'lowercase',
+                  textTransform: 'capitalize' as const,
                   backgroundColor:
                     theme.themeMode === 'high-contrast'
                       ? theme.palette.black

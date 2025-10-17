@@ -13,12 +13,55 @@ const Header: React.FC = () => {
     'menu' | 'settings' | null
   >(null);
   const [isViewTransitioning, setIsViewTransitioning] = React.useState(false);
+  const [isPdfModalOpen, setIsPdfModalOpen] = React.useState(false); // Track PDF modal state
+  const [isImageModalOpen, setIsImageModalOpen] = React.useState(false); // Track image modal state
   const { themeMode, setThemeMode } = useAppTheme();
   const isMobileLandscape = useDeviceOrientation() === 'mobile-landscape';
+
+  // Listen for PDF modal state changes via custom events
+  React.useEffect(() => {
+    const handlePdfModalOpen = () => setIsPdfModalOpen(true);
+    const handlePdfModalClose = () => setIsPdfModalOpen(false);
+
+    window.addEventListener('pdf-modal-open', handlePdfModalOpen);
+    window.addEventListener('pdf-modal-close', handlePdfModalClose);
+
+    return () => {
+      window.removeEventListener('pdf-modal-open', handlePdfModalOpen);
+      window.removeEventListener('pdf-modal-close', handlePdfModalClose);
+    };
+  }, []);
+
+  // Listen for image modal state changes
+  React.useEffect(() => {
+    const checkModalState = () => {
+      const isModalOpen = document.body.hasAttribute('data-image-modal-open');
+      setIsImageModalOpen(isModalOpen);
+    };
+
+    // Check immediately
+    checkModalState();
+
+    // Set up observer for body attribute changes
+    const observer = new MutationObserver(checkModalState);
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['data-image-modal-open'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleModalClose = () => {
     setActiveModal(null);
   };
+
+  // Close navigation modals when image modal opens
+  React.useEffect(() => {
+    if (isImageModalOpen || isPdfModalOpen) {
+      setActiveModal(null);
+    }
+  }, [isImageModalOpen, isPdfModalOpen]);
 
   const handleSettingsClick = () => {
     if (activeModal === 'settings') {
@@ -53,6 +96,11 @@ const Header: React.FC = () => {
     setThemeMode(themeMode === 'light' ? 'dark' : 'light');
   };
 
+  // Don't render header when image or PDF modal is open
+  if (isImageModalOpen || isPdfModalOpen) {
+    return null;
+  }
+
   return (
     <div>
       <NavigationBar
@@ -61,6 +109,7 @@ const Header: React.FC = () => {
         onThemeClick={handleThemeClick}
         isMenuOpen={activeModal === 'menu'}
         isSettingsOpen={activeModal === 'settings'}
+        isPdfModalOpen={isPdfModalOpen}
       />
       <NavigationModal
         isMobileLandscape={isMobileLandscape}
@@ -78,9 +127,7 @@ const Header: React.FC = () => {
           {activeModal === 'menu' && (
             <NavigationMenu onClose={handleModalClose} />
           )}
-          {activeModal === 'settings' && (
-            <NavigationSettings />
-          )}
+          {activeModal === 'settings' && <NavigationSettings />}
         </div>
       </NavigationModal>
     </div>

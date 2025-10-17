@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { useAppTheme } from '../../hooks/useAppTheme';
-import { createTypographyStyles } from './settings/fontsize-settings';
 import { useDeviceOrientation } from '../../hooks/useMediaQuery';
 
 const ModalTitle: React.FC<{ isMobileLandscape?: boolean; title: string }> = ({
@@ -10,7 +9,6 @@ const ModalTitle: React.FC<{ isMobileLandscape?: boolean; title: string }> = ({
 }) => {
   const { theme, layoutPreference } = useAppTheme();
   const orientation = useDeviceOrientation();
-  const typographyStyles = createTypographyStyles(theme);
 
   const modalTitleStyles = {
     root: {
@@ -23,26 +21,17 @@ const ModalTitle: React.FC<{ isMobileLandscape?: boolean; title: string }> = ({
       marginBottom: 'clamp(0.5rem, 1vh, 1rem)',
     },
     menuTitle: {
-      ...typographyStyles.modalTitle,
+      ...theme.typography.fonts.h2,
+      color: theme.palette.themePrimary,
+      fontSize: 'clamp(2rem, 3vh, 3rem)',
+      fontWeight: theme.typography.fontWeights.thin,
+      textShadow: 'none !important',
       textAlign:
-          layoutPreference === 'right-handed'
+        layoutPreference === 'right-handed'
           ? orientation === 'mobile-landscape'
             ? 'right'
             : 'left'
           : 'right',
-      // : isMobileLandscape && title === 'Settings'
-      //   ? 'right'
-      //   : layoutPreference === 'left-handed'
-      //   ? title === 'menu' && 'left'
-          //   : layoutPreference === 'right-handed' && title === 'menu'
-          //     ? 'left'
-          //     : readingDirection === 'rtl'
-          //       ? title === 'Settings'
-          //         ? 'right'
-          //       : 'left'
-          //     : title === 'Settings'
-          //       ? 'left'
-          //       : 'right',
     } as React.CSSProperties,
   };
 

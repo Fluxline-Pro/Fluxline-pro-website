@@ -45,6 +45,8 @@ interface ContainerProps {
   left?: number | string;
   fullWidth?: boolean;
   fullHeight?: boolean;
+  tabIndex?: number;
+  role?: string;
   containerQuery?: {
     minWidth?: string;
     maxWidth?: string;
@@ -53,6 +55,7 @@ interface ContainerProps {
   };
   style?: React.CSSProperties;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
 }
@@ -99,9 +102,12 @@ export const Container: React.FC<ContainerProps> = ({
   left,
   fullWidth = false,
   fullHeight = false,
+  tabIndex,
+  role,
   containerQuery,
   style,
   onClick,
+  onKeyDown,
   onMouseEnter,
   onMouseLeave,
 }) => {
@@ -140,16 +146,18 @@ export const Container: React.FC<ContainerProps> = ({
     minHeight: containerQuery?.minHeight || minHeight,
     maxHeight: containerQuery?.maxHeight || maxHeight,
     alignContent: alignContent,
-    padding,
-    paddingLeft,
-    paddingRight,
-    paddingTop,
-    paddingBottom,
-    margin,
-    marginTop,
-    marginBottom,
-    marginLeft,
-    marginRight,
+    // Apply padding props with higher specificity
+    ...(padding && { padding }),
+    ...(paddingLeft && { paddingLeft }),
+    ...(paddingRight && { paddingRight }),
+    ...(paddingTop && { paddingTop }),
+    ...(paddingBottom && { paddingBottom }),
+    // Apply margin props
+    ...(margin && { margin }),
+    ...(marginTop && { marginTop }),
+    ...(marginBottom && { marginBottom }),
+    ...(marginLeft && { marginLeft }),
+    ...(marginRight && { marginRight }),
     gap,
     gridRow,
     gridColumn,
@@ -159,6 +167,7 @@ export const Container: React.FC<ContainerProps> = ({
     gridTemplateAreas,
     gridTemplate,
     ...getSizeStyles(size),
+    // Apply custom styles last to ensure they override everything
     ...style,
   };
 
@@ -185,6 +194,9 @@ export const Container: React.FC<ContainerProps> = ({
       className={classes}
       style={containerStyle}
       onClick={onClick}
+      onKeyDown={onKeyDown}
+      tabIndex={tabIndex}
+      role={role || undefined}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       {...(boxSizing ? { boxSizing } : {})}

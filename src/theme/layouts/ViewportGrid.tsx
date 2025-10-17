@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { useAppTheme } from '../hooks/useAppTheme';
 import { useReducedMotion } from '../hooks/useReducedMotion';
@@ -6,6 +7,7 @@ import {
   useDeviceOrientation,
   useIsLargeDesktop,
   useIsTablet,
+  useIsMobile,
 } from '../hooks/useMediaQuery';
 import { useLayoutConfig } from '../hooks/useLayoutConfig';
 import { useContentScrollable } from '../hooks/useContentScrollable';
@@ -32,6 +34,7 @@ interface ViewportGridProps {
   rightMaxWidth?: string | number;
   isHomePage?: boolean;
   backgroundImage?: 'one' | 'two';
+  backgroundLoaded?: boolean;
 }
 
 export const ViewportGrid: React.FC<ViewportGridProps> = ({
@@ -49,6 +52,7 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
   nested = false,
   isHomePage = false,
   backgroundImage = 'one',
+  backgroundLoaded,
 }) => {
   const { layoutPreference, readingDirection, theme, themeMode } =
     useAppTheme();
@@ -57,6 +61,9 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
   const orientation = useDeviceOrientation();
   const isXLScreen = useIsLargeDesktop();
   const isTablet = useIsTablet();
+  const isMobile = useIsMobile();
+  const location = useLocation();
+  const homePage = location.pathname === '/';
 
   // Create ref for right content area to detect scrollability
   const rightContentRef = React.useRef<HTMLDivElement>(null);
@@ -84,6 +91,24 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
     );
     return () => clearTimeout(timer);
   }, [isHomePage, backgroundImage, orientation, shouldReduceMotion]);
+
+  // Auto-scroll to top on navigation if not already at top
+  React.useEffect(() => {
+    const scrollToTop = () => {
+      // Check if the page is not at the top (with small tolerance for precision)
+      if (window.scrollY > 5) {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: shouldReduceMotion ? 'auto' : 'smooth',
+        });
+      }
+    };
+
+    // Small delay to ensure the route has fully changed
+    const timer = setTimeout(scrollToTop, 50);
+    return () => clearTimeout(timer);
+  }, [location.pathname, location.search, location.hash, shouldReduceMotion]);
 
   // Handle scroll behavior
   React.useEffect(() => {
@@ -179,8 +204,8 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
     if (orientation === 'portrait') {
       return placeItemsRight;
     }
-    
-    // For all other devices (tablet-portrait, large-portrait, mobile-landscape, 
+
+    // For all other devices (tablet-portrait, large-portrait, mobile-landscape,
     // ultrawide, square, landscape), use scrollability-based logic:
     // - 'start' if content is scrollable (prevents content cutoff at top)
     // - 'center' if content is not scrollable (provides better visual centering)
@@ -194,6 +219,7 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
       fullWidth={fullscreen}
       direction={isHomePage ? 'ltr' : readingDirection}
       display='grid'
+      gap={orientation === 'portrait' ? '1rem' : undefined}
       style={{
         ...containerStyle,
         overflow: nested ? 'hidden' : 'visible',
@@ -209,6 +235,7 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
         themeMode={themeMode}
         theme={theme}
         layoutPreference={layoutPreference}
+        backgroundLoaded={backgroundLoaded}
       />
 
       {shouldShowLeftChildren && leftChildren && (
@@ -230,6 +257,13 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
                   //   ? '2 / -1' // Move to right side in mobile landscape + left-handed
                   '1 / 2', // Default position
             placeItems: placeItemsLeft,
+            // Ensure left content doesn't overflow on mobile
+            overflow: 'hidden',
+            maxWidth: '100%',
+            width: '100%',
+            boxSizing: 'border-box',
+            // Add top padding on mobile for fixed header, but not when it interferes with image card title positioning
+            paddingTop: isMobile && !homePage ? '5rem' : '0',
           }}
         >
           {leftChildren}
@@ -258,7 +292,8 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
             placeItems: rightPlaceItems, // Use calculated placeItems based on device orientation and scrollability
             marginTop: isTablet ? '3rem' : '0', // adjusts marginTop for tablet only
             paddingLeft: isTablet ? '1.5rem' : '0', // adjusts paddingLeft for tablet only
-            paddingRight: isTablet || orientation === 'tablet-portrait' ? '1.125rem' : '0', // Increased right padding to prevent scrollbar overlap
+            paddingRight:
+              isTablet || orientation === 'tablet-portrait' ? '1.125rem' : '0', // Increased right padding to prevent scrollbar overlap
           }}
         >
           {rightChildren}

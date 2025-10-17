@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useAppTheme } from '../../hooks/useAppTheme';
+import { FluentButton } from '../button/button';
 
 interface PdfModalProps {
   isOpen: boolean;
@@ -16,11 +17,34 @@ export const PdfModal: React.FC<PdfModalProps> = ({
 }) => {
   const { theme } = useAppTheme();
 
+  // Create a stable close handler that dispatches events
+  const handleClose = useCallback(() => {
+    // Explicitly dispatch close event before calling onClose
+    window.dispatchEvent(new Event('pdf-modal-close'));
+    onClose();
+  }, [onClose]);
+
+  // Notify when PDF modal state changes
+  useEffect(() => {
+    if (isOpen) {
+      window.dispatchEvent(new Event('pdf-modal-open'));
+    } else {
+      window.dispatchEvent(new Event('pdf-modal-close'));
+    }
+
+    // Cleanup function to ensure event is fired when component unmounts
+    return () => {
+      if (isOpen) {
+        window.dispatchEvent(new Event('pdf-modal-close'));
+      }
+    };
+  }, [isOpen]);
+
   // Handle Escape key press to close modal
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isOpen) {
-        onClose();
+        handleClose();
       }
     };
 
@@ -29,7 +53,7 @@ export const PdfModal: React.FC<PdfModalProps> = ({
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, handleClose]);
 
   if (!isOpen) return null;
 
@@ -57,7 +81,7 @@ export const PdfModal: React.FC<PdfModalProps> = ({
         zIndex: 1000,
         padding: '1rem',
       }}
-      onClick={onClose}
+      onClick={handleClose}
     >
       <div
         style={{
@@ -86,67 +110,43 @@ export const PdfModal: React.FC<PdfModalProps> = ({
           <h3
             style={{
               margin: 0,
-              color: theme.palette.themePrimary,
+              color: theme.palette.black, // Use black text for better readability in both light and dark modes
               fontSize: theme.typography.fontSizes.clamp5,
               fontWeight: 600,
+              textTransform: 'capitalize',
+              textShadow: 'none',
             }}
           >
             {pdfTitle}
           </h3>
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <button
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <FluentButton
+              variant='primary'
               onClick={handleDownload}
+              icon='Download'
+              iconPosition='start'
+              size='medium'
               style={{
-                background: theme.palette.themePrimary,
-                color: theme.palette.white,
-                border: 'none',
-                borderRadius: theme.borderRadius.container.button,
-                padding: '0.5rem 1rem',
-                fontSize: '16px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                cursor: 'pointer',
-                boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
-                transition: 'all 0.2s ease',
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'scale(1.05)';
-                e.currentTarget.style.backgroundColor = theme.palette.themeDark;
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.backgroundColor = theme.palette.themePrimary;
+                fontWeight: '500 !important',
+                fontSize: theme.typography.fontSizes.clamp5,
               }}
             >
-              📥 Download
-            </button>
-            <button
-              onClick={onClose}
+              Download
+            </FluentButton>
+            <FluentButton
+              variant='error'
+              onClick={handleClose}
+              icon='Cancel'
+              showIconOnly={true}
+              size='medium'
               style={{
-                background: theme.palette.neutralLighterAlt,
-                color: theme.palette.neutralPrimary,
-                border: 'none',
                 borderRadius: '50%',
                 width: '40px',
                 height: '40px',
-                fontSize: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
-                transition: 'all 0.2s ease',
+                minWidth: '40px',
+                padding: '0',
               }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'scale(1.1)';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-              }}
-            >
-              ✕
-            </button>
+            />
           </div>
         </div>
 
