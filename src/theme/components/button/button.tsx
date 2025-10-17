@@ -199,9 +199,9 @@ export const FluentButton: React.FC<ButtonProps> = ({
       case 'small':
         return '0.25rem 0.5rem';
       case 'large':
-        return '10px 20px';
+        return '0.75rem 1.25rem';
       default:
-        return '8px 16px';
+        return '0.75rem 1rem';
     }
   };
 

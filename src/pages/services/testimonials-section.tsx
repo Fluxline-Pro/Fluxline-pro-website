@@ -4,6 +4,7 @@ import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { Typography } from '../../theme/components/typography/typography';
 import { TestimonialCarousel } from '../../theme/components/carousel/testimonial-carousel';
 import { UnifiedCard } from '../../theme/components/card';
+import { FluentButton } from '../../theme/components/button/button';
 import { generateMockContent } from '../../utils/contentDataManager';
 import { ContentItem } from '../unified-content-page/unified-content-page';
 
@@ -39,25 +40,6 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
     maxWidth: '900px',
     margin: '0 auto',
     marginBottom: '3rem',
-  };
-
-  const viewAllButtonStyle = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '0.5rem',
-    padding: '0.75rem 1.5rem',
-    backgroundColor: theme.palette.themePrimary,
-    color: theme.palette.white,
-    borderRadius: '6px',
-    border: 'none',
-    cursor: 'pointer',
-    fontFamily: theme.typography.fonts.tiny.fontFamily,
-    fontSize: theme.typography.fontSizes.clamp3,
-    fontWeight: 500,
-    textDecoration: 'none',
-    transition: 'all 0.3s ease',
-    marginTop: '1.5rem',
   };
 
   const handleViewAll = () => {
@@ -134,26 +116,15 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
           ))}
         </TestimonialCarousel>
 
-        <div style={{ textAlign: 'center' }}>
-          <button
-            type='button'
+        <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+          <FluentButton
+            variant='primary'
+            size='medium'
             onClick={handleViewAll}
-            style={viewAllButtonStyle}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = theme.palette.themeDark;
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = theme.shadows.xl;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor =
-                theme.palette.themePrimary;
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = 'none';
-            }}
-          >
-            <span>View All Testimonials</span>
-            <span style={{ fontSize: '1rem' }}>➤</span>
-          </button>
+            icon='ChevronRight'
+            iconPosition='end'
+            text='View All Testimonials'
+          />
         </div>
       </div>
     </>
