@@ -22,10 +22,21 @@ import { CTACallout } from '../../theme/components/cta';
 
 // Reusable style objects
 const styles = {
-  sectionContainer: (orientation?: string) => ({
-    maxWidth: '900px',
-    margin: '0 auto 0 2.5rem',
+  sectionContainer: (
+    orientation?: string,
+    layoutPreference?: string,
+    includesArrow?: boolean
+  ) => ({
+    margin:
+      includesArrow && orientation !== 'mobile-landscape'
+        ? '0 auto'
+        : orientation === 'mobile-landscape'
+          ? layoutPreference === 'left-handed'
+            ? '0 0 0 14rem'
+            : '0 auto 0 1rem'
+          : '0 auto 0 2.5rem',
     marginBottom: orientation === 'mobile-landscape' ? '0rem' : '1.5rem',
+    maxWidth: orientation === 'mobile-landscape' ? '400px' : '900px',
   }),
   sectionBox: (theme: any) => ({
     background:
@@ -60,7 +71,7 @@ const styles = {
     color: theme.palette.themePrimary,
     margin:
       orientation === 'mobile-landscape'
-        ? '0.5rem 0 0.5rem 0'
+        ? '0.5rem 0 0.5rem 1.5rem'
         : '1rem 0 0.5rem 0',
     fontSize:
       orientation === 'mobile-landscape'
@@ -122,7 +133,7 @@ export const GetStarted: React.FC = () => {
 export const WhitePagesSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
   const orientation = useDeviceOrientation();
   const navigate = useNavigate();
   const [selectedPdf, setSelectedPdf] = useState<WhitePageItem | null>(null);
@@ -187,7 +198,7 @@ export const WhitePagesSection: React.FC<{
     <>
       <div
         style={{
-          ...styles.sectionContainer(orientation),
+          ...styles.sectionContainer(orientation, layoutPreference, false),
           marginTop: '3rem',
           marginBottom: '3rem',
         }}
@@ -274,7 +285,7 @@ export const WhitePagesSection: React.FC<{
 export const AboutSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
   const orientation = useDeviceOrientation();
   const isMobile =
     orientation === 'portrait' ||
@@ -287,7 +298,7 @@ export const AboutSection: React.FC<{
   }
 
   return (
-    <div style={styles.sectionContainer(orientation)}>
+    <div style={styles.sectionContainer(orientation, layoutPreference, false)}>
       <Typography
         variant='h2'
         style={styles.h2Title(theme, orientation)}
@@ -556,7 +567,13 @@ export const ProfessionalSummary: React.FC<{
 
   return (
     <>
-      <div style={styles.sectionContainer(orientation)}>
+      <div
+        style={styles.sectionContainer(
+          orientation,
+          layoutPreference,
+          currentView !== 'services'
+        )}
+      >
         <Container
           display='flex'
           flexDirection='row'
@@ -673,7 +690,7 @@ interface PercentageCirclesProps {
 export const MissionVisionSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
   const orientation = useDeviceOrientation();
 
   // Only show for 'about' view
@@ -684,7 +701,7 @@ export const MissionVisionSection: React.FC<{
   return (
     <div
       style={{
-        ...styles.sectionContainer(orientation),
+        ...styles.sectionContainer(orientation, layoutPreference, false),
         display: 'flex',
         flexDirection: 'column',
         gap: '2rem',
@@ -742,7 +759,7 @@ export const MissionVisionSection: React.FC<{
 export const FluxlineEthosSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
   const orientation = useDeviceOrientation();
 
   // Only show for 'about' view
@@ -753,7 +770,7 @@ export const FluxlineEthosSection: React.FC<{
   return (
     <div
       style={{
-        ...styles.sectionContainer(orientation),
+        ...styles.sectionContainer(orientation, layoutPreference, false),
         display: 'flex',
         flexDirection: 'column',
         marginBottom: 0,
