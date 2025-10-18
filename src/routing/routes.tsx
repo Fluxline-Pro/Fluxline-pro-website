@@ -23,9 +23,9 @@ import NotFound from '../pages/404/404';
 import ContactPage from '../pages/contact-page/contact-page';
 // import Events from '../pages/events/events';
 // import Portfolio from '../pages/portfolio/portfolio';
-import AuthScreen from '../pages/auth-screen/auth-screen';
+// import { UnifiedContentPage } from '../pages/unified-content-page/unified-content-page';
+// import AuthScreen from '../pages/auth-screen/auth-screen';
 import ServicesPage from '../pages/services-page/services-page';
-import { UnifiedContentPage } from '../pages/unified-content-page/unified-content-page';
 import WhitePagesView from '../pages/white-pages/white-pages';
 import LegalPage from '../pages/legal/legal-page';
 import ProgressBar from '../theme/components/progress-bar/progress-bar';
@@ -279,10 +279,10 @@ const routes: RouteObject[] = [
       },
     ],
   },
-  {
-    path: '/auth',
-    element: <AuthScreen />,
-  },
+  // {
+  //   path: '/auth',
+  //   element: <AuthScreen />,
+  // },
 ];
 
 export const router = createBrowserRouter(routes);

@@ -573,18 +573,18 @@ export const ProfessionalSummary: React.FC<{
         </Container>
       </div>
       <Container
+        marginLeft='auto'
+        marginRight='auto'
+        marginBottom={theme.spacing.xl}
+        padding={isMobile ? theme.spacing.l : theme.spacing.xxl}
+        maxWidth='1000px'
         style={{
-          background:
+          background: 
             theme.themeMode === 'high-contrast'
               ? theme.semanticColors.warningBackground
               : theme.palette.neutralLight,
-          padding: isMobile ? theme.spacing.l : theme.spacing.xxl,
           borderRadius: theme.borderRadius.container.medium,
-          marginBottom: theme.spacing.xl,
           border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
-          maxWidth: '1000px',
-          marginLeft: 'auto',
-          marginRight: 'auto',
         }}
       >
         <H2Title name='Overview' style={{ margin: '0 0 1.5rem 0' }} />
