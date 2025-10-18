@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppTheme } from '../../hooks/useAppTheme';
 import { Typography } from '../typography/typography';
 import { Container } from '../../layouts/Container';
-import { useIsMobile } from '../../hooks/useMediaQuery';
+import { useIsMobile, useDeviceOrientation } from '../../hooks/useMediaQuery';
 
 export interface CTACalloutProps {
   variant: 'services' | 'legal' | 'consultation' | 'getStarted';
@@ -22,11 +22,15 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const isMobile = useIsMobile();
-
+  const orientation = useDeviceOrientation();
   // Only show for specified views
   if (showOnlyFor.length > 0 && !showOnlyFor.includes(currentView || '')) {
     return null;
   }
+
+  // CTA configuration consts
+  const ARROW_ICON = '➤';
+  const BOOKINGS_URL = 'https://outlook.office.com/book/Bookings@terencewaters.com';
 
   // Configuration based on variant
   const config = {
@@ -34,14 +38,14 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
       title: 'Explore Our Services',
       description:
         'Discover how we can help transform your vision into reality',
-      icon: '➤',
+      icon: ARROW_ICON,
       route: '/services',
       isExternal: false,
     },
     legal: {
       title: 'Legal & Reference Documents',
       description: 'Access our policies, terms, and important legal documents',
-      icon: '➤',
+      icon: ARROW_ICON,
       route: '/legal',
       isExternal: false,
     },
@@ -49,16 +53,16 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
       title: "Let's Make Your Vision Happen!",
       description:
         'Book a free consultation to discuss your project estimates, training, consulting, or development needs',
-      icon: '➤',
-      route: 'https://outlook.office.com/book/Bookings@terencewaters.com',
+      icon: ARROW_ICON,
+      route: BOOKINGS_URL,
       isExternal: true,
     },
     getStarted: {
       title: 'Ready to Get Started?',
       description:
         "We'd love to help you with your next project! Click this button to book a free, no obligation consultation with us to discuss your vision and needs.",
-      icon: '➤',
-      route: 'https://outlook.office.com/book/Bookings@terencewaters.com',
+      icon: ARROW_ICON,
+      route: BOOKINGS_URL,
       isExternal: true,
     },
   };
@@ -66,7 +70,8 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
   const currentConfig = config[variant];
 
   const hrStyles = {
-    margin: '2rem 0',
+    margin:
+      isMobile || orientation === 'mobile-landscape' ? '1.5rem 0' : '2rem 0',
     border: 'none',
     height: '1px',
     backgroundColor: theme.palette.themePrimary,
@@ -82,7 +87,8 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
     borderRadius: '8px',
     borderLeft: `6px solid ${theme.semanticColors.messageText}`, // Mythic Gold color
     maxWidth: '800px',
-    margin: '2rem auto',
+    margin:
+      isMobile || orientation === 'mobile-landscape' ? '1rem auto' : '2rem auto',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
     transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',
@@ -114,7 +120,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
     <>
       <hr style={hrStyles} />
       <Container
-        padding='2rem 1rem'
+        padding={isMobile || orientation === 'mobile-landscape' ? '1.5rem 1rem' : '2rem 1rem'}
         marginBottom='3rem'
         style={ctaContainerStyle}
         onClick={handleClick}

@@ -218,6 +218,7 @@ const VisionHappenSection: React.FC = () => {
 const AboutMeSection: React.FC = () => {
   const { theme } = useAppTheme();
   const isMobile = useIsMobile();
+  const orientation = useDeviceOrientation();
 
   return (
     <Container
@@ -269,12 +270,12 @@ const AboutMeSection: React.FC = () => {
 
       <Container
         display='flex'
-        flexDirection={isMobile ? 'column' : 'row'}
+        flexDirection={isMobile || orientation === 'mobile-landscape' ? 'column' : 'row'}
         gap={theme.spacing.l}
         alignItems={isMobile ? 'flex-start' : 'center'}
         justifyContent='space-between'
         marginTop={theme.spacing.l}
-        padding={isMobile ? theme.spacing.m : theme.spacing.xl}
+        padding={isMobile || orientation === 'mobile-landscape' ? theme.spacing.m : theme.spacing.xl}
         style={{
           background:
             theme.themeMode === 'high-contrast'
@@ -286,7 +287,7 @@ const AboutMeSection: React.FC = () => {
       >
         <Container display='flex' flexDirection='column' gap={theme.spacing.s}>
           <Typography
-            variant='h4'
+            variant='h3'
             color={theme.palette.themePrimary}
             fontWeight={theme.typography.fontWeights.semiBold}
             lineHeight='1.8'
