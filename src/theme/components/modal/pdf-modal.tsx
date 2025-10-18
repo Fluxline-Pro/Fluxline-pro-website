@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { useAppTheme } from '../../hooks/useAppTheme';
+import { useIsMobile } from '../../hooks/useMediaQuery';
 import { FluentButton } from '../button/button';
 
 interface PdfModalProps {
@@ -16,6 +17,7 @@ export const PdfModal: React.FC<PdfModalProps> = ({
   pdfTitle,
 }) => {
   const { theme } = useAppTheme();
+  const isMobile = useIsMobile();
 
   // Create a stable close handler that dispatches events
   const handleClose = useCallback(() => {
@@ -74,22 +76,25 @@ export const PdfModal: React.FC<PdfModalProps> = ({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: isMobile ? '#010101' : 'rgba(0, 0, 0, 0.9)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 1000,
-        padding: '1rem',
+        padding: isMobile ? '0' : '1rem',
+        overflow: 'hidden',
       }}
       onClick={handleClose}
     >
       <div
         style={{
           position: 'relative',
-          width: '100%',
-          height: '100%',
-          maxWidth: '1200px',
-          maxHeight: '90vh',
+          width: isMobile ? '100vw' : '100%',
+          height: isMobile ? '100vh' : '100%',
+          maxWidth: isMobile ? '100vw' : '1200px',
+          maxHeight: isMobile ? '100vh' : '90vh',
           animation: 'fadeIn 0.3s ease-in-out',
           display: 'flex',
           flexDirection: 'column',
@@ -102,9 +107,12 @@ export const PdfModal: React.FC<PdfModalProps> = ({
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            padding: '1rem',
+            padding: isMobile ? '0.75rem' : '1rem',
             backgroundColor: theme.palette.neutralLighterAlt,
-            borderRadius: `${theme.borderRadius.container.button} ${theme.borderRadius.container.button} 0 0`,
+            borderRadius: isMobile
+              ? '0'
+              : `${theme.borderRadius.container.button} ${theme.borderRadius.container.button} 0 0`,
+            minHeight: isMobile ? '60px' : 'auto',
           }}
         >
           <h3
@@ -152,15 +160,23 @@ export const PdfModal: React.FC<PdfModalProps> = ({
 
         {/* PDF Viewer */}
         <iframe
-          src={pdfSrc}
+          src={
+            isMobile
+              ? `${pdfSrc}#view=FitH&toolbar=1&navpanes=1&scrollbar=1`
+              : pdfSrc
+          }
           title={pdfTitle}
           style={{
             width: '100%',
             height: '100%',
             border: 'none',
-            borderRadius: `0 0 ${theme.borderRadius.container.button} ${theme.borderRadius.container.button}`,
+            borderRadius: isMobile
+              ? '0'
+              : `0 0 ${theme.borderRadius.container.button} ${theme.borderRadius.container.button}`,
             backgroundColor: theme.palette.white,
+            minHeight: isMobile ? 'calc(100vh - 60px)' : 'auto',
           }}
+          allowFullScreen
         />
       </div>
       <style
