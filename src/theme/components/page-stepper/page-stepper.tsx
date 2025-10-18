@@ -29,8 +29,12 @@ export const PageStepper: React.FC<PageStepperProps> = ({
   const { theme } = useAppTheme();
   const navigate = useNavigate();
   const location = useLocation();
-  const { canNavigateForward, pullToRefreshTriggered } =
-    usePageScrollNavigation();
+  const {
+    canNavigateForward,
+    pullToRefreshTriggered,
+    gestureProgress,
+    showBounceHint,
+  } = usePageScrollNavigation();
   const isHomePage = location.pathname === '/';
   const stepperColor = isHomePage
     ? theme.palette.white
@@ -119,8 +123,31 @@ export const PageStepper: React.FC<PageStepperProps> = ({
         letterSpacing: '0.12em',
         transform: 'translateY(-4px)',
       },
+      bounceContainer: {
+        transform: showBounceHint ? 'translateY(-8px)' : 'translateY(0px)',
+        transition: `transform ${theme.animations.durations.fast} ${theme.animations.easing.primary}`,
+        animation: showBounceHint ? 'bounce 0.8s ease-in-out infinite' : 'none',
+      },
+      progressIndicator: {
+        position: 'absolute' as const,
+        bottom: '-4px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '60px',
+        height: '2px',
+        backgroundColor: theme.palette.neutralQuaternaryAlt,
+        borderRadius: '1px',
+        overflow: 'hidden',
+      },
+      progressBar: {
+        height: '100%',
+        backgroundColor: theme.palette.themePrimary,
+        borderRadius: '1px',
+        transition: 'width 0.1s ease-out',
+        width: `${gestureProgress}%`,
+      },
     }),
-    [stepperColor, theme]
+    [stepperColor, theme, showBounceHint, gestureProgress]
   );
 
   // Define the main navigation flow
@@ -179,12 +206,12 @@ export const PageStepper: React.FC<PageStepperProps> = ({
     }
   }, [getNextRoute, navigate]);
 
-  // Auto-navigation when pull-to-refresh gesture is detected
+  // Auto-navigation when conservative pull-to-refresh gesture is detected
   React.useEffect(() => {
     if (!autoNavigateOnScroll) return;
 
     if (pullToRefreshTriggered && canNavigateForward) {
-      // Immediate navigation since gesture detection already includes intentionality
+      // Navigation only triggers after very intentional gesture (12+ attempts over 2+ seconds)
       navigateToNext();
     }
   }, [
@@ -211,7 +238,10 @@ export const PageStepper: React.FC<PageStepperProps> = ({
   }
 
   // Hide stepper on smaller devices until user scrolls to bottom
-  if ((shouldHideUntilBottom && !isAtBottom) || orientation === 'mobile-landscape') {
+  if (
+    (shouldHideUntilBottom && !isAtBottom) ||
+    orientation === 'mobile-landscape'
+  ) {
     return null;
   }
 
@@ -255,7 +285,8 @@ export const PageStepper: React.FC<PageStepperProps> = ({
           style={{
             cursor: 'pointer',
             pointerEvents: 'auto',
-            transition: `all ${theme.animations.durations.normal} ${theme.animations.easing.primary}`,
+            position: 'relative',
+            ...styles.bounceContainer,
           }}
           onClick={navigateToNext}
           onKeyDown={(e: React.KeyboardEvent) =>
@@ -313,8 +344,32 @@ export const PageStepper: React.FC<PageStepperProps> = ({
               size='medium'
             />
           </div>
+
+          {/* Progress Indicator */}
+          {gestureProgress > 0 && (
+            <div style={styles.progressIndicator}>
+              <div style={styles.progressBar} />
+            </div>
+          )}
         </Container>
       )}
+
+      {/* Enhanced keyframes for bounce animation */}
+      <style>
+        {`
+          @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+              transform: translateY(0);
+            }
+            40% {
+              transform: translateY(-12px);
+            }
+            60% {
+              transform: translateY(-6px);
+            }
+          }
+        `}
+      </style>
     </Container>
   );
 };

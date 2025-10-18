@@ -19,6 +19,11 @@ export const PdfModal: React.FC<PdfModalProps> = ({
   const { theme } = useAppTheme();
   const isMobile = useIsMobile();
 
+  // Detect Safari/WebKit
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const isWebKit =
+    /webkit/i.test(navigator.userAgent) && !/chrome/i.test(navigator.userAgent);
+
   // Create a stable close handler that dispatches events
   const handleClose = useCallback(() => {
     // Explicitly dispatch close event before calling onClose
@@ -120,10 +125,10 @@ export const PdfModal: React.FC<PdfModalProps> = ({
         height: isMobile ? '100dvh' : '100vh',
         backgroundColor: 'rgba(0, 0, 0, 0.95)',
         display: 'flex',
-        alignItems: isMobile ? 'flex-start' : 'center',
+        alignItems: 'center',
         justifyContent: 'center',
         zIndex: 1000,
-        padding: '0',
+        padding: isMobile ? '5dvh 5dvw' : '0',
         overflow: 'hidden',
       }}
       onClick={handleClose}
@@ -131,15 +136,15 @@ export const PdfModal: React.FC<PdfModalProps> = ({
       <div
         style={{
           position: 'relative',
-          width: isMobile ? '100dvw' : '90vw',
-          height: isMobile ? '100dvh' : '90vh',
-          maxWidth: isMobile ? '100dvw' : '1200px',
-          maxHeight: isMobile ? '100dvh' : '90vh',
+          width: isMobile ? '90dvw' : '90vw',
+          height: isMobile ? '90dvh' : '90vh',
+          maxWidth: isMobile ? '90dvw' : '1200px',
+          maxHeight: isMobile ? '90dvh' : '90vh',
           animation: 'fadeIn 0.3s ease-in-out',
           display: 'flex',
           flexDirection: 'column',
-          backgroundColor: 'rgba(0, 0, 0, 0.95)',
-          borderRadius: isMobile ? '0' : theme.borderRadius.container.button,
+          backgroundColor: theme.palette.white,
+          borderRadius: theme.borderRadius.container.button,
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -149,17 +154,16 @@ export const PdfModal: React.FC<PdfModalProps> = ({
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            padding: isMobile ? '0.75rem' : '1rem',
+            padding: '1rem',
             backgroundColor:
               theme.themeMode === 'high-contrast'
                 ? theme.semanticColors.warningBackground
                 : theme.palette.neutralLight,
-            borderRadius: isMobile
-              ? '0'
-              : `${theme.borderRadius.container.button} ${theme.borderRadius.container.button} 0 0`,
-            minHeight: isMobile ? '60px' : 'auto',
+            borderRadius: `${theme.borderRadius.container.button} ${theme.borderRadius.container.button} 0 0`,
+            minHeight: '60px',
             gap: '1rem',
             flexWrap: 'nowrap',
+            flexShrink: 0,
           }}
         >
           <h3
@@ -184,7 +188,7 @@ export const PdfModal: React.FC<PdfModalProps> = ({
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: isMobile ? '0.5rem' : '1rem',
+              gap: '1rem',
               flexShrink: 0,
               flexWrap: 'nowrap',
             }}
@@ -221,19 +225,36 @@ export const PdfModal: React.FC<PdfModalProps> = ({
 
         {/* PDF Viewer */}
         <iframe
-          src={`${pdfSrc}#view=FitH&toolbar=1&navpanes=1&scrollbar=1`}
+          src={
+            isMobile || isSafari || isWebKit
+              ? `${pdfSrc}#view=Fit&toolbar=0&navpanes=0&scrollbar=0&statusbar=0&messages=0&page=1`
+              : `${pdfSrc}#view=FitH&toolbar=1&navpanes=1&scrollbar=1`
+          }
           title={pdfTitle}
           style={{
             width: '100%',
-            height: isMobile ? 'calc(100dvh - 60px)' : 'calc(90vh - 80px)',
+            height: 'calc(100% - 60px)',
             border: 'none',
-            borderRadius: isMobile
-              ? '0'
-              : `0 0 ${theme.borderRadius.container.button} ${theme.borderRadius.container.button}`,
+            borderRadius: `0 0 ${theme.borderRadius.container.button} ${theme.borderRadius.container.button}`,
             backgroundColor: theme.palette.white,
             flex: 1,
+            // Safari-specific styles
+            ...(isSafari || isWebKit
+              ? {
+                  WebkitOverflowScrolling: 'touch',
+                  overflow: 'auto',
+                }
+              : {}),
           }}
           allowFullScreen
+          // Safari-specific attributes
+          {...(isSafari || isWebKit
+            ? {
+                'data-pdf-viewer': 'safari',
+                sandbox:
+                  'allow-same-origin allow-scripts allow-popups allow-forms',
+              }
+            : {})}
         />
       </div>
       <style
