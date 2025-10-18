@@ -22,11 +22,11 @@ import { CTACallout } from '../../theme/components/cta';
 
 // Reusable style objects
 const styles = {
-  sectionContainer: {
+  sectionContainer: (orientation?: string) => ({
     maxWidth: '900px',
     margin: '0 auto',
-    marginBottom: '3rem',
-  },
+    marginBottom: orientation === 'mobile-landscape' ? '0rem' : '3rem',
+  }),
   sectionBox: (theme: any) => ({
     background:
       theme.themeMode === 'high-contrast'
@@ -56,9 +56,12 @@ const styles = {
     maxWidth: '900px',
     margin: '0 auto',
   }),
-  h2Title: (theme: any) => ({
+  h2Title: (theme: any, orientation?: string) => ({
     color: theme.palette.themePrimary,
-    margin: '1rem 0 0.5rem 0',
+    margin:
+      orientation === 'mobile-landscape'
+        ? '0.5rem 0 0.5rem 0'
+        : '1rem 0 0.5rem 0',
     fontSize: theme.typography.fontSizes.clamp7,
     fontFamily: theme.typography.fonts.h2.fontFamily,
     fontWeight: theme.typography.fonts.h2.fontWeight,
@@ -88,6 +91,7 @@ const H2Title = ({
   style?: React.CSSProperties;
 }) => {
   const { theme } = useAppTheme();
+  const orientation = useDeviceOrientation();
 
   return (
     <Typography
@@ -95,7 +99,7 @@ const H2Title = ({
       textAlign='left'
       color={theme.palette.themePrimary}
       noHyphens
-      style={{ ...styles.h2Title(theme), ...style }}
+      style={{ ...styles.h2Title(theme, orientation), ...style }}
     >
       {name}
     </Typography>
@@ -180,7 +184,7 @@ export const WhitePagesSection: React.FC<{
     <>
       <div
         style={{
-          ...styles.sectionContainer,
+          ...styles.sectionContainer(orientation),
           marginTop: '3rem',
           marginBottom: '3rem',
         }}
@@ -280,10 +284,10 @@ export const AboutSection: React.FC<{
   }
 
   return (
-    <div style={styles.sectionContainer}>
+    <div style={styles.sectionContainer(orientation)}>
       <Typography
         variant='h2'
-        style={styles.h2Title(theme)}
+        style={styles.h2Title(theme, orientation)}
         margin={isMobile ? '1.5rem 0' : '0 0 1.5rem 0'}
       >
         About Fluxline
@@ -549,7 +553,7 @@ export const ProfessionalSummary: React.FC<{
 
   return (
     <>
-      <div style={styles.sectionContainer}>
+      <div style={styles.sectionContainer(orientation)}>
         <Container
           display='flex'
           flexDirection='row'
@@ -579,7 +583,7 @@ export const ProfessionalSummary: React.FC<{
         padding={isMobile ? theme.spacing.l : theme.spacing.xxl}
         maxWidth='1000px'
         style={{
-          background: 
+          background:
             theme.themeMode === 'high-contrast'
               ? theme.semanticColors.warningBackground
               : theme.palette.neutralLight,
@@ -654,6 +658,7 @@ export const MissionVisionSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
   const { theme } = useAppTheme();
+  const orientation = useDeviceOrientation();
 
   // Only show for 'about' view
   if (currentView !== 'about') {
@@ -663,7 +668,7 @@ export const MissionVisionSection: React.FC<{
   return (
     <div
       style={{
-        ...styles.sectionContainer,
+        ...styles.sectionContainer(orientation),
         display: 'flex',
         flexDirection: 'column',
         gap: '2rem',
@@ -722,6 +727,7 @@ export const FluxlineEthosSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
   const { theme } = useAppTheme();
+  const orientation = useDeviceOrientation();
 
   // Only show for 'about' view
   if (currentView !== 'about') {
@@ -731,7 +737,7 @@ export const FluxlineEthosSection: React.FC<{
   return (
     <div
       style={{
-        ...styles.sectionContainer,
+        ...styles.sectionContainer(orientation),
         display: 'flex',
         flexDirection: 'column',
         marginBottom: 0,
@@ -816,6 +822,7 @@ export const TechnicalSkillsSection: React.FC<PercentageCirclesProps> = ({
   currentView,
 }) => {
   const { theme } = useAppTheme();
+  const orientation = useDeviceOrientation();
 
   // Only show for 'about' view
   if (currentView !== 'about') {
@@ -829,7 +836,7 @@ export const TechnicalSkillsSection: React.FC<PercentageCirclesProps> = ({
     <div style={{ ...styles.sectionBox(theme), marginBottom: '4rem' }}>
       <Typography
         variant='h2'
-        style={styles.h2Title(theme)}
+        style={styles.h2Title(theme, orientation)}
         textAlign='center'
         margin='0 0 2rem 0'
       >
@@ -867,6 +874,7 @@ export const GuidingPrinciplesSection: React.FC<PercentageCirclesProps> = ({
   currentView,
 }) => {
   const { theme } = useAppTheme();
+  const orientation = useDeviceOrientation();
 
   // Only show for 'about' view
   if (currentView !== 'about') {
@@ -883,7 +891,7 @@ export const GuidingPrinciplesSection: React.FC<PercentageCirclesProps> = ({
     <div style={{ ...styles.sectionBox(theme), marginBottom: '4rem' }}>
       <Typography
         variant='h2'
-        style={styles.h2Title(theme)}
+        style={styles.h2Title(theme, orientation)}
         textAlign='center'
         margin='0 0 2rem 0'
       >
@@ -956,7 +964,7 @@ export const ServicesSection: React.FC<{
     >
       <Typography
         variant='h2'
-        style={styles.h2Title(theme)}
+        style={styles.h2Title(theme, orientation)}
         textAlign='center'
         margin='0 0 1.5rem 0'
       >

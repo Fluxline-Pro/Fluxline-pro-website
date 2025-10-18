@@ -6,7 +6,7 @@ import { usePageScrollNavigation } from '../../hooks/usePageScrollNavigation';
 import { FluentIcon } from '../fluent-icon/fluent-icon';
 import { Container } from '../../layouts/Container';
 import { ROUTES } from '../../../routing/constants';
-import { useIsMobile } from '../../hooks/useMediaQuery';
+import { useIsMobile, useDeviceOrientation } from '../../hooks/useMediaQuery';
 
 interface PageStepperProps {
   autoNavigateOnScroll?: boolean;
@@ -36,6 +36,51 @@ export const PageStepper: React.FC<PageStepperProps> = ({
     ? theme.palette.white
     : theme.palette.themePrimary;
   const isMobile = useIsMobile();
+  const orientation = useDeviceOrientation();
+
+  // State to track if user has scrolled to bottom on smaller devices
+  const [isAtBottom, setIsAtBottom] = React.useState(false);
+
+  // Check if we should hide stepper until user scrolls to bottom
+  const shouldHideUntilBottom = React.useMemo(() => {
+    return (
+      orientation === 'mobile-landscape' ||
+      orientation === 'tablet-portrait' ||
+      (isMobile && orientation === 'portrait')
+    );
+  }, [orientation, isMobile]);
+
+  // Scroll listener for smaller devices
+  React.useEffect(() => {
+    if (!shouldHideUntilBottom) {
+      setIsAtBottom(true); // Always show on larger devices
+      return;
+    }
+
+    const handleScroll = () => {
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      // Consider "at bottom" when within 100px of the actual bottom
+      const threshold = 100;
+      const atBottom = scrollTop + windowHeight >= documentHeight - threshold;
+
+      setIsAtBottom(atBottom);
+    };
+
+    // Set initial state
+    handleScroll();
+
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [shouldHideUntilBottom]);
 
   // Consolidated styles - moved outside conditional to fix React Hooks rule
   const styles = React.useMemo(
@@ -101,7 +146,9 @@ export const PageStepper: React.FC<PageStepperProps> = ({
       },
       mainRoutes.find((r) => r.path === '/contact-me') || {
         path: '/contact-me',
-        name: mainRoutes.find((r) => r.path === '/contact-me')?.name || "let's connect",
+        name:
+          mainRoutes.find((r) => r.path === '/contact-me')?.name ||
+          "let's connect",
       },
     ].filter(Boolean);
 
@@ -164,17 +211,31 @@ export const PageStepper: React.FC<PageStepperProps> = ({
     return null;
   }
 
+  // Hide stepper on smaller devices until user scrolls to bottom
+  if (shouldHideUntilBottom && !isAtBottom) {
+    return null;
+  }
+
   const handleKeyDown = (event: React.KeyboardEvent, action: () => void) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       action();
     }
   };
+
+  // Calculate bottom position based on orientation
+  const getBottomPosition = () => {
+    if (orientation === 'mobile-landscape') {
+      return '1rem'; // Higher position for mobile-landscape
+    }
+    return isMobile ? theme.spacing.m : theme.spacing.xl;
+  };
+
   return (
     <Container
       className={className}
       position='fixed'
-      bottom={isMobile ? theme.spacing.m : theme.spacing.xl}
+      bottom={getBottomPosition()}
       left='50%'
       style={{
         transform: 'translateX(-50%)',

@@ -257,8 +257,15 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
                   //   ? '2 / -1' // Move to right side in mobile landscape + left-handed
                   '1 / 2', // Default position
             placeItems: placeItemsLeft,
-            // Ensure left content doesn't overflow on mobile
-            overflow: 'hidden',
+            // Ensure left content doesn't overflow on mobile, but allow horizontal overflow on home page mobile-landscape
+            overflow:
+              isHomePage && orientation === 'mobile-landscape'
+                ? 'visible'
+                : 'hidden',
+            overflowX:
+              isHomePage && orientation === 'mobile-landscape'
+                ? 'visible'
+                : 'hidden',
             maxWidth: '100%',
             width: '100%',
             boxSizing: 'border-box',
@@ -290,7 +297,8 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
                   //   ? '1 / 2' // Move to left side in mobile landscape + left-handed
                   '2 / -1', // Default position
             placeItems: rightPlaceItems, // Use calculated placeItems based on device orientation and scrollability
-            marginTop: isTablet ? '3rem' : '0', // adjusts marginTop for tablet only
+            marginTop:
+              isTablet && orientation !== 'mobile-landscape' ? '3rem' : '0', // adjusts marginTop for tablet only, but not mobile-landscape
             paddingLeft: isTablet ? '1.5rem' : '0', // adjusts paddingLeft for tablet only
             paddingRight:
               isTablet || orientation === 'tablet-portrait' ? '1.125rem' : '0', // Increased right padding to prevent scrollbar overlap

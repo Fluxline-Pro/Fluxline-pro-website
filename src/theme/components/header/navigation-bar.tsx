@@ -80,8 +80,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     color: theme.isInverted ? theme.palette.white : theme.palette.black,
     textShadow: 'none',
     textAlign: readingDirection === 'rtl' ? 'right' : 'left',
-    opacity:
-      (isScrolledPast && !isMenuOpen && !isSettingsOpen) ? 1 : 0,
+    opacity: isScrolledPast && !isMenuOpen && !isSettingsOpen ? 1 : 0,
     transition: theme.animations.transitions.fade.enter,
     visibility:
       (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile
@@ -103,7 +102,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
       left={isLeftHanded || isMobileLandscape ? 0 : 'auto'}
       padding={
         isMobileLandscape
-          ? '3rem 1.5rem 1.5rem 3rem'
+          ? '1.5rem 1rem 1rem 1.5rem'
           : isPortrait
             ? '2rem 1rem 1rem 2rem'
             : '2.5rem 2rem 2rem 2rem'
@@ -111,11 +110,12 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
       width='100%'
       style={{
         zIndex: theme.zIndices.menu + 1,
-        backgroundColor: shouldShowBackdrop && isScrolledPast
-          ? theme.isInverted
-            ? 'rgba(37, 37, 37, 0.9)'
-            : 'rgba(255, 255, 255, 0.8)'
-          : 'transparent',
+        backgroundColor:
+          shouldShowBackdrop && isScrolledPast
+            ? theme.isInverted
+              ? 'rgba(37, 37, 37, 0.9)'
+              : 'rgba(255, 255, 255, 0.8)'
+            : 'transparent',
         backdropFilter: shouldShowBackdrop ? 'blur(10px)' : 'none',
         transition: 'all 0.2s ease-in-out',
         boxSizing: 'border-box',
