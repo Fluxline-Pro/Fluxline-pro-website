@@ -70,7 +70,7 @@ export const PdfModal: React.FC<PdfModalProps> = ({
       // For mobile portrait, use a simpler approach to prevent background scrolling
       if (isMobile) {
         document.body.style.overflow = 'hidden';
-        document.body.style.height = '100vh';
+        document.body.style.height = '100dvh';
         document.body.style.touchAction = 'none';
       } else {
         // Desktop/tablet approach with position fixed
@@ -116,8 +116,8 @@ export const PdfModal: React.FC<PdfModalProps> = ({
         left: 0,
         right: 0,
         bottom: 0,
-        width: '100vw',
-        height: '100vh',
+        width: isMobile ? '100dvw' : '100vw',
+        height: isMobile ? '100dvh' : '100vh',
         backgroundColor: 'rgba(0, 0, 0, 0.95)',
         display: 'flex',
         alignItems: isMobile ? 'flex-start' : 'center',
@@ -131,10 +131,10 @@ export const PdfModal: React.FC<PdfModalProps> = ({
       <div
         style={{
           position: 'relative',
-          width: isMobile ? '100vw' : '90vw',
-          height: isMobile ? '100vh' : '90vh',
-          maxWidth: isMobile ? '100vw' : '1200px',
-          maxHeight: isMobile ? '100vh' : '90vh',
+          width: isMobile ? '100dvw' : '90vw',
+          height: isMobile ? '100dvh' : '90vh',
+          maxWidth: isMobile ? '100dvw' : '1200px',
+          maxHeight: isMobile ? '100dvh' : '90vh',
           animation: 'fadeIn 0.3s ease-in-out',
           display: 'flex',
           flexDirection: 'column',
@@ -221,11 +221,11 @@ export const PdfModal: React.FC<PdfModalProps> = ({
 
         {/* PDF Viewer */}
         <iframe
-          src={`${pdfSrc}#view=FitH&toolbar=1&navpanes=1&scrollbar=1&page=1`}
+          src={`${pdfSrc}#view=FitH&toolbar=1&navpanes=1&scrollbar=1`}
           title={pdfTitle}
           style={{
             width: '100%',
-            height: isMobile ? 'calc(100vh - 60px)' : 'calc(90vh - 80px)',
+            height: isMobile ? 'calc(100dvh - 60px)' : 'calc(90vh - 80px)',
             border: 'none',
             borderRadius: isMobile
               ? '0'
