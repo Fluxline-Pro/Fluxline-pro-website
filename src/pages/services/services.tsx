@@ -151,6 +151,25 @@ export const WhitePagesSection: React.FC<{
     );
   };
 
+  const getServiceName = () => {
+    switch (currentView) {
+      case 'personal-training':
+        return 'Personal Training & Wellness';
+      case 'education-training':
+        return 'Coaching, Education & Leadership';
+      case 'consulting':
+        return 'Business Strategy & Systems Alignment';
+      case 'resonance-core':
+        return 'Life Coaching & The Resonance Core';
+      case 'development':
+        return 'Web & Application Development';
+      case 'design':
+        return 'Brand Identity & Experience Design';
+      default:
+        return 'service';
+    }
+  };
+
   const relevantWhitePages = getRelevantWhitePages();
 
   if (relevantWhitePages.length === 0) {
@@ -167,7 +186,11 @@ export const WhitePagesSection: React.FC<{
         }}
       >
         <hr style={hrStyles} />
-        <H2Title name='Services White Pages' />
+        <H2Title
+          name={
+            currentView === 'services' ? 'Services White Pages' : 'White Page'
+          }
+        />
         <Typography
           variant='p'
           textAlign='left'
@@ -178,7 +201,7 @@ export const WhitePagesSection: React.FC<{
         >
           {currentView === 'services'
             ? 'Explore detailed information about each of our services through our white pages.'
-            : 'View the detailed white paper for this service.'}
+            : `View the detailed white paper for ${getServiceName()}.`}
         </Typography>
 
         <div
@@ -452,7 +475,7 @@ export const ProfessionalSummary: React.FC<{
       case 'education-training':
         return 'Coaching, Education & Leadership';
       case 'consulting':
-        return 'IT & Systems Consulting';
+        return 'Business Strategy & Systems Alignment';
       case 'resonance-core':
         return 'Life Coaching & The Resonance Core';
       case 'development':
@@ -548,57 +571,75 @@ export const ProfessionalSummary: React.FC<{
           )}
           <H2Title name={getTitle()} />
         </Container>
+      </div>
+      <Container
+        style={{
+          background:
+            theme.themeMode === 'high-contrast'
+              ? theme.semanticColors.warningBackground
+              : theme.palette.neutralLight,
+          padding: isMobile ? theme.spacing.l : theme.spacing.xxl,
+          borderRadius: theme.borderRadius.container.medium,
+          marginBottom: theme.spacing.xl,
+          border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+          maxWidth: '1000px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+      >
+        <H2Title name='Overview' style={{ margin: '0 0 1.5rem 0' }} />
         <Typography
           variant='p'
           textAlign='left'
           color={theme.palette.neutralPrimary}
-          marginBottom='2rem'
+          marginBottom='3rem'
           noHyphens
           style={styles.textContent}
         >
           {renderSummary(getSummary())}
         </Typography>
-      </div>
-      <Container
-        display='flex'
-        flexDirection='column'
-        gap={theme.spacing.m}
-        paddingLeft='0'
-        paddingRight='0'
-        marginLeft='0'
-        style={{ width: '100%', padding: '0 !important' }}
-      >
-        {isMobile
-          ? bulletPoints.map((point) => (
-              <BulletPoint
-                key={point.name}
-                name={point.name}
-                description={point.description}
-                onClick={() => point.route && navigate(point.route)}
-                isHoverable={!!point.route}
-              />
-            ))
-          : bulletPairs.map((pair, rowIndex) => (
-              <div
-                key={rowIndex}
-                style={{
-                  ...styles.gridContainer(false, '1fr 1fr'),
-                  gap: theme.spacing.menuButton,
-                  width: '100%',
-                  padding: '0 0.5rem',
-                }}
-              >
-                {pair.map((point) => (
-                  <BulletPoint
-                    key={point.name}
-                    name={point.name}
-                    description={point.description}
-                    onClick={() => point.route && navigate(point.route)}
-                    isHoverable={!!point.route}
-                  />
-                ))}
-              </div>
-            ))}
+        <H2Title name='Services Offered' style={{ margin: '0 0 1.5rem 0' }} />
+        <Container
+          display='flex'
+          flexDirection='column'
+          gap={theme.spacing.m}
+          paddingLeft='0'
+          paddingRight='0'
+          marginLeft='0'
+          style={{ width: '100%', padding: '0 !important' }}
+        >
+          {isMobile
+            ? bulletPoints.map((point) => (
+                <BulletPoint
+                  key={point.name}
+                  name={point.name}
+                  description={point.description}
+                  onClick={() => point.route && navigate(point.route)}
+                  isHoverable={!!point.route}
+                />
+              ))
+            : bulletPairs.map((pair, rowIndex) => (
+                <div
+                  key={rowIndex}
+                  style={{
+                    ...styles.gridContainer(false, '1fr 1fr'),
+                    gap: '0.5rem',
+                    width: '100%',
+                    padding: '0 0.5rem',
+                  }}
+                >
+                  {pair.map((point) => (
+                    <BulletPoint
+                      key={point.name}
+                      name={point.name}
+                      description={point.description}
+                      onClick={() => point.route && navigate(point.route)}
+                      isHoverable={!!point.route}
+                    />
+                  ))}
+                </div>
+              ))}
+        </Container>
       </Container>
     </>
   );
