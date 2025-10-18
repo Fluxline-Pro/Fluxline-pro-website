@@ -33,11 +33,11 @@ export const NavigationModal: React.FC<NavigationModalProps> = ({
     root: {
       position: 'fixed' as const,
       top: 0,
-      right: isLeftHanded || isMobileLandscape ? 'auto' : 0,
-      left: isLeftHanded || isMobileLandscape ? 0 : 'auto',
+      right: isLeftHanded ? 'auto' : 0,
+      left: isLeftHanded ? 0 : 'auto',
       transform: isOpen
         ? 'translateX(0)'
-        : `translateX(${isLeftHanded || isMobileLandscape ? '-100%' : '100%'})`,
+        : `translateX(${isLeftHanded ? '-100%' : '100%'})`,
       transition: shouldReduceMotion ? 'none' : 'transform 0.5s ease-in-out',
       background: theme.gradients[theme.isInverted ? 'dark' : 'light'].menu,
       zIndex: theme.zIndices.menu,
@@ -101,11 +101,11 @@ export const NavigationModal: React.FC<NavigationModalProps> = ({
     transition: shouldReduceMotion
       ? 'none'
       : 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out',
-    right: handedness || isMobileLandscape ? 'auto' : 0,
-    left: handedness || isMobileLandscape ? 0 : 'auto',
+    right: handedness ? 'auto' : 0,
+    left: handedness ? 0 : 'auto',
     transform: shouldShow
       ? 'translateX(0)'
-      : `translateX(${handedness || isMobileLandscape ? '-100%' : '100%'})`,
+      : `translateX(${handedness ? '-100%' : '100%'})`,
   };
 
   return (

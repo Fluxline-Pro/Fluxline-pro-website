@@ -12,7 +12,7 @@ import LinktreeLogo from '../../../assets/svgs/LinktreeLogo';
 import { ROUTES } from '../../../routing/constants';
 import { useUserPreferencesStore } from '../../../store/store-specs/userPreferencesStore';
 import { Container } from '../../../theme/layouts/Container';
-import { useIsMobile, useDeviceOrientation } from '../../hooks/useMediaQuery';
+import { useIsMobile } from '../../hooks/useMediaQuery';
 
 interface NavigationMenuProps {
   onClose: () => void;
@@ -20,7 +20,6 @@ interface NavigationMenuProps {
 
 export const NavigationMenu: React.FC<NavigationMenuProps> = ({ onClose }) => {
   const { layoutPreference } = useAppTheme();
-  const orientation = useDeviceOrientation();
   const isLeftHanded = layoutPreference === 'left-handed';
   const { isHovered: isNavHovered, getHoverProps: getNavHoverProps } =
     useMultiHoverState();
@@ -32,16 +31,6 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({ onClose }) => {
     (state) => state.setOnboardingDoneOrSkipped
   );
   const isMobile = useIsMobile();
-
-  // In mobile-landscape, the alignment logic needs to be reversed for left-handed mode
-  const getAlignItems = () => {
-    if (orientation === 'mobile-landscape') {
-      // In mobile-landscape left-handed mode, we want the opposite alignment
-      return isLeftHanded ? 'flex-end' : 'flex-start';
-    }
-    // For all other orientations, use the normal logic
-    return isLeftHanded ? 'flex-start' : 'flex-end';
-  };
 
   const styles = {
     contentContainer: {
@@ -84,7 +73,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({ onClose }) => {
         <LayoutGrid
           display='flex'
           flexDirection='column'
-          alignItems={getAlignItems()}
+          alignItems={isLeftHanded ? 'flex-start' : 'flex-end'}
           justifyContent='center'
           gap='clamp(0.5rem, 0.5vh, 1rem)'
           margin={0}

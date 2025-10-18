@@ -68,16 +68,6 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       return theme.palette.white;
     }
 
-    // 3. For mobile landscape on non-home pages without open menus, use white
-    if (
-      orientation === 'mobile-landscape' &&
-      !isHomePage &&
-      !isMenuOpen &&
-      !isSettingsOpen
-    ) {
-      return theme.palette.white;
-    }
-
     // 4. For pages with light logo background (about, services, contact-me) in light mode,
     //    use neutralPrimary to ensure visibility against white logo background
     const lightLogoPages = ['/about', '/services', '/contact-me'];
@@ -147,9 +137,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       gap: '1rem',
       padding: theme.spacing.s,
       color:
-        theme.themeMode === 'high-contrast' ||
-        location === normalizedHomePath ||
-        isMobileLandscape
+        theme.themeMode === 'high-contrast' || location === normalizedHomePath
           ? theme.palette.white
           : theme.palette.neutralPrimary,
       margin: '0 4px',
@@ -182,10 +170,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       letterSpacing: theme.typography.letterSpacing.tight,
       fontWeight: theme.typography.fontWeights.semiBold,
       color:
-        ((location === normalizedHomePath ||
-          (isMobileLandscape && location !== normalizedHomePath)) &&
-          !isMenuOpen &&
-          !isSettingsOpen) ||
+        (location === normalizedHomePath && !isMenuOpen && !isSettingsOpen) ||
         theme.themeMode === 'high-contrast'
           ? theme.palette.white
           : theme.palette.themePrimary,
@@ -202,8 +187,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
     <div
       style={{
         display: 'flex',
-        flexDirection:
-          isMobileLandscape || isLeftHanded ? 'row-reverse' : 'row',
+        flexDirection: isLeftHanded ? 'row-reverse' : 'row',
         gap: shouldShowHireMeButton || isMobile ? 0 : '1rem',
         pointerEvents: 'auto',
         opacity: fadeStage === 'in' ? 1 : 0,
