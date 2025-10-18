@@ -107,7 +107,7 @@ export const useLayoutConfig = (
       default:
         return { left: 6, right: 6 };
     }
-  }, [orientation, backgroundImage, isHomePage, isLeftHanded]);
+  }, [orientation, backgroundImage, isHomePage, layoutPreference,isLeftHanded]);
 
   const gridTemplateColumns = useMemo(() => {
     if (orientation === 'portrait') return '1fr';
