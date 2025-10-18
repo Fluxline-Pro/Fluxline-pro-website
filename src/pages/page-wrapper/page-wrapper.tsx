@@ -91,7 +91,7 @@ const PAGE_CONFIGS = {
     imageText: 'Blog',
   },
   '/contact-me': {
-    image: require('../../assets/images/LinkedInTerenceW1024x1536.jpeg'), // Special marker for dynamic logo
+    image: require('../../assets/images/ContactMe2400x1600.jpg'), // Special marker for dynamic logo
     imageText: '',
   },
   '/books': {

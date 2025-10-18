@@ -102,49 +102,49 @@ const routes: RouteObject[] = [
         path: 'white-pages',
         element: <WhitePagesView />,
       },
-      {
-        path: 'architecture',
-        element: <ServicesPage contentType='architecture' />,
-      },
-      {
-        path: 'blog',
-        element: <UnifiedContentPage contentType='blog' />,
-        children: [
-          {
-            path: ':id',
-            element: <></>, // Content is handled by UnifiedContentPage
-          },
-        ],
-      },
+      // {
+      //   path: 'architecture',
+      //   element: <ServicesPage contentType='architecture' />,
+      // },
+      // {
+      //   path: 'blog',
+      //   element: <UnifiedContentPage contentType='blog' />,
+      //   children: [
+      //     {
+      //       path: ':id',
+      //       element: <></>, // Content is handled by UnifiedContentPage
+      //     },
+      //   ],
+      // },
       // blog-api route removed - using the consolidated unified-content-page.tsx instead
-      {
-        path: 'media',
-        element: <UnifiedContentPage contentType='media' />,
-        children: [
-          {
-            path: ':id',
-            element: <></>, // Content is handled by UnifiedContentPage
-          },
-        ],
-      },
-      {
-        path: 'collaborate',
-        element: <ContactPage />,
-      },
+      // {
+      //   path: 'media',
+      //   element: <UnifiedContentPage contentType='media' />,
+      //   children: [
+      //     {
+      //       path: ':id',
+      //       element: <></>, // Content is handled by UnifiedContentPage
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: 'collaborate',
+      //   element: <ContactPage />,
+      // },
       {
         path: 'contact-me',
         element: <ContactPage />,
       },
-      {
-        path: 'books',
-        element: <UnifiedContentPage contentType='books' />,
-        children: [
-          {
-            path: ':id',
-            element: <></>, // Content is handled by UnifiedContentPage
-          },
-        ],
-      },
+      // {
+      //   path: 'books',
+      //   element: <UnifiedContentPage contentType='books' />,
+      //   children: [
+      //     {
+      //       path: ':id',
+      //       element: <></>, // Content is handled by UnifiedContentPage
+      //     },
+      //   ],
+      // },
       // {
       //   path: 'authors',
       //   element: <UnifiedContentPage contentType='authors' />,
@@ -213,16 +213,16 @@ const routes: RouteObject[] = [
       //     },
       //   ],
       // },
-      {
-        path: 'press',
-        element: <UnifiedContentPage contentType='press' />,
-        children: [
-          {
-            path: ':id',
-            element: <></>, // Content is handled by UnifiedContentPage
-          },
-        ],
-      },
+      // {
+      //   path: 'press',
+      //   element: <UnifiedContentPage contentType='press' />,
+      //   children: [
+      //     {
+      //       path: ':id',
+      //       element: <></>, // Content is handled by UnifiedContentPage
+      //     },
+      //   ],
+      // },
       {
         path: 'legal',
         element: <LegalPage />,
