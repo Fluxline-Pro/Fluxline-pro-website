@@ -30,7 +30,8 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
 
   // CTA configuration consts
   const ARROW_ICON = '➤';
-  const BOOKINGS_URL = 'https://outlook.office.com/book/Bookings@terencewaters.com';
+  const BOOKINGS_URL =
+    'https://outlook.office.com/book/Bookings@terencewaters.com';
 
   // Configuration based on variant
   const config = {
@@ -71,7 +72,11 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
 
   const hrStyles = {
     margin:
-      isMobile || orientation === 'mobile-landscape' ? '1.5rem 0' : '2rem 0',
+      isMobile ||
+      orientation === 'mobile-landscape' ||
+      orientation === 'tablet-portrait'
+        ? '1.5rem 0'
+        : '2rem 0',
     border: 'none',
     height: '1px',
     backgroundColor: theme.palette.themePrimary,
@@ -88,7 +93,11 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
     borderLeft: `6px solid ${theme.semanticColors.messageText}`, // Mythic Gold color
     maxWidth: '800px',
     margin:
-      isMobile || orientation === 'mobile-landscape' ? '1rem auto' : '2rem auto',
+      isMobile ||
+      orientation === 'mobile-landscape' ||
+      orientation === 'tablet-portrait'
+        ? '1rem auto'
+        : '2rem auto',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
     transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',
@@ -120,7 +129,13 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
     <>
       <hr style={hrStyles} />
       <Container
-        padding={isMobile || orientation === 'mobile-landscape' ? '1.5rem 1rem' : '2rem 1rem'}
+        padding={
+          isMobile ||
+          orientation === 'mobile-landscape' ||
+          orientation === 'tablet-portrait'
+            ? '1.5rem 1rem'
+            : '2rem 1rem'
+        }
         marginBottom='3rem'
         style={ctaContainerStyle}
         onClick={handleClick}
@@ -137,7 +152,9 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
             flexDirection='column'
             justifyContent='flex-start'
             alignItems='flex-start'
-            paddingRight={isMobile ? '1rem' : '3rem'}
+            paddingRight={
+              isMobile || orientation === 'tablet-portrait' ? '1rem' : '3rem'
+            }
           >
             <Typography
               variant='h3'

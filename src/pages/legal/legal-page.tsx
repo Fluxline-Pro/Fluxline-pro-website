@@ -149,7 +149,12 @@ export const LegalPage: React.FC = () => {
               <Container
                 display='flex'
                 flexDirection='row'
-                justifyContent='flex-start'
+                justifyContent={
+                  orientation === 'mobile-landscape' &&
+                  layoutPreference === 'left-handed'
+                    ? 'flex-end'
+                    : 'flex-start'
+                }
                 alignItems='center'
                 paddingLeft='0'
                 marginLeft='0'

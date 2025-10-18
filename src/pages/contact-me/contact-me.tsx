@@ -270,12 +270,18 @@ const AboutMeSection: React.FC = () => {
 
       <Container
         display='flex'
-        flexDirection={isMobile || orientation === 'mobile-landscape' ? 'column' : 'row'}
+        flexDirection={
+          isMobile || orientation === 'mobile-landscape' ? 'column' : 'row'
+        }
         gap={theme.spacing.l}
         alignItems={isMobile ? 'flex-start' : 'center'}
         justifyContent='space-between'
         marginTop={theme.spacing.l}
-        padding={isMobile || orientation === 'mobile-landscape' ? theme.spacing.m : theme.spacing.xl}
+        padding={
+          isMobile || orientation === 'mobile-landscape'
+            ? theme.spacing.m
+            : theme.spacing.xl
+        }
         style={{
           background:
             theme.themeMode === 'high-contrast'
@@ -339,8 +345,9 @@ const AboutMeSection: React.FC = () => {
 };
 
 const ContactForm: React.FC = () => {
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
   const isMobile = useIsMobile();
+  const orientation = useDeviceOrientation();
 
   // Use Zustand contact store
   const {
@@ -471,10 +478,15 @@ const ContactForm: React.FC = () => {
     <Container maxWidth='1000px' paddingBottom={theme.spacing.xl}>
       <Typography
         variant='h3'
-        textAlign='left'
         color={theme.palette.themePrimary}
         marginTop={isMobile ? theme.spacing.m : undefined}
         marginBottom={theme.spacing.m}
+        textAlign={
+          orientation === 'mobile-landscape' &&
+          layoutPreference === 'left-handed'
+            ? 'right'
+            : 'left'
+        }
       >
         Let's connect!
       </Typography>

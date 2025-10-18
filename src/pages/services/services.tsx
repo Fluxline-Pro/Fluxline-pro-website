@@ -30,9 +30,6 @@ const styles = {
   ) => {
     // Define main page titles that should get special left-handed spacing
     const mainTitles = [
-      'Our Services',
-      'About Fluxline',
-      "Let's Connect",
       'Business Strategy & Systems Alignment',
       'Brand Identity & Experience Design',
       'Web & App Development',
@@ -338,6 +335,7 @@ export const AboutSection: React.FC<{
         variant='h2'
         style={styles.h2Title(theme, orientation)}
         margin={isMobile ? '1.5rem 0' : '0 0 1.5rem 0'}
+        textAlign={orientation === 'mobile-landscape' && layoutPreference === 'left-handed' ? 'right' : 'left'}
       >
         About Fluxline
       </Typography>
