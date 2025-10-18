@@ -121,7 +121,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
               ? 'rgba(37, 37, 37, 0.9)'
               : 'rgba(255, 255, 255, 0.8)'
             : 'transparent',
-        backdropFilter: shouldShowBackdrop ? 'blur(10px)' : 'none',
+        backdropFilter: shouldShowBackdrop ? 'blur(8px)' : 'none',
         transition: 'all 0.2s ease-in-out',
         boxSizing: 'border-box',
         pointerEvents: 'none',
