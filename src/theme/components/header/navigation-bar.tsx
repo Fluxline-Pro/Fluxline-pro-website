@@ -72,9 +72,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
   }, [layoutPreference, pendingLayout]);
 
   const shouldShowBackdrop =
-    (isScrolledPast && !isMenuOpen && !isSettingsOpen) ||
-    (isMobile && !isMobileLandscape) ||
-    (isMobileLandscape && isScrolledPast); // In mobile-landscape, only show backdrop when scrolled
+    (isScrolledPast && !isMenuOpen && !isSettingsOpen);
 
   const pageTitleStyles = {
     ...theme.typography.fonts.h2,

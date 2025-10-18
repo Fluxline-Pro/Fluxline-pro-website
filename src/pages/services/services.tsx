@@ -641,7 +641,7 @@ export const ProfessionalSummary: React.FC<{
         marginBottom={theme.spacing.xl}
         padding={
           isMobile || orientation === 'mobile-landscape'
-            ? theme.spacing.l
+            ? `${theme.spacing.l} ${theme.spacing.m}`
             : theme.spacing.xxl
         }
         maxWidth='1000px'
