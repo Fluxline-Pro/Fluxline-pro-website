@@ -116,7 +116,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
       style={{
         zIndex: theme.zIndices.menu + 1,
         backgroundColor:
-          shouldShowBackdrop && isScrolledPast
+          shouldShowBackdrop
             ? theme.isInverted
               ? 'rgba(37, 37, 37, 0.9)'
               : 'rgba(255, 255, 255, 0.8)'

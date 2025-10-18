@@ -66,7 +66,7 @@ export const PageStepper: React.FC<PageStepperProps> = ({
       const threshold = 100;
       const atBottom = scrollTop + windowHeight >= documentHeight - threshold;
 
-      setIsAtBottom(atBottom);
+      setIsAtBottom((prev) => (prev !== atBottom ? atBottom : prev));
     };
 
     // Set initial state

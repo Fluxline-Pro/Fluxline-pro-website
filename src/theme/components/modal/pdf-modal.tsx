@@ -64,26 +64,38 @@ export const PdfModal: React.FC<PdfModalProps> = ({
       const originalOverflow = document.body.style.overflow;
       const originalPosition = document.body.style.position;
       const originalTop = document.body.style.top;
+      const originalWidth = document.body.style.width;
       const scrollY = window.scrollY;
 
-      // Lock the body scroll
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
+      // For mobile portrait, use a simpler approach to prevent background scrolling
+      if (isMobile) {
+        document.body.style.overflow = 'hidden';
+        document.body.style.height = '100vh';
+        document.body.style.touchAction = 'none';
+      } else {
+        // Desktop/tablet approach with position fixed
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.width = '100%';
+      }
 
       return () => {
-        // Restore scroll position
-        window.scrollTo(0, scrollY);
-
         // Restore original styles
         document.body.style.overflow = originalOverflow;
         document.body.style.position = originalPosition;
         document.body.style.top = originalTop;
-        document.body.style.width = '';
+        document.body.style.width = originalWidth;
+        document.body.style.height = '';
+        document.body.style.touchAction = '';
+
+        // Only restore scroll position for non-mobile (where we used position fixed)
+        if (!isMobile) {
+          window.scrollTo(0, scrollY);
+        }
       };
     }
-  }, [isOpen]);
+  }, [isOpen, isMobile]);
 
   if (!isOpen) return null;
 
