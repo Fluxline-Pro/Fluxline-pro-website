@@ -164,11 +164,16 @@ export const ContentArea = React.forwardRef<HTMLDivElement, ContentAreaProps>(
                         : '100vh',
           overflowY: hasCardImage
             ? 'clip'
-            : orientation === 'portrait' ||
-                (orientation === 'mobile-landscape' && isHomePage)
+            : orientation === 'portrait' && !isHomePage
               ? 'clip'
-              : 'auto',
-          overflowX: 'clip',
+              : isHomePage
+                ? 'visible'
+                : 'auto',
+          overflowX:
+            (orientation === 'mobile-landscape' && isHomePage) ||
+            (orientation === 'portrait' && isHomePage)
+              ? 'visible'
+              : 'clip',
           transform: getTransform(),
           ...getPadding(),
           ...style,

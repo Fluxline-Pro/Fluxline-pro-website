@@ -31,7 +31,7 @@ export const NavigationSettings: React.FC = () => {
       flex: '1 1 auto',
       overflowY: 'auto' as const,
       paddingInline: '2rem',
-      paddingBottom: orientation === 'mobile-landscape' ? '9rem' : '2rem',
+      paddingBottom: '2rem',
     },
     container: {
       display: 'flex',

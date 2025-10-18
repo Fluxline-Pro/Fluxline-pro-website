@@ -255,9 +255,7 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
                 gridColumn: '1 / 2', // Move to left side in mobile landscape + left-handed
                 placeItems: rightPlaceItems, // Use calculated placeItems based on device orientation and scrollability
                 marginTop:
-                  isTablet && orientation !== 'mobile-landscape'
-                    ? '3rem'
-                    : '0', // Remove margin entirely for cleaner positioning with flex-end justification
+                  isTablet && orientation !== 'mobile-landscape' ? '3rem' : '0', // Remove margin entirely for cleaner positioning with flex-end justification
                 paddingLeft: isTablet ? '1.5rem' : '0',
                 paddingRight: isTablet ? '1.125rem' : '0',
                 paddingBottom: '0', // Remove padding entirely for cleaner positioning with flex-end justification

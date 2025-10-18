@@ -107,7 +107,13 @@ export const useLayoutConfig = (
       default:
         return { left: 6, right: 6 };
     }
-  }, [orientation, backgroundImage, isHomePage, layoutPreference,isLeftHanded]);
+  }, [
+    orientation,
+    backgroundImage,
+    isHomePage,
+    layoutPreference,
+    isLeftHanded,
+  ]);
 
   const gridTemplateColumns = useMemo(() => {
     if (orientation === 'portrait') return '1fr';
@@ -173,7 +179,7 @@ export const useLayoutConfig = (
       orientation === 'portrait' && !isHomePage ? 'auto auto' : '1fr',
     overflow: isHomePage
       ? orientation === 'portrait'
-        ? 'clip'
+        ? 'visible'
         : orientation === 'mobile-landscape'
           ? 'visible'
           : 'clip'
