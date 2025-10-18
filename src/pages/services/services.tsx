@@ -24,7 +24,7 @@ import { CTACallout } from '../../theme/components/cta';
 const styles = {
   sectionContainer: (orientation?: string) => ({
     maxWidth: '900px',
-    margin: '0 auto',
+    margin: '0 auto 0 2.5rem',
     marginBottom: orientation === 'mobile-landscape' ? '0rem' : '1.5rem',
   }),
   sectionBox: (theme: any) => ({
@@ -438,7 +438,7 @@ export const AboutSection: React.FC<{
 export const ProfessionalSummary: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
   const navigate = useNavigate();
   const orientation = useDeviceOrientation();
   const isMobile =
@@ -560,7 +560,12 @@ export const ProfessionalSummary: React.FC<{
         <Container
           display='flex'
           flexDirection='row'
-          justifyContent='flex-start'
+          justifyContent={
+            orientation === 'mobile-landscape' &&
+            layoutPreference === 'left-handed'
+              ? 'flex-end'
+              : 'flex-start'
+          }
           alignItems='center'
           paddingLeft='0'
           marginLeft='0'
@@ -583,7 +588,11 @@ export const ProfessionalSummary: React.FC<{
         marginLeft='auto'
         marginRight='auto'
         marginBottom={theme.spacing.xl}
-        padding={isMobile || orientation === 'mobile-landscape' ? theme.spacing.l : theme.spacing.xxl}
+        padding={
+          isMobile || orientation === 'mobile-landscape'
+            ? theme.spacing.l
+            : theme.spacing.xxl
+        }
         maxWidth='1000px'
         style={{
           background:

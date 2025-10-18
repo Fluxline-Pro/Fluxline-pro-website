@@ -28,7 +28,7 @@ const convertLegalToWhitePage = (legalItem: LegalPageItem): WhitePageItem => ({
 
 export const LegalPage: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
   const navigate = useNavigate();
   const orientation = useDeviceOrientation();
   const isMobile =
@@ -222,7 +222,12 @@ export const LegalPage: React.FC = () => {
               <Container
                 display='flex'
                 flexDirection='row'
-                justifyContent='flex-start'
+                justifyContent={
+                  orientation === 'mobile-landscape' &&
+                  layoutPreference === 'left-handed'
+                    ? 'flex-end'
+                    : 'flex-start'
+                }
                 alignItems='center'
                 paddingLeft='0'
                 marginLeft='0'

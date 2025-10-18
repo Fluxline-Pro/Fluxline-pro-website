@@ -14,7 +14,7 @@ import { Container } from '../../theme/layouts/Container';
 import { WhitePageCard } from '../../theme/components/card/white-page-card/white-page-card';
 
 export const WhitePagesView: React.FC = () => {
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
   const orientation = useDeviceOrientation();
   const [selectedPdf, setSelectedPdf] = useState<WhitePageItem | null>(null);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
@@ -71,7 +71,11 @@ export const WhitePagesView: React.FC = () => {
             <Container
               display='flex'
               flexDirection='row'
-              justifyContent='flex-start'
+              justifyContent={
+                orientation === 'mobile-landscape' && layoutPreference === 'left-handed'
+                  ? 'flex-end'
+                  : 'flex-start'
+              }
               alignItems='center'
               paddingLeft='0'
               marginLeft='0'

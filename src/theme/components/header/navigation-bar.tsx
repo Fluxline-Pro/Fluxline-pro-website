@@ -92,14 +92,14 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
   return (
     <LayoutGrid
       display='flex'
-      flexDirection={isLeftHanded || isMobileLandscape ? 'row-reverse' : 'row'}
+      flexDirection={isLeftHanded ? 'row-reverse' : 'row'}
       justifyContent='space-between' // Always use space-between for consistent layout
       alignItems='center'
       position='fixed'
       gap={isMobile || isMobileLandscape ? '0.25rem' : '1rem'}
       top={0}
-      right={isLeftHanded || isMobileLandscape ? 'auto' : 0}
-      left={isLeftHanded || isMobileLandscape ? 0 : 'auto'}
+      right={isLeftHanded ? 'auto' : 0}
+      left={isLeftHanded ? 0 : 'auto'}
       padding={
         isMobileLandscape
           ? '1.5rem 1rem 1rem 1.5rem'

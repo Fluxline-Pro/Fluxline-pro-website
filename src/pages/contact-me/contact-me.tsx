@@ -6,7 +6,10 @@ import { Container } from '../../theme/layouts/Container';
 // import { FluentInput } from '../../theme/components/form-elements/input/input';
 // import { FluentButton } from '../../theme/components/button/button';
 import { useContactStore } from '../../store/store-specs/contactStore';
-import { useIsMobile } from '../../theme/hooks/useMediaQuery';
+import {
+  useIsMobile,
+  useDeviceOrientation,
+} from '../../theme/hooks/useMediaQuery';
 import { ImageModal } from '../../theme/components/modal/image-modal';
 import { SocialLinks } from '../../theme/components/header/social-links';
 // Import business card images directly
@@ -29,7 +32,8 @@ const getContactEmail = (): string => {
 };
 
 const BusinessCardSection: React.FC = () => {
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
+  const orientation = useDeviceOrientation();
   const isMobile = useIsMobile();
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState({
@@ -52,7 +56,12 @@ const BusinessCardSection: React.FC = () => {
         display='flex'
         flexDirection={isMobile ? 'column' : 'row'}
         gap={isMobile ? '3rem' : '1rem'}
-        justifyContent='flex-start'
+        justifyContent={
+          orientation === 'mobile-landscape' &&
+          layoutPreference === 'left-handed'
+            ? 'flex-end'
+            : 'flex-start'
+        }
       >
         <div
           className='business-card-container'

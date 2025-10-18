@@ -108,10 +108,24 @@ export const ContentArea = React.forwardRef<HTMLDivElement, ContentAreaProps>(
       return {};
     };
 
+    // Determine the actual visual position (which side of screen the content appears on)
+    const getVisualPosition = () => {
+      // In mobile-landscape left-handed mode, positions are swapped
+      if (
+        orientation === 'mobile-landscape' &&
+        layoutPreference === 'left-handed'
+      ) {
+        return position === 'left' ? 'right' : 'left';
+      }
+      return position;
+    };
+
+    const visualPosition = getVisualPosition();
+
     return (
       <div
         ref={ref}
-        className={`viewport-${position} ${position === 'right' ? scrollbarClassName : ''}`}
+        className={`viewport-${visualPosition} ${visualPosition === 'right' ? scrollbarClassName : ''}`}
         style={{
           ...(nested ? { padding: 0 } : {}),
           ...(isEntering && !shouldReduceMotion

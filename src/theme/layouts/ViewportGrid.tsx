@@ -7,7 +7,6 @@ import {
   useDeviceOrientation,
   useIsLargeDesktop,
   useIsTablet,
-  useIsMobile,
 } from '../hooks/useMediaQuery';
 import { useLayoutConfig } from '../hooks/useLayoutConfig';
 import { useContentScrollable } from '../hooks/useContentScrollable';
@@ -61,9 +60,7 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
   const orientation = useDeviceOrientation();
   const isXLScreen = useIsLargeDesktop();
   const isTablet = useIsTablet();
-  const isMobile = useIsMobile();
   const location = useLocation();
-  const homePage = location.pathname === '/';
 
   // Create ref for right content area to detect scrollability
   const rightContentRef = React.useRef<HTMLDivElement>(null);
@@ -238,74 +235,133 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
         backgroundLoaded={backgroundLoaded}
       />
 
-      {shouldShowLeftChildren && leftChildren && (
-        <ContentArea
-          position='left'
-          orientation={orientation}
-          isHomePage={isHomePage}
-          readingDirection={readingDirection}
-          layoutPreference={layoutPreference}
-          isEntering={isEntering}
-          nested={nested}
-          style={{
-            gridColumn: !rightChildren
-              ? '1 / -1'
-              : orientation === 'portrait'
-                ? '1 / -1'
-                : // : orientation === 'mobile-landscape' &&
-                  //     layoutPreference === 'left-handed'
-                  //   ? '2 / -1' // Move to right side in mobile landscape + left-handed
-                  '1 / 2', // Default position
-            placeItems: placeItemsLeft,
-            // Ensure left content doesn't overflow on mobile, but allow horizontal overflow on home page mobile-landscape
-            overflow:
-              isHomePage && orientation === 'mobile-landscape'
-                ? 'visible'
-                : 'hidden',
-            overflowX:
-              isHomePage && orientation === 'mobile-landscape'
-                ? 'visible'
-                : 'hidden',
-            maxWidth: '100%',
-            width: '100%',
-            boxSizing: 'border-box',
-            // Add top padding on mobile for fixed header, but not when it interferes with image card title positioning
-            paddingTop: isMobile && !homePage ? '5rem' : '0',
-          }}
-        >
-          {leftChildren}
-        </ContentArea>
-      )}
+      {/* Render content areas in different DOM order for left-handed mobile-landscape */}
+      {orientation === 'mobile-landscape' &&
+      layoutPreference === 'left-handed' ? (
+        <>
+          {/* Render right content first (will appear on left visually) */}
+          {shouldShowRightChildren && rightChildren && (
+            <ContentArea
+              ref={rightContentRef}
+              position='right'
+              orientation={orientation}
+              isHomePage={isHomePage}
+              readingDirection={readingDirection}
+              layoutPreference={layoutPreference}
+              isEntering={isEntering}
+              nested={nested}
+              style={{
+                maxWidth: rightMaxWidth || '100%',
+                gridColumn: '1 / 2', // Move to left side in mobile landscape + left-handed
+                placeItems: rightPlaceItems, // Use calculated placeItems based on device orientation and scrollability
+                marginTop:
+                  isTablet && orientation !== 'mobile-landscape'
+                    ? '3rem'
+                    : '0', // Remove margin entirely for cleaner positioning with flex-end justification
+                paddingLeft: isTablet ? '1.5rem' : '0',
+                paddingRight: isTablet ? '1.125rem' : '0',
+                paddingBottom: '0', // Remove padding entirely for cleaner positioning with flex-end justification
+              }}
+            >
+              {rightChildren}
+            </ContentArea>
+          )}
+          {/* Render left content second (will appear on right visually) */}
+          {shouldShowLeftChildren && leftChildren && (
+            <ContentArea
+              position='left'
+              orientation={orientation}
+              isHomePage={isHomePage}
+              readingDirection={readingDirection}
+              layoutPreference={layoutPreference}
+              isEntering={isEntering}
+              nested={nested}
+              style={{
+                gridColumn: !rightChildren ? '1 / -1' : '2 / -1', // Move to right side in mobile landscape + left-handed
+                placeItems: placeItemsLeft,
+                overflow:
+                  isHomePage && orientation === 'mobile-landscape'
+                    ? 'visible'
+                    : 'hidden',
+                overflowX:
+                  isHomePage && orientation === 'mobile-landscape'
+                    ? 'visible'
+                    : 'hidden',
+                maxWidth: '100%',
+                width: '100%',
+                boxSizing: 'border-box',
+                paddingTop: '0', // Remove padding entirely for cleaner positioning with flex-end justification
+                // Don't add margin/padding to images (leftChildren) - they should fill their space naturally
+              }}
+            >
+              {leftChildren}
+            </ContentArea>
+          )}
+        </>
+      ) : (
+        <>
+          {/* Normal DOM order for all other cases */}
+          {shouldShowLeftChildren && leftChildren && (
+            <ContentArea
+              position='left'
+              orientation={orientation}
+              isHomePage={isHomePage}
+              readingDirection={readingDirection}
+              layoutPreference={layoutPreference}
+              isEntering={isEntering}
+              nested={nested}
+              style={{
+                gridColumn: !rightChildren
+                  ? '1 / -1'
+                  : orientation === 'portrait'
+                    ? '1 / -1'
+                    : '1 / 2', // Default position
+                placeItems: placeItemsLeft,
+                overflow:
+                  isHomePage && orientation === 'mobile-landscape'
+                    ? 'visible'
+                    : 'hidden',
+                overflowX:
+                  isHomePage && orientation === 'mobile-landscape'
+                    ? 'visible'
+                    : 'hidden',
+                maxWidth: '100%',
+                width: '100%',
+                boxSizing: 'border-box',
+                paddingTop: '0', // Remove padding entirely for cleaner positioning with flex-end justification
+              }}
+            >
+              {leftChildren}
+            </ContentArea>
+          )}
 
-      {shouldShowRightChildren && rightChildren && (
-        <ContentArea
-          ref={rightContentRef}
-          position='right'
-          orientation={orientation}
-          isHomePage={isHomePage}
-          readingDirection={readingDirection}
-          layoutPreference={layoutPreference}
-          isEntering={isEntering}
-          nested={nested}
-          style={{
-            maxWidth: rightMaxWidth || '100%',
-            gridColumn:
-              orientation === 'portrait'
-                ? '1 / -1' // Use full width for portrait mode
-                : // : orientation === 'mobile-landscape' &&
-                  //     layoutPreference === 'left-handed'
-                  //   ? '1 / 2' // Move to left side in mobile landscape + left-handed
-                  '2 / -1', // Default position
-            placeItems: rightPlaceItems, // Use calculated placeItems based on device orientation and scrollability
-            marginTop:
-              isTablet && orientation !== 'mobile-landscape' ? '3rem' : '0', // adjusts marginTop for tablet only, but not mobile-landscape
-            paddingLeft: isTablet ? '1.5rem' : '0', // adjusts paddingLeft for tablet only
-            paddingRight:
-              isTablet || orientation === 'tablet-portrait' ? '1.125rem' : '0', // Increased right padding to prevent scrollbar overlap
-          }}
-        >
-          {rightChildren}
-        </ContentArea>
+          {shouldShowRightChildren && rightChildren && (
+            <ContentArea
+              ref={rightContentRef}
+              position='right'
+              orientation={orientation}
+              isHomePage={isHomePage}
+              readingDirection={readingDirection}
+              layoutPreference={layoutPreference}
+              isEntering={isEntering}
+              nested={nested}
+              style={{
+                maxWidth: rightMaxWidth || '100%',
+                gridColumn: orientation === 'portrait' ? '1 / -1' : '2 / -1', // Default position
+                placeItems: rightPlaceItems,
+                marginTop:
+                  isTablet && orientation !== 'mobile-landscape' ? '3rem' : '0',
+                paddingLeft: isTablet ? '1.5rem' : '0',
+                paddingRight:
+                  isTablet || orientation === 'tablet-portrait'
+                    ? '1.125rem'
+                    : '0',
+              }}
+            >
+              {rightChildren}
+            </ContentArea>
+          )}
+        </>
       )}
     </LayoutGrid>
   );

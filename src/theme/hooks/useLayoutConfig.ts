@@ -100,7 +100,10 @@ export const useLayoutConfig = (
           right: 8,
         };
       case 'mobile-landscape':
-        return { left: 4, right: 8 };
+        // For left-handed mode, swap the column sizes to match the position swap
+        return layoutPreference === 'left-handed'
+          ? { left: 8, right: 4 } // Swap: content goes to left (gets 8), image goes to right (gets 4)
+          : { left: 4, right: 8 };
       default:
         return { left: 6, right: 6 };
     }
@@ -124,7 +127,7 @@ export const useLayoutConfig = (
       !isHomePage &&
       layoutPreference === 'left-handed'
     ) {
-      return '1fr 2fr';
+      return '8fr 4fr'; // Content on left gets 8fr, image on right gets 4fr
     }
 
     return `${defaultColumns.left}fr ${defaultColumns.right}fr`;

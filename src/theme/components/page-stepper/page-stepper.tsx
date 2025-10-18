@@ -44,7 +44,6 @@ export const PageStepper: React.FC<PageStepperProps> = ({
   // Check if we should hide stepper until user scrolls to bottom
   const shouldHideUntilBottom = React.useMemo(() => {
     return (
-      orientation === 'mobile-landscape' ||
       orientation === 'tablet-portrait' ||
       (isMobile && orientation === 'portrait')
     );
@@ -212,7 +211,7 @@ export const PageStepper: React.FC<PageStepperProps> = ({
   }
 
   // Hide stepper on smaller devices until user scrolls to bottom
-  if (shouldHideUntilBottom && !isAtBottom) {
+  if ((shouldHideUntilBottom && !isAtBottom) || orientation === 'mobile-landscape') {
     return null;
   }
 
@@ -225,9 +224,6 @@ export const PageStepper: React.FC<PageStepperProps> = ({
 
   // Calculate bottom position based on orientation
   const getBottomPosition = () => {
-    if (orientation === 'mobile-landscape') {
-      return '1rem'; // Higher position for mobile-landscape
-    }
     return isMobile ? theme.spacing.m : theme.spacing.xl;
   };
 
