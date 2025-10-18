@@ -109,7 +109,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
         isMobileLandscape
           ? '1.5rem 1rem 1rem 1.5rem'
           : isPortrait
-            ? '2rem 1rem 1rem 2rem'
+            ? '1rem'
             : '2.5rem 2rem 2rem 2rem'
       }
       width='100%'

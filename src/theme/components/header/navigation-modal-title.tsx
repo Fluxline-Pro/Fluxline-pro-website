@@ -29,7 +29,7 @@ const ModalTitle: React.FC<{ isMobileLandscape?: boolean; title: string }> = ({
       textAlign:
         layoutPreference === 'right-handed'
           ? orientation === 'mobile-landscape' // for title placement so they don't run into the menu buttons
-            ? 'right'
+            ? 'left'
             : 'left'
           : 'right',
     } as React.CSSProperties,
