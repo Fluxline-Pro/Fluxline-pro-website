@@ -25,19 +25,41 @@ const styles = {
   sectionContainer: (
     orientation?: string,
     layoutPreference?: string,
+    view?: string,
     includesArrow?: boolean
-  ) => ({
-    margin:
-      includesArrow && orientation !== 'mobile-landscape'
-        ? '0 auto'
-        : orientation === 'mobile-landscape'
-          ? layoutPreference === 'left-handed'
-            ? '0 0 0 14rem'
-            : '0 auto 0 1rem'
-          : '0 auto 0 2.5rem',
-    marginBottom: orientation === 'mobile-landscape' ? '0rem' : '1.5rem',
-    maxWidth: orientation === 'mobile-landscape' ? '400px' : '900px',
-  }),
+  ) => {
+    // Define main page titles that should get special left-handed spacing
+    const mainTitles = [
+      'Our Services',
+      'About Fluxline',
+      "Let's Connect",
+      'Business Strategy & Systems Alignment',
+      'Brand Identity & Experience Design',
+      'Web & App Development',
+      'Life Coaching & The Resonance Core',
+      'Personal Training & Wellness',
+      'Coaching, Education & Leadership',
+      'Web & Application Development',
+    ];
+
+    return {
+      margin:
+        includesArrow && orientation !== 'mobile-landscape'
+          ? '0 auto'
+          : orientation === 'mobile-landscape'
+            ? layoutPreference === 'left-handed' &&
+              view &&
+              mainTitles.includes(view)
+              ? '0 0 0 14rem'
+              : '0 auto 0 1rem'
+            : '0 auto',
+      marginBottom: orientation === 'mobile-landscape' ? '0rem' : '1.5rem',
+      maxWidth:
+        orientation === 'mobile-landscape' && view && mainTitles.includes(view)
+          ? '400px'
+          : '900px',
+    };
+  },
   sectionBox: (theme: any) => ({
     background:
       theme.themeMode === 'high-contrast'
@@ -71,12 +93,13 @@ const styles = {
     color: theme.palette.themePrimary,
     margin:
       orientation === 'mobile-landscape'
-        ? '0.5rem 0 0.5rem 1.5rem'
+        ? '0.5rem 0'
         : '1rem 0 0.5rem 0',
     fontSize:
       orientation === 'mobile-landscape'
         ? theme.typography.fontSizes.clamp6 // Reduced from clamp7 to clamp6 for mobile-landscape
         : theme.typography.fontSizes.clamp7,
+    maxWidth: orientation === 'mobile-landscape' ? '400px' : 'none',
     fontFamily: theme.typography.fonts.h2.fontFamily,
     fontWeight: theme.typography.fonts.h2.fontWeight,
     fontVariationSettings: theme.typography.fonts.h2.fontVariationSettings,
@@ -198,7 +221,12 @@ export const WhitePagesSection: React.FC<{
     <>
       <div
         style={{
-          ...styles.sectionContainer(orientation, layoutPreference, false),
+          ...styles.sectionContainer(
+            orientation,
+            layoutPreference,
+            'White Pages Section', // Generic name that won't trigger special spacing
+            false
+          ),
           marginTop: '3rem',
           marginBottom: '3rem',
         }}
@@ -298,7 +326,14 @@ export const AboutSection: React.FC<{
   }
 
   return (
-    <div style={styles.sectionContainer(orientation, layoutPreference, false)}>
+    <div
+      style={styles.sectionContainer(
+        orientation,
+        layoutPreference,
+        'About Fluxline',
+        false
+      )}
+    >
       <Typography
         variant='h2'
         style={styles.h2Title(theme, orientation)}
@@ -489,7 +524,7 @@ export const ProfessionalSummary: React.FC<{
       case 'services':
         return 'Our Services';
       case 'personal-training':
-        return 'Personal Training, Health & Wellness';
+        return 'Personal Training & Wellness';
       case 'education-training':
         return 'Coaching, Education & Leadership';
       case 'consulting':
@@ -571,6 +606,7 @@ export const ProfessionalSummary: React.FC<{
         style={styles.sectionContainer(
           orientation,
           layoutPreference,
+          getTitle(),
           currentView !== 'services'
         )}
       >
@@ -701,7 +737,12 @@ export const MissionVisionSection: React.FC<{
   return (
     <div
       style={{
-        ...styles.sectionContainer(orientation, layoutPreference, false),
+        ...styles.sectionContainer(
+          orientation,
+          layoutPreference,
+          'Mission Vision',
+          false
+        ),
         display: 'flex',
         flexDirection: 'column',
         gap: '2rem',
@@ -770,7 +811,12 @@ export const FluxlineEthosSection: React.FC<{
   return (
     <div
       style={{
-        ...styles.sectionContainer(orientation, layoutPreference, false),
+        ...styles.sectionContainer(
+          orientation,
+          layoutPreference,
+          'Fluxline Ethos',
+          false
+        ),
         display: 'flex',
         flexDirection: 'column',
         marginBottom: 0,

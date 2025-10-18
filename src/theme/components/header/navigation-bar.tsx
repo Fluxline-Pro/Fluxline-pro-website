@@ -72,7 +72,9 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
   }, [layoutPreference, pendingLayout]);
 
   const shouldShowBackdrop =
-    (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile;
+    (isScrolledPast && !isMenuOpen && !isSettingsOpen) ||
+    (isMobile && !isMobileLandscape) ||
+    (isMobileLandscape && isScrolledPast); // In mobile-landscape, only show backdrop when scrolled
 
   const pageTitleStyles = {
     ...theme.typography.fonts.h2,
@@ -80,10 +82,15 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     color: theme.isInverted ? theme.palette.white : theme.palette.black,
     textShadow: 'none',
     textAlign: readingDirection === 'rtl' ? 'right' : 'left',
-    opacity: isScrolledPast && !isMenuOpen && !isSettingsOpen ? 1 : 0,
+    opacity: isMobileLandscape
+      ? 0 // Hide title completely in mobile-landscape
+      : isScrolledPast && !isMenuOpen && !isSettingsOpen
+        ? 1
+        : 0,
     transition: theme.animations.transitions.fade.enter,
-    visibility:
-      (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile
+    visibility: isMobileLandscape
+      ? 'hidden' // Hide title completely in mobile-landscape
+      : (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile
         ? 'visible'
         : 'hidden',
     pointerEvents: 'auto',

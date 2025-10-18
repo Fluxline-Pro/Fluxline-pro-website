@@ -72,7 +72,7 @@ const PAGE_CONFIGS = {
   },
   '/services/consulting': {
     image: require('../../assets/images/ConsultingPortrait.jpg'),
-    imageText: 'IT & Business Consulting',
+    imageText: 'Business Consulting',
   },
   '/services/development': {
     image: require('../../assets/images/GitHubPortrait.jpg'),
