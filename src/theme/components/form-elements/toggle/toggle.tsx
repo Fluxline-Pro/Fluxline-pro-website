@@ -77,28 +77,29 @@ export const FluentToggle: React.FC<ToggleProps> = ({
     },
     label: {
       color: theme.palette.neutralPrimary,
-      textTransform: 'lowercase' as const,
       fontSize: theme.typography.fonts.medium.fontSize,
       fontWeight: theme.typography.fonts.medium.fontWeight,
       letterSpacing: theme.typography.fonts.medium.letterSpacing,
       fontFamily: theme.typography.fonts.medium.fontFamily,
       ...(displayAsRow ? { marginLeft: '0.5em' } : {}),
-      ...((readingDirection === 'rtl' && displayAsRow)
+      ...(readingDirection === 'rtl' && displayAsRow
         ? { marginRight: '0.5em' }
         : {}),
     },
     pill: {
       backgroundColor: checked
-        ? getThemedBackgroundColor()
+        ? theme.palette.themePrimary
         : theme.isInverted
-          ? theme.palette.black
+          ? theme.palette.neutralTertiary
           : theme.palette.neutralLight,
       selectors: {
         ':hover': {
           cursor: disabled ? 'not-allowed' : 'pointer',
           backgroundColor: disabled
             ? theme.palette.neutralTertiary
-            : getHoverBackgroundColor(),
+            : checked
+              ? theme.palette.themeDark
+              : theme.palette.neutralTertiaryAlt,
         },
         ':disabled': {
           backgroundColor: theme.palette.neutralTertiary,
@@ -107,14 +108,7 @@ export const FluentToggle: React.FC<ToggleProps> = ({
       },
     },
     thumb: {
-      backgroundColor:
-        theme.themeMode === 'high-contrast'
-          ? theme.palette.white
-          : theme.isInverted
-            ? theme.palette.white
-            : checked
-              ? theme.palette.white
-              : theme.palette.black,
+      backgroundColor: theme.palette.neutralPrimary,
       selectors: {
         '.ms-Toggle.is-disabled &': {
           backgroundColor:
@@ -123,14 +117,7 @@ export const FluentToggle: React.FC<ToggleProps> = ({
               : theme.palette.neutralSecondary,
         },
         ':hover': {
-          backgroundColor:
-            theme.themeMode === 'high-contrast'
-              ? theme.palette.white
-              : theme.isInverted
-                ? theme.palette.white
-                : checked
-                  ? theme.palette.white
-                  : theme.palette.black,
+          backgroundColor: theme.palette.white,
         },
       },
     },

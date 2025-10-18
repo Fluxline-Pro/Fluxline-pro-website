@@ -36,7 +36,10 @@ const FluentDropdown: React.FC<DropdownProps> = ({
       width: '100%',
       selectors: {
         '.ms-Dropdown-title': {
-          borderColor: getThemedTextColor(),
+          borderColor:
+            theme.themeMode === 'grayscale'
+              ? theme.palette.neutralPrimary
+              : getThemedTextColor(),
           backgroundColor:
             theme.isInverted ||
             theme.themeMode === 'dark' ||
@@ -49,7 +52,12 @@ const FluentDropdown: React.FC<DropdownProps> = ({
             theme.themeMode === 'grayscale-dark'
               ? theme.palette.neutralPrimary
               : theme.palette.neutralPrimary,
-          border: `1px solid ${getThemedTextColor()}`,
+          border: `1px solid ${
+            theme.themeMode === 'grayscale' ||
+            theme.themeMode === 'grayscale-dark'
+              ? theme.palette.neutralPrimary
+              : getThemedTextColor()
+          }`,
           borderRadius: theme.spacing.s2,
           padding: theme.spacing.s,
           fontFamily: theme.typography.fonts.body.fontFamily,
@@ -159,7 +167,6 @@ const FluentDropdown: React.FC<DropdownProps> = ({
           fontWeight: theme.typography.fonts.medium.fontWeight,
           letterSpacing: theme.typography.letterSpacing.normal,
           lineHeight: theme.typography.lineHeights.tight,
-          textTransform: 'lowercase' as const,
           marginTop: theme.spacing.s,
           marginBottom: theme.spacing.s,
         },
@@ -172,13 +179,21 @@ const FluentDropdown: React.FC<DropdownProps> = ({
             theme.themeMode === 'grayscale-dark'
               ? theme.palette.neutralLight
               : theme.palette.white,
-          border: `1px solid ${getThemedTextColor()}`,
+          border: `1px solid ${
+            theme.themeMode === 'grayscale' ||
+            theme.themeMode === 'grayscale-dark'
+              ? theme.palette.neutralPrimary
+              : getThemedTextColor()
+          }`,
         },
       },
       multiSelectItem: {},
     },
     dropdown: {
-      borderColor: getThemedTextColor(),
+      borderColor:
+        theme.themeMode === 'grayscale'
+          ? theme.palette.neutralPrimary
+          : getThemedTextColor(),
       fontFamily: theme.typography.fonts.body.fontFamily,
       fontVariationSettings: theme.typography.fonts.body.fontVariationSettings,
       fontSize: theme.typography.fontSizes.clamp4,
@@ -187,26 +202,29 @@ const FluentDropdown: React.FC<DropdownProps> = ({
       selectors: {
         ':hover': {
           borderColor:
-            theme.isInverted ||
-            theme.themeMode === 'dark' ||
-            theme.themeMode === 'grayscale-dark'
-              ? theme.palette.themePrimary
-              : theme.palette.themeDark,
+            theme.themeMode === 'grayscale'
+              ? theme.palette.neutralSecondary
+              : theme.isInverted || theme.themeMode === 'dark'
+                ? theme.palette.themePrimary
+                : theme.palette.themeDark,
           cursor: disabled ? 'not-allowed' : 'pointer',
         },
         ':focus': {
           borderColor:
-            theme.isInverted ||
-            theme.themeMode === 'dark' ||
-            theme.themeMode === 'grayscale-dark'
-              ? theme.palette.themePrimary
-              : theme.palette.themeDarker,
+            theme.themeMode === 'grayscale'
+              ? theme.palette.neutralSecondary
+              : theme.isInverted || theme.themeMode === 'dark'
+                ? theme.palette.themePrimary
+                : theme.palette.themeDarker,
           cursor: disabled ? 'not-allowed' : 'pointer',
         },
       },
     },
     title: {
-      borderColor: getThemedTextColor(),
+      borderColor:
+        theme.themeMode === 'grayscale'
+          ? theme.palette.neutralPrimary
+          : getThemedTextColor(),
       color:
         theme.isInverted ||
         theme.themeMode === 'dark' ||
