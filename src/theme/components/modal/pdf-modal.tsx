@@ -57,6 +57,34 @@ export const PdfModal: React.FC<PdfModalProps> = ({
     };
   }, [isOpen, handleClose]);
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      // Store original overflow and position
+      const originalOverflow = document.body.style.overflow;
+      const originalPosition = document.body.style.position;
+      const originalTop = document.body.style.top;
+      const scrollY = window.scrollY;
+
+      // Lock the body scroll
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+
+      return () => {
+        // Restore scroll position
+        window.scrollTo(0, scrollY);
+
+        // Restore original styles
+        document.body.style.overflow = originalOverflow;
+        document.body.style.position = originalPosition;
+        document.body.style.top = originalTop;
+        document.body.style.width = '';
+      };
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const handleDownload = () => {
@@ -78,12 +106,12 @@ export const PdfModal: React.FC<PdfModalProps> = ({
         bottom: 0,
         width: '100vw',
         height: '100vh',
-        backgroundColor: isMobile ? '#010101' : 'rgba(0, 0, 0, 0.9)',
+        backgroundColor: 'rgba(0, 0, 0, 0.95)',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: isMobile ? 'flex-start' : 'center',
         justifyContent: 'center',
         zIndex: 1000,
-        padding: isMobile ? '0' : '1rem',
+        padding: '0',
         overflow: 'hidden',
       }}
       onClick={handleClose}
@@ -91,13 +119,15 @@ export const PdfModal: React.FC<PdfModalProps> = ({
       <div
         style={{
           position: 'relative',
-          width: isMobile ? '100vw' : '100%',
-          height: isMobile ? '100vh' : '100%',
+          width: isMobile ? '100vw' : '90vw',
+          height: isMobile ? '100vh' : '90vh',
           maxWidth: isMobile ? '100vw' : '1200px',
           maxHeight: isMobile ? '100vh' : '90vh',
           animation: 'fadeIn 0.3s ease-in-out',
           display: 'flex',
           flexDirection: 'column',
+          backgroundColor: 'rgba(0, 0, 0, 0.95)',
+          borderRadius: isMobile ? '0' : theme.borderRadius.container.button,
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -108,26 +138,45 @@ export const PdfModal: React.FC<PdfModalProps> = ({
             justifyContent: 'space-between',
             alignItems: 'center',
             padding: isMobile ? '0.75rem' : '1rem',
-            backgroundColor: theme.palette.neutralLighterAlt,
+            backgroundColor:
+              theme.themeMode === 'high-contrast'
+                ? theme.semanticColors.warningBackground
+                : theme.palette.neutralLight,
             borderRadius: isMobile
               ? '0'
               : `${theme.borderRadius.container.button} ${theme.borderRadius.container.button} 0 0`,
             minHeight: isMobile ? '60px' : 'auto',
+            gap: '1rem',
+            flexWrap: 'nowrap',
           }}
         >
           <h3
             style={{
               margin: 0,
-              color: theme.palette.black, // Use black text for better readability in both light and dark modes
+              color: theme.palette.neutralPrimary,
               fontSize: theme.typography.fontSizes.clamp5,
               fontWeight: 600,
               textTransform: 'capitalize',
               textShadow: 'none',
+              fontFamily: theme.typography.fontFamilies.heading,
+              flex: '1 1 auto',
+              minWidth: 0,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
             }}
           >
             {pdfTitle}
           </h3>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: isMobile ? '0.5rem' : '1rem',
+              flexShrink: 0,
+              flexWrap: 'nowrap',
+            }}
+          >
             <FluentButton
               variant='primary'
               onClick={handleDownload}
@@ -160,21 +209,17 @@ export const PdfModal: React.FC<PdfModalProps> = ({
 
         {/* PDF Viewer */}
         <iframe
-          src={
-            isMobile
-              ? `${pdfSrc}#view=FitH&toolbar=1&navpanes=1&scrollbar=1`
-              : pdfSrc
-          }
+          src={`${pdfSrc}#view=FitH&toolbar=1&navpanes=1&scrollbar=1&page=1`}
           title={pdfTitle}
           style={{
             width: '100%',
-            height: '100%',
+            height: isMobile ? 'calc(100vh - 60px)' : 'calc(90vh - 80px)',
             border: 'none',
             borderRadius: isMobile
               ? '0'
               : `0 0 ${theme.borderRadius.container.button} ${theme.borderRadius.container.button}`,
             backgroundColor: theme.palette.white,
-            minHeight: isMobile ? 'calc(100vh - 60px)' : 'auto',
+            flex: 1,
           }}
           allowFullScreen
         />
