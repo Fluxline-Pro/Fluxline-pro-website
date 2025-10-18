@@ -35,34 +35,34 @@ export const FluentToggle: React.FC<ToggleProps> = ({
   variant = 'default',
 }) => {
   const { theme, readingDirection } = useAppTheme();
-  const { getThemedBackgroundColor, getThemedTextColor } = useThemeColor();
+  const { getThemedTextColor } = useThemeColor();
 
-  const getHoverBackgroundColor = () => {
-    if (theme.themeMode === 'high-contrast') {
-      return checked
-        ? getThemedBackgroundColor()
-        : theme.palette.neutralTertiaryAlt;
-    }
+  // const getHoverBackgroundColor = () => {
+  //   if (theme.themeMode === 'high-contrast') {
+  //     return checked
+  //       ? getThemedBackgroundColor()
+  //       : theme.palette.neutralTertiaryAlt;
+  //   }
 
-    // Special handling for colorblind modes
-    if (
-      ['protanopia', 'deuteranopia', 'tritanopia'].includes(theme.themeMode)
-    ) {
-      return checked
-        ? theme.palette.neutralQuaternary // Use much lighter shade for checked state
-        : theme.palette.neutralTertiaryAlt; // Light gray for unchecked
-    }
+  //   // Special handling for colorblind modes
+  //   if (
+  //     ['protanopia', 'deuteranopia', 'tritanopia'].includes(theme.themeMode)
+  //   ) {
+  //     return checked
+  //       ? theme.palette.neutralQuaternary // Use much lighter shade for checked state
+  //       : theme.palette.neutralTertiaryAlt; // Light gray for unchecked
+  //   }
 
-    if (checked) {
-      return theme.isInverted
-        ? theme.palette.themeDarker // Darker in dark mode
-        : theme.palette.themeDark; // Darker in light mode for better contrast
-    }
+  //   if (checked) {
+  //     return theme.isInverted
+  //       ? theme.palette.themeDarker // Darker in dark mode
+  //       : theme.palette.themeDark; // Darker in light mode for better contrast
+  //   }
 
-    return theme.isInverted
-      ? theme.palette.neutralQuaternary // Darker gray in dark mode
-      : theme.palette.neutralQuaternaryAlt; // Darker gray in light mode
-  };
+  //   return theme.isInverted
+  //     ? theme.palette.neutralQuaternary // Darker gray in dark mode
+  //     : theme.palette.neutralQuaternaryAlt; // Darker gray in light mode
+  // };
 
   const toggleStyles: Partial<IToggleStyles> = {
     root: {
