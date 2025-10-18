@@ -25,7 +25,7 @@ const styles = {
   sectionContainer: (orientation?: string) => ({
     maxWidth: '900px',
     margin: '0 auto',
-    marginBottom: orientation === 'mobile-landscape' ? '0rem' : '3rem',
+    marginBottom: orientation === 'mobile-landscape' ? '0rem' : '1.5rem',
   }),
   sectionBox: (theme: any) => ({
     background:
@@ -62,7 +62,10 @@ const styles = {
       orientation === 'mobile-landscape'
         ? '0.5rem 0 0.5rem 0'
         : '1rem 0 0.5rem 0',
-    fontSize: theme.typography.fontSizes.clamp7,
+    fontSize:
+      orientation === 'mobile-landscape'
+        ? theme.typography.fontSizes.clamp6 // Reduced from clamp7 to clamp6 for mobile-landscape
+        : theme.typography.fontSizes.clamp7,
     fontFamily: theme.typography.fonts.h2.fontFamily,
     fontWeight: theme.typography.fonts.h2.fontWeight,
     fontVariationSettings: theme.typography.fonts.h2.fontVariationSettings,
@@ -580,7 +583,7 @@ export const ProfessionalSummary: React.FC<{
         marginLeft='auto'
         marginRight='auto'
         marginBottom={theme.spacing.xl}
-        padding={isMobile ? theme.spacing.l : theme.spacing.xxl}
+        padding={isMobile || orientation === 'mobile-landscape' ? theme.spacing.l : theme.spacing.xxl}
         maxWidth='1000px'
         style={{
           background:
@@ -606,13 +609,17 @@ export const ProfessionalSummary: React.FC<{
         <Container
           display='flex'
           flexDirection='column'
-          gap={theme.spacing.m}
+          gap={
+            orientation === 'mobile-landscape'
+              ? theme.spacing.s1
+              : theme.spacing.m
+          }
           paddingLeft='0'
           paddingRight='0'
           marginLeft='0'
           style={{ width: '100%', padding: '0 !important' }}
         >
-          {isMobile
+          {isMobile || orientation === 'mobile-landscape'
             ? bulletPoints.map((point) => (
                 <BulletPoint
                   key={point.name}
@@ -846,7 +853,11 @@ export const TechnicalSkillsSection: React.FC<PercentageCirclesProps> = ({
         style={{
           ...styles.gridContainer(
             isMobile,
-            isMobile ? '1fr 1fr' : 'repeat(auto-fit, minmax(130px, 1fr))'
+            isMobile
+              ? '1fr 1fr'
+              : orientation === 'mobile-landscape'
+                ? 'repeat(3, 1fr)'
+                : 'repeat(auto-fit, minmax(130px, 1fr))'
           ),
           gap: '1rem',
           padding: '0',
@@ -901,7 +912,11 @@ export const GuidingPrinciplesSection: React.FC<PercentageCirclesProps> = ({
         style={{
           ...styles.gridContainer(
             isMobile,
-            isMobile ? '1fr 1fr' : 'repeat(auto-fit, minmax(130px, 1fr))'
+            isMobile
+              ? '1fr 1fr'
+              : orientation === 'mobile-landscape'
+                ? 'repeat(3, 1fr)'
+                : 'repeat(auto-fit, minmax(130px, 1fr))'
           ),
           gap: '1.5rem',
           padding: '0',
@@ -983,13 +998,17 @@ export const ServicesSection: React.FC<{
       <Container
         display='flex'
         flexDirection='column'
-        gap={theme.spacing.m}
+        gap={
+          orientation === 'mobile-landscape'
+            ? theme.spacing.s1
+            : theme.spacing.m
+        }
         paddingLeft='0'
         paddingRight='0'
         marginLeft='0'
         style={{ width: '100%', padding: '0 !important' }}
       >
-        {isMobile
+        {isMobile || orientation === 'mobile-landscape'
           ? SERVICES_EXPORTS.SERVICES_BULLET_POINTS.map((point) => (
               <BulletPoint
                 key={point.name}
@@ -1032,6 +1051,7 @@ export const TaglineHeader: React.FC<{
 }> = ({ currentView }) => {
   const { theme } = useAppTheme();
   const isMobile = useIsMobile();
+  const orientation = useDeviceOrientation();
 
   // Only show for 'about' view
   if (currentView !== 'about') {
@@ -1055,7 +1075,7 @@ export const TaglineHeader: React.FC<{
           padding: '0',
           borderLeft: `6px solid ${theme.semanticColors.messageText}`,
           maxWidth: '800px',
-          marginBottom: '3rem',
+          marginBottom: orientation === 'mobile-landscape' ? '1rem' : '3rem',
           margin: '2rem auto',
         }}
       >

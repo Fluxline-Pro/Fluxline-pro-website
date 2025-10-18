@@ -29,8 +29,8 @@ export const PercentageBullet: React.FC<PercentageBulletProps> = ({
   };
 
   const containerClass = mergeStyles({
-    maxWidth: !isMobile ? '150px' : '200px',
-    marginLeft: !isMobile ? '16px' : '0',
+    maxWidth: !isMobile ? '175px' : '225px',
+    marginLeft: '0',
   });
 
   const circleContainerClass = mergeStyles({
@@ -129,7 +129,7 @@ export const PercentageBullet: React.FC<PercentageBulletProps> = ({
       verticalAlign='center'
     >
       <Stack horizontalAlign='center' verticalAlign='center'>
-        <div className={circleContainerClass}>
+        <div className={circleContainerClass} style={{ marginLeft: '0' }}>
           <svg width='100' height='100' viewBox='0 0 100 100'>
             {/* Background circle */}
             <circle className={circleBackgroundClass} cx='50' cy='50' r='46' />
