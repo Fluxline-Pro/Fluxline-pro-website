@@ -36,7 +36,7 @@ export const FontSizeSettings: React.FC<{ isOnboarding?: boolean }> = ({
   return (
     <>
       <FluentSlider
-        label={`Font Size (${fontSizePercentage}%)`}
+        label={`Font size (${fontSizePercentage}%)`}
         min={minFontSizePercentage}
         max={maxFontSizePercentage}
         step={5}

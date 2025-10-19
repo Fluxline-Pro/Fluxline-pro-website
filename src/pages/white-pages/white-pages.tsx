@@ -14,7 +14,7 @@ import { Container } from '../../theme/layouts/Container';
 import { WhitePageCard } from '../../theme/components/card/white-page-card/white-page-card';
 
 export const WhitePagesView: React.FC = () => {
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
   const orientation = useDeviceOrientation();
   const [selectedPdf, setSelectedPdf] = useState<WhitePageItem | null>(null);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
@@ -29,7 +29,19 @@ export const WhitePagesView: React.FC = () => {
   const whitePages = getWhitePagesFromServices();
 
   const handleCardClick = (whitePage: WhitePageItem) => {
-    setSelectedPdf(whitePage);
+    // Detect Safari/WebKit for mobile PDF fallback
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isWebKit =
+      /webkit/i.test(navigator.userAgent) &&
+      !/chrome/i.test(navigator.userAgent);
+    const isMobileSafari = (isSafari || isWebKit) && isMobile;
+
+    if (isMobileSafari) {
+      // Open PDF in new tab for mobile Safari users
+      window.open(whitePage.pdfPath, '_blank');
+    } else {
+      setSelectedPdf(whitePage);
+    }
   };
 
   const handleCloseModal = () => {
@@ -71,7 +83,12 @@ export const WhitePagesView: React.FC = () => {
             <Container
               display='flex'
               flexDirection='row'
-              justifyContent='flex-start'
+              justifyContent={
+                orientation === 'mobile-landscape' &&
+                layoutPreference === 'left-handed'
+                  ? 'flex-end'
+                  : 'flex-start'
+              }
               alignItems='center'
               paddingLeft='0'
               marginLeft='0'
@@ -101,7 +118,7 @@ export const WhitePagesView: React.FC = () => {
               noHyphens
             >
               Explore detailed information about each of our services through
-              our white pages below. 
+              our white pages below.
             </Typography>
 
             <div style={styles.cardContainer(isMobile)}>

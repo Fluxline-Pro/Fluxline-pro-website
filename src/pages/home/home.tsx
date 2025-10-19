@@ -184,9 +184,9 @@ const HomeContent: React.FC<{
       }
       containerQuery={{
         minWidth: `${orientation === 'portrait' ? 90 : orientation === 'mobile-landscape' ? 80 : orientation === 'tablet-portrait' ? 60 : 40}cqi`,
-        maxWidth: `${orientation === 'portrait' ? 95 : orientation === 'mobile-landscape' ? 85 : orientation === 'tablet-portrait' ? 70 : 50}cqi`,
+        maxWidth: `${orientation === 'portrait' ? 95 : orientation === 'mobile-landscape' ? 90 : orientation === 'tablet-portrait' ? 70 : 50}cqi`,
         minHeight: '10cqi',
-        maxHeight: `${orientation === 'mobile-landscape' ? '80cqi' : '90cqi'}`,
+        maxHeight: '90cqi',
       }}
       containerType='inline-size'
       containerName='home-container'
@@ -194,15 +194,24 @@ const HomeContent: React.FC<{
         textAlign: 'center',
         width: '100%',
         justifyContent: 'center',
-        transform: `${orientation !== 'square'} && translateY(-5vh)`,
+        transform: orientation !== 'square' ? 'translateY(-5vh)' : undefined,
         ...(orientation === 'portrait' && {
           maxWidth: '450px',
           margin: '0 auto',
         }),
-        paddingTop: 'max(3rem, env(safe-area-inset-top, 0px))',
-        paddingBottom: 'max(3rem, env(safe-area-inset-bottom, 0px))',
-        paddingLeft: 'clamp(1rem, 4vw, 2rem)',
-        paddingRight: 'clamp(1rem, 4vw, 2rem)',
+        ...(orientation === 'mobile-landscape' && {
+          paddingTop: 'max(1rem, env(safe-area-inset-top, 0px))',
+          paddingBottom: 'max(1rem, env(safe-area-inset-bottom, 0px))',
+          paddingLeft: 'clamp(0.5rem, 2vw, 1rem)',
+          paddingRight: 'clamp(0.5rem, 2vw, 1rem)',
+          marginTop: '1rem',
+        }),
+        ...(orientation !== 'mobile-landscape' && {
+          paddingTop: 'max(3rem, env(safe-area-inset-top, 0px))',
+          paddingBottom: 'max(3rem, env(safe-area-inset-bottom, 0px))',
+          paddingLeft: 'clamp(1rem, 4vw, 2rem)',
+          paddingRight: 'clamp(1rem, 4vw, 2rem)',
+        }),
       }}
     >
       <style>
@@ -310,8 +319,8 @@ const HomeContent: React.FC<{
 
       <div
         style={{
-          marginTop: `${orientation === 'mobile-landscape' ? undefined : theme.spacing.l}`,
-          marginBottom: `${orientation === 'mobile-landscape' ? undefined : theme.spacing.xl}`,
+          marginTop: `${orientation === 'mobile-landscape' ? '1rem' : theme.spacing.l}`,
+          marginBottom: `${orientation === 'mobile-landscape' ? '0' : theme.spacing.xl}`,
         }}
       >
         <Typography
@@ -391,7 +400,7 @@ const HomeContent: React.FC<{
           animateSubHeader={animateSubHeader}
           willAnimate={true}
         />
-        {!isMobile && (
+        {!isMobile && orientation !== 'mobile-landscape' && (
           <FluentButton
             variant='secondary'
             onClick={() => navigate('/about')}
@@ -401,11 +410,7 @@ const HomeContent: React.FC<{
               minWidth: '250px',
               maxWidth: '500px',
               width: '100%',
-              fontSize: `${
-                orientation === 'mobile-landscape'
-                  ? theme.typography.fonts.h6.fontSize
-                  : theme.typography.fonts.h5.fontSize
-              }`,
+              fontSize: theme.typography.fonts.h5.fontSize,
               fontWeight: '500',
               boxShadow: '0 2px 4px rgba(0,0,0,0.08)',
               // Always start hidden, only show when animation triggers
@@ -424,9 +429,6 @@ const HomeContent: React.FC<{
               ...((orientation === 'landscape' ||
                 orientation === 'ultrawide') && {
                 fontSize: 'clamp(1.1rem, 2cqi, 1.3rem)',
-              }),
-              ...(orientation === 'mobile-landscape' && {
-                fontSize: 'clamp(1rem, 2.8cqi, 1.3rem)',
               }),
             }}
           >

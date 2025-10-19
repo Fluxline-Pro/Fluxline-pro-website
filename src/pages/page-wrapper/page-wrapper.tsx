@@ -72,7 +72,7 @@ const PAGE_CONFIGS = {
   },
   '/services/consulting': {
     image: require('../../assets/images/ConsultingPortrait.jpg'),
-    imageText: 'IT & Systems Consulting',
+    imageText: 'Business Consulting',
   },
   '/services/development': {
     image: require('../../assets/images/GitHubPortrait.jpg'),
@@ -91,7 +91,7 @@ const PAGE_CONFIGS = {
     imageText: 'Blog',
   },
   '/contact-me': {
-    image: require('../../assets/images/LinkedInTerenceW1024x1536.jpeg'), // Special marker for dynamic logo
+    image: require('../../assets/images/ContactMe2400x1600.jpg'), // Special marker for dynamic logo
     imageText: '',
   },
   '/books': {

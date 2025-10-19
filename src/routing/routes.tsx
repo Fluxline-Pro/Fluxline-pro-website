@@ -23,9 +23,10 @@ import NotFound from '../pages/404/404';
 import ContactPage from '../pages/contact-page/contact-page';
 // import Events from '../pages/events/events';
 // import Portfolio from '../pages/portfolio/portfolio';
-import AuthScreen from '../pages/auth-screen/auth-screen';
+// import { UnifiedContentPage } from '../pages/unified-content-page/unified-content-page';
+// import AuthScreen from '../pages/auth-screen/auth-screen';
 import ServicesPage from '../pages/services-page/services-page';
-import { UnifiedContentPage } from '../pages/unified-content-page/unified-content-page';
+// import { UnifiedContentPage } from '../pages/unified-content-page/unified-content-page';
 import Testimonials from '../pages/testimonials/testimonials';
 import WhitePagesView from '../pages/white-pages/white-pages';
 import LegalPage from '../pages/legal/legal-page';
@@ -103,49 +104,49 @@ const routes: RouteObject[] = [
         path: 'white-pages',
         element: <WhitePagesView />,
       },
-      {
-        path: 'architecture',
-        element: <ServicesPage contentType='architecture' />,
-      },
-      {
-        path: 'blog',
-        element: <UnifiedContentPage contentType='blog' />,
-        children: [
-          {
-            path: ':id',
-            element: <></>, // Content is handled by UnifiedContentPage
-          },
-        ],
-      },
+      // {
+      //   path: 'architecture',
+      //   element: <ServicesPage contentType='architecture' />,
+      // },
+      // {
+      //   path: 'blog',
+      //   element: <UnifiedContentPage contentType='blog' />,
+      //   children: [
+      //     {
+      //       path: ':id',
+      //       element: <></>, // Content is handled by UnifiedContentPage
+      //     },
+      //   ],
+      // },
       // blog-api route removed - using the consolidated unified-content-page.tsx instead
-      {
-        path: 'media',
-        element: <UnifiedContentPage contentType='media' />,
-        children: [
-          {
-            path: ':id',
-            element: <></>, // Content is handled by UnifiedContentPage
-          },
-        ],
-      },
-      {
-        path: 'collaborate',
-        element: <ContactPage />,
-      },
+      // {
+      //   path: 'media',
+      //   element: <UnifiedContentPage contentType='media' />,
+      //   children: [
+      //     {
+      //       path: ':id',
+      //       element: <></>, // Content is handled by UnifiedContentPage
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: 'collaborate',
+      //   element: <ContactPage />,
+      // },
       {
         path: 'contact-me',
         element: <ContactPage />,
       },
-      {
-        path: 'books',
-        element: <UnifiedContentPage contentType='books' />,
-        children: [
-          {
-            path: ':id',
-            element: <></>, // Content is handled by UnifiedContentPage
-          },
-        ],
-      },
+      // {
+      //   path: 'books',
+      //   element: <UnifiedContentPage contentType='books' />,
+      //   children: [
+      //     {
+      //       path: ':id',
+      //       element: <></>, // Content is handled by UnifiedContentPage
+      //     },
+      //   ],
+      // },
       // {
       //   path: 'authors',
       //   element: <UnifiedContentPage contentType='authors' />,
@@ -214,16 +215,16 @@ const routes: RouteObject[] = [
       //     },
       //   ],
       // },
-      {
-        path: 'press',
-        element: <UnifiedContentPage contentType='press' />,
-        children: [
-          {
-            path: ':id',
-            element: <></>, // Content is handled by UnifiedContentPage
-          },
-        ],
-      },
+      // {
+      //   path: 'press',
+      //   element: <UnifiedContentPage contentType='press' />,
+      //   children: [
+      //     {
+      //       path: ':id',
+      //       element: <></>, // Content is handled by UnifiedContentPage
+      //     },
+      //   ],
+      // },
       {
         path: 'testimonials',
         element: <Testimonials />,
@@ -284,10 +285,10 @@ const routes: RouteObject[] = [
       },
     ],
   },
-  {
-    path: '/auth',
-    element: <AuthScreen />,
-  },
+  // {
+  //   path: '/auth',
+  //   element: <AuthScreen />,
+  // },
 ];
 
 export const router = createBrowserRouter(routes);

@@ -63,52 +63,17 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       return theme.palette.neutralPrimary;
     }
 
-    // 2. For home page with no menus open, use white
+    // 2. On mobile devices, always use black/neutralPrimary for visibility
+    if (!isNotMobile) {
+      return theme.palette.neutralPrimary;
+    }
+
+    // 3. For home page with no menus open on non-mobile, use white
     if (isHomePage && !isMenuOpen && !isSettingsOpen) {
       return theme.palette.white;
     }
 
-    // 3. For mobile landscape on non-home pages without open menus, use white
-    if (
-      orientation === 'mobile-landscape' &&
-      !isHomePage &&
-      !isMenuOpen &&
-      !isSettingsOpen
-    ) {
-      return theme.palette.white;
-    }
-
-    // 4. For pages with light logo background (about, services, contact-me) in light mode,
-    //    use neutralPrimary to ensure visibility against white logo background
-    const lightLogoPages = ['/about', '/services', '/contact-me'];
-    const isLightLogoPage = lightLogoPages.some((page) =>
-      location.includes(page)
-    );
-
-    if (
-      !isNotMobile &&
-      !isHomePage &&
-      !isMenuOpen &&
-      !isSettingsOpen &&
-      !isScrolledPast &&
-      isLightLogoPage &&
-      theme.themeMode === 'light'
-    ) {
-      return theme.palette.neutralPrimary;
-    }
-
-    // 5. For standard mobile (non-landscape) on non-home pages without scrolling, use white
-    if (
-      !isNotMobile &&
-      !isHomePage &&
-      !isMenuOpen &&
-      !isSettingsOpen &&
-      !isScrolledPast
-    ) {
-      return theme.palette.white;
-    }
-
-    // 6. Default to neutralPrimary for all other cases
+    // 4. Default to neutralPrimary for all other cases
     return theme.palette.neutralPrimary;
   };
 
@@ -147,9 +112,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       gap: '1rem',
       padding: theme.spacing.s,
       color:
-        theme.themeMode === 'high-contrast' ||
-        location === normalizedHomePath ||
-        isMobileLandscape
+        theme.themeMode === 'high-contrast' || location === normalizedHomePath
           ? theme.palette.white
           : theme.palette.neutralPrimary,
       margin: '0 4px',
@@ -182,10 +145,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       letterSpacing: theme.typography.letterSpacing.tight,
       fontWeight: theme.typography.fontWeights.semiBold,
       color:
-        ((location === normalizedHomePath ||
-          (isMobileLandscape && location !== normalizedHomePath)) &&
-          !isMenuOpen &&
-          !isSettingsOpen) ||
+        (location === normalizedHomePath && !isMenuOpen && !isSettingsOpen) ||
         theme.themeMode === 'high-contrast'
           ? theme.palette.white
           : theme.palette.themePrimary,
@@ -202,8 +162,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
     <div
       style={{
         display: 'flex',
-        flexDirection:
-          isMobileLandscape || isLeftHanded ? 'row-reverse' : 'row',
+        flexDirection: isLeftHanded ? 'row-reverse' : 'row',
         gap: shouldShowHireMeButton || isMobile ? 0 : '1rem',
         pointerEvents: 'auto',
         opacity: fadeStage === 'in' ? 1 : 0,

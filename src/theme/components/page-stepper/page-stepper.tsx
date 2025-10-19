@@ -6,7 +6,7 @@ import { usePageScrollNavigation } from '../../hooks/usePageScrollNavigation';
 import { FluentIcon } from '../fluent-icon/fluent-icon';
 import { Container } from '../../layouts/Container';
 import { ROUTES } from '../../../routing/constants';
-import { useIsMobile } from '../../hooks/useMediaQuery';
+import { useIsMobile, useDeviceOrientation } from '../../hooks/useMediaQuery';
 
 interface PageStepperProps {
   autoNavigateOnScroll?: boolean;
@@ -29,13 +29,61 @@ export const PageStepper: React.FC<PageStepperProps> = ({
   const { theme } = useAppTheme();
   const navigate = useNavigate();
   const location = useLocation();
-  const { canNavigateForward, pullToRefreshTriggered } =
-    usePageScrollNavigation();
+  const {
+    canNavigateForward,
+    pullToRefreshTriggered,
+    gestureProgress,
+    showBounceHint,
+  } = usePageScrollNavigation();
   const isHomePage = location.pathname === '/';
   const stepperColor = isHomePage
     ? theme.palette.white
     : theme.palette.themePrimary;
   const isMobile = useIsMobile();
+  const orientation = useDeviceOrientation();
+
+  // State to track if user has scrolled to bottom on smaller devices
+  const [isAtBottom, setIsAtBottom] = React.useState(false);
+
+  // Check if we should hide stepper until user scrolls to bottom
+  const shouldHideUntilBottom = React.useMemo(() => {
+    return (
+      orientation === 'tablet-portrait' ||
+      (isMobile && orientation === 'portrait')
+    );
+  }, [orientation, isMobile]);
+
+  // Scroll listener for smaller devices
+  React.useEffect(() => {
+    if (!shouldHideUntilBottom) {
+      setIsAtBottom(true); // Always show on larger devices
+      return;
+    }
+
+    const handleScroll = () => {
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      // Consider "at bottom" when within 100px of the actual bottom
+      const threshold = 100;
+      const atBottom = scrollTop + windowHeight >= documentHeight - threshold;
+
+      setIsAtBottom((prev) => (prev !== atBottom ? atBottom : prev));
+    };
+
+    // Set initial state
+    handleScroll();
+
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [shouldHideUntilBottom]);
 
   // Consolidated styles - moved outside conditional to fix React Hooks rule
   const styles = React.useMemo(
@@ -75,8 +123,31 @@ export const PageStepper: React.FC<PageStepperProps> = ({
         letterSpacing: '0.12em',
         transform: 'translateY(-4px)',
       },
+      bounceContainer: {
+        transform: showBounceHint ? 'translateY(-8px)' : 'translateY(0px)',
+        transition: `transform ${theme.animations.durations.fast} ${theme.animations.easing.primary}`,
+        animation: showBounceHint ? 'bounce 0.8s ease-in-out infinite' : 'none',
+      },
+      progressIndicator: {
+        position: 'absolute' as const,
+        bottom: '-4px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '60px',
+        height: '2px',
+        backgroundColor: theme.palette.neutralQuaternaryAlt,
+        borderRadius: '1px',
+        overflow: 'hidden',
+      },
+      progressBar: {
+        height: '100%',
+        backgroundColor: theme.palette.themePrimary,
+        borderRadius: '1px',
+        transition: 'width 0.1s ease-out',
+        width: `${gestureProgress}%`,
+      },
     }),
-    [stepperColor, theme]
+    [stepperColor, theme, showBounceHint, gestureProgress]
   );
 
   // Define the main navigation flow
@@ -101,7 +172,9 @@ export const PageStepper: React.FC<PageStepperProps> = ({
       },
       mainRoutes.find((r) => r.path === '/contact-me') || {
         path: '/contact-me',
-        name: mainRoutes.find((r) => r.path === '/contact-me')?.name || "let's connect",
+        name:
+          mainRoutes.find((r) => r.path === '/contact-me')?.name ||
+          "let's connect",
       },
     ].filter(Boolean);
 
@@ -133,12 +206,12 @@ export const PageStepper: React.FC<PageStepperProps> = ({
     }
   }, [getNextRoute, navigate]);
 
-  // Auto-navigation when pull-to-refresh gesture is detected
+  // Auto-navigation when conservative pull-to-refresh gesture is detected
   React.useEffect(() => {
     if (!autoNavigateOnScroll) return;
 
     if (pullToRefreshTriggered && canNavigateForward) {
-      // Immediate navigation since gesture detection already includes intentionality
+      // Navigation only triggers after very intentional gesture (12+ attempts over 2+ seconds)
       navigateToNext();
     }
   }, [
@@ -164,17 +237,31 @@ export const PageStepper: React.FC<PageStepperProps> = ({
     return null;
   }
 
+  // Hide stepper on smaller devices until user scrolls to bottom
+  if (
+    (shouldHideUntilBottom && !isAtBottom) ||
+    orientation === 'mobile-landscape'
+  ) {
+    return null;
+  }
+
   const handleKeyDown = (event: React.KeyboardEvent, action: () => void) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       action();
     }
   };
+
+  // Calculate bottom position based on orientation
+  const getBottomPosition = () => {
+    return isMobile ? theme.spacing.m : theme.spacing.xl;
+  };
+
   return (
     <Container
       className={className}
       position='fixed'
-      bottom={isMobile ? theme.spacing.m : theme.spacing.xl}
+      bottom={getBottomPosition()}
       left='50%'
       style={{
         transform: 'translateX(-50%)',
@@ -198,7 +285,8 @@ export const PageStepper: React.FC<PageStepperProps> = ({
           style={{
             cursor: 'pointer',
             pointerEvents: 'auto',
-            transition: `all ${theme.animations.durations.normal} ${theme.animations.easing.primary}`,
+            position: 'relative',
+            ...styles.bounceContainer,
           }}
           onClick={navigateToNext}
           onKeyDown={(e: React.KeyboardEvent) =>
@@ -256,8 +344,32 @@ export const PageStepper: React.FC<PageStepperProps> = ({
               size='medium'
             />
           </div>
+
+          {/* Progress Indicator */}
+          {gestureProgress > 0 && (
+            <div style={styles.progressIndicator}>
+              <div style={styles.progressBar} />
+            </div>
+          )}
         </Container>
       )}
+
+      {/* Enhanced keyframes for bounce animation */}
+      <style>
+        {`
+          @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+              transform: translateY(0);
+            }
+            40% {
+              transform: translateY(-12px);
+            }
+            60% {
+              transform: translateY(-6px);
+            }
+          }
+        `}
+      </style>
     </Container>
   );
 };

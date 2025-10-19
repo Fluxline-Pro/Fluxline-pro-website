@@ -403,7 +403,7 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
       zIndex: theme.zIndices.above,
       color: isLight ? theme.palette.black : theme.palette.white,
       fontSize: imageText
-        ? 'clamp(2.5rem, 4cqi, 3.25rem)'
+        ? 'clamp(1.75rem, 3cqi, 2.25rem)' // Reduced from clamp(2.5rem, 4cqi, 3.25rem) for subtler appearance
         : theme.typography.fontSizes.clamp3,
       textShadow: isLight ? 'none' : theme.typography.textShadows.cardImage,
       maxWidth: 'calc(100% - 3rem)',

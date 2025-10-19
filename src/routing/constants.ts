@@ -45,6 +45,30 @@ export const ROUTES: Routes[] = [
     isContentScreen: false,
   },
   {
+    name: 'stewardship contract',
+    path: 'legal/stewardship-contract',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'terms of use',
+    path: 'legal/terms-of-use',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'privacy policy',
+    path: 'legal/privacy-policy',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'glossary',
+    path: 'legal/glossary',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
     name: "let's connect",
     path: 'contact-me',
     isMenuItem: true,
