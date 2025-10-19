@@ -22,10 +22,39 @@ import { CTACallout } from '../../theme/components/cta';
 
 // Reusable style objects
 const styles = {
-  sectionContainer: {
-    maxWidth: '900px',
-    margin: '0 auto',
-    marginBottom: '3rem',
+  sectionContainer: (
+    orientation?: string,
+    layoutPreference?: string,
+    view?: string,
+    includesArrow?: boolean
+  ) => {
+    // Define main page titles that should get special left-handed spacing
+    const mainTitles = [
+      'Business Strategy & Systems Alignment',
+      'Brand Identity & Experience Design',
+      'Life Coaching & The Resonance Core',
+      'Personal Training & Wellness',
+      'Coaching, Education & Leadership',
+      'Web & Application Development',
+    ];
+
+    return {
+      margin:
+        includesArrow && orientation !== 'mobile-landscape'
+          ? '0 auto'
+          : orientation === 'mobile-landscape'
+            ? layoutPreference === 'left-handed' &&
+              view &&
+              mainTitles.includes(view)
+              ? '0 0 0 14rem'
+              : '0 auto 0 1rem'
+            : '0 auto',
+      marginBottom: orientation === 'mobile-landscape' ? '0rem' : '1.5rem',
+      maxWidth:
+        orientation === 'mobile-landscape' && view && mainTitles.includes(view)
+          ? '400px'
+          : '900px',
+    };
   },
   sectionBox: (theme: any) => ({
     background:
@@ -56,10 +85,14 @@ const styles = {
     maxWidth: '900px',
     margin: '0 auto',
   }),
-  h2Title: (theme: any) => ({
+  h2Title: (theme: any, orientation?: string) => ({
     color: theme.palette.themePrimary,
-    margin: '1rem 0 0.5rem 0',
-    fontSize: theme.typography.fontSizes.clamp7,
+    margin: orientation === 'mobile-landscape' ? '0.5rem 0' : '1rem 0 0.5rem 0',
+    fontSize:
+      orientation === 'mobile-landscape'
+        ? theme.typography.fontSizes.clamp6 // Reduced from clamp7 to clamp6 for mobile-landscape
+        : theme.typography.fontSizes.clamp7,
+    maxWidth: orientation === 'mobile-landscape' ? '400px' : 'none',
     fontFamily: theme.typography.fonts.h2.fontFamily,
     fontWeight: theme.typography.fonts.h2.fontWeight,
     fontVariationSettings: theme.typography.fonts.h2.fontVariationSettings,
@@ -88,6 +121,7 @@ const H2Title = ({
   style?: React.CSSProperties;
 }) => {
   const { theme } = useAppTheme();
+  const orientation = useDeviceOrientation();
 
   return (
     <Typography
@@ -95,7 +129,7 @@ const H2Title = ({
       textAlign='left'
       color={theme.palette.themePrimary}
       noHyphens
-      style={{ ...styles.h2Title(theme), ...style }}
+      style={{ ...styles.h2Title(theme, orientation), ...style }}
     >
       {name}
     </Typography>
@@ -115,7 +149,7 @@ export const GetStarted: React.FC = () => {
 export const WhitePagesSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
   const orientation = useDeviceOrientation();
   const navigate = useNavigate();
   const [selectedPdf, setSelectedPdf] = useState<WhitePageItem | null>(null);
@@ -130,6 +164,22 @@ export const WhitePagesSection: React.FC<{
     orientation === 'portrait' ||
     orientation === 'tablet-portrait' ||
     orientation === 'large-portrait';
+
+  const handleCardClick = (whitePage: WhitePageItem) => {
+    // Detect Safari/WebKit for mobile PDF fallback
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isWebKit =
+      /webkit/i.test(navigator.userAgent) &&
+      !/chrome/i.test(navigator.userAgent);
+    const isMobileSafari = (isSafari || isWebKit) && isMobile;
+
+    if (isMobileSafari) {
+      // Open PDF in new tab for mobile Safari users
+      window.open(whitePage.pdfPath, '_blank');
+    } else {
+      setSelectedPdf(whitePage);
+    }
+  };
 
   const hrStyles = {
     margin: '2rem 0',
@@ -151,6 +201,25 @@ export const WhitePagesSection: React.FC<{
     );
   };
 
+  const getServiceName = () => {
+    switch (currentView) {
+      case 'personal-training':
+        return 'Personal Training & Wellness';
+      case 'education-training':
+        return 'Coaching, Education & Leadership';
+      case 'consulting':
+        return 'Business Strategy & Systems Alignment';
+      case 'resonance-core':
+        return 'Life Coaching & The Resonance Core';
+      case 'development':
+        return 'Web & Application Development';
+      case 'design':
+        return 'Brand Identity & Experience Design';
+      default:
+        return 'service';
+    }
+  };
+
   const relevantWhitePages = getRelevantWhitePages();
 
   if (relevantWhitePages.length === 0) {
@@ -161,13 +230,22 @@ export const WhitePagesSection: React.FC<{
     <>
       <div
         style={{
-          ...styles.sectionContainer,
+          ...styles.sectionContainer(
+            orientation,
+            layoutPreference,
+            'White Pages Section', // Generic name that won't trigger special spacing
+            false
+          ),
           marginTop: '3rem',
           marginBottom: '3rem',
         }}
       >
         <hr style={hrStyles} />
-        <H2Title name='Services White Pages' />
+        <H2Title
+          name={
+            currentView === 'services' ? 'Services White Pages' : 'White Page'
+          }
+        />
         <Typography
           variant='p'
           textAlign='left'
@@ -178,7 +256,7 @@ export const WhitePagesSection: React.FC<{
         >
           {currentView === 'services'
             ? 'Explore detailed information about each of our services through our white pages.'
-            : 'View the detailed white paper for this service.'}
+            : `View the detailed white paper for ${getServiceName()}.`}
         </Typography>
 
         <div
@@ -197,7 +275,7 @@ export const WhitePagesSection: React.FC<{
               key={whitePage.id}
               whitePage={whitePage}
               isHovered={hoveredCard === whitePage.id}
-              onClick={setSelectedPdf}
+              onClick={handleCardClick}
               onMouseEnter={() => setHoveredCard(whitePage.id)}
               onMouseLeave={() => setHoveredCard(null)}
               variant='compact'
@@ -244,7 +322,7 @@ export const WhitePagesSection: React.FC<{
 export const AboutSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
   const orientation = useDeviceOrientation();
   const isMobile =
     orientation === 'portrait' ||
@@ -257,11 +335,24 @@ export const AboutSection: React.FC<{
   }
 
   return (
-    <div style={styles.sectionContainer}>
+    <div
+      style={styles.sectionContainer(
+        orientation,
+        layoutPreference,
+        'About Fluxline',
+        false
+      )}
+    >
       <Typography
         variant='h2'
-        style={styles.h2Title(theme)}
+        style={styles.h2Title(theme, orientation)}
         margin={isMobile ? '1.5rem 0' : '0 0 1.5rem 0'}
+        textAlign={
+          orientation === 'mobile-landscape' &&
+          layoutPreference === 'left-handed'
+            ? 'right'
+            : 'left'
+        }
       >
         About Fluxline
       </Typography>
@@ -408,7 +499,7 @@ export const AboutSection: React.FC<{
 export const ProfessionalSummary: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
   const navigate = useNavigate();
   const orientation = useDeviceOrientation();
   const isMobile =
@@ -448,11 +539,11 @@ export const ProfessionalSummary: React.FC<{
       case 'services':
         return 'Our Services';
       case 'personal-training':
-        return 'Personal Training, Health & Wellness';
+        return 'Personal Training & Wellness';
       case 'education-training':
         return 'Coaching, Education & Leadership';
       case 'consulting':
-        return 'IT & Systems Consulting';
+        return 'Business Strategy & Systems Alignment';
       case 'resonance-core':
         return 'Life Coaching & The Resonance Core';
       case 'development':
@@ -526,11 +617,23 @@ export const ProfessionalSummary: React.FC<{
 
   return (
     <>
-      <div style={styles.sectionContainer}>
+      <div
+        style={styles.sectionContainer(
+          orientation,
+          layoutPreference,
+          getTitle(),
+          currentView !== 'services'
+        )}
+      >
         <Container
           display='flex'
           flexDirection='row'
-          justifyContent='flex-start'
+          justifyContent={
+            orientation === 'mobile-landscape' &&
+            layoutPreference === 'left-handed'
+              ? 'flex-end'
+              : 'flex-start'
+          }
           alignItems='center'
           paddingLeft='0'
           marginLeft='0'
@@ -548,57 +651,83 @@ export const ProfessionalSummary: React.FC<{
           )}
           <H2Title name={getTitle()} />
         </Container>
+      </div>
+      <Container
+        marginLeft='auto'
+        marginRight='auto'
+        marginBottom={theme.spacing.xl}
+        padding={
+          isMobile || orientation === 'mobile-landscape'
+            ? `${theme.spacing.l} ${theme.spacing.m}`
+            : theme.spacing.xxl
+        }
+        maxWidth='1000px'
+        style={{
+          background:
+            theme.themeMode === 'high-contrast'
+              ? theme.semanticColors.warningBackground
+              : theme.palette.neutralLight,
+          borderRadius: theme.borderRadius.container.medium,
+          border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+        }}
+      >
+        <H2Title name='Overview' style={{ margin: '0 0 1.5rem 0' }} />
         <Typography
           variant='p'
           textAlign='left'
           color={theme.palette.neutralPrimary}
-          marginBottom='2rem'
+          marginBottom='3rem'
           noHyphens
           style={styles.textContent}
         >
           {renderSummary(getSummary())}
         </Typography>
-      </div>
-      <Container
-        display='flex'
-        flexDirection='column'
-        gap={theme.spacing.m}
-        paddingLeft='0'
-        paddingRight='0'
-        marginLeft='0'
-        style={{ width: '100%', padding: '0 !important' }}
-      >
-        {isMobile
-          ? bulletPoints.map((point) => (
-              <BulletPoint
-                key={point.name}
-                name={point.name}
-                description={point.description}
-                onClick={() => point.route && navigate(point.route)}
-                isHoverable={!!point.route}
-              />
-            ))
-          : bulletPairs.map((pair, rowIndex) => (
-              <div
-                key={rowIndex}
-                style={{
-                  ...styles.gridContainer(false, '1fr 1fr'),
-                  gap: theme.spacing.menuButton,
-                  width: '100%',
-                  padding: '0 0.5rem',
-                }}
-              >
-                {pair.map((point) => (
-                  <BulletPoint
-                    key={point.name}
-                    name={point.name}
-                    description={point.description}
-                    onClick={() => point.route && navigate(point.route)}
-                    isHoverable={!!point.route}
-                  />
-                ))}
-              </div>
-            ))}
+        <H2Title name='Services Offered' style={{ margin: '0 0 1.5rem 0' }} />
+        <Container
+          display='flex'
+          flexDirection='column'
+          gap={
+            orientation === 'mobile-landscape'
+              ? theme.spacing.s1
+              : theme.spacing.m
+          }
+          paddingLeft='0'
+          paddingRight='0'
+          marginLeft='0'
+          style={{ width: '100%', padding: '0 !important' }}
+        >
+          {isMobile || orientation === 'mobile-landscape'
+            ? bulletPoints.map((point) => (
+                <BulletPoint
+                  key={point.name}
+                  name={point.name}
+                  description={point.description}
+                  onClick={() => point.route && navigate(point.route)}
+                  isHoverable={!!point.route}
+                />
+              ))
+            : bulletPairs.map((pair, rowIndex) => (
+                <div
+                  key={rowIndex}
+                  style={{
+                    ...styles.gridContainer(false, '1fr 1fr'),
+                    gap: '0.5rem',
+                    width: '100%',
+                    padding: '0 0.5rem',
+                  }}
+                >
+                  {pair.map((point) => (
+                    <BulletPoint
+                      key={point.name}
+                      name={point.name}
+                      description={point.description}
+                      onClick={() => point.route && navigate(point.route)}
+                      isHoverable={!!point.route}
+                    />
+                  ))}
+                </div>
+              ))}
+        </Container>
       </Container>
     </>
   );
@@ -612,7 +741,8 @@ interface PercentageCirclesProps {
 export const MissionVisionSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
+  const orientation = useDeviceOrientation();
 
   // Only show for 'about' view
   if (currentView !== 'about') {
@@ -622,7 +752,12 @@ export const MissionVisionSection: React.FC<{
   return (
     <div
       style={{
-        ...styles.sectionContainer,
+        ...styles.sectionContainer(
+          orientation,
+          layoutPreference,
+          'Mission Vision',
+          false
+        ),
         display: 'flex',
         flexDirection: 'column',
         gap: '2rem',
@@ -680,7 +815,8 @@ export const MissionVisionSection: React.FC<{
 export const FluxlineEthosSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
+  const orientation = useDeviceOrientation();
 
   // Only show for 'about' view
   if (currentView !== 'about') {
@@ -690,7 +826,12 @@ export const FluxlineEthosSection: React.FC<{
   return (
     <div
       style={{
-        ...styles.sectionContainer,
+        ...styles.sectionContainer(
+          orientation,
+          layoutPreference,
+          'Fluxline Ethos',
+          false
+        ),
         display: 'flex',
         flexDirection: 'column',
         marginBottom: 0,
@@ -775,6 +916,7 @@ export const TechnicalSkillsSection: React.FC<PercentageCirclesProps> = ({
   currentView,
 }) => {
   const { theme } = useAppTheme();
+  const orientation = useDeviceOrientation();
 
   // Only show for 'about' view
   if (currentView !== 'about') {
@@ -788,7 +930,7 @@ export const TechnicalSkillsSection: React.FC<PercentageCirclesProps> = ({
     <div style={{ ...styles.sectionBox(theme), marginBottom: '4rem' }}>
       <Typography
         variant='h2'
-        style={styles.h2Title(theme)}
+        style={styles.h2Title(theme, orientation)}
         textAlign='center'
         margin='0 0 2rem 0'
       >
@@ -798,7 +940,11 @@ export const TechnicalSkillsSection: React.FC<PercentageCirclesProps> = ({
         style={{
           ...styles.gridContainer(
             isMobile,
-            isMobile ? '1fr 1fr' : 'repeat(auto-fit, minmax(130px, 1fr))'
+            isMobile
+              ? '1fr 1fr'
+              : orientation === 'mobile-landscape'
+                ? 'repeat(3, 1fr)'
+                : 'repeat(auto-fit, minmax(130px, 1fr))'
           ),
           gap: '1rem',
           padding: '0',
@@ -826,6 +972,7 @@ export const GuidingPrinciplesSection: React.FC<PercentageCirclesProps> = ({
   currentView,
 }) => {
   const { theme } = useAppTheme();
+  const orientation = useDeviceOrientation();
 
   // Only show for 'about' view
   if (currentView !== 'about') {
@@ -842,7 +989,7 @@ export const GuidingPrinciplesSection: React.FC<PercentageCirclesProps> = ({
     <div style={{ ...styles.sectionBox(theme), marginBottom: '4rem' }}>
       <Typography
         variant='h2'
-        style={styles.h2Title(theme)}
+        style={styles.h2Title(theme, orientation)}
         textAlign='center'
         margin='0 0 2rem 0'
       >
@@ -852,7 +999,11 @@ export const GuidingPrinciplesSection: React.FC<PercentageCirclesProps> = ({
         style={{
           ...styles.gridContainer(
             isMobile,
-            isMobile ? '1fr 1fr' : 'repeat(auto-fit, minmax(130px, 1fr))'
+            isMobile
+              ? '1fr 1fr'
+              : orientation === 'mobile-landscape'
+                ? 'repeat(3, 1fr)'
+                : 'repeat(auto-fit, minmax(130px, 1fr))'
           ),
           gap: '1.5rem',
           padding: '0',
@@ -915,7 +1066,7 @@ export const ServicesSection: React.FC<{
     >
       <Typography
         variant='h2'
-        style={styles.h2Title(theme)}
+        style={styles.h2Title(theme, orientation)}
         textAlign='center'
         margin='0 0 1.5rem 0'
       >
@@ -934,13 +1085,17 @@ export const ServicesSection: React.FC<{
       <Container
         display='flex'
         flexDirection='column'
-        gap={theme.spacing.m}
+        gap={
+          orientation === 'mobile-landscape'
+            ? theme.spacing.s1
+            : theme.spacing.m
+        }
         paddingLeft='0'
         paddingRight='0'
         marginLeft='0'
         style={{ width: '100%', padding: '0 !important' }}
       >
-        {isMobile
+        {isMobile || orientation === 'mobile-landscape'
           ? SERVICES_EXPORTS.SERVICES_BULLET_POINTS.map((point) => (
               <BulletPoint
                 key={point.name}
@@ -983,6 +1138,7 @@ export const TaglineHeader: React.FC<{
 }> = ({ currentView }) => {
   const { theme } = useAppTheme();
   const isMobile = useIsMobile();
+  const orientation = useDeviceOrientation();
 
   // Only show for 'about' view
   if (currentView !== 'about') {
@@ -1006,7 +1162,7 @@ export const TaglineHeader: React.FC<{
           padding: '0',
           borderLeft: `6px solid ${theme.semanticColors.messageText}`,
           maxWidth: '800px',
-          marginBottom: '3rem',
+          marginBottom: orientation === 'mobile-landscape' ? '1rem' : '3rem',
           margin: '2rem auto',
         }}
       >

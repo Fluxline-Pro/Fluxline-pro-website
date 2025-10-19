@@ -122,9 +122,9 @@ export const LayoutGrid: React.FC<LayoutGridProps> = ({
   const containerStyle: React.CSSProperties = {
     display,
     gap,
-    direction,
     containerType,
     containerName,
+    direction,
     minWidth: containerQuery?.minWidth || minWidth,
     maxWidth: containerQuery?.maxWidth || maxWidth,
     minHeight: containerQuery?.minHeight || minHeight,
@@ -144,8 +144,6 @@ export const LayoutGrid: React.FC<LayoutGridProps> = ({
     flexGrow,
     flexShrink,
     flexBasis,
-    // Ensure grid doesn't overflow on mobile
-    overflowX: 'hidden',
     boxSizing: 'border-box',
     ...(position === 'fixed' && {
       overflow: 'hidden',

@@ -37,7 +37,7 @@ const RESONANCE_CORE_SUMMARY =
   'Guiding individuals through transformative life coaching and personal development using the Resonance Core methodology.';
 
 const CONSULTING_SUMMARY =
-  'Modular IT strategies, infrastructure planning, and tech stack alignment for startups, creators, and visionary brands.';
+  'Strategic business alignment, systems architecture, and technology integration to help small to medium businesses and entrepreneurs build their most effective and authentic selves.';
 
 const DEVELOPMENT_SUMMARY =
   'Crafting full-stack digital products using modern technologies—with an emphasis on modularity, usability, and long-term maintainability.';
@@ -247,14 +247,14 @@ const SERVICES_BULLET_POINTS: IAboutBulletPoint[] = [
     category: 'development' as const,
   },
   {
-    name: 'information technology & systems consulting',
+    name: 'business strategy & systems alignment',
     description:
-      'Modular IT strategies, infrastructure planning, and tech stack alignment for startups, creators, and visionary brands.',
+      'Strategic business alignment, mission & vision development, and technology integration for small to medium businesses and entrepreneurs seeking purpose-driven growth.',
     route: '/services/consulting',
     // White pages integration
     id: 'consulting',
-    title: 'IT & Systems Consulting',
-    displayName: 'Business IT Consulting',
+    title: 'Business Strategy & Systems Alignment',
+    displayName: 'Business Strategy Consulting',
     pdfPath: require('../../assets/white-pages/Fluxline-Business-IT-Consulting.pdf'),
     category: 'consulting' as const,
   },
@@ -410,43 +410,44 @@ const RESONANCE_CORE_BULLET_POINTS: IAboutBulletPoint[] = [
 
 const CONSULTING_BULLET_POINTS: IAboutBulletPoint[] = [
   {
-    name: 'IT Infrastructure Planning',
+    name: 'Business Identity & Purpose Development',
     description:
-      'Building scalable and secure IT environments for startups and enterprises',
+      'Defining your core mission, vision, and values to create authentic business alignment',
   },
   {
-    name: 'Hybrid Compute Workflows',
+    name: 'Strategic Business Planning',
     description:
-      'Integrating cloud and on-premises systems for optimal performance',
+      'Developing comprehensive business strategies that align with your purpose and goals',
   },
   {
-    name: 'Cloud Optimization',
+    name: 'Systems Architecture & Integration',
     description:
-      'Improving cloud performance and cost efficiency as your business grows',
+      'Designing scalable technology solutions that support your business objectives',
   },
   {
-    name: 'Systems Integration',
-    description: 'Connecting disparate systems for seamless data flow',
+    name: 'Operational Efficiency Optimization',
+    description:
+      'Streamlining processes and workflows to maximize productivity and growth',
   },
   {
-    name: 'Scalable Ops Design',
+    name: 'Technology Stack Assessment',
     description:
-      'Building operations and infrastructure that grow with your business',
+      'Evaluating and optimizing your current technology to align with business goals',
   },
   {
-    name: 'Code Review & Optimization',
+    name: 'Team Development & Leadership',
     description:
-      'Ensuring code quality and performance for high reliability and scalability',
+      'Building effective teams and leadership structures through proven methodologies',
   },
   {
-    name: 'Team Process Improvement',
+    name: 'Digital Transformation Strategy',
     description:
-      'Enhancing team workflows and collaboration through Agile & Scrum methodologies',
+      'Guiding businesses through purposeful digital evolution and innovation',
   },
   {
-    name: 'Digital Transformation & Optimization',
+    name: 'Business Growth & Scaling',
     description:
-      'Guiding businesses through digital change for improved efficiency and innovation',
+      'Creating sustainable growth strategies for small to medium businesses and entrepreneurs',
   },
 ];
 

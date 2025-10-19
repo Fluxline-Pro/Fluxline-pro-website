@@ -72,7 +72,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
   }, [layoutPreference, pendingLayout]);
 
   const shouldShowBackdrop =
-    (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile;
+    (isScrolledPast && !isMenuOpen && !isSettingsOpen);
 
   const pageTitleStyles = {
     ...theme.typography.fonts.h2,
@@ -80,11 +80,15 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     color: theme.isInverted ? theme.palette.white : theme.palette.black,
     textShadow: 'none',
     textAlign: readingDirection === 'rtl' ? 'right' : 'left',
-    opacity:
-      (isScrolledPast && !isMenuOpen && !isSettingsOpen) ? 1 : 0,
+    opacity: isMobileLandscape
+      ? 0 // Hide title completely in mobile-landscape
+      : isScrolledPast && !isMenuOpen && !isSettingsOpen
+        ? 1
+        : 0,
     transition: theme.animations.transitions.fade.enter,
-    visibility:
-      (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile
+    visibility: isMobileLandscape
+      ? 'hidden' // Hide title completely in mobile-landscape
+      : (isScrolledPast && !isMenuOpen && !isSettingsOpen) || isMobile
         ? 'visible'
         : 'hidden',
     pointerEvents: 'auto',
@@ -93,30 +97,31 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
   return (
     <LayoutGrid
       display='flex'
-      flexDirection={isLeftHanded || isMobileLandscape ? 'row-reverse' : 'row'}
+      flexDirection={isLeftHanded ? 'row-reverse' : 'row'}
       justifyContent='space-between' // Always use space-between for consistent layout
       alignItems='center'
       position='fixed'
       gap={isMobile || isMobileLandscape ? '0.25rem' : '1rem'}
       top={0}
-      right={isLeftHanded || isMobileLandscape ? 'auto' : 0}
-      left={isLeftHanded || isMobileLandscape ? 0 : 'auto'}
+      right={isLeftHanded ? 'auto' : 0}
+      left={isLeftHanded ? 0 : 'auto'}
       padding={
         isMobileLandscape
-          ? '3rem 1.5rem 1.5rem 3rem'
+          ? '1.5rem 1rem 1rem 1.5rem'
           : isPortrait
-            ? '2rem 1rem 1rem 2rem'
+            ? '1rem'
             : '2.5rem 2rem 2rem 2rem'
       }
       width='100%'
       style={{
         zIndex: theme.zIndices.menu + 1,
-        backgroundColor: shouldShowBackdrop && isScrolledPast
-          ? theme.isInverted
-            ? 'rgba(37, 37, 37, 0.9)'
-            : 'rgba(255, 255, 255, 0.8)'
-          : 'transparent',
-        backdropFilter: shouldShowBackdrop ? 'blur(10px)' : 'none',
+        backgroundColor:
+          shouldShowBackdrop
+            ? theme.isInverted
+              ? 'rgba(37, 37, 37, 0.9)'
+              : 'rgba(255, 255, 255, 0.8)'
+            : 'transparent',
+        backdropFilter: shouldShowBackdrop ? 'blur(8px)' : 'none',
         transition: 'all 0.2s ease-in-out',
         boxSizing: 'border-box',
         pointerEvents: 'none',
