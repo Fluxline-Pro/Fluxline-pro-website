@@ -124,6 +124,7 @@ export const LayoutGrid: React.FC<LayoutGridProps> = ({
     gap,
     containerType,
     containerName,
+    direction,
     minWidth: containerQuery?.minWidth || minWidth,
     maxWidth: containerQuery?.maxWidth || maxWidth,
     minHeight: containerQuery?.minHeight || minHeight,
