@@ -33,7 +33,7 @@ export const ColorblindSettings: React.FC<{ isOnboarding?: boolean }> = ({
 
   const colorBlindStyles: Partial<IDropdownStyles> = {
     root: {
-      width: '50%',
+      width: '75%',
       fontFamily: theme.typography.fonts.body.fontFamily,
       fontVariationSettings: theme.typography.fonts.body.fontVariationSettings,
     },
@@ -76,7 +76,7 @@ export const ColorblindSettings: React.FC<{ isOnboarding?: boolean }> = ({
 
   return (
     <FluentDropdown
-      label='Colorblindness Mode'
+      label='Colorblindness mode'
       options={colorblindOptions}
       disabledTooltip='Colorblindness mode is only available in light mode at this time.'
       defaultSelectedKey={

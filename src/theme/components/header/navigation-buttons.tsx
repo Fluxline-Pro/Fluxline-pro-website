@@ -19,6 +19,7 @@ interface NavigationButtonsProps {
   pendingLayout?: 'left-handed' | 'right-handed';
   style?: React.CSSProperties;
   fadeStage?: 'in' | 'out';
+  isPdfModalOpen?: boolean; // Add prop to detect PDF modal state
 }
 
 export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
@@ -29,10 +30,11 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
   isSettingsOpen = false,
   isMobileLandscape = false,
   isHomePage = false,
-  isScrolledPast = false,
+  isScrolledPast = true,
   pendingLayout = 'right-handed',
   style,
   fadeStage = 'in',
+  isPdfModalOpen = false, // Add default value for PDF modal state
 }) => {
   const { theme, themeMode } = useAppTheme();
   const location = useLocation().pathname;
@@ -61,33 +63,17 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       return theme.palette.neutralPrimary;
     }
 
-    // 2. For home page with no menus open, use white
+    // 2. On mobile devices, always use black/neutralPrimary for visibility
+    if (!isNotMobile) {
+      return theme.palette.neutralPrimary;
+    }
+
+    // 3. For home page with no menus open on non-mobile, use white
     if (isHomePage && !isMenuOpen && !isSettingsOpen) {
       return theme.palette.white;
     }
 
-    // 3. For mobile landscape on non-home pages without open menus, use white
-    if (
-      orientation === 'mobile-landscape' &&
-      !isHomePage &&
-      !isMenuOpen &&
-      !isSettingsOpen
-    ) {
-      return theme.palette.white;
-    }
-
-    // 4. For standard mobile (non-landscape) on non-home pages without scrolling, use white
-    if (
-      !isNotMobile &&
-      !isHomePage &&
-      !isMenuOpen &&
-      !isSettingsOpen &&
-      !isScrolledPast
-    ) {
-      return theme.palette.white;
-    }
-
-    // 5. Default to neutralPrimary for all other cases
+    // 4. Default to neutralPrimary for all other cases
     return theme.palette.neutralPrimary;
   };
 
@@ -103,12 +89,14 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
 
   const isLeftHanded = pendingLayout === 'left-handed';
 
-  // Determine if hire me button should be shown based on orientation
-  const shouldShowHireMeButton = !isMenuOpen && !isSettingsOpen && (
-    orientation === 'landscape' ||
-    orientation === 'large-portrait' ||
-    orientation === 'ultrawide'
-  );
+  // Determine if hire me button should be shown based on orientation and PDF modal state
+  const shouldShowHireMeButton =
+    !isPdfModalOpen && // Hide when PDF modal is open
+    !isMenuOpen &&
+    !isSettingsOpen &&
+    (orientation === 'landscape' ||
+      orientation === 'large-portrait' ||
+      orientation === 'ultrawide');
 
   const menuStyles = {
     menuButtonWithText: {
@@ -124,9 +112,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       gap: '1rem',
       padding: theme.spacing.s,
       color:
-        theme.themeMode === 'high-contrast' ||
-        location === normalizedHomePath ||
-        isMobileLandscape
+        theme.themeMode === 'high-contrast' || location === normalizedHomePath
           ? theme.palette.white
           : theme.palette.neutralPrimary,
       margin: '0 4px',
@@ -159,10 +145,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       letterSpacing: theme.typography.letterSpacing.tight,
       fontWeight: theme.typography.fontWeights.semiBold,
       color:
-        ((location === normalizedHomePath ||
-          (isMobileLandscape && location !== normalizedHomePath)) &&
-          !isMenuOpen &&
-          !isSettingsOpen) ||
+        (location === normalizedHomePath && !isMenuOpen && !isSettingsOpen) ||
         theme.themeMode === 'high-contrast'
           ? theme.palette.white
           : theme.palette.themePrimary,
@@ -179,9 +162,8 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
     <div
       style={{
         display: 'flex',
-        flexDirection:
-          isMobileLandscape || isLeftHanded ? 'row-reverse' : 'row',
-        gap: isScrolledPast || shouldShowHireMeButton ? 0 : '1rem',
+        flexDirection: isLeftHanded ? 'row-reverse' : 'row',
+        gap: shouldShowHireMeButton || isMobile ? 0 : '1rem',
         pointerEvents: 'auto',
         opacity: fadeStage === 'in' ? 1 : 0,
         transition: 'opacity 0.3s',
@@ -201,7 +183,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
           <BookingsButton isNavigationButton={true} />
         </div>
       )}
-      
+
       {/* Theme Button */}
       {(themeMode === 'light' || themeMode === 'dark') && (
         <NavigationButton
@@ -249,7 +231,6 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
           transform: `${isSettingsHovered ? 'rotate(90deg)' : 'rotate(0)'} ${isSettingsOpen ? 'rotate(0)' : 'rotate(-180deg)'}`,
         }}
       />
-
 
       {/* Menu Button */}
       <NavigationButton

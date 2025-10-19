@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 /**
  * LayoutGrid is a specialized component for creating grid and flex layouts.
@@ -99,12 +100,31 @@ export const LayoutGrid: React.FC<LayoutGridProps> = ({
   onMouseEnter,
   onMouseLeave,
 }) => {
+  const location = useLocation();
+
+  // Auto-scroll to top on navigation if not already at top
+  React.useEffect(() => {
+    const scrollToTop = () => {
+      // Check if the page is not at the top (with small tolerance for precision)
+      if (window.scrollY > 5) {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        });
+      }
+    };
+
+    // Small delay to ensure the route has fully changed
+    const timer = setTimeout(scrollToTop, 50);
+    return () => clearTimeout(timer);
+  }, [location.pathname, location.search, location.hash]);
   const containerStyle: React.CSSProperties = {
     display,
     gap,
-    direction,
     containerType,
     containerName,
+    direction,
     minWidth: containerQuery?.minWidth || minWidth,
     maxWidth: containerQuery?.maxWidth || maxWidth,
     minHeight: containerQuery?.minHeight || minHeight,
@@ -124,6 +144,7 @@ export const LayoutGrid: React.FC<LayoutGridProps> = ({
     flexGrow,
     flexShrink,
     flexBasis,
+    boxSizing: 'border-box',
     ...(position === 'fixed' && {
       overflow: 'hidden',
       maxHeight: '100vh',

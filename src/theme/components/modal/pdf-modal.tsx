@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useAppTheme } from '../../hooks/useAppTheme';
+import { useIsMobile } from '../../hooks/useMediaQuery';
+import { FluentButton } from '../button/button';
 
 interface PdfModalProps {
   isOpen: boolean;
@@ -15,12 +17,36 @@ export const PdfModal: React.FC<PdfModalProps> = ({
   pdfTitle,
 }) => {
   const { theme } = useAppTheme();
+  const isMobile = useIsMobile();
+
+  // Create a stable close handler that dispatches events
+  const handleClose = useCallback(() => {
+    // Explicitly dispatch close event before calling onClose
+    window.dispatchEvent(new Event('pdf-modal-close'));
+    onClose();
+  }, [onClose]);
+
+  // Notify when PDF modal state changes
+  useEffect(() => {
+    if (isOpen) {
+      window.dispatchEvent(new Event('pdf-modal-open'));
+    } else {
+      window.dispatchEvent(new Event('pdf-modal-close'));
+    }
+
+    // Cleanup function to ensure event is fired when component unmounts
+    return () => {
+      if (isOpen) {
+        window.dispatchEvent(new Event('pdf-modal-close'));
+      }
+    };
+  }, [isOpen]);
 
   // Handle Escape key press to close modal
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isOpen) {
-        onClose();
+        handleClose();
       }
     };
 
@@ -29,7 +55,62 @@ export const PdfModal: React.FC<PdfModalProps> = ({
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, handleClose]);
+
+  // Lock body scroll when modal is open - simplified approach
+  useEffect(() => {
+    if (isOpen) {
+      // Store original styles
+      const originalOverflow = document.body.style.overflow;
+      const originalTouchAction = document.body.style.touchAction;
+      const originalPosition = document.body.style.position;
+      const originalTop = document.body.style.top;
+      const originalWidth = document.body.style.width;
+
+      // Scroll to top when modal opens
+      window.scrollTo(0, 0);
+
+      // Prevent scroll event handler
+      const preventScroll = (e: Event) => {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      };
+
+      // Apply scroll lock after scroll-to-top completes
+      const scrollLockTimeout = setTimeout(() => {
+        document.body.style.overflow = 'hidden';
+        document.body.style.touchAction = 'none';
+        document.body.style.position = 'fixed';
+        document.body.style.top = '0';
+        document.body.style.width = '100%';
+
+        // Add event listeners to prevent scrolling
+        document.addEventListener('wheel', preventScroll, { passive: false });
+        document.addEventListener('touchmove', preventScroll, {
+          passive: false,
+        });
+        document.addEventListener('scroll', preventScroll, { passive: false });
+      }, 100);
+
+      return () => {
+        // Clear timeout if component unmounts before it completes
+        clearTimeout(scrollLockTimeout);
+
+        // Remove event listeners
+        document.removeEventListener('wheel', preventScroll);
+        document.removeEventListener('touchmove', preventScroll);
+        document.removeEventListener('scroll', preventScroll);
+
+        // Restore original styles
+        document.body.style.overflow = originalOverflow;
+        document.body.style.touchAction = originalTouchAction;
+        document.body.style.position = originalPosition;
+        document.body.style.top = originalTop;
+        document.body.style.width = originalWidth;
+      };
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -50,25 +131,30 @@ export const PdfModal: React.FC<PdfModalProps> = ({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: 'rgba(0, 0, 0, 0.95)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 1000,
-        padding: '1rem',
+        padding: isMobile ? '2vh 2vw' : '0',
+        overflow: 'hidden',
       }}
-      onClick={onClose}
+      onClick={handleClose}
     >
       <div
         style={{
           position: 'relative',
-          width: '100%',
-          height: '100%',
-          maxWidth: '1200px',
-          maxHeight: '90vh',
+          width: isMobile ? '96vw' : '90vw',
+          height: isMobile ? '96vh' : '90vh',
+          maxWidth: isMobile ? '96vw' : '1200px',
+          maxHeight: isMobile ? '96vh' : '90vh',
           animation: 'fadeIn 0.3s ease-in-out',
           display: 'flex',
           flexDirection: 'column',
+          backgroundColor: theme.palette.white,
+          borderRadius: theme.borderRadius.container.button,
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -79,88 +165,96 @@ export const PdfModal: React.FC<PdfModalProps> = ({
             justifyContent: 'space-between',
             alignItems: 'center',
             padding: '1rem',
-            backgroundColor: theme.palette.neutralLighterAlt,
-            borderRadius: `${theme.borderRadius.container.button} ${theme.borderRadius.container.button} 0 0`,
+            backgroundColor:
+              theme.themeMode === 'high-contrast'
+                ? theme.semanticColors.warningBackground
+                : theme.palette.neutralLight,
+            borderRadius: isMobile
+              ? '0'
+              : `${theme.borderRadius.container.button} ${theme.borderRadius.container.button} 0 0`,
+            minHeight: '60px',
+            gap: '1rem',
+            flexWrap: 'nowrap',
+            flexShrink: 0,
           }}
         >
           <h3
             style={{
               margin: 0,
-              color: theme.palette.themePrimary,
+              color: theme.palette.neutralPrimary,
               fontSize: theme.typography.fontSizes.clamp5,
               fontWeight: 600,
+              textTransform: 'capitalize',
+              textShadow: 'none',
+              fontFamily: theme.typography.fontFamilies.heading,
+              flex: '1 1 auto',
+              minWidth: 0,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
             }}
           >
             {pdfTitle}
           </h3>
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <button
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              flexShrink: 0,
+              flexWrap: 'nowrap',
+            }}
+          >
+            <FluentButton
+              variant='primary'
               onClick={handleDownload}
+              icon='Download'
+              iconPosition='start'
+              size='medium'
               style={{
-                background: theme.palette.themePrimary,
-                color: theme.palette.white,
-                border: 'none',
-                borderRadius: theme.borderRadius.container.button,
-                padding: '0.5rem 1rem',
-                fontSize: '16px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                cursor: 'pointer',
-                boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
-                transition: 'all 0.2s ease',
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'scale(1.05)';
-                e.currentTarget.style.backgroundColor = theme.palette.themeDark;
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.backgroundColor = theme.palette.themePrimary;
+                fontWeight: '500 !important',
+                fontSize: theme.typography.fontSizes.clamp5,
               }}
             >
-              📥 Download
-            </button>
-            <button
-              onClick={onClose}
+              Download
+            </FluentButton>
+            <FluentButton
+              variant='error'
+              onClick={handleClose}
+              icon='Cancel'
+              showIconOnly={true}
+              size='medium'
               style={{
-                background: theme.palette.neutralLighterAlt,
-                color: theme.palette.neutralPrimary,
-                border: 'none',
                 borderRadius: '50%',
                 width: '40px',
                 height: '40px',
-                fontSize: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
-                transition: 'all 0.2s ease',
+                minWidth: '40px',
+                padding: '0',
               }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'scale(1.1)';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-              }}
-            >
-              ✕
-            </button>
+            />
           </div>
         </div>
 
         {/* PDF Viewer */}
         <iframe
-          src={pdfSrc}
+          src={
+            isMobile
+              ? `${pdfSrc}#view=FitH&zoom=page-fit&toolbar=0&navpanes=0&scrollbar=0&statusbar=0&messages=0&page=1`
+              : `${pdfSrc}#view=FitH&toolbar=1&navpanes=1&scrollbar=1`
+          }
           title={pdfTitle}
           style={{
             width: '100%',
-            height: '100%',
+            height: 'calc(100% - 60px)',
             border: 'none',
-            borderRadius: `0 0 ${theme.borderRadius.container.button} ${theme.borderRadius.container.button}`,
+            borderRadius: isMobile
+              ? '0'
+              : `0 0 ${theme.borderRadius.container.button} ${theme.borderRadius.container.button}`,
             backgroundColor: theme.palette.white,
+            flex: 1,
+            overflow: 'hidden',
           }}
+          allowFullScreen
         />
       </div>
       <style

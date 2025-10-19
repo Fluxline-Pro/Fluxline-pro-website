@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { useAppTheme } from '../../hooks/useAppTheme';
-import { createTypographyStyles } from './settings/fontsize-settings';
 import { useDeviceOrientation } from '../../hooks/useMediaQuery';
 
 const ModalTitle: React.FC<{ isMobileLandscape?: boolean; title: string }> = ({
@@ -10,7 +9,6 @@ const ModalTitle: React.FC<{ isMobileLandscape?: boolean; title: string }> = ({
 }) => {
   const { theme, layoutPreference } = useAppTheme();
   const orientation = useDeviceOrientation();
-  const typographyStyles = createTypographyStyles(theme);
 
   const modalTitleStyles = {
     root: {
@@ -18,31 +16,22 @@ const ModalTitle: React.FC<{ isMobileLandscape?: boolean; title: string }> = ({
         'clamp(1.5rem, 1vh, 2rem) clamp(2rem, 1vh, 2rem) 1rem clamp(2rem, 1vh, 2rem)',
       marginTop:
         orientation === 'mobile-landscape'
-          ? '2rem'
+          ? '0.5rem' // align the title with the menu buttons
           : 'clamp(1.25rem, 1vh, 5rem)',
       marginBottom: 'clamp(0.5rem, 1vh, 1rem)',
     },
     menuTitle: {
-      ...typographyStyles.modalTitle,
+      ...theme.typography.fonts.h2,
+      color: theme.palette.themePrimary,
+      fontSize: 'clamp(2rem, 3vh, 3rem)',
+      fontWeight: theme.typography.fontWeights.thin,
+      textShadow: 'none !important',
       textAlign:
-          layoutPreference === 'right-handed'
-          ? orientation === 'mobile-landscape'
-            ? 'right'
+        layoutPreference === 'right-handed'
+          ? orientation === 'mobile-landscape' // for title placement so they don't run into the menu buttons
+            ? 'left'
             : 'left'
           : 'right',
-      // : isMobileLandscape && title === 'Settings'
-      //   ? 'right'
-      //   : layoutPreference === 'left-handed'
-      //   ? title === 'menu' && 'left'
-          //   : layoutPreference === 'right-handed' && title === 'menu'
-          //     ? 'left'
-          //     : readingDirection === 'rtl'
-          //       ? title === 'Settings'
-          //         ? 'right'
-          //       : 'left'
-          //     : title === 'Settings'
-          //       ? 'left'
-          //       : 'right',
     } as React.CSSProperties,
   };
 

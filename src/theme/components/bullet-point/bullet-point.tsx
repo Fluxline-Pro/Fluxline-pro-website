@@ -169,6 +169,7 @@ export const BulletPoint: React.FC<BulletPointProps> = ({
           variant='p'
           textAlign='left'
           color={theme.palette.neutralPrimary}
+          fontSize={theme.typography.fontSizes.clamp4} // Reduced font size for better spacing
           noHyphens
         >
           {description}

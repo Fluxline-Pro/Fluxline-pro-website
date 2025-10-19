@@ -45,6 +45,8 @@ export interface UnifiedCardProps {
   contentContainerStyle?: React.CSSProperties;
   // Flag to indicate this card is used as the left panel in ViewportGrid
   isViewportLeftPanel?: boolean;
+  // Flag to skip dark mode filter (useful for dark logos)
+  skipDarkModeFilter?: boolean;
 }
 
 export const UnifiedCard: React.FC<UnifiedCardProps> = ({
@@ -67,12 +69,13 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
   imageContainerStyle,
   contentContainerStyle,
   isViewportLeftPanel = false,
+  skipDarkModeFilter = false,
 }) => {
   const { theme } = useAppTheme();
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
   const deviceOrientation = useDeviceOrientation();
-  const { filter } = useColorVisionFilter();
+  const { filter } = useColorVisionFilter(skipDarkModeFilter);
   const formattedDate = useDateFormatter(date || '');
   const { shouldReduceMotion } = useReducedMotion();
 
@@ -83,23 +86,41 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
   const [imageLoaded, setImageLoaded] = React.useState(false);
   const [contentReady, setContentReady] = React.useState(false);
   const [isLandscape, setIsLandscape] = React.useState(false);
+  const [imageDimensions, setImageDimensions] = React.useState<{
+    width: number;
+    height: number;
+    aspectRatio: number;
+  } | null>(null);
 
   // Check if image is landscape and handle image loading
   React.useEffect(() => {
     if (imageUrl) {
       // Reset loading state when imageUrl changes
       setImageLoaded(false);
+      setImageDimensions(null);
       // Initially set isLandscape to false for clean animation
       setIsLandscape(false);
 
       const img = new Image();
       img.onload = () => {
+        // Capture the image's natural dimensions
+        const naturalWidth = img.naturalWidth;
+        const naturalHeight = img.naturalHeight;
+        const aspectRatio = naturalWidth / naturalHeight;
+
+        // Store image dimensions for container sizing
+        setImageDimensions({
+          width: naturalWidth,
+          height: naturalHeight,
+          aspectRatio: aspectRatio,
+        });
+
         // Mark image as loaded first
         setImageLoaded(true);
 
         // Only apply landscape detection when this card is in the ViewportGrid left panel
         if (isViewportLeftPanel) {
-          const isImageLandscape = img.naturalWidth > img.naturalHeight;
+          const isImageLandscape = naturalWidth > naturalHeight;
 
           // Create a proper animation sequence:
           // 1. First let the image fade in (show it in default state)
@@ -120,6 +141,7 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
       img.onerror = () => {
         // Still mark as loaded on error to prevent infinite loading state
         setImageLoaded(true);
+        setImageDimensions(null);
       };
 
       // Start loading the image
@@ -136,6 +158,7 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
     } else {
       // If no image URL, consider it loaded
       setImageLoaded(true);
+      setImageDimensions(null);
     }
   }, [imageUrl, isViewportLeftPanel, shouldReduceMotion]);
 
@@ -174,6 +197,40 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
       minWidth?: string;
       transform?: string;
     } => {
+      // If we have image dimensions, use the actual aspect ratio to constrain the container
+      if (imageDimensions && imageLoaded) {
+        const { aspectRatio: imageAspectRatio } = imageDimensions;
+
+        // Use the image's natural aspect ratio to size the container
+        // This eliminates empty space above/below the image
+        return {
+          width: '100%',
+          maxWidth: '100%',
+          aspectRatio: `${imageAspectRatio}`, // Use the actual image aspect ratio
+          // Let aspect ratio determine height, but provide constraints for extreme cases
+          minHeight: '200px',
+          maxHeight: (() => {
+            switch (deviceOrientation) {
+              case 'portrait':
+                return '350px';
+              case 'tablet-portrait':
+                return '325px';
+              case 'large-portrait':
+                return '600px';
+              case 'square':
+                return '400px';
+              case 'mobile-landscape':
+                return '350px';
+              case 'landscape':
+              case 'ultrawide':
+              default:
+                return '450px';
+            }
+          })(),
+        };
+      }
+
+      // Fallback to responsive heights when image dimensions aren't available yet
       // Base dimensions for each device orientation
       const baseDimensions: {
         height?: string;
@@ -187,56 +244,57 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
         switch (deviceOrientation) {
           case 'portrait':
             return {
-              maxHeight: '350px',
-              aspectRatio: '1/1',
-              width: '90dvw',
+              // Use viewport-based sizing for ultra-narrow devices like Galaxy Fold
+              width: '100%',
+              maxWidth: '100%',
+              height: 'clamp(250px, 45vh, 350px)', // Responsive height based on viewport
+              aspectRatio: 'auto', // Let width constrain the size, not aspect ratio
+              // Remove fixed minHeight/maxHeight to allow flexible sizing
             };
           case 'tablet-portrait':
             return {
-              maxHeight: '325px',
-              aspectRatio: '4/5',
               width: '100%',
               maxWidth: '100%',
-              minWidth: '200px', // Reduced from 275px to allow better shrinking
+              height: 'clamp(275px, 40vh, 325px)', // Responsive height based on viewport
+              aspectRatio: 'auto', // Let width constrain the size, not aspect ratio
+              // Remove fixed minWidth to allow flexible sizing
             };
           case 'large-portrait':
             return {
-              maxHeight: '600px',
-              aspectRatio: '3/4',
               width: '100%',
               maxWidth: '100%',
-              minWidth: '350px',
+              height: 'clamp(400px, 55vh, 600px)', // Responsive height based on viewport
+              aspectRatio: 'auto', // Let width constrain the size, not aspect ratio
+              // Remove fixed minWidth to allow flexible sizing
             };
           case 'square':
             return {
-              maxHeight: '400px',
-              aspectRatio: '4/5',
               width: '100%',
               maxWidth: '100%',
-              minWidth: '250px', // Reduced from 300px for better responsiveness
+              height: 'clamp(300px, 50vh, 400px)', // Responsive height based on viewport
+              aspectRatio: 'auto', // Let width constrain the size, not aspect ratio
+              // Remove fixed minWidth to allow flexible sizing
             };
           case 'mobile-landscape':
             return {
-              maxHeight: '350px',
-              aspectRatio: '3/2',
               width: '100%',
               maxWidth: '100%',
-              minWidth: '250px',
+              height: 'clamp(250px, 42vh, 350px)', // Responsive height based on viewport
+              aspectRatio: 'auto', // Let width constrain the size, not aspect ratio
+              // Remove fixed minWidth to allow flexible sizing
             };
           case 'landscape':
           case 'ultrawide':
           default:
             return {
-              maxHeight: '450px',
-              aspectRatio: '4/5',
               width: '100%',
               maxWidth: '100%',
-              minWidth: '350px',
+              height: 'clamp(350px, 52vh, 450px)', // Responsive height based on viewport
+              aspectRatio: 'auto', // Let width constrain the size, not aspect ratio
+              // Remove fixed minWidth to allow flexible sizing
             };
         }
-      })();
-
-      // If the image is landscape, adjust dimensions for better display
+      })(); // If the image is landscape, adjust dimensions for better display
       if (isLandscape) {
         const { aspectRatio, ...dimensionsWithoutAspectRatio } = baseDimensions;
 
@@ -281,16 +339,23 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
     const imageContainerStyles = {
       position: 'relative' as const,
       overflow: 'hidden' as const,
-      width: '100%',
+      width: cardDimensions.width || '100%',
+      maxWidth: cardDimensions.maxWidth || '100%',
+      minWidth: cardDimensions.minWidth,
       height: cardDimensions.height || '100%',
-      minHeight: cardDimensions.minHeight || '400px',
+      // Only apply minHeight if it's specified in dimensions (not for flexible portrait mode)
+      ...(cardDimensions.minHeight && { minHeight: cardDimensions.minHeight }),
       maxHeight: cardDimensions.maxHeight,
-      aspectRatio: cardDimensions.aspectRatio,
+      aspectRatio:
+        cardDimensions.aspectRatio !== 'auto'
+          ? cardDimensions.aspectRatio
+          : undefined,
       backgroundColor: theme.isInverted
         ? theme.gradients.components.card.dark
         : theme.gradients.components.card.light,
-      // Using data attribute instead of containerType for compatibility
+      // Ensure the container stays within bounds
       margin: '0 auto',
+      boxSizing: 'border-box' as const,
       // Add smooth transition for all container properties that might change
       transition: shouldReduceMotion
         ? 'none'
@@ -301,19 +366,18 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
     const imageStyle = {
       width: '100%',
       height: '100%',
-      objectFit: 'cover' as const,
+      objectFit: 'contain' as const, // Changed from 'cover' to 'contain' to show full image
       objectPosition: 'center center',
       display: 'block' as const,
       filter: filter,
       opacity: imageLoaded ? 1 : 0,
       // Image transitions should be timed differently than the container
-      // Fade in quickly, but transform with a delay after container has started to change
+      // Fade in slowly to match legal page timing (0.5s duration) + 200ms slower
       transition: shouldReduceMotion
         ? 'none'
-        : `opacity 0.3s ease-out, 
-           transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.15s`,
-      minWidth: '100%',
-      minHeight: '100%',
+        : `opacity 0.9s ease-out, 
+           transform 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.15s`,
+      // Remove minWidth/minHeight constraints that force overflow
       transform: cardDimensions.transform,
       margin: '0 auto',
     };
@@ -332,13 +396,14 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
     };
 
     const textStyles = {
+      opacity: isMobile ? 0 : 1,
       position: 'absolute' as const,
       bottom: '2rem',
       left: '2rem',
       zIndex: theme.zIndices.above,
       color: isLight ? theme.palette.black : theme.palette.white,
       fontSize: imageText
-        ? 'clamp(2.5rem, 4cqi, 3.25rem)'
+        ? 'clamp(1.75rem, 3cqi, 2.25rem)' // Reduced from clamp(2.5rem, 4cqi, 3.25rem) for subtler appearance
         : theme.typography.fontSizes.clamp3,
       textShadow: isLight ? 'none' : theme.typography.textShadows.cardImage,
       maxWidth: 'calc(100% - 3rem)',
@@ -548,7 +613,7 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
     display: 'block' as const,
     filter: filter,
     opacity: imageLoaded ? 1 : 0,
-    transition: 'opacity 0.3s ease-in-out',
+    transition: 'opacity 0.9s ease-in-out', // Match legal page timing + 200ms slower
   };
 
   // Typography classes
