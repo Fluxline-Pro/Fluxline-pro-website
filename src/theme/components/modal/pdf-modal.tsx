@@ -19,6 +19,22 @@ export const PdfModal: React.FC<PdfModalProps> = ({
   const { theme } = useAppTheme();
   const isMobile = useIsMobile();
 
+  // Detect Safari/WebKit for mobile PDF fallback
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const isWebKit =
+    /webkit/i.test(navigator.userAgent) && !/chrome/i.test(navigator.userAgent);
+  const isMobileSafari = (isSafari || isWebKit) && isMobile;
+
+  // Safari iOS fallback - open PDF in new tab instead of modal
+  useEffect(() => {
+    if (isOpen && isMobileSafari) {
+      // Open PDF in new tab for mobile Safari users
+      window.open(pdfSrc, '_blank');
+      // Close the modal immediately since we're opening in new tab
+      onClose();
+    }
+  }, [isOpen, isMobileSafari, pdfSrc, onClose]);
+
   // Create a stable close handler that dispatches events
   const handleClose = useCallback(() => {
     // Explicitly dispatch close event before calling onClose
@@ -113,6 +129,9 @@ export const PdfModal: React.FC<PdfModalProps> = ({
   }, [isOpen]);
 
   if (!isOpen) return null;
+
+  // Don't render modal for mobile Safari - PDF opens in new tab instead
+  if (isMobileSafari) return null;
 
   const handleDownload = () => {
     const link = document.createElement('a');
