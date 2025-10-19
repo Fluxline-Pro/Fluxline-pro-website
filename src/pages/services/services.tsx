@@ -32,7 +32,6 @@ const styles = {
     const mainTitles = [
       'Business Strategy & Systems Alignment',
       'Brand Identity & Experience Design',
-      'Web & App Development',
       'Life Coaching & The Resonance Core',
       'Personal Training & Wellness',
       'Coaching, Education & Leadership',
