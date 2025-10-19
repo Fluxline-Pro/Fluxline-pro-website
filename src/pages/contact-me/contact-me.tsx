@@ -6,7 +6,10 @@ import { Container } from '../../theme/layouts/Container';
 // import { FluentInput } from '../../theme/components/form-elements/input/input';
 // import { FluentButton } from '../../theme/components/button/button';
 import { useContactStore } from '../../store/store-specs/contactStore';
-import { useIsMobile } from '../../theme/hooks/useMediaQuery';
+import {
+  useIsMobile,
+  useDeviceOrientation,
+} from '../../theme/hooks/useMediaQuery';
 import { ImageModal } from '../../theme/components/modal/image-modal';
 import { SocialLinks } from '../../theme/components/header/social-links';
 // Import business card images directly
@@ -29,7 +32,8 @@ const getContactEmail = (): string => {
 };
 
 const BusinessCardSection: React.FC = () => {
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
+  const orientation = useDeviceOrientation();
   const isMobile = useIsMobile();
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState({
@@ -52,7 +56,12 @@ const BusinessCardSection: React.FC = () => {
         display='flex'
         flexDirection={isMobile ? 'column' : 'row'}
         gap={isMobile ? '3rem' : '1rem'}
-        justifyContent='flex-start'
+        justifyContent={
+          orientation === 'mobile-landscape' &&
+          layoutPreference === 'left-handed'
+            ? 'flex-end'
+            : 'flex-start'
+        }
       >
         <div
           className='business-card-container'
@@ -209,6 +218,7 @@ const VisionHappenSection: React.FC = () => {
 const AboutMeSection: React.FC = () => {
   const { theme } = useAppTheme();
   const isMobile = useIsMobile();
+  const orientation = useDeviceOrientation();
 
   return (
     <Container
@@ -260,12 +270,18 @@ const AboutMeSection: React.FC = () => {
 
       <Container
         display='flex'
-        flexDirection={isMobile ? 'column' : 'row'}
+        flexDirection={
+          isMobile || orientation === 'mobile-landscape' ? 'column' : 'row'
+        }
         gap={theme.spacing.l}
         alignItems={isMobile ? 'flex-start' : 'center'}
         justifyContent='space-between'
         marginTop={theme.spacing.l}
-        padding={isMobile ? theme.spacing.m : theme.spacing.xl}
+        padding={
+          isMobile || orientation === 'mobile-landscape'
+            ? theme.spacing.m
+            : theme.spacing.xl
+        }
         style={{
           background:
             theme.themeMode === 'high-contrast'
@@ -277,7 +293,7 @@ const AboutMeSection: React.FC = () => {
       >
         <Container display='flex' flexDirection='column' gap={theme.spacing.s}>
           <Typography
-            variant='h4'
+            variant='h3'
             color={theme.palette.themePrimary}
             fontWeight={theme.typography.fontWeights.semiBold}
             lineHeight='1.8'
@@ -329,8 +345,9 @@ const AboutMeSection: React.FC = () => {
 };
 
 const ContactForm: React.FC = () => {
-  const { theme } = useAppTheme();
+  const { theme, layoutPreference } = useAppTheme();
   const isMobile = useIsMobile();
+  const orientation = useDeviceOrientation();
 
   // Use Zustand contact store
   const {
@@ -461,10 +478,15 @@ const ContactForm: React.FC = () => {
     <Container maxWidth='1000px' paddingBottom={theme.spacing.xl}>
       <Typography
         variant='h3'
-        textAlign='left'
         color={theme.palette.themePrimary}
         marginTop={isMobile ? theme.spacing.m : undefined}
         marginBottom={theme.spacing.m}
+        textAlign={
+          orientation === 'mobile-landscape' &&
+          layoutPreference === 'left-handed'
+            ? 'right'
+            : 'left'
+        }
       >
         Let's connect!
       </Typography>

@@ -76,7 +76,7 @@ export const ColorblindSettings: React.FC<{ isOnboarding?: boolean }> = ({
 
   return (
     <FluentDropdown
-      label='Colorblindness Mode'
+      label='Colorblindness mode'
       options={colorblindOptions}
       disabledTooltip='Colorblindness mode is only available in light mode at this time.'
       defaultSelectedKey={

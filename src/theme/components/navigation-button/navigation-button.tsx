@@ -94,10 +94,7 @@ export const NavigationButton: React.FC<NavigationButtonProps> = ({
       fontWeight: theme.typography.fontWeights.semiBold,
       color: getThemeButtonColor(),
       textTransform: 'capitalize' as const,
-      backgroundColor:
-        theme.themeMode === 'high-contrast'
-          ? theme.palette.black
-          : 'transparent',
+      backgroundColor: 'transparent',
       padding: theme.themeMode === 'high-contrast' ? '4px 8px' : '0',
     },
   };

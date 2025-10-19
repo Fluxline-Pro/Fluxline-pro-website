@@ -64,7 +64,7 @@ This Agreement applies to all Fluxline services, including:
 - Education & Training
 - Personal Training & Wellness
 - Resonance Core Life Coaching
-- IT & Systems Consulting
+- Business Strategy & Systems Alignment
 - Web & App Development
 - Brand & Experience Design
 

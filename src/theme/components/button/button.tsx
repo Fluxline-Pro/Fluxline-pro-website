@@ -88,7 +88,7 @@ export const FluentButton: React.FC<ButtonProps> = ({
         return theme.themeMode === 'protanopia'
           ? theme.palette.neutralQuaternary
           : theme.themeMode === 'dark'
-            ? theme.semanticColors.errorBackground
+            ? theme.semanticColors.errorText
             : theme.themeMode === 'grayscale-dark'
               ? theme.palette.neutralQuaternaryAlt
               : theme.semanticColors.errorText;
