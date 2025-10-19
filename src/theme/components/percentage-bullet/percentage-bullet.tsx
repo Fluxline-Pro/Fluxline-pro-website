@@ -29,8 +29,8 @@ export const PercentageBullet: React.FC<PercentageBulletProps> = ({
   };
 
   const containerClass = mergeStyles({
-    maxWidth: !isMobile ? '150px' : '200px',
-    marginLeft: !isMobile ? '16px' : '0',
+    maxWidth: !isMobile ? '175px' : '225px',
+    marginLeft: '0',
   });
 
   const circleContainerClass = mergeStyles({
@@ -67,10 +67,11 @@ export const PercentageBullet: React.FC<PercentageBulletProps> = ({
     color: getCircleColor(),
     fontWeight: 600,
     fontVariationSettings: theme.typography.fonts.h6.fontVariationSettings,
-    fontFamily: theme.fonts.medium.fontFamily,
-    fontWidth: theme.fonts.medium.fontWidth,
-    fontStyle: theme.fonts.medium.fontStyle,
+    fontFamily: theme.typography.fontFamilies.base,
+    fontWidth: String(theme.typography.fontWidths.normal),
+    fontStyle: String(theme.typography.fontSlants.normal),
     fontSize: theme.typography.fontSizes.clamp7,
+    width: '51px', // weird clipping issue of the number without this value
   });
 
   const textClass = mergeStyles({
@@ -83,10 +84,10 @@ export const PercentageBullet: React.FC<PercentageBulletProps> = ({
     wordBreak: 'keep-all',
     overflowWrap: 'normal',
     color: getCircleColor(),
-    fontFamily: theme.fonts.medium.fontFamily,
-    fontWidth: theme.fonts.medium.fontWidth,
-    fontStyle: theme.fonts.medium.fontStyle,
-    textTransform: 'lowercase',
+    fontFamily: theme.typography.fontFamilies.base,
+    fontWidth: String(theme.typography.fontWidths.normal),
+    fontStyle: String(theme.typography.fontSlants.normal),
+    textTransform: 'capitalize',
     lineHeight: '1.2',
   });
 
@@ -128,7 +129,7 @@ export const PercentageBullet: React.FC<PercentageBulletProps> = ({
       verticalAlign='center'
     >
       <Stack horizontalAlign='center' verticalAlign='center'>
-        <div className={circleContainerClass}>
+        <div className={circleContainerClass} style={{ marginLeft: '0' }}>
           <svg width='100' height='100' viewBox='0 0 100 100'>
             {/* Background circle */}
             <circle className={circleBackgroundClass} cx='50' cy='50' r='46' />

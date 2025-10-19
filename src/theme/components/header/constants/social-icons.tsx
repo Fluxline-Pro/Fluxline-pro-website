@@ -40,8 +40,8 @@ export const getSocialIcons = (): SocialIcon[] => [
   },
   { // removing off Fluxline
     iconName: <MicrosoftLogo />,
-    url: 'mailto:terence@fluxline.pro',
-    tooltip: 'Microsoft Email',
+    url: 'mailto:support@fluxline.pro',
+    tooltip: 'Email',
     isTagline: false,
   },
 ];

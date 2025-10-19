@@ -24,7 +24,7 @@ export const FluentSlider: React.FC<SliderProps> = ({
   styles,
 }) => {
   const { theme, readingDirection } = useAppTheme();
-  const { getThemedBackgroundColor, getThemedTextColor } = useThemeColor();
+  const { getThemedBackgroundColor } = useThemeColor();
   const isRTL = readingDirection === 'rtl';
 
   const getSliderBackgroundColor = () => {
@@ -45,7 +45,7 @@ export const FluentSlider: React.FC<SliderProps> = ({
   const activeBackgroundColor =
     theme.themeMode === 'grayscale'
       ? theme.palette.neutralPrimary
-      : getSliderBackgroundColor();
+      : theme.palette.themePrimary;
 
   const inactiveBackgroundColor =
     theme.themeMode === 'high-contrast'
@@ -67,7 +67,6 @@ export const FluentSlider: React.FC<SliderProps> = ({
       lineHeight: theme.typography.lineHeights.normal,
       paddingTop: theme.spacing.xs,
       paddingBottom: theme.spacing.s,
-      textTransform: 'lowercase' as const,
     },
     valueLabel: {
       display: 'none',
@@ -116,10 +115,8 @@ export const FluentSlider: React.FC<SliderProps> = ({
     thumb: {
       borderWidth: 2,
       borderStyle: 'solid',
-      borderColor: getThemedTextColor(),
-      backgroundColor: theme.isInverted
-        ? theme.palette.white
-        : theme.palette.black,
+      borderColor: theme.palette.themePrimary,
+      backgroundColor: theme.palette.white,
       width: 20,
       height: 20,
       zIndex: 4,
@@ -128,20 +125,16 @@ export const FluentSlider: React.FC<SliderProps> = ({
       transition: 'all 0.2s ease-in-out',
       selectors: {
         ':hover': {
-          borderColor: getThemedTextColor(),
-          backgroundColor: theme.isInverted
-            ? theme.palette.white
-            : theme.palette.black,
+          borderColor: theme.palette.themePrimary,
+          backgroundColor: theme.palette.white,
         },
         ':active': {
           cursor: 'grabbing',
-          borderColor: getThemedTextColor(),
-          backgroundColor: theme.isInverted
-            ? theme.palette.white
-            : theme.palette.black,
+          borderColor: theme.palette.themePrimary,
+          backgroundColor: theme.palette.white,
         },
         ':focus': {
-          borderColor: getThemedTextColor(),
+          borderColor: theme.palette.themePrimary,
           boxShadow: `0 0 0 2px ${theme.palette.themeLighter}`,
           outline: 'none',
         },

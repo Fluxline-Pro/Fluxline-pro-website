@@ -2,7 +2,6 @@
 import React from 'react';
 
 import { useAppTheme } from '../../../hooks/useAppTheme';
-import { createTypographyStyles } from './fontsize-settings';
 
 interface SettingsSectionProps {
   title: string;
@@ -14,7 +13,6 @@ export const SettingsSection: React.FC<SettingsSectionProps> = ({
   children,
 }) => {
   const { theme } = useAppTheme();
-  const typographyStyles = createTypographyStyles(theme);
 
   const styles = {
     section: {
@@ -23,7 +21,10 @@ export const SettingsSection: React.FC<SettingsSectionProps> = ({
       gap: '1rem',
     },
     title: {
-      ...typographyStyles.sectionTitle,
+      ...theme.typography.fonts.h3,
+      fontSize: 'clamp(1.5rem, 2vh, 2rem)',
+      fontWeight: theme.typography.fontWeights.semiBold,
+      textShadow: 'none',
       color: theme.palette.themePrimary,
       marginBottom: '0.5rem',
     },

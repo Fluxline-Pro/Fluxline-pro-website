@@ -12,6 +12,7 @@ import LinktreeLogo from '../../../assets/svgs/LinktreeLogo';
 import { ROUTES } from '../../../routing/constants';
 import { useUserPreferencesStore } from '../../../store/store-specs/userPreferencesStore';
 import { Container } from '../../../theme/layouts/Container';
+import { useIsMobile } from '../../hooks/useMediaQuery';
 
 interface NavigationMenuProps {
   onClose: () => void;
@@ -29,6 +30,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({ onClose }) => {
   const setOnboardingDoneOrSkipped = useUserPreferencesStore(
     (state) => state.setOnboardingDoneOrSkipped
   );
+  const isMobile = useIsMobile();
 
   const styles = {
     contentContainer: {
@@ -65,7 +67,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({ onClose }) => {
         display='flex'
         flexDirection='column'
         minHeight='0'
-        padding='0 2rem'
+        padding={isMobile ? '0 1rem' : '0 2rem'}
         style={styles.contentContainer}
       >
         <LayoutGrid

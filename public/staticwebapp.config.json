@@ -43,14 +43,20 @@
       }
     },
     {
+      "route": "/*",
+      "headers": {
+        "X-Robots-Tag": "noindex, nofollow"
+      }
+    },
+    {
       "route": "*",
       "allowedRoles": ["anonymous"],
       "headers": {
         "X-Content-Type-Options": "nosniff",
-        "X-Frame-Options": "DENY",
+        "X-Frame-Options": "SAMEORIGIN",
         "X-XSS-Protection": "1; mode=block",
         "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
-        "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://assets.tidycal.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://use.typekit.net https://cdnjs.cloudflare.com https://res-1.cdn.office.net https://res.cdn.office.net https://p.typekit.net; font-src 'self' data: https://fonts.googleapis.com https://fonts.gstatic.com https://use.typekit.net https://cdn.jsdelivr.net https://res-1.cdn.office.net https://res.cdn.office.net https://cdnjs.cloudflare.com; img-src 'self' data: https: https://twmedia-cdn.azureedge.net; connect-src 'self' https: https://mock-dev-api.terencewaters.com https://mock-tst-api.terencewaters.com https://api.terencewaters.com https://twmedia-cdn.azureedge.net"
+        "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://assets.tidycal.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://use.typekit.net https://cdnjs.cloudflare.com https://res-1.cdn.office.net https://res.cdn.office.net https://p.typekit.net; font-src 'self' data: https://fonts.googleapis.com https://fonts.gstatic.com https://use.typekit.net https://cdn.jsdelivr.net https://res-1.cdn.office.net https://res.cdn.office.net https://cdnjs.cloudflare.com; img-src 'self' data: https: https://twmedia-cdn.azureedge.net; connect-src 'self' https: https://mock-dev-api.terencewaters.com https://mock-tst-api.terencewaters.com https://api.terencewaters.com https://twmedia-cdn.azureedge.net; object-src 'self'; frame-src 'self';"
       }
     }
   ],
@@ -62,10 +68,10 @@
   },
   "globalHeaders": {
     "X-Content-Type-Options": "nosniff",
-    "X-Frame-Options": "DENY",
+    "X-Frame-Options": "SAMEORIGIN",
     "X-XSS-Protection": "1; mode=block",
     "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
-    "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://assets.tidycal.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://use.typekit.net https://cdnjs.cloudflare.com; img-src 'self' data: https: https://twmedia-cdn.azureedge.net; font-src 'self' data: https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https: https://mock-dev-api.terencewaters.com https://mock-tst-api.terencewaters.com https://api.terencewaters.com https://twmedia-cdn.azureedge.net"
+    "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://assets.tidycal.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://use.typekit.net; font-src 'self' data: https://fonts.googleapis.com https://fonts.gstatic.com https://use.typekit.net; object-src 'self'; frame-src 'self';"
   },
   "mimeTypes": {
     ".json": "application/json",

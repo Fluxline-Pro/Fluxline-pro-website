@@ -33,12 +33,12 @@ export const NavigationModal: React.FC<NavigationModalProps> = ({
     root: {
       position: 'fixed' as const,
       top: 0,
-      right: isLeftHanded || isMobileLandscape ? 'auto' : 0,
-      left: isLeftHanded || isMobileLandscape ? 0 : 'auto',
+      right: isLeftHanded ? 'auto' : 0,
+      left: isLeftHanded ? 0 : 'auto',
       transform: isOpen
         ? 'translateX(0)'
-        : `translateX(${isLeftHanded || isMobileLandscape ? '-100%' : '100%'})`,
-      transition: shouldReduceMotion ? 'none' : 'transform 0.3s ease-in-out',
+        : `translateX(${isLeftHanded ? '-100%' : '100%'})`,
+      transition: shouldReduceMotion ? 'none' : 'transform 0.5s ease-in-out',
       background: theme.gradients[theme.isInverted ? 'dark' : 'light'].menu,
       zIndex: theme.zIndices.menu,
       boxShadow: theme.shadows.menu,
@@ -61,7 +61,7 @@ export const NavigationModal: React.FC<NavigationModalProps> = ({
       zIndex: theme.zIndices.menu - 1,
       display: 'block',
       cursor: 'pointer',
-      transition: shouldReduceMotion ? 'none' : 'opacity 0.4s ease-in-out',
+      transition: shouldReduceMotion ? 'none' : 'opacity 0.5s ease-in-out',
       pointerEvents: isOpen ? ('auto' as const) : ('none' as const),
     },
   };
@@ -75,7 +75,7 @@ export const NavigationModal: React.FC<NavigationModalProps> = ({
       setShouldShow(false);
       const timeout = setTimeout(
         () => setIsVisible(false),
-        shouldReduceMotion ? 1 : 300
+        shouldReduceMotion ? 1 : 500
       );
       return () => clearTimeout(timeout);
     }
@@ -100,12 +100,12 @@ export const NavigationModal: React.FC<NavigationModalProps> = ({
     opacity: fadeStage === 'in' ? 1 : 0,
     transition: shouldReduceMotion
       ? 'none'
-      : 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
-    right: handedness || isMobileLandscape ? 'auto' : 0,
-    left: handedness || isMobileLandscape ? 0 : 'auto',
+      : 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out',
+    right: handedness ? 'auto' : 0,
+    left: handedness ? 0 : 'auto',
     transform: shouldShow
       ? 'translateX(0)'
-      : `translateX(${handedness || isMobileLandscape ? '-100%' : '100%'})`,
+      : `translateX(${handedness ? '-100%' : '100%'})`,
   };
 
   return (

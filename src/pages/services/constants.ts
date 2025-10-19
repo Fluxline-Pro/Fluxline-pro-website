@@ -1,16 +1,22 @@
 import { IAboutPercentagePoint, IAboutBulletPoint } from './services.types';
 
-const FLUXLINE_TAGLINE = "We're not done yet— \nbut we're already extraordinary.";
+const FLUXLINE_TAGLINE =
+  "We're not done yet— \nbut we're already extraordinary.";
 const FLUXLINE_SECONDARY_TAGLINE = 'Modular by design. Resonant by nature.';
 
 const ABOUT_PROFESSIONAL_SUMMARY = [
-  'Fluxline helps visionary teams build systems that <strong>grow with them</strong>. We specialize in <em>modular web development</em>, <em>scalable design ecosystems</em>, and <em>human-centered technology</em>—blending emotional clarity with <strong>strategic innovation</strong>. Whether you’re launching a brand, evolving your infrastructure, or architecting a long-term solution, we design with <em>transformation</em> in mind.',
-  'At Fluxline, we combine advanced architecture, creative storytelling, and intentional coaching to help you build more than just products—we help you build <em>philosophies</em>, <em>living identities</em>, and <em>frameworks</em> that adapt to change. We engineer resonance, resilience, and results—so your vision doesn’t just launch: <strong>It lives and breathes</strong> as your identity evolves.',
+  `<strong>Fluxline</strong> architects transformative systems, brand experiences, and human-centered technology—blending <em>emotional intelligence</em>, <em>financial clarity</em>, and <em>somatic discipline</em>. We specialize in <em>modular web development</em>, <em>scalable design ecosystems</em>, and <em>strategic innovation</em> that evolves with you.<br /><br />
+
+<strong>Whether you're an individual seeking personal growth or a business ready to scale with purpose,</strong>
+our <em>coaching</em>, <em>wellness programs</em>, and <em>infrastructure design</em> help you align your <strong>drive</strong> with your <em>innate identity</em>. We believe transformation isn’t just about metrics—it’s about honoring <em>emotional rhythm</em>, <em>creative truth</em>, and <em>legacy resonance</em>.<br /><br />
+
+<strong>Fluxline</strong> builds <em>systems that breathe</em>, <em>brands that feel</em>, and <em>legacies that last</em>.<br />
+Let’s make your vision real—through <strong>ritual</strong>, <strong>resonance</strong>, and <strong>iteration</strong>.`,
 ];
 
 const FLUXLINE_MISSION_VISION = [
-  'We seek to architect multidimensional systems that fuse emotional intelligence, financial clarity, and somatic discipline—empowering individuals and brands to live with modular precision and legacy-driven resonance.',
-  'Fluxline envisions a world where every person becomes a self-authored steward of their inner and outer architecture—where dashboards track not just dollars and reps, but moments of truth, love, and creativity. It sees businesses as living organisms shaped by values, not just value. It sees monthly plans as mirrors, and relationships as sacred protocols of presence. Through these lenses of entity and endless spirality, Fluxline guides individuals and brands to design lives and legacies that echo beyond the present moment while also ritualizing the now.',
+  'We seek to architect multidimensional systems that fuse <em>emotional intelligence</em>, <em>financial clarity</em>, and <em>somatic discipline</em>—empowering individuals and brands to live with <strong>modular precision</strong> and <strong>legacy-driven resonance</strong>.',
+  'Fluxline envisions a world where individuals and businesses become <em>self-authored stewards</em> of their inner and outer architecture—where identity is revealed through <strong>ritual</strong>, <strong>resonance</strong>, and <strong>iteration</strong>.<br /><br />We believe dashboards should track not just dollars and reps, but <em>moments of truth</em>, <em>creativity</em>, and <em>emotional shift</em>. We see businesses as living organisms shaped by values, not just value. We see monthly plans as mirrors, and relationships as sacred protocols of presence.<br /><br />Through these lenses of <em>identity</em>, <em>resonance</em>, and <em>spirality</em>, Fluxline guides people and brands to design lives and legacies that echo beyond the present moment—while anchoring the now with <strong>clarity</strong>, <strong>drive</strong>, and <strong>emotional sovereignty</strong>.',
 ];
 
 const FLUXLINE_ETHOS = [
@@ -27,11 +33,11 @@ const EDUCATION_TRAINING_SUMMARY =
 const PERSONAL_TRAINING_SUMMARY =
   'Fitness and life training through a systems lens. Tailored programs for founders and creatives to align body, mind, and mission.';
 
-const BUSINESS_SUMMARY =
-  'Designing layered business ecosystems—from LLC structuring to asset protection—with a focus on longevity, tax efficiency, and legacy.';
+const RESONANCE_CORE_SUMMARY =
+  'Guiding individuals through transformative life coaching and personal development using the Resonance Core methodology.';
 
 const CONSULTING_SUMMARY =
-  'Modular IT strategies, infrastructure planning, and tech stack alignment for startups, creators, and visionary brands.';
+  'Strategic business alignment, systems architecture, and technology integration to help small to medium businesses and entrepreneurs build their most effective and authentic selves.';
 
 const DEVELOPMENT_SUMMARY =
   'Crafting full-stack digital products using modern technologies—with an emphasis on modularity, usability, and long-term maintainability.';
@@ -41,19 +47,24 @@ const DESIGN_SUMMARY =
 
 const ABOUT_BULLET_POINTS: IAboutBulletPoint[] = [
   {
-    name: 'Personable and Approachable',
+    name: 'Creative & Modular Thinker',
     description:
-      'Fluxline prioritizes human connection and empathy—building systems around how people feel, think, and grow.',
+      'We architect transformative brands, systems, and digital experiences that scale with your vision—fusing creative storytelling with technical precision to build frameworks that evolve, not restrict.',
+  },
+  {
+    name: 'Results with Resonance',
+    description:
+      'Every project delivers measurable outcomes and emotional impact. We create solutions that drive business growth while building authentic connections between you and your audience.',
+  },
+  {
+    name: 'Human-Centered Approach',
+    description:
+      'We prioritize empathy, collaboration, belonging, and intentional communication—designing every interaction around how people actually think, feel, and make decisions.',
   },
   {
     name: 'Technologically Curious',
     description:
       'We integrate emerging trends in design, AI, and backend architecture to fuel innovation and unlock new possibilities.',
-  },
-  {
-    name: 'Creative & Modular Thinker',
-    description:
-      'Fluxline architects brands and systems that flex, scale, and resonate—balancing creativity with precision.',
   },
   {
     name: 'Intentional Learner',
@@ -75,22 +86,18 @@ const ABOUT_BULLET_POINTS: IAboutBulletPoint[] = [
     description:
       'We don’t wait for clarity--we design it. We move early, test intelligently, and pivot with intention.',
   },
-  {
-    name: 'Results + resonance',
-    description:
-      'We deliver outcomes clients can measure—and frameworks they can feel. Impact isn’t just numeric, it’s experiential.',
-  },
 ];
 
+// never 100% because there's always more to learn
 const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
   // Technical Skills
   {
     name: 'design thinking',
-    percentage: 100,
+    percentage: 99,
   },
   {
     name: 'figma prototyping',
-    percentage: 100,
+    percentage: 99,
   },
   {
     name: 'relational brand design',
@@ -117,11 +124,23 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
     percentage: 98,
   },
   {
+    name: 'Agile methodology & Scrum',
+    percentage: 98,
+  },
+  {
+    name: 'project management',
+    percentage: 98,
+  },
+  {
+    name: 'technology consulting',
+    percentage: 98,
+  },
+  {
     name: 'cloud & hybrid solutions',
     percentage: 97,
   },
   {
-    name: 'cross-functional team leadership',
+    name: 'team leadership',
     percentage: 96,
   },
   {
@@ -129,28 +148,16 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
     percentage: 95,
   },
   {
-    name: 'IT strategy & consulting',
-    percentage: 95,
-  },
-  {
-    name: 'project management',
-    percentage: 95,
-  },
-  {
     name: 'backend development',
     percentage: 94,
   },
   {
-    name: 'business structuring',
+    name: 'AI integration',
     percentage: 94,
   },
   {
-    name: 'qa & automation',
+    name: 'QA & automation',
     percentage: 92,
-  },
-  {
-    name: 'ai integration',
-    percentage: 91,
   },
   {
     name: 'motion design',
@@ -159,84 +166,137 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
   // Guiding Principles
   {
     name: 'intelligence',
-    percentage: 100,
-  },
-  {
-    name: 'influence',
-    percentage: 100,
-  },
-  {
-    name: 'creativity',
-    percentage: 100,
-  },
-  {
-    name: 'love',
-    percentage: 100,
+    percentage: 99,
   },
   {
     name: 'drive',
-    percentage: 100,
-  },
-  {
-    name: 'stillness',
-    percentage: 100,
+    percentage: 99,
   },
   {
     name: 'empathy',
-    percentage: 100,
+    percentage: 99,
+  },
+  { name: 'integrity', percentage: 99 },
+  {
+    name: 'inclusivity',
+    percentage: 99,
+  },
+  {
+    name: 'creativity',
+    percentage: 98,
+  },
+  {
+    name: 'influence',
+    percentage: 98,
+  },
+  {
+    name: 'love',
+    percentage: 98,
+  },
+  {
+    name: 'stillness',
+    percentage: 98,
   },
   {
     name: 'courage',
-    percentage: 98,
-  },
-  {    name: 'authenticity',
     percentage: 97,
   },
+  { name: 'authenticity', percentage: 97 },
   {
     name: 'curiosity',
     percentage: 96,
-  }
+  },
 ];
 
-// Services-specific data
+// Services-specific data with white pages integration
 const SERVICES_BULLET_POINTS: IAboutBulletPoint[] = [
   {
-    name: 'information technology & systems consulting',
+    name: 'Intentional Wellness & Personal Training',
     description:
-      'Modular IT strategies, infrastructure planning, and tech stack alignment for startups, creators, and visionary brands.',
-    route: '/services/consulting',
-  },
-  {
-    name: 'Web & Application Development',
-    description:
-      'Crafting full-stack digital products using modern technologies—with an emphasis on modularity, usability, and long-term maintainability.',
-    route: '/services/development',
+      'Fitness and life training through a systems lens. Tailored programs for founders and creatives to align body, mind, and mission.',
+    route: '/services/personal-training',
+    // White pages integration
+    id: 'personal-training',
+    title: 'Personal Training & Wellness',
+    displayName: 'Personal Training',
+    pdfPath: require('../../assets/white-pages/Fluxline-Personal-Training.pdf'),
+    category: 'personal-training' as const,
   },
   {
     name: 'Brand Identity & Experience Design',
     description:
       'End-to-end brand architecture and emotionally intelligent UI/UX design that reflects your evolution and resonates.',
     route: '/services/design',
+    // White pages integration
+    id: 'graphic-design',
+    title: 'Brand Identity & Experience Design',
+    displayName: 'Graphic Design',
+    pdfPath: require('../../assets/white-pages/Fluxline-Graphic-Design.pdf'),
+    category: 'design' as const,
+  },
+  {
+    name: 'Web & Application Development',
+    description:
+      'Crafting full-stack digital products using modern technologies—with an emphasis on modularity, usability, and long-term maintainability.',
+    route: '/services/development',
+    // White pages integration
+    id: 'development',
+    title: 'Web & Application Development',
+    displayName: 'App & Web Development',
+    pdfPath: require('../../assets/white-pages/Fluxline-App-and-Web-Development.pdf'),
+    category: 'development' as const,
+  },
+  {
+    name: 'business strategy & systems alignment',
+    description:
+      'Strategic business alignment, mission & vision development, and technology integration for small to medium businesses and entrepreneurs seeking purpose-driven growth.',
+    route: '/services/consulting',
+    // White pages integration
+    id: 'consulting',
+    title: 'Business Strategy & Systems Alignment',
+    displayName: 'Business Strategy Consulting',
+    pdfPath: require('../../assets/white-pages/Fluxline-Business-IT-Consulting.pdf'),
+    category: 'consulting' as const,
   },
   {
     name: 'Coaching, Education & Leadership',
     description:
       'Transformational coaching, founder mentorship, and emotionally intelligent team leadership for those who build with purpose.',
     route: '/services/education-training',
+    // White pages integration
+    id: 'education-training',
+    title: 'Coaching, Education & Leadership',
+    displayName: 'Education & Mentoring',
+    pdfPath: require('../../assets/white-pages/Fluxline-Education-Mentoring.pdf'),
+    category: 'education-training' as const,
   },
   {
-    name: 'Intentional Wellness & Personal Training',
+    name: 'Life Coaching & The Resonance Core',
     description:
-      'Fitness and life training through a systems lens. Tailored programs for founders and creatives to align body, mind, and mission.',
-    route: '/services/personal-training',
-  },
-  {
-    name: 'Strategic Business & Legal Architecture',
-    description:
-      'Designing layered business ecosystems—from LLC structuring to asset protection—with a focus on longevity, tax efficiency, and legacy.',
-    route: '/services/business',
+      'Guiding individuals through transformative life coaching and personal development using the Resonance Core methodology.',
+    route: '/services/resonance-core',
+    // White pages integration
+    id: 'resonance-core',
+    title: 'Life Coaching & The Resonance Core',
+    displayName: 'Life Coaching & Resonance Core',
+    pdfPath: require('../../assets/white-pages/Fluxline-Life-Coaching-Resonance-Core.pdf'),
+    category: 'resonance-core' as const,
   },
 ];
+
+// Helper function to convert services to white pages format
+export const getWhitePagesFromServices = () => {
+  return SERVICES_BULLET_POINTS.filter(
+    (service) => service.id && service.pdfPath
+  ).map((service) => ({
+    id: service.id!,
+    title: service.title!,
+    displayName: service.displayName!,
+    description: service.description,
+    pdfPath: service.pdfPath!,
+    category: service.category!,
+  }));
+};
 
 const EDUCATION_TRAINING_BULLET_POINTS: IAboutBulletPoint[] = [
   {
@@ -316,78 +376,78 @@ const PERSONAL_TRAINING_BULLET_POINTS: IAboutBulletPoint[] = [
   },
 ];
 
-const BUSINESS_BULLET_POINTS: IAboutBulletPoint[] = [
+const RESONANCE_CORE_BULLET_POINTS: IAboutBulletPoint[] = [
   {
-    name: 'Business Structuring',
+    name: '1:1 Coaching Sessions',
     description:
-      'LLC structuring, asset protection, and tax efficiency for long-term success',
+      'Personalized guidance through emotional emergence, clarity rituals, and breakthrough mapping',
   },
   {
-    name: 'Legal Architecture',
+    name: 'Curriculum-Based Modules',
     description:
-      'Designing legal frameworks that support business growth and compliance',
+      'Structured phases of transformation, each with symbolic tools and emotional pacing',
   },
   {
-    name: 'Strategic Planning',
-    description:
-      'Long-term business strategies that align with your vision and goals',
+    name: 'Breakthrough Documentation',
+    description: 'Turning insights into templates, rituals, and legacy assets',
   },
   {
-    name: 'Financial Systems Design',
+    name: 'Shadow & Resonance Work',
     description:
-      'Creating financial structures that optimize cash flow and investment',
+      'Reframing limiting beliefs, integrating emotional contrast, and activating core values',
   },
   {
-    name: 'Brand Evolution Strategy',
+    name: 'Sovereignty Practices',
     description:
-      'Guiding brands through growth phases with a focus on adaptability and resonance',
+      'Daily rituals for individual clarity, boundaries, and personal alignment',
   },
   {
-    name: 'Brand Modularity',
+    name: 'Digital Library & Emotional Scoring',
     description:
-      'Designing brands that can flex and scale with your business and individual identity needs',
+      'Personalized framework to understand your DRIVEs, resonances, and role in life, society, and community',
   },
 ];
 
 const CONSULTING_BULLET_POINTS: IAboutBulletPoint[] = [
   {
-    name: 'IT Infrastructure Planning',
+    name: 'Business Identity & Purpose Development',
     description:
-      'Building scalable and secure IT environments for startups and enterprises',
+      'Defining your core mission, vision, and values to create authentic business alignment',
   },
   {
-    name: 'Hybrid Compute Workflows',
+    name: 'Strategic Business Planning',
     description:
-      'Integrating cloud and on-premises systems for optimal performance',
+      'Developing comprehensive business strategies that align with your purpose and goals',
   },
   {
-    name: 'Cloud Optimization',
+    name: 'Systems Architecture & Integration',
     description:
-      'Improving cloud performance and cost efficiency as your business grows',
+      'Designing scalable technology solutions that support your business objectives',
   },
   {
-    name: 'Systems Integration',
-    description: 'Connecting disparate systems for seamless data flow',
+    name: 'Operational Efficiency Optimization',
+    description:
+      'Streamlining processes and workflows to maximize productivity and growth',
   },
   {
-    name: 'Scalable Ops Design',
+    name: 'Technology Stack Assessment',
     description:
-      'Building operations and infrastructure that grow with your business',
+      'Evaluating and optimizing your current technology to align with business goals',
   },
   {
-    name: 'Code Review & Optimization',
+    name: 'Team Development & Leadership',
     description:
-      'Ensuring code quality and performance for high reliability and scalability',
+      'Building effective teams and leadership structures through proven methodologies',
   },
   {
-    name: 'Team Process Improvement',
+    name: 'Digital Transformation Strategy',
     description:
-      'Enhancing team workflows and collaboration through Agile & Scrum methodologies',
+      'Guiding businesses through purposeful digital evolution and innovation',
   },
   {
-    name: 'Digital Transformation & Optimization',
+    name: 'Business Growth & Scaling',
     description:
-      'Guiding businesses through digital change for improved efficiency and innovation',
+      'Creating sustainable growth strategies for small to medium businesses and entrepreneurs',
   },
 ];
 
@@ -478,8 +538,8 @@ const SERVICES_EXPORTS = {
   ABOUT_BULLET_POINTS,
   ABOUT_PERCENTAGE_POINTS,
   ABOUT_PROFESSIONAL_SUMMARY,
-  BUSINESS_BULLET_POINTS,
-  BUSINESS_SUMMARY,
+  RESONANCE_CORE_BULLET_POINTS,
+  RESONANCE_CORE_SUMMARY,
   CONSULTING_BULLET_POINTS,
   CONSULTING_SUMMARY,
   DESIGN_BULLET_POINTS,
@@ -496,6 +556,8 @@ const SERVICES_EXPORTS = {
   PERSONAL_TRAINING_SUMMARY,
   SERVICES_BULLET_POINTS,
   SERVICES_SUMMARY,
+  // White pages helper
+  getWhitePagesFromServices,
 };
 
 export default SERVICES_EXPORTS;
