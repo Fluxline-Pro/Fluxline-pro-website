@@ -88,10 +88,7 @@ const styles = {
   }),
   h2Title: (theme: any, orientation?: string) => ({
     color: theme.palette.themePrimary,
-    margin:
-      orientation === 'mobile-landscape'
-        ? '0.5rem 0'
-        : '1rem 0 0.5rem 0',
+    margin: orientation === 'mobile-landscape' ? '0.5rem 0' : '1rem 0 0.5rem 0',
     fontSize:
       orientation === 'mobile-landscape'
         ? theme.typography.fontSizes.clamp6 // Reduced from clamp7 to clamp6 for mobile-landscape
@@ -168,6 +165,22 @@ export const WhitePagesSection: React.FC<{
     orientation === 'portrait' ||
     orientation === 'tablet-portrait' ||
     orientation === 'large-portrait';
+
+  const handleCardClick = (whitePage: WhitePageItem) => {
+    // Detect Safari/WebKit for mobile PDF fallback
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isWebKit =
+      /webkit/i.test(navigator.userAgent) &&
+      !/chrome/i.test(navigator.userAgent);
+    const isMobileSafari = (isSafari || isWebKit) && isMobile;
+
+    if (isMobileSafari) {
+      // Open PDF in new tab for mobile Safari users
+      window.open(whitePage.pdfPath, '_blank');
+    } else {
+      setSelectedPdf(whitePage);
+    }
+  };
 
   const hrStyles = {
     margin: '2rem 0',
@@ -263,7 +276,7 @@ export const WhitePagesSection: React.FC<{
               key={whitePage.id}
               whitePage={whitePage}
               isHovered={hoveredCard === whitePage.id}
-              onClick={setSelectedPdf}
+              onClick={handleCardClick}
               onMouseEnter={() => setHoveredCard(whitePage.id)}
               onMouseLeave={() => setHoveredCard(null)}
               variant='compact'
@@ -335,7 +348,12 @@ export const AboutSection: React.FC<{
         variant='h2'
         style={styles.h2Title(theme, orientation)}
         margin={isMobile ? '1.5rem 0' : '0 0 1.5rem 0'}
-        textAlign={orientation === 'mobile-landscape' && layoutPreference === 'left-handed' ? 'right' : 'left'}
+        textAlign={
+          orientation === 'mobile-landscape' &&
+          layoutPreference === 'left-handed'
+            ? 'right'
+            : 'left'
+        }
       >
         About Fluxline
       </Typography>

@@ -29,7 +29,19 @@ export const WhitePagesView: React.FC = () => {
   const whitePages = getWhitePagesFromServices();
 
   const handleCardClick = (whitePage: WhitePageItem) => {
-    setSelectedPdf(whitePage);
+    // Detect Safari/WebKit for mobile PDF fallback
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isWebKit =
+      /webkit/i.test(navigator.userAgent) &&
+      !/chrome/i.test(navigator.userAgent);
+    const isMobileSafari = (isSafari || isWebKit) && isMobile;
+
+    if (isMobileSafari) {
+      // Open PDF in new tab for mobile Safari users
+      window.open(whitePage.pdfPath, '_blank');
+    } else {
+      setSelectedPdf(whitePage);
+    }
   };
 
   const handleCloseModal = () => {
@@ -72,7 +84,8 @@ export const WhitePagesView: React.FC = () => {
               display='flex'
               flexDirection='row'
               justifyContent={
-                orientation === 'mobile-landscape' && layoutPreference === 'left-handed'
+                orientation === 'mobile-landscape' &&
+                layoutPreference === 'left-handed'
                   ? 'flex-end'
                   : 'flex-start'
               }
@@ -105,7 +118,7 @@ export const WhitePagesView: React.FC = () => {
               noHyphens
             >
               Explore detailed information about each of our services through
-              our white pages below. 
+              our white pages below.
             </Typography>
 
             <div style={styles.cardContainer(isMobile)}>
