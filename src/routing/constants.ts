@@ -48,6 +48,31 @@ export const ROUTES: Routes[] = [
     name: 'press releases',
     path: 'press',
     isMenuItem: true,
+    isContentScreen: true,
+  },
+  // Legal sub-routes
+  {
+    name: 'stewardship contract',
+    path: 'legal/stewardship-contract',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'terms of use',
+    path: 'legal/terms-of-use',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'privacy policy',
+    path: 'legal/privacy-policy',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'glossary',
+    path: 'legal/glossary',
+    isMenuItem: false,
     isContentScreen: false,
   },
   {

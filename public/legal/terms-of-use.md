@@ -2,6 +2,9 @@
 
 ## Introduction
 
+**Effective Date:** October 12, 2025
+**Last Updated:** October 12, 2025
+
 By accessing or using any materials, frameworks, coaching services, or digital content provided by Fluxline Resonance Group, LLC ("Fluxline," "we," "us," or "our"), you ("client," "your", "user," or "users") agree to the following Terms of Use. These terms form a living covenant between you and Fluxline, designed to uphold the integrity, stewardship, and mythic resonance of our offerings.
 
 ---
@@ -46,7 +49,7 @@ Fluxline offers strategic, design-forward, and emotionally intelligent solutions
 - **Education & Training**: Transformational coaching and founder mentorship
 - **Personal Training & Wellness**: Fitness and life training through a systems lens
 - **Resonance Core Life Coaching**: Personal development using the Resonance Core Framework
-- **IT & Systems Consulting**: Modular IT strategies and infrastructure planning
+- **Business Strategy & Systems Alignment**: Strategic business planning, mission & vision development, and technology integration for purpose-driven growth
 - **Web & App Development**: Full-stack digital product development
 - **Brand & Experience Design**: End-to-end brand architecture and UI/UX design
 

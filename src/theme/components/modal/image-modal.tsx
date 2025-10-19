@@ -88,7 +88,7 @@ export const ImageModal: React.FC<ImageModalProps> = ({
           alignItems: 'center',
           justifyContent: 'center',
           animation: 'fadeIn 0.3s ease-in-out',
-          overflow: 'hidden',
+          overflow: 'visible', // Changed from 'hidden' to 'visible' to allow close button to show
         }}
         onClick={(e) => e.stopPropagation()} // Prevent clicks on image from closing modal
       >
@@ -110,14 +110,10 @@ export const ImageModal: React.FC<ImageModalProps> = ({
           onClick={onClose}
           style={{
             position: 'absolute',
-            top: isMobile ? theme.spacing.l : '-30px',
-            right: isMobile ? theme.spacing.l : '-30px',
-            background: isMobile
-              ? 'rgba(255, 255, 255, 0.9)'
-              : theme.palette.neutralLighterAlt,
-            color: isMobile
-              ? theme.palette.neutralDark
-              : theme.palette.neutralPrimary,
+            top: isMobile ? theme.spacing.l : '10px', // Changed from -30px to 10px
+            right: isMobile ? theme.spacing.l : '10px', // Changed from -30px to 10px
+            background: theme.semanticColors.errorText,
+            color: theme.palette.white,
             border: 'none',
             borderRadius: '50%',
             width: isMobile ? '48px' : '40px',
@@ -132,6 +128,12 @@ export const ImageModal: React.FC<ImageModalProps> = ({
               : '0 2px 5px rgba(0, 0, 0, 0.2)',
             transition: 'all 0.2s ease',
             zIndex: 1001,
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
           }}
         >
           ✕

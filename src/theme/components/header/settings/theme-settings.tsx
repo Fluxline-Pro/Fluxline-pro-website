@@ -17,7 +17,7 @@ export const ThemeSettings: React.FC<ThemeSettingsProps> = ({
   return (
     <div>
       <FluentToggle
-        label='Enable Dark Mode'
+        label='Enable dark mode'
         checked={themeMode === 'dark'}
         displayAsRow={isOnboarding}
         onChange={(checked) => setThemeMode(checked ? 'dark' : 'light')}
@@ -31,7 +31,7 @@ export const ThemeSettings: React.FC<ThemeSettingsProps> = ({
         ].includes(themeMode)}
       />
       <FluentToggle
-        label='Enable High Contrast'
+        label='Enable high contrast mode'
         displayAsRow={isOnboarding}
         checked={themeMode === 'high-contrast'}
         onChange={(checked) =>

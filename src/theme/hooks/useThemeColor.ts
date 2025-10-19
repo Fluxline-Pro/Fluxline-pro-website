@@ -8,7 +8,8 @@ export const useThemeColor = () => {
   ) => {
     if (
       theme.themeMode === 'high-contrast' ||
-      theme.themeMode === 'grayscale'
+      theme.themeMode === 'grayscale' ||
+      theme.themeMode === 'grayscale-dark'
     ) {
       return theme.palette.themePrimary;
     }
