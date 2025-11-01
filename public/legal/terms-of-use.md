@@ -215,7 +215,7 @@ These terms and conditions are governed by and construed in accordance with the 
 
 ### 17. Signature Clause
 
-By signing the intake form or submitting your onboarding scroll, you acknowledge and accept these Terms of Use as part of your training agreement with Fluxline Resonance Group, LLC. Your acceptance may be withdrawn at any time by contacting us at [support@fluxline.pro](mailto:support@fluxline.pro) in accordance with our Refund Policy (see above). Should this occur, your services will be stopped effective the date of the rescidence of acceptance.
+By signing the intake form or submitting your onboarding scroll, you acknowledge and accept these Terms of Use as part of your training agreement with Fluxline Resonance Group, LLC. Your acceptance may be withdrawn at any time by contacting us at [support@fluxline.pro](mailto:support@fluxline.pro) in accordance with our Refund Policy (see above). Should this occur, your services will be stopped effective the date of the rescission of acceptance.
 
 ---
 
