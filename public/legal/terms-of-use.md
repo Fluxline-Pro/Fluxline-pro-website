@@ -77,7 +77,7 @@ This policy honors the sacred exchange of time, energy, and mythic investment—
 
 ### 4. Refunds & Cancellations
 
-Fluxline offers up to **two complimentary sessions** for new clients to experience our coaching and transformational services. These sessions are provided with no financial obligation and may be canceled at any time prior to the third session without charge.
+Fluxline offers up to **two complimentary sessions** for new clients to experience our coaching and transformational services. These sessions are provided with no financial obligation and may be canceled at any time prior to commitment to ongoing services without charge.
 
 Upon completion of the trial period, clients agree to a **full monthly charge** as outlined in the Client Agreement. This charge reflects the value of the coaching container, emotional stewardship, and modular systems provided.
 
@@ -86,7 +86,7 @@ Upon completion of the trial period, clients agree to a **full monthly charge** 
 - After 30 days, all payments are considered final and non-refundable.
 - Time purchased cannot be paused or suspended except under emergency circumstances at the discretion of Fluxline.
 - You may cancel future sessions by notifying us prior to the start of your next billing cycle, but refunds will not be issued for unused time beyond the 30-day window.
-- For issues arising from the program, please contact us directly at [support@fluxline.pro]<mailto:support@fluxline.pro> so we may promptly resolve your issue in good faith.
+- For issues arising from the program, please contact us directly at [support@fluxline.pro](mailto:support@fluxline.pro) so we may promptly resolve your issue in good faith.
 
 **For example:** You sign up for a 3-month period of time for services rendered. The 30-day window has expired, and you wish to cancel for the remainder of the program on day 40. This agreement states Fluxline will not issue a refund for the remaining 50 days, as the 30-day window has passed.
 
@@ -94,7 +94,7 @@ Upon completion of the trial period, clients agree to a **full monthly charge** 
 
 ### 5. Confidentiality & Data Use
 
-Any personal information shared through coaching, journaling, or feedback is treated with confidentiality and emotional stewardship and is never shared with anyone outside of Fluxline without written permission from you. Please refer to our Privacy Policy for full details. Use of our services is limited to those who are at least 18 years of age or older.
+Any personal information shared through coaching, journaling, or feedback is treated with confidentiality and emotional stewardship and is never shared with anyone outside of Fluxline without written permission from you. Please refer to our [Privacy Policy](/legal/privacy-policy) for full details. Use of our services is limited to those who are at least 18 years of age or older.
 
 ---
 
@@ -119,13 +119,7 @@ As part of this disclaimer of services provided, to summarize:
 
 ---
 
-### 8. Limitations of Liability
-
-In no event shall Fluxline or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Fluxline's website or services, even if Fluxline or a Fluxline authorized representative has been notified orally or in writing of the possibility of such damage.
-
----
-
-### 9. Respectful Engagement
+### 8. Respectful Engagement
 
 Users agree to engage with Fluxline, its team, and its offerings in a respectful and lawful manner. This includes honoring the emotional, creative, and intellectual boundaries of the work.
 
@@ -136,7 +130,7 @@ Users agree to engage with Fluxline, its team, and its offerings in a respectful
 
 ---
 
-### 10. Modifications to Terms
+### 9. Modifications to Terms
 
 Fluxline reserves the right to update or modify these Terms of Use at any time without notice. By using this website and services you are agreeing to be bound by the then current version of these Terms of Use. Continued use of our offerings after changes are posted constitutes acceptance of the revised terms.
 
@@ -144,7 +138,50 @@ If the amended terms are not agreeable, you may cancel your agreement before the
 
 ---
 
-### 11. Arbitration & Dispute Resolution
+## Personal Training-Specific Terms of Use (Sections 10-13)
+
+### 10. Physical Risk & Exercise Disclaimer (Personal Training)
+
+By participating in any physical training, movement protocol, or exercise program offered by Fluxline, you acknowledge the inherent risks associated with physical activity. You agree to disclose any relevant medical conditions and assume full responsibility for your physical well-being during training. Fluxline and its representatives are not liable for injuries or adverse outcomes unless caused by gross negligence.
+
+As part of this risk and to help us ensure we mitigate this risk to our business and your well-being:
+
+- You acknowledge that any physical training involves inherent risks and agree to assume these risks. This includes, but is not limited to: personal injury, fatigue, soreness, etc.,
+- You agree that you are an individual aged at least 18 years of age or older as of the date of starting services unless written permission is received from your legal guardian or parent and primary care physician,
+- You agree to disclose any medical conditions, allergies, limitations, procedures, and personal risk factors associated with physical activity before beginning our training regimen, and
+- You agree to promptly notify Fluxline or your trainer of any new issues or medical circumstances that may limit or prevent you from training.
+
+**_Fluxline is not liable for injuries sustained during training unless caused by gross negligence. Clients are responsible for adhering to safety protocols and disclosing relevant health information._** That includes, but is not limited to: Not adhering to training given, failure to notify of medical history records or changes, risk factor concerns not discussed prior to training, and so on.
+
+---
+
+### 11. Emergency Protocols (Personal Training)
+
+In the event of a medical emergency during training, Fluxline may contact your listed emergency contact to ensure prompt attention to the emergency is granted and adhered to. We will also make every attempt to work with your medical provider and staff with any information necessary with written consent from you and/or your emergency contact. We ask that your emergency contact be kept up to date on file with us to ensure we can contact them promptly should an issue arise. We strongly recommend consulting with your physician before beginning any new fitness regimen, especially if you have pre-existing conditions.
+
+---
+
+### 12. Client Expectations for Personal Training
+
+Training sessions require a strong adherence to guidelines and timeframes to ensure maximum and peak efficiency in the program. As such, clients are expected to arrive on time, communicate clearly about rescheduling needs, and respect the training space and equipment. We understand life happens and will gladly work with you and your schedule to ensure maximum adherence to your program. However, repeated missed sessions without notice may result in suspension of services at the discretion of Fluxline Resonance Group, LLC, and services paid for will not be refunded for no-shows or repeated lost contact.
+
+---
+
+### 13. Visual Ritual & Testimonials
+
+Clients may be invited to participate in visual ritual tracking (e.g., progress photos, movement videos) and/or testimonials as part of their transformation journey. Participation is optional and requires separate consent. This consent may be given or withdrawn at any time by contacting us at [support@fluxline.pro](mailto:support@fluxline.pro) or by talking with your trainer.
+
+**_End of Personal Training-specific clauses_**
+
+---
+
+### 14. Limitations of Liability
+
+In no event shall Fluxline or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Fluxline's website or services, even if Fluxline or a Fluxline authorized representative has been notified orally or in writing of the possibility of such damage.
+
+---
+
+### 15. Arbitration & Dispute Resolution
 
 Disagreements and/or issues are natural parts of any journey. If you experience any issues while working with Fluxline, **please reach out to us directly at [support@fluxline.pro](mailto:support@fluxline.pro)**. We'll review your concern in good faith and work with you to find a respectful, mutually beneficial resolution.
 
@@ -156,7 +193,7 @@ The arbitration shall take place in Salt Lake County, Utah, and be governed by U
 
 ---
 
-### 12. Intellectual Property & Copyright Notice
+### 16. Intellectual Property & Copyright Notice
 
 All content, frameworks, and original materials created by Terence Waters and Fluxline Resonance Group, LLC are protected under U.S. copyright law. This includes but is not limited to:
 
@@ -172,13 +209,19 @@ Unauthorized reproduction, distribution, or derivative use is strictly prohibite
 
 ---
 
-### 13. Governing Law
+### 17. Governing Law
 
 These terms and conditions are governed by and construed in accordance with the laws of Utah, United States.
 
 ---
 
-### 14. Contact Information
+### 18. Signature Clause
+
+By signing the intake form or submitting your onboarding scroll, you acknowledge and accept these Terms of Use as part of your training agreement with Fluxline Resonance Group, LLC. Your acceptance may be withdrawn at any time by contacting us at [support@fluxline.pro](mailto:support@fluxline.pro) in accordance with our Refund Policy (see above). Should this occur, your services will be stopped effective the date of the rescission of acceptance.
+
+---
+
+### 19. Contact Information
 
 For questions about these Terms of Use, please contact us at [support@fluxline.pro](mailto:support@fluxline.pro) or through our website contact form.
 
@@ -187,5 +230,3 @@ By engaging with Fluxline services, you acknowledge and accept these terms as pa
 ---
 
 &copy; 2025–Present Fluxline Resonance Group, LLC. All rights reserved.
-
-**Last Updated:** October 12, 2025

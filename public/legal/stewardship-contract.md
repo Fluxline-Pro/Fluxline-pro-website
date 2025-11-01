@@ -1,8 +1,11 @@
 # Stewardship Contract: Fluxline Resonance Group, LLC
 
+**Effective Date:** October 12, 2025
+**Last Updated:** October 12, 2025
+
 ## Introduction
 
-This Stewardship Contract ("Agreement," "The Agreement," "Client Agreement," or "Contract") outlines the expectations, boundaries, and shared commitments between Fluxline Resonance Group, LLC ("Fluxline," "we," "us," or "our") and you ("Client," "you," or "your") as you engage with our coaching services, frameworks, and transformational offerings.
+This Stewardship Contract ("Agreement," "The Agreement," "Client Agreement," or "Contract") outlines the expectations, boundaries, and shared commitments between Fluxline Resonance Group, LLC ("Fluxline," "we," "us," or "our") and you ("Client," "you," or "your") as you engage with our coaching services, frameworks, and transformational offerings. This Agreement complements our Terms of Use and is acknowledged during client onboarding. Together, they form the covenant of stewardship between you and Fluxline.
 
 ---
 
@@ -52,6 +55,7 @@ We ask our clients to:
 - **Respect Boundaries**: Honor agreed-upon timelines, scope, and mutual commitments
 - **Provide Resources**: Supply necessary information, assets, and access for successful execution
 - **Trust the Process**: Allow space for exploration, iteration, and creative problem-solving
+- **Honor Physical Readiness (Personal Training only)**: Disclose to us any medical conditions or limitations that may affect your training journey
 
 ---
 
@@ -68,7 +72,9 @@ This Agreement applies to all Fluxline services, including:
 - Web & App Development
 - Brand & Experience Design
 
-Specific service agreements will outline detailed deliverables, timelines, and investment requirements.
+Specific service agreements will outline detailed deliverables, timelines, and investment requirements. For personal training services, clients must be at least 18 years of age or provide written consent from a legal guardian and physician. All training involves inherent physical risk, and clients agree to disclose relevant medical history prior to beginning any training regimen.
+
+In the event of a medical emergency during training, Fluxline may contact your listed emergency contact and work with medical providers as necessary with written consent from you and/or your emergency contact. We strongly recommend consulting with your physician before beginning any fitness regimen, especially if you have pre-existing conditions.
 
 ### Service Details
 
@@ -90,6 +96,7 @@ Unless otherwise agreed in writing:
 - Fluxline retains ownership of methodologies, frameworks, and proprietary processes
 - Clients receive full rights to custom deliverables created specifically for their project
 - Portfolio use and case study rights will be negotiated separately
+- Progress photos, movement videos, and testimonials given during services are optional and may require separate consent. You may opt in our out at any time.
 
 All content, systems, and frameworks—including but not limited to the Resonance Core, Activation Domains, Decision Integrity Index, and related materials—are proprietary to Fluxline.
 
@@ -115,9 +122,9 @@ All personal information shared through coaching, journaling, or feedback is tre
 
 ### Trial Period & Billing
 
-New clients are offered up to **two complimentary sessions** to experience Fluxline's coaching container. These sessions are provided with no financial obligation and may be canceled at any time prior to the second or third session without charge, depending on the agreement.
+New clients are offered up to **two complimentary sessions** to experience Fluxline's coaching container. These sessions are provided with no financial obligation and may be canceled at any time prior to commitment to ongoing services without charge.
 
-Upon completion of the trial period, you agree to a **full monthly charge** for continued services. This charge reflects the value of the coaching container, emotional stewardship, and modular systems provided.
+Upon completion of the trial period, you agree to a **full monthly charge** for continued services. This charge reflects the value of the coaching container, emotional stewardship, and modular systems provided. Refunds are not issued for missed personal training sessions or repeated no-contact or no-show sessions unless due to emergency circumstances and at Fluxline’s discretion.
 
 ### Payment & Prepaid Services
 
@@ -153,7 +160,7 @@ Fluxline may integrate with third-party platforms (e.g., Notion, Stripe, Twitch)
 
 ### No Guarantees
 
-Fluxline offers tools and guidance designed to support transformation. However, results are not guaranteed. You remain responsible for your own decisions, actions, and outcomes.
+Fluxline offers tools and guidance designed to support transformation. However, results are not guaranteed. You remain responsible for your own decisions, actions, and outcomes. Fluxline is not liable for injuries sustained during training unless caused by gross negligence. Clients are responsible for adhering to safety protocols and disclosing relevant health information.
 
 - Fluxline does not provide medical, legal, or financial advice
 - All guidance is educational and experiential in nature
@@ -179,13 +186,15 @@ Fluxline reserves the right to update or modify this Agreement at any time. Cont
 
 If the amended terms are not agreeable to you, you may cancel your agreement before the effective date of the amendments. A partial refund may be issued at Fluxline's discretion within our standard refund policy.
 
+By signing this Agreement or submitting your onboarding scroll, you acknowledge and accept the terms outlined in our Terms of Use.
+
 ### Arbitration & Dispute Resolution
 
 If any issue arises during your engagement with Fluxline, we encourage you to contact us directly at [support@fluxline.pro](mailto:support@fluxline.pro). We will review your concern in good faith and work toward a mutually beneficial resolution.
 
-Any dispute, claim, or controversy that cannot be resolved informally shall be settled through final and binding arbitration administered by [Insert Arbitration Body] in accordance with its rules.
+Any dispute, claim, or controversy that cannot be resolved informally shall be settled through final and binding arbitration administered by the American Arbitration Association in accordance with its rules.
 
-- Arbitration shall take place in Salt Lake County, Utah, and be governed by Utah law
+- Arbitration shall take place in Salt Lake County, Utah, and be governed by the laws of Utah, United States
 - Each party shall bear its own costs unless otherwise determined by the arbitrator
 - The arbitrator's decision is final and cannot be rejected or appealed except by the terms laid out by the arbitrator
 
@@ -197,6 +206,10 @@ By signing this Agreement or continuing with Fluxline services beyond the trial 
 
 ---
 
-&copy; 2025–Present Fluxline Resonance Group, LLC. All rights reserved.
+### Contact Information
 
-**Last Updated:** October 12, 2025
+For questions about this Stewardship Contract, please contact us at [support@fluxline.pro](mailto:support@fluxline.pro) or through our website contact form.
+
+---
+
+&copy; 2025–Present Fluxline Resonance Group, LLC. All rights reserved.
