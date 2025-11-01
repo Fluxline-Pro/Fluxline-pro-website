@@ -154,7 +154,7 @@ Clients may be invited to participate in visual ritual tracking (e.g., progress 
 
 ---
 
-### 11. Respectful Engagement
+### 12. Respectful Engagement
 
 Users agree to engage with Fluxline, its team, and its offerings in a respectful and lawful manner. This includes honoring the emotional, creative, and intellectual boundaries of the work.
 
