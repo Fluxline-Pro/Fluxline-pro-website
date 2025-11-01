@@ -191,7 +191,7 @@ The arbitration shall take place in Salt Lake County, Utah, and be governed by U
 
 ---
 
-### 5. Intellectual Property & Copyright Notice
+### 15. Intellectual Property & Copyright Notice
 
 All content, frameworks, and original materials created by Terence Waters and Fluxline Resonance Group, LLC are protected under U.S. copyright law. This includes but is not limited to:
 
