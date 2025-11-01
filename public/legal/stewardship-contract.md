@@ -190,7 +190,7 @@ By signing this Agreement or submitting your onboarding scroll, you acknowledge 
 
 If any issue arises during your engagement with Fluxline, we encourage you to contact us directly at [support@fluxline.pro](mailto:support@fluxline.pro). We will review your concern in good faith and work toward a mutually beneficial resolution.
 
-Any dispute, claim, or controversy that cannot be resolved informally shall be settled through final and binding arbitration in accordance with its rules.
+Any dispute, claim, or controversy that cannot be resolved informally shall be settled through final and binding arbitration administered by the American Arbitration Association in accordance with its rules.
 
 - Arbitration shall take place in Salt Lake County, Utah, and be governed by Utah law
 - Each party shall bear its own costs unless otherwise determined by the arbitrator
