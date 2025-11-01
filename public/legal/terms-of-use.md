@@ -94,7 +94,7 @@ Upon completion of the trial period, clients agree to a **full monthly charge** 
 
 ### 5. Confidentiality & Data Use
 
-Any personal information shared through coaching, journaling, or feedback is treated with confidentiality and emotional stewardship and is never shared with anyone outside of Fluxline without written permission from you. Please refer to our Privacy Policy for full details. Use of our services is limited to those who are at least 18 years of age or older.
+Any personal information shared through coaching, journaling, or feedback is treated with confidentiality and emotional stewardship and is never shared with anyone outside of Fluxline without written permission from you. Please refer to our [Privacy Policy](/legal/privacy-policy) for full details. Use of our services is limited to those who are at least 18 years of age or older.
 
 ---
 

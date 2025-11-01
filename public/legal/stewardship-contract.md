@@ -94,7 +94,7 @@ Unless otherwise agreed in writing:
 - Fluxline retains ownership of methodologies, frameworks, and proprietary processes
 - Clients receive full rights to custom deliverables created specifically for their project
 - Portfolio use and case study rights will be negotiated separately
-- Progress photos, movement videos, and testimonials given during services are optional and mamy require separate consent. You may opt in our out at any time.
+- Progress photos, movement videos, and testimonials given during services are optional and may require separate consent. You may opt in our out at any time.
 
 All content, systems, and frameworks—including but not limited to the Resonance Core, Activation Domains, Decision Integrity Index, and related materials—are proprietary to Fluxline.
 
@@ -190,7 +190,7 @@ By signing this Agreement or submitting your onboarding scroll, you acknowledge 
 
 If any issue arises during your engagement with Fluxline, we encourage you to contact us directly at [support@fluxline.pro](mailto:support@fluxline.pro). We will review your concern in good faith and work toward a mutually beneficial resolution.
 
-Any dispute, claim, or controversy that cannot be resolved informally shall be settled through final and binding arbitration administered by [Insert Arbitration Body] in accordance with its rules.
+Any dispute, claim, or controversy that cannot be resolved informally shall be settled through final and binding arbitration in accordance with its rules.
 
 - Arbitration shall take place in Salt Lake County, Utah, and be governed by Utah law
 - Each party shall bear its own costs unless otherwise determined by the arbitrator
