@@ -74,6 +74,8 @@ This Agreement applies to all Fluxline services, including:
 
 Specific service agreements will outline detailed deliverables, timelines, and investment requirements. For personal training services, clients must be at least 18 years of age or provide written consent from a legal guardian and physician. All training involves inherent physical risk, and clients agree to disclose relevant medical history prior to beginning any training regimen.
 
+In the event of a medical emergency during training, Fluxline may contact your listed emergency contact and work with medical providers as necessary with written consent from you and/or your emergency contact. We strongly recommend consulting with your physician before beginning any fitness regimen, especially if you have pre-existing conditions.
+
 ### Service Details
 
 Fluxline provides coaching, educational materials, and transformational systems rooted in emotional stewardship, modular design, and mythic self-authorship. Services may include:
@@ -120,7 +122,7 @@ All personal information shared through coaching, journaling, or feedback is tre
 
 ### Trial Period & Billing
 
-New clients are offered up to **two complimentary sessions** to experience Fluxline's coaching container. These sessions are provided with no financial obligation and may be canceled at any time prior to the second or third session without charge, depending on the agreement.
+New clients are offered up to **two complimentary sessions** to experience Fluxline's coaching container. These sessions are provided with no financial obligation and may be canceled at any time prior to commitment to ongoing services without charge.
 
 Upon completion of the trial period, you agree to a **full monthly charge** for continued services. This charge reflects the value of the coaching container, emotional stewardship, and modular systems provided. Refunds are not issued for missed personal training sessions or repeated no-contact or no-show sessions unless due to emergency circumstances and at Fluxline’s discretion.
 
@@ -192,7 +194,7 @@ If any issue arises during your engagement with Fluxline, we encourage you to co
 
 Any dispute, claim, or controversy that cannot be resolved informally shall be settled through final and binding arbitration administered by the American Arbitration Association in accordance with its rules.
 
-- Arbitration shall take place in Salt Lake County, Utah, and be governed by Utah law
+- Arbitration shall take place in Salt Lake County, Utah, and be governed by the laws of Utah, United States
 - Each party shall bear its own costs unless otherwise determined by the arbitrator
 - The arbitrator's decision is final and cannot be rejected or appealed except by the terms laid out by the arbitrator
 
@@ -201,6 +203,12 @@ Any dispute, claim, or controversy that cannot be resolved informally shall be s
 ### Acknowledgment
 
 By signing this Agreement or continuing with Fluxline services beyond the trial period, you acknowledge and accept these terms as part of our shared commitment to integrity, clarity, and transformational accountability.
+
+---
+
+### Contact Information
+
+For questions about this Stewardship Contract, please contact us at [support@fluxline.pro](mailto:support@fluxline.pro) or through our website contact form.
 
 ---
 
