@@ -74,6 +74,12 @@ export const ROUTES: Routes[] = [
     isMenuItem: true,
     isContentScreen: false,
   },
+  {
+    name: 'testimonials',
+    path: 'testimonials',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
   // Services sub-routes
   {
     name: 'personal training',

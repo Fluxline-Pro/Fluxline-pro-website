@@ -43,6 +43,7 @@ export const CONTENT_API_FLAGS = {
   videos: false, // Still use mock data
   music: false, // Still use mock data
   livestreams: false, // Still use mock data
+  testimonials: false, // Use mock data for now, ready for backend integration
 };
 
 // Check if API is available and configured
@@ -569,6 +570,52 @@ export const generateMockContent = (
             'Awards',
             'Partnerships',
           ]),
+        };
+
+      case 'testimonials':
+        const firstName = faker.person.firstName();
+        const lastName = faker.person.lastName();
+        const fullName = `${firstName} ${lastName}`;
+        const companyName = faker.company.name();
+        const jobTitle = faker.person.jobTitle();
+        const services = faker.helpers.arrayElements([
+          'Strategic Consulting',
+          'Business Architecture',
+          'Digital Transformation',
+          'Web Development',
+          'Personal Training',
+          'Education & Training',
+        ], faker.number.int({ min: 1, max: 3 }));
+        
+        // Generate a short quote for card display
+        const quotes = [
+          `Working with Fluxline transformed our entire approach to ${faker.helpers.arrayElement(['digital strategy', 'business operations', 'team development', 'system architecture'])}.`,
+          `The ${faker.helpers.arrayElement(['expertise', 'professionalism', 'dedication', 'attention to detail'])} demonstrated by the Fluxline team exceeded all expectations.`,
+          `I highly recommend Fluxline for anyone seeking ${faker.helpers.arrayElement(['strategic guidance', 'technical excellence', 'business transformation', 'innovative solutions'])}.`,
+          `Our ${faker.helpers.arrayElement(['productivity', 'efficiency', 'revenue', 'team performance'])} increased significantly after implementing Fluxline's recommendations.`,
+          `Fluxline provided ${faker.helpers.arrayElement(['invaluable insights', 'exceptional support', 'game-changing strategies', 'outstanding training'])} that made a real difference.`,
+        ];
+        const quote = faker.helpers.arrayElement(quotes);
+        
+        // Generate full testimonial text
+        const fullText = `${quote} ${faker.lorem.paragraph()} ${faker.lorem.paragraph()}`;
+        
+        return {
+          ...baseContent,
+          title: fullName,
+          description: quote,
+          imageUrl: faker.image.avatarGitHub(), // Use GitHub avatar style for profile photos
+          imageAlt: `${fullName} profile photo`,
+          category: services[0], // Primary service
+          author: fullName,
+          // Additional testimonial-specific fields
+          company: companyName,
+          jobTitle,
+          services: services.join(', '),
+          quote,
+          fullText,
+          rating: faker.number.int({ min: 4, max: 5 }), // High ratings only
+          featured: index < 2, // First 2 testimonials are featured
         };
 
       default: // 'blog' and others

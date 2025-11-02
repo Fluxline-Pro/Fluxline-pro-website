@@ -18,7 +18,8 @@ import { NavigationArrow } from '../../theme/components/navigation-arrow/navigat
 import { PdfModal } from '../../theme/components/modal/pdf-modal';
 import { WhitePageItem } from '../white-pages/white-pages-constants';
 import { WhitePageCard } from '../../theme/components/card/white-page-card/white-page-card';
-import { CTACallout } from '../../theme/components/cta';
+import { CTACallout } from '../../theme/components/cta/cta-callout';
+import { TestimonialsSection } from './testimonials-section';
 
 // Reusable style objects
 const styles = {
@@ -1251,6 +1252,7 @@ export const Services: React.FC<ServicesProps> = ({
                 isMobile={orientation === 'portrait'}
                 currentView={actualView}
               />
+              <TestimonialsSection currentView={actualView} />
               <GetStarted />
             </>
           ) : (
