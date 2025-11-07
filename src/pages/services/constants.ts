@@ -641,7 +641,7 @@ const SERVICES_STYLES = {
     padding: '1rem',
     fontSize: '1.1rem',
     fontFamily: theme.typography.fonts.h3.fontFamily,
-    textAlign: (options?.textAlign as any) || 'center',
+    textAlign: (options?.textAlign as any) || 'left',
     fontWeight: 'bold',
     borderRadius: options?.borderRadius || '0',
     position: options?.position as any,

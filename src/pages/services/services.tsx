@@ -349,7 +349,7 @@ const ProgramTierTable: React.FC<{ theme: any; isMobile: boolean }> = ({
             ? theme.semanticColors.bodyBackground
             : theme.themeMode === 'dark'
               ? 'rgba(40,40,40, 0.8)' // Dark mode background hard coded for table
-              : theme.palette.neutralLighter,
+              : theme.palette.neutralLighterAlt,
         borderRadius: '8px',
         padding: '1rem',
       }}
@@ -365,7 +365,7 @@ const ProgramTierTable: React.FC<{ theme: any; isMobile: boolean }> = ({
             <th
               style={styles.tableHeader(theme, { borderRadius: '4px 0 0 0' })}
             >
-              📊 Program Tier
+              Program Tier
             </th>
             <th style={styles.tableHeader(theme)}>Ideal For</th>
             <th
@@ -485,6 +485,7 @@ const WhatsIncludedModal: React.FC<{
               marginBottom: '1.5rem',
               textAlign: 'center',
               fontSize: '1.8rem',
+              fontWeight: 'bold',
               fontFamily: theme.typography.fonts.h2.fontFamily,
             }}
           >
@@ -594,7 +595,7 @@ const WhatsIncludedModal: React.FC<{
             <button
               onClick={onClose}
               style={{
-                background: theme.palette.themePrimary,
+                background: theme.palette.themeSecondary,
                 color: theme.palette.white,
                 border: 'none',
                 padding: '0.75rem 1.5rem',
@@ -624,6 +625,13 @@ export const ProgramTiersSection: React.FC<{
     orientation === 'tablet-portrait' ||
     orientation === 'large-portrait';
   const [showWhatsIncluded, setShowWhatsIncluded] = useState(false);
+
+  // Dispatch event when modal opens
+  React.useEffect(() => {
+    if (showWhatsIncluded) {
+      window.dispatchEvent(new CustomEvent('whats-included-modal-open'));
+    }
+  }, [showWhatsIncluded]);
 
   // Only show tiers for services that have them (currently just Personal Training)
   if (currentView !== 'personal-training') {
@@ -692,7 +700,13 @@ export const ProgramTiersSection: React.FC<{
         {showWhatsIncluded && (
           <WhatsIncludedModal
             isOpen={showWhatsIncluded}
-            onClose={() => setShowWhatsIncluded(false)}
+            onClose={() => {
+              setShowWhatsIncluded(false);
+              // Dispatch event to notify header that modal is closing
+              window.dispatchEvent(
+                new CustomEvent('whats-included-modal-close')
+              );
+            }}
             theme={theme}
           />
         )}
@@ -1524,7 +1538,13 @@ export const ProfessionalSummary: React.FC<{
         {showWhatsIncluded && (
           <WhatsIncludedModal
             isOpen={showWhatsIncluded}
-            onClose={() => setShowWhatsIncluded(false)}
+            onClose={() => {
+              setShowWhatsIncluded(false);
+              // Dispatch event to notify header that modal is closing
+              window.dispatchEvent(
+                new CustomEvent('whats-included-modal-close')
+              );
+            }}
             theme={theme}
           />
         )}
