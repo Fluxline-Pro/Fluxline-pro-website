@@ -33,7 +33,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
   const BOOKINGS_URL =
     'https://outlook.office.com/book/Bookings@terencewaters.com';
 
-  // Configuration based on variant
+  // Configuration based on variant- Constants for each CTA type
   const config = {
     services: {
       title: 'Explore Our Services',
@@ -51,7 +51,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
       isExternal: false,
     },
     personalTraining: {
-      title: 'Take our Emotional Archetype Assessment',
+      title: '💡 Take our Emotional Archetype Assessment',
       description:
         'Discover your emotional archetype to help us better understand your drives and motivations.',
       icon: ARROW_ICON,

@@ -569,6 +569,22 @@ export const ProfessionalSummary: React.FC<{
     }
   };
 
+  const getOverviewTitle = () => {
+    switch (currentView) {
+      case 'services':
+      case 'consulting':
+      case 'education-training':
+      case 'resonance-core':
+      case 'development':
+      case 'design':
+        return 'Overview';
+      case 'personal-training':
+        return 'Program Overview & Archetype Mapping';
+      default:
+        return 'Overview';
+    }
+  };
+
   const getSummary = () => {
     switch (currentView) {
       case 'services':
@@ -685,6 +701,7 @@ export const ProfessionalSummary: React.FC<{
           border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
         }}
       >
+        <H2Title name={getOverviewTitle()} style={{ margin: '0 0 1.5rem 0' }} />
         <Typography
           variant='p'
           textAlign='left'
