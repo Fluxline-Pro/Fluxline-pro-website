@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { BulletPoint } from '../../theme/components/bullet-point/bullet-point';
@@ -507,6 +507,20 @@ export const ProfessionalSummary: React.FC<{
     orientation === 'tablet-portrait' ||
     orientation === 'large-portrait';
 
+  // Apply styles to links within personal training summary
+  useEffect(() => {
+    if (currentView === 'personal-training') {
+      const summaryDiv = document.querySelector('.personal-training-summary');
+      if (summaryDiv) {
+        const links = summaryDiv.querySelectorAll('a');
+        links.forEach((link: HTMLAnchorElement) => {
+          link.style.color = theme.palette.themePrimary;
+          link.style.textDecoration = 'underline';
+        });
+      }
+    }
+  }, [currentView, theme.palette.themePrimary]);
+
   // Don't show on about page since we have AboutSection now
   if (currentView === 'about') {
     return null;
@@ -671,17 +685,33 @@ export const ProfessionalSummary: React.FC<{
           border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
         }}
       >
-        <H2Title name='Overview' style={{ margin: '0 0 1.5rem 0' }} />
         <Typography
           variant='p'
           textAlign='left'
           color={theme.palette.neutralPrimary}
-          marginBottom='3rem'
+          marginBottom='2rem'
           noHyphens
           style={styles.textContent}
         >
-          {renderSummary(getSummary())}
+          {currentView === 'personal-training' ? (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: SERVICES_EXPORTS.PERSONAL_TRAINING_SUMMARY,
+              }}
+              className='personal-training-summary'
+            />
+          ) : (
+            renderSummary(getSummary())
+          )}
         </Typography>
+        {currentView === 'personal-training' && (
+          <CTACallout
+            variant='personalTraining'
+            currentView={currentView}
+            showOnlyFor={[]}
+            hideBottomHR={false}
+          />
+        )}
         <H2Title name='Services Offered' style={{ margin: '0 0 1.5rem 0' }} />
         <Container
           display='flex'

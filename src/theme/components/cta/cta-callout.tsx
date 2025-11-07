@@ -6,7 +6,7 @@ import { Container } from '../../layouts/Container';
 import { useIsMobile, useDeviceOrientation } from '../../hooks/useMediaQuery';
 
 export interface CTACalloutProps {
-  variant: 'services' | 'legal' | 'consultation' | 'getStarted';
+  variant: 'services' | 'legal' | 'consultation' | 'getStarted' | 'personalTraining';
   currentView?: string;
   showOnlyFor?: string[]; // Which views to show this CTA on
   hideBottomHR?: boolean; // Option to hide the bottom HR when stacking CTAs
@@ -50,6 +50,14 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
       route: '/legal',
       isExternal: false,
     },
+    personalTraining: {
+      title: 'Take our Emotional Archetype Assessment',
+      description:
+        'Discover your emotional archetype to help us better understand your drives and motivations.',
+      icon: ARROW_ICON,
+      route: 'https://forms.office.com/r/dn7wneDXfr',
+      isExternal: true,
+    },
     consultation: {
       title: "Let's Make Your Vision Happen!",
       description:
@@ -88,7 +96,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
     background:
       theme.themeMode === 'high-contrast'
         ? theme.palette.neutralDark
-        : theme.palette.neutralLight,
+        : theme.palette.neutralQuaternaryAlt,
     borderRadius: '8px',
     borderLeft: `6px solid ${theme.semanticColors.messageText}`, // Mythic Gold color
     maxWidth: '800px',
