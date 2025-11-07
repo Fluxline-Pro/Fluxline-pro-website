@@ -136,11 +136,14 @@ const H2Title = ({
   );
 };
 
-export const GetStarted: React.FC = () => {
+export const GetStarted: React.FC<{ isServicesPage?: boolean }> = ({
+  isServicesPage = false,
+}) => {
   return (
     <CTACallout
       variant='getStarted'
       showOnlyFor={[]} // Show on all views
+      hideTopHR={true}
       hideBottomHR={true}
     />
   );
@@ -256,7 +259,7 @@ export const WhitePagesSection: React.FC<{
         >
           {currentView === 'services'
             ? 'Explore detailed information about each of our services through our white pages.'
-            : `View the detailed white paper for ${getServiceName()}.`}
+            : `View our detailed white paper below for more information about ${getServiceName()}.`}
         </Typography>
 
         <div
@@ -304,6 +307,7 @@ export const WhitePagesSection: React.FC<{
             </Typography>
           </div>
         )}
+        <hr style={hrStyles} />
       </div>
 
       {/* PDF Modal */}
@@ -316,6 +320,539 @@ export const WhitePagesSection: React.FC<{
         />
       )}
     </>
+  );
+};
+
+// Program Tier Table Component
+const ProgramTierTable: React.FC<{ theme: any; isMobile: boolean }> = ({
+  theme,
+  isMobile,
+}) => {
+  const programTiers = [
+    {
+      tier: 'Single Session',
+      idealFor:
+        'Clients needing simplified instruction, unsure about performing exercises, not wanting to commit to a monthly cadence',
+      rate: '$110/session',
+    },
+    {
+      tier: 'Online PT Only',
+      idealFor: 'Remote clients, creatives seeking flexible support',
+      rate: 'Starting at $225/month',
+      note: '(Varies by term length)',
+    },
+    {
+      tier: 'Hybrid PT',
+      idealFor: 'Local clients seeking in-person sessions + remote structure',
+      rate: 'Starting at $350/month',
+      note: '(Varies by term length)',
+    },
+    {
+      tier: 'Online Hypertrophy',
+      idealFor:
+        'Remote clients focused on physique, nutrition, and metabolic coaching',
+      rate: 'Starting at $275/month',
+      note: '(Varies by term length)',
+    },
+    {
+      tier: 'Hybrid Hypertrophy',
+      idealFor:
+        'Full-spectrum transformation: movement, nutrition, emotional integration',
+      rate: 'Starting at $450/month',
+      note: '(Varies by term length)',
+    },
+  ];
+
+  return (
+    <div
+      style={{
+        overflowX: 'auto',
+        background: theme.palette.neutralLighter,
+        borderRadius: '8px',
+        padding: '1rem',
+      }}
+    >
+      <table
+        style={{
+          width: '100%',
+          borderCollapse: 'collapse',
+          minWidth: isMobile ? '600px' : 'auto',
+        }}
+      >
+        <thead>
+          <tr>
+            <th
+              style={{
+                background: theme.palette.themePrimary,
+                color: 'white',
+                padding: '1rem',
+                textAlign: 'left',
+                fontWeight: 'bold',
+                borderRadius: '4px 0 0 0',
+              }}
+            >
+              📊 Program Tier
+            </th>
+            <th
+              style={{
+                background: theme.palette.themePrimary,
+                color: 'white',
+                padding: '1rem',
+                textAlign: 'left',
+                fontWeight: 'bold',
+              }}
+            >
+              Ideal For
+            </th>
+            <th
+              style={{
+                background: theme.palette.themePrimary,
+                color: 'white',
+                padding: '1rem',
+                textAlign: 'left',
+                fontWeight: 'bold',
+                borderRadius: '0 4px 0 0',
+              }}
+            >
+              Monthly Rate
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {programTiers.map((tier, index) => (
+            <tr
+              key={tier.tier}
+              style={{
+                background:
+                  index % 2 === 0 ? theme.palette.neutralLight : 'white',
+              }}
+            >
+              <td
+                style={{
+                  padding: '1rem',
+                  borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+                  fontWeight: 'bold',
+                  color: theme.palette.themePrimary,
+                }}
+              >
+                {tier.tier}
+              </td>
+              <td
+                style={{
+                  padding: '1rem',
+                  borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+                  color: theme.palette.neutralPrimary,
+                }}
+              >
+                {tier.idealFor}
+              </td>
+              <td
+                style={{
+                  padding: '1rem',
+                  borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+                  color: theme.palette.neutralPrimary,
+                }}
+              >
+                <div style={{ fontWeight: 'bold' }}>{tier.rate}</div>
+                {tier.note && (
+                  <div
+                    style={{
+                      fontSize: '0.9em',
+                      color: '#666',
+                      marginTop: '0.25rem',
+                    }}
+                  >
+                    {tier.note}
+                  </div>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+// What's Included Modal Component
+const WhatsIncludedModal: React.FC<{
+  isOpen: boolean;
+  onClose: () => void;
+  theme: any;
+}> = ({ isOpen, onClose, theme }) => {
+  if (!isOpen) return null;
+
+  const features = [
+    {
+      feature: 'Custom Training Plan',
+      onlinePT: '✅',
+      hybridPT: '✅',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Biweekly Check-Ins',
+      onlinePT: '✅',
+      hybridPT: '✅',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Discord Access',
+      onlinePT: '✅',
+      hybridPT: '✅',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Milestone Reviews',
+      onlinePT: '✅',
+      hybridPT: '✅',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Emotional Integration Coaching',
+      onlinePT: '✅',
+      hybridPT: '✅',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'PTDistinction Portal Access',
+      onlinePT: '✅',
+      hybridPT: '✅',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'First 2 Sessions Free',
+      onlinePT: '✅',
+      hybridPT: '✅',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Cancel Anytime (First 2 Sessions)',
+      onlinePT: '✅',
+      hybridPT: '✅',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'In-Person Training Sessions',
+      onlinePT: '➖',
+      hybridPT: '✅',
+      onlineHypertrophy: '➖',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Hands-On Form Correction',
+      onlinePT: '➖',
+      hybridPT: '✅',
+      onlineHypertrophy: '➖',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'On-Site Meditation & Breathwork',
+      onlinePT: '➖',
+      hybridPT: '✅',
+      onlineHypertrophy: '➖',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Real-Time Cueing & Adjustments',
+      onlinePT: '➖',
+      hybridPT: '✅',
+      onlineHypertrophy: '➖',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Local Access (Salt Lake & Davis Counties)',
+      onlinePT: '➖',
+      hybridPT: '✅',
+      onlineHypertrophy: '➖',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Nutrition Coaching',
+      onlinePT: '➖',
+      hybridPT: '➖',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Recipes & Meal Plans',
+      onlinePT: '➖',
+      hybridPT: '➖',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Cycle Tracking / Fasting Protocols',
+      onlinePT: '➖',
+      hybridPT: '➖',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Metabolic Phase Mapping',
+      onlinePT: '➖',
+      hybridPT: '➖',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Hypertrophy-Specific Programming',
+      onlinePT: '➖',
+      hybridPT: '➖',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Progressive Overload Tracking',
+      onlinePT: '➖',
+      hybridPT: '➖',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Physique Optimization Strategy',
+      onlinePT: '➖',
+      hybridPT: '➖',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Supplemental Recovery Rituals',
+      onlinePT: '➖',
+      hybridPT: '➖',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+    {
+      feature: 'Hormonal Phase Integration',
+      onlinePT: '➖',
+      hybridPT: '➖',
+      onlineHypertrophy: '✅',
+      hybridHypertrophy: '✅',
+    },
+  ];
+
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'rgba(0, 0, 0, 0.8)',
+        zIndex: 1000,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '2rem',
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          background: theme.palette.neutralLighter,
+          borderRadius: '12px',
+          padding: '2rem',
+          maxWidth: '95vw',
+          maxHeight: '95vh',
+          overflow: 'auto',
+          position: 'relative',
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          style={{
+            position: 'absolute',
+            top: '1rem',
+            right: '1rem',
+            background: 'none',
+            border: 'none',
+            fontSize: '1.5rem',
+            cursor: 'pointer',
+            color: theme.palette.neutralPrimary,
+          }}
+        >
+          ✕
+        </button>
+
+        <h2
+          style={{
+            color: theme.palette.themePrimary,
+            marginBottom: '1.5rem',
+            textAlign: 'center',
+            fontSize: '1.8rem',
+          }}
+        >
+          🧩 What's Included - Program Comparison
+        </h2>
+
+        <div style={{ overflowX: 'auto' }}>
+          <table
+            style={{
+              width: '100%',
+              borderCollapse: 'collapse',
+              minWidth: '800px',
+            }}
+          >
+            <thead>
+              <tr>
+                <th
+                  style={{
+                    background: theme.palette.themePrimary,
+                    color: 'white',
+                    padding: '1rem',
+                    textAlign: 'left',
+                    fontWeight: 'bold',
+                    borderRadius: '4px 0 0 0',
+                    position: 'sticky',
+                    left: 0,
+                  }}
+                >
+                  Feature
+                </th>
+                <th
+                  style={{
+                    background: theme.palette.neutralSecondary,
+                    color: 'white',
+                    padding: '1rem',
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Online PT Only
+                </th>
+                <th
+                  style={{
+                    background: theme.palette.themeSecondary,
+                    color: 'white',
+                    padding: '1rem',
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Hybrid PT
+                </th>
+                <th
+                  style={{
+                    background: theme.palette.themeTertiary,
+                    color: 'white',
+                    padding: '1rem',
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Online Hypertrophy
+                </th>
+                <th
+                  style={{
+                    background: theme.palette.themePrimary,
+                    color: 'white',
+                    padding: '1rem',
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    borderRadius: '0 4px 0 0',
+                  }}
+                >
+                  Hybrid Hypertrophy
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {features.map((row, index) => (
+                <tr
+                  key={row.feature}
+                  style={{
+                    background:
+                      index % 2 === 0 ? 'white' : theme.palette.neutralLight,
+                  }}
+                >
+                  <td
+                    style={{
+                      padding: '1rem',
+                      borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+                      fontWeight: 'bold',
+                      color: theme.palette.neutralPrimary,
+                      position: 'sticky',
+                      left: 0,
+                      background:
+                        index % 2 === 0 ? 'white' : theme.palette.neutralLight,
+                    }}
+                  >
+                    {row.feature}
+                  </td>
+                  <td
+                    style={{
+                      padding: '1rem',
+                      borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+                      textAlign: 'center',
+                      fontSize: '1.2rem',
+                    }}
+                  >
+                    {row.onlinePT}
+                  </td>
+                  <td
+                    style={{
+                      padding: '1rem',
+                      borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+                      textAlign: 'center',
+                      fontSize: '1.2rem',
+                    }}
+                  >
+                    {row.hybridPT}
+                  </td>
+                  <td
+                    style={{
+                      padding: '1rem',
+                      borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+                      textAlign: 'center',
+                      fontSize: '1.2rem',
+                    }}
+                  >
+                    {row.onlineHypertrophy}
+                  </td>
+                  <td
+                    style={{
+                      padding: '1rem',
+                      borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+                      textAlign: 'center',
+                      fontSize: '1.2rem',
+                    }}
+                  >
+                    {row.hybridHypertrophy}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+          <button
+            onClick={onClose}
+            style={{
+              background: theme.palette.themePrimary,
+              color: 'white',
+              border: 'none',
+              padding: '0.75rem 1.5rem',
+              borderRadius: '4px',
+              fontSize: '1rem',
+              cursor: 'pointer',
+            }}
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -506,6 +1043,7 @@ export const ProfessionalSummary: React.FC<{
     orientation === 'portrait' ||
     orientation === 'tablet-portrait' ||
     orientation === 'large-portrait';
+  const [showWhatsIncluded, setShowWhatsIncluded] = useState(false);
 
   // Apply styles to links within personal training summary
   useEffect(() => {
@@ -647,6 +1185,7 @@ export const ProfessionalSummary: React.FC<{
 
   return (
     <>
+      {/* Header Section */}
       <div
         style={styles.sectionContainer(
           orientation,
@@ -682,14 +1221,20 @@ export const ProfessionalSummary: React.FC<{
           <H2Title name={getTitle()} />
         </Container>
       </div>
+
+      {/* Overview Section */}
       <Container
         marginLeft='auto'
         marginRight='auto'
-        marginBottom={theme.spacing.xl}
+        marginBottom={
+          currentView === 'personal-training' ? '0' : theme.spacing.xl
+        }
         padding={
           isMobile || orientation === 'mobile-landscape'
             ? `${theme.spacing.l} ${theme.spacing.m}`
-            : theme.spacing.xxl
+            : currentView === 'personal-training'
+              ? '2.5rem 2.5rem 1rem 2.5rem'
+              : theme.spacing.xxl
         }
         maxWidth='1000px'
         style={{
@@ -721,49 +1266,37 @@ export const ProfessionalSummary: React.FC<{
             renderSummary(getSummary())
           )}
         </Typography>
+
         {currentView === 'personal-training' && (
           <CTACallout
             variant='personalTraining'
             currentView={currentView}
             showOnlyFor={[]}
-            hideBottomHR={false}
+            hideBottomHR={true}
           />
         )}
-        <H2Title name='Services Offered' style={{ margin: '0 0 1.5rem 0' }} />
-        <Container
-          display='flex'
-          flexDirection='column'
-          gap={
-            orientation === 'mobile-landscape'
-              ? theme.spacing.s1
-              : theme.spacing.m
-          }
-          paddingLeft='0'
-          paddingRight='0'
-          marginLeft='0'
-          style={{ width: '100%', padding: '0 !important' }}
-        >
-          {isMobile || orientation === 'mobile-landscape'
-            ? bulletPoints.map((point) => (
-                <BulletPoint
-                  key={point.name}
-                  name={point.name}
-                  description={point.description}
-                  onClick={() => point.route && navigate(point.route)}
-                  isHoverable={!!point.route}
-                />
-              ))
-            : bulletPairs.map((pair, rowIndex) => (
-                <div
-                  key={rowIndex}
-                  style={{
-                    ...styles.gridContainer(false, '1fr 1fr'),
-                    gap: '0.5rem',
-                    width: '100%',
-                    padding: '0 0.5rem',
-                  }}
-                >
-                  {pair.map((point) => (
+
+        {currentView !== 'personal-training' && (
+          <>
+            <H2Title
+              name='Services Offered'
+              style={{ margin: '0 0 1.5rem 0' }}
+            />
+            <Container
+              display='flex'
+              flexDirection='column'
+              gap={
+                orientation === 'mobile-landscape'
+                  ? theme.spacing.s1
+                  : theme.spacing.m
+              }
+              paddingLeft='0'
+              paddingRight='0'
+              marginLeft='0'
+              style={{ width: '100%', padding: '0 !important' }}
+            >
+              {isMobile || orientation === 'mobile-landscape'
+                ? bulletPoints.map((point) => (
                     <BulletPoint
                       key={point.name}
                       name={point.name}
@@ -771,11 +1304,140 @@ export const ProfessionalSummary: React.FC<{
                       onClick={() => point.route && navigate(point.route)}
                       isHoverable={!!point.route}
                     />
+                  ))
+                : bulletPairs.map((pair, rowIndex) => (
+                    <div
+                      key={rowIndex}
+                      style={{
+                        ...styles.gridContainer(false, '1fr 1fr'),
+                        gap: '0.5rem',
+                        width: '100%',
+                        padding: '0 0.5rem',
+                      }}
+                    >
+                      {pair.map((point) => (
+                        <BulletPoint
+                          key={point.name}
+                          name={point.name}
+                          description={point.description}
+                          onClick={() => point.route && navigate(point.route)}
+                          isHoverable={!!point.route}
+                        />
+                      ))}
+                    </div>
                   ))}
-                </div>
-              ))}
-        </Container>
+            </Container>
+          </>
+        )}
       </Container>
+
+      {/* Personal Training Services Section */}
+      {currentView === 'personal-training' && (
+        <Container
+          marginLeft='auto'
+          marginRight='auto'
+          marginBottom={theme.spacing.s1}
+          padding={
+            isMobile || orientation === 'mobile-landscape'
+              ? `${theme.spacing.l} ${theme.spacing.m}`
+              : '2.5rem 2.5rem 1rem 2.5rem'
+          }
+          maxWidth='1000px'
+        >
+          <H2Title name='Services Offered' style={{ margin: '0 0 1.5rem 0' }} />
+          <Container
+            display='flex'
+            flexDirection='column'
+            gap={
+              orientation === 'mobile-landscape'
+                ? theme.spacing.s1
+                : theme.spacing.m
+            }
+            paddingLeft='0'
+            paddingRight='0'
+            marginLeft='0'
+            style={{ width: '100%', padding: '0 !important' }}
+          >
+            {isMobile || orientation === 'mobile-landscape'
+              ? bulletPoints.map((point) => (
+                  <BulletPoint
+                    key={point.name}
+                    name={point.name}
+                    description={point.description}
+                    onClick={() => point.route && navigate(point.route)}
+                    isHoverable={!!point.route}
+                  />
+                ))
+              : bulletPairs.map((pair, rowIndex) => (
+                  <div
+                    key={rowIndex}
+                    style={{
+                      ...styles.gridContainer(false, '1fr 1fr'),
+                      gap: '0.5rem',
+                      width: '100%',
+                      padding: '0 0.5rem',
+                    }}
+                  >
+                    {pair.map((point) => (
+                      <BulletPoint
+                        key={point.name}
+                        name={point.name}
+                        description={point.description}
+                        onClick={() => point.route && navigate(point.route)}
+                        isHoverable={!!point.route}
+                      />
+                    ))}
+                  </div>
+                ))}
+
+            {/* Program Tier Table */}
+            <div style={{ marginTop: '3rem' }}>
+              <H2Title
+                name='Program Tiers'
+                style={{ margin: '0 0 1.5rem 0' }}
+              />
+              <ProgramTierTable theme={theme} isMobile={isMobile} />
+            </div>
+
+            {/* What's Included CTA */}
+            <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+              <button
+                onClick={() => setShowWhatsIncluded(true)}
+                style={{
+                  background: theme.palette.themePrimary,
+                  color: 'white',
+                  border: 'none',
+                  padding: '1rem 2rem',
+                  borderRadius: '4px',
+                  fontSize: '1.1rem',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = theme.palette.themeDark;
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = theme.palette.themePrimary;
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                What's Included? View Full Comparison
+              </button>
+            </div>
+          </Container>
+        </Container>
+      )}
+
+      {/* What's Included Modal */}
+      {showWhatsIncluded && (
+        <WhatsIncludedModal
+          isOpen={showWhatsIncluded}
+          onClose={() => setShowWhatsIncluded(false)}
+          theme={theme}
+        />
+      )}
     </>
   );
 };
@@ -1305,13 +1967,18 @@ export const Services: React.FC<ServicesProps> = ({
             <>
               <ProfessionalSummary currentView={actualView} />
               <WhitePagesSection currentView={actualView} />
+              <H2Title
+                name='Additional Resources'
+                style={{ margin: '2rem 0 1.5rem 13rem' }}
+              />
               <CTACallout
                 variant='legal'
                 currentView={actualView}
                 showOnlyFor={[]}
+                hideTopHR={true}
                 hideBottomHR={true}
               />
-              <GetStarted />
+              <GetStarted isServicesPage />
             </>
           )}
         </div>

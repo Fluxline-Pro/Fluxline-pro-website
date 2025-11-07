@@ -9,6 +9,7 @@ export interface CTACalloutProps {
   variant: 'services' | 'legal' | 'consultation' | 'getStarted' | 'personalTraining';
   currentView?: string;
   showOnlyFor?: string[]; // Which views to show this CTA on
+  hideTopHR?: boolean; // Option to hide the top HR when stacking CTAs
   hideBottomHR?: boolean; // Option to hide the bottom HR when stacking CTAs
 }
 
@@ -16,6 +17,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
   variant,
   currentView,
   showOnlyFor = ['about'],
+  hideTopHR = false,
   hideBottomHR = false,
 }) => {
   const { theme } = useAppTheme();
@@ -135,7 +137,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
 
   return (
     <>
-      <hr style={hrStyles} />
+      {!hideTopHR && <hr style={hrStyles} />}
       <Container
         padding={
           isMobile ||

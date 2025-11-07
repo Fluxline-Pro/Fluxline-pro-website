@@ -211,9 +211,9 @@ const ABOUT_PERCENTAGE_POINTS: IAboutPercentagePoint[] = [
 // Services-specific data with white pages integration
 const SERVICES_BULLET_POINTS: IAboutBulletPoint[] = [
   {
-    name: 'Intentional Wellness & Personal Training',
+    name: 'Personal Training & Wellness',
     description:
-      'Fitness and life training through a systems lens. Tailored programs for founders and creatives to align body, mind, and mission.',
+      'Modular training for founders and creatives. Align your body, mind, and mission through intentional movement and emotional integration.',
     route: '/services/personal-training',
     // White pages integration
     id: 'personal-training',
@@ -341,38 +341,39 @@ const EDUCATION_TRAINING_BULLET_POINTS: IAboutBulletPoint[] = [
 
 const PERSONAL_TRAINING_BULLET_POINTS: IAboutBulletPoint[] = [
   {
-    name: 'Personalized Fitness Plans',
+    name: 'Custom Fitness Plans',
     description:
-      'Custom workout and nutrition plans tailored to your individual goals',
+      'Training blueprints tailored to your goals, archetype, and physical thresholds',
   },
   {
     name: '1-on-1 Coaching',
     description:
-      'Dedicated coaching sessions in-person, online and hybrid for personalized guidance and support',
+      'In-person, online, or hybrid sessions with hands-on cueing and emotional integration',
   },
   {
-    name: 'Physical Training Regimens',
+    name: 'Strength & Mobility Training',
     description:
-      'Structured training programs focusing on strength, endurance, and flexibility',
+      'Programs designed to build power, resilience, and sovereign embodiment',
   },
   {
-    name: 'Nutrition Advice',
-    description: 'Guidance on healthy eating habits and meal planning',
-  },
-  {
-    name: 'Mindset Coaching and Support',
+    name: 'Nutrition Guidance',
     description:
-      'Mental strategies to enhance focus, motivation, and resilience',
+      'Meal plans, metabolic mapping, and fasting protocols for full-spectrum vitality',
   },
   {
-    name: 'Holistic Wellness Approach',
+    name: 'Mindset Support',
     description:
-      'Integrating physical fitness with mental and emotional well-being',
+      'Breakthrough coaching to align movement with motivation, rhythm, and resilience',
   },
   {
-    name: 'Online Training Programs',
+    name: 'Whole-Person Wellness',
     description:
-      'Flexible training options that fit your schedule and lifestyle',
+      'Training that integrates physical, emotional, and energetic alignment',
+  },
+  {
+    name: 'Flexible Training Formats',
+    description:
+      'Online and hybrid options to match your lifestyle, location, and readiness tier',
   },
 ];
 
