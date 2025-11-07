@@ -19,6 +19,7 @@ import { PdfModal } from '../../theme/components/modal/pdf-modal';
 import { WhitePageItem } from '../white-pages/white-pages-constants';
 import { WhitePageCard } from '../../theme/components/card/white-page-card/white-page-card';
 import { CTACallout } from '../../theme/components/cta';
+import theme from '../../theme/theme';
 
 // Reusable style objects
 const styles = {
@@ -99,6 +100,61 @@ const styles = {
     textTransform: theme.typography.fonts.h2.textTransform,
     letterSpacing: theme.typography.fonts.h2.letterSpacing,
     lineHeight: theme.typography.fonts.h2.lineHeight,
+  }),
+  hrStyles: {
+    margin: '2rem 0',
+    border: 'none',
+    height: '1px',
+    backgroundColor: theme.palette.themePrimary,
+    opacity: 0.3,
+  },
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse' as const,
+  },
+  tableHeader: (
+    theme: any,
+    options?: {
+      background?: string;
+      borderRadius?: string;
+      textAlign?: string;
+      position?: string;
+      left?: number;
+    }
+  ) => ({
+    background: options?.background || theme.palette.themePrimary,
+    color: 'white',
+    padding: '1rem',
+    textAlign: (options?.textAlign as any) || 'left',
+    fontWeight: 'bold',
+    borderRadius: options?.borderRadius || '0',
+    position: options?.position as any,
+    left: options?.left,
+  }),
+  tableRow: (theme: any, index: number) => ({
+    background: index % 2 === 0 ? theme.palette.neutralLight : 'white',
+  }),
+  tableCell: (
+    theme: any,
+    options?: {
+      textAlign?: string;
+      fontWeight?: string;
+      color?: string;
+      position?: string;
+      left?: number;
+      background?: string;
+      fontSize?: string;
+    }
+  ) => ({
+    padding: '1rem',
+    borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+    textAlign: (options?.textAlign as any) || 'left',
+    fontWeight: options?.fontWeight || 'normal',
+    color: options?.color || theme.palette.neutralPrimary,
+    position: options?.position as any,
+    left: options?.left,
+    background: options?.background,
+    fontSize: options?.fontSize || '1rem',
   }),
 };
 interface ServicesProps {
@@ -184,14 +240,6 @@ export const WhitePagesSection: React.FC<{
     }
   };
 
-  const hrStyles = {
-    margin: '2rem 0',
-    border: 'none',
-    height: '1px',
-    backgroundColor: theme.palette.themePrimary,
-    opacity: 0.3,
-  };
-
   // Filter white pages for current view
   const getRelevantWhitePages = () => {
     const whitePages = SERVICES_EXPORTS.getWhitePagesFromServices();
@@ -243,7 +291,7 @@ export const WhitePagesSection: React.FC<{
           marginBottom: '3rem',
         }}
       >
-        <hr style={hrStyles} />
+        <hr style={styles.hrStyles} />
         <H2Title
           name={
             currentView === 'services' ? 'Services White Pages' : 'White Page'
@@ -307,7 +355,7 @@ export const WhitePagesSection: React.FC<{
             </Typography>
           </div>
         )}
-        <hr style={hrStyles} />
+        <hr style={styles.hrStyles} />
       </div>
 
       {/* PDF Modal */}
@@ -320,6 +368,164 @@ export const WhitePagesSection: React.FC<{
         />
       )}
     </>
+  );
+};
+
+// Hero Section Component
+export const HeroSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme, layoutPreference } = useAppTheme();
+  const orientation = useDeviceOrientation();
+  const navigate = useNavigate();
+  const isMobile =
+    orientation === 'portrait' ||
+    orientation === 'tablet-portrait' ||
+    orientation === 'large-portrait';
+
+  // Don't show hero for about page
+  if (currentView === 'about') {
+    return null;
+  }
+
+  const getHeroContent = () => {
+    switch (currentView) {
+      case 'personal-training':
+        return {
+          title: 'Personal Training & Wellness',
+          subtitle:
+            'Modular training for founders and creatives. Align your body, mind, and mission through intentional movement and emotional integration.',
+          cta: 'Book a consultation',
+        };
+      case 'consulting':
+        return {
+          title: 'Business Strategy & Systems Alignment',
+          subtitle:
+            'Strategic frameworks for sustainable growth. Transform complexity into clarity through systematic business design.',
+          cta: 'Start a project',
+        };
+      case 'education-training':
+        return {
+          title: 'Coaching, Education & Leadership',
+          subtitle:
+            'Leadership development through experiential learning. Build authentic influence and transformational coaching skills.',
+          cta: 'Explore programs',
+        };
+      case 'resonance-core':
+        return {
+          title: 'Life Coaching & The Resonance Core',
+          subtitle:
+            'Deep personal transformation through archetypal integration. Align your inner world with your outer mission.',
+          cta: 'Begin your journey',
+        };
+      case 'development':
+        return {
+          title: 'Web & Application Development',
+          subtitle:
+            'Digital solutions that embody your vision. Clean, purposeful technology that serves your mission.',
+          cta: 'Discuss your project',
+        };
+      case 'design':
+        return {
+          title: 'Brand Identity & Experience Design',
+          subtitle:
+            'Visual identity that resonates with purpose. Create meaningful connections through intentional design.',
+          cta: 'Create together',
+        };
+      default:
+        return {
+          title: 'Our Services',
+          subtitle:
+            'Comprehensive solutions for conscious leaders and innovative organizations.',
+          cta: 'Explore services',
+        };
+    }
+  };
+
+  const heroContent = getHeroContent();
+
+  return (
+    <div
+      style={{
+        ...styles.sectionContainer(
+          orientation,
+          layoutPreference,
+          heroContent.title,
+          currentView !== 'services'
+        ),
+        marginBottom: '3rem',
+      }}
+    >
+      <Container
+        display='flex'
+        flexDirection='row'
+        justifyContent={
+          orientation === 'mobile-landscape' &&
+          layoutPreference === 'left-handed'
+            ? 'flex-end'
+            : 'flex-start'
+        }
+        alignItems='center'
+        paddingLeft='0'
+        marginLeft='0'
+        marginBottom='2rem'
+        gap={theme.spacing.s}
+        style={{ padding: '0' }}
+      >
+        {currentView !== 'services' && (
+          <NavigationArrow
+            direction='backward'
+            navigate={() => navigate('/services')}
+            size={isMobile ? 'large' : 'medium'}
+            showBackground={false}
+          />
+        )}
+        <H2Title name={heroContent.title} />
+      </Container>
+
+      <Container
+        marginLeft='auto'
+        marginRight='auto'
+        padding={
+          isMobile || orientation === 'mobile-landscape'
+            ? `${theme.spacing.l} ${theme.spacing.m}`
+            : theme.spacing.xxl
+        }
+        maxWidth='1000px'
+        style={{
+          background:
+            theme.themeMode === 'high-contrast'
+              ? theme.semanticColors.warningBackground
+              : theme.palette.neutralLight,
+          borderRadius: theme.borderRadius.container.medium,
+          border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+          textAlign: 'center',
+        }}
+      >
+        <Typography
+          variant='h3'
+          color={theme.palette.neutralPrimary}
+          marginBottom='1.5rem'
+          fontSize={isMobile ? '1.2rem' : '1.4rem'}
+          fontWeight='400'
+          style={{ lineHeight: '1.6' }}
+        >
+          {heroContent.subtitle}
+        </Typography>
+
+        <CTACallout
+          variant={
+            currentView === 'personal-training'
+              ? 'personalTraining'
+              : 'getStarted'
+          }
+          currentView={currentView}
+          showOnlyFor={[]}
+          hideTopHR={true}
+          hideBottomHR={true}
+        />
+      </Container>
+    </div>
   );
 };
 
@@ -374,45 +580,20 @@ const ProgramTierTable: React.FC<{ theme: any; isMobile: boolean }> = ({
     >
       <table
         style={{
-          width: '100%',
-          borderCollapse: 'collapse',
+          ...styles.table,
           minWidth: isMobile ? '600px' : 'auto',
         }}
       >
         <thead>
           <tr>
             <th
-              style={{
-                background: theme.palette.themePrimary,
-                color: 'white',
-                padding: '1rem',
-                textAlign: 'left',
-                fontWeight: 'bold',
-                borderRadius: '4px 0 0 0',
-              }}
+              style={styles.tableHeader(theme, { borderRadius: '4px 0 0 0' })}
             >
               📊 Program Tier
             </th>
+            <th style={styles.tableHeader(theme)}>Ideal For</th>
             <th
-              style={{
-                background: theme.palette.themePrimary,
-                color: 'white',
-                padding: '1rem',
-                textAlign: 'left',
-                fontWeight: 'bold',
-              }}
-            >
-              Ideal For
-            </th>
-            <th
-              style={{
-                background: theme.palette.themePrimary,
-                color: 'white',
-                padding: '1rem',
-                textAlign: 'left',
-                fontWeight: 'bold',
-                borderRadius: '0 4px 0 0',
-              }}
+              style={styles.tableHeader(theme, { borderRadius: '0 4px 0 0' })}
             >
               Monthly Rate
             </th>
@@ -420,39 +601,17 @@ const ProgramTierTable: React.FC<{ theme: any; isMobile: boolean }> = ({
         </thead>
         <tbody>
           {programTiers.map((tier, index) => (
-            <tr
-              key={tier.tier}
-              style={{
-                background:
-                  index % 2 === 0 ? theme.palette.neutralLight : 'white',
-              }}
-            >
+            <tr key={tier.tier} style={styles.tableRow(theme, index)}>
               <td
-                style={{
-                  padding: '1rem',
-                  borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+                style={styles.tableCell(theme, {
                   fontWeight: 'bold',
                   color: theme.palette.themePrimary,
-                }}
+                })}
               >
                 {tier.tier}
               </td>
-              <td
-                style={{
-                  padding: '1rem',
-                  borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
-                  color: theme.palette.neutralPrimary,
-                }}
-              >
-                {tier.idealFor}
-              </td>
-              <td
-                style={{
-                  padding: '1rem',
-                  borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
-                  color: theme.palette.neutralPrimary,
-                }}
-              >
+              <td style={styles.tableCell(theme)}>{tier.idealFor}</td>
+              <td style={styles.tableCell(theme)}>
                 <div style={{ fontWeight: 'bold' }}>{tier.rate}</div>
                 {tier.note && (
                   <div
@@ -698,69 +857,50 @@ const WhatsIncludedModal: React.FC<{
         <div style={{ overflowX: 'auto' }}>
           <table
             style={{
-              width: '100%',
-              borderCollapse: 'collapse',
+              ...styles.table,
               minWidth: '800px',
             }}
           >
             <thead>
               <tr>
                 <th
-                  style={{
-                    background: theme.palette.themePrimary,
-                    color: 'white',
-                    padding: '1rem',
-                    textAlign: 'left',
-                    fontWeight: 'bold',
+                  style={styles.tableHeader(theme, {
                     borderRadius: '4px 0 0 0',
                     position: 'sticky',
                     left: 0,
-                  }}
+                  })}
                 >
                   Feature
                 </th>
                 <th
-                  style={{
+                  style={styles.tableHeader(theme, {
                     background: theme.palette.neutralSecondary,
-                    color: 'white',
-                    padding: '1rem',
                     textAlign: 'center',
-                    fontWeight: 'bold',
-                  }}
+                  })}
                 >
                   Online PT Only
                 </th>
                 <th
-                  style={{
+                  style={styles.tableHeader(theme, {
                     background: theme.palette.themeSecondary,
-                    color: 'white',
-                    padding: '1rem',
                     textAlign: 'center',
-                    fontWeight: 'bold',
-                  }}
+                  })}
                 >
                   Hybrid PT
                 </th>
                 <th
-                  style={{
+                  style={styles.tableHeader(theme, {
                     background: theme.palette.themeTertiary,
-                    color: 'white',
-                    padding: '1rem',
                     textAlign: 'center',
-                    fontWeight: 'bold',
-                  }}
+                  })}
                 >
                   Online Hypertrophy
                 </th>
                 <th
-                  style={{
-                    background: theme.palette.themePrimary,
-                    color: 'white',
-                    padding: '1rem',
-                    textAlign: 'center',
-                    fontWeight: 'bold',
+                  style={styles.tableHeader(theme, {
                     borderRadius: '0 4px 0 0',
-                  }}
+                    textAlign: 'center',
+                  })}
                 >
                   Hybrid Hypertrophy
                 </th>
@@ -768,64 +908,47 @@ const WhatsIncludedModal: React.FC<{
             </thead>
             <tbody>
               {features.map((row, index) => (
-                <tr
-                  key={row.feature}
-                  style={{
-                    background:
-                      index % 2 === 0 ? 'white' : theme.palette.neutralLight,
-                  }}
-                >
+                <tr key={row.feature} style={styles.tableRow(theme, index)}>
                   <td
-                    style={{
-                      padding: '1rem',
-                      borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+                    style={styles.tableCell(theme, {
                       fontWeight: 'bold',
-                      color: theme.palette.neutralPrimary,
                       position: 'sticky',
                       left: 0,
                       background:
                         index % 2 === 0 ? 'white' : theme.palette.neutralLight,
-                    }}
+                    })}
                   >
                     {row.feature}
                   </td>
                   <td
-                    style={{
-                      padding: '1rem',
-                      borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+                    style={styles.tableCell(theme, {
                       textAlign: 'center',
                       fontSize: '1.2rem',
-                    }}
+                    })}
                   >
                     {row.onlinePT}
                   </td>
                   <td
-                    style={{
-                      padding: '1rem',
-                      borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+                    style={styles.tableCell(theme, {
                       textAlign: 'center',
                       fontSize: '1.2rem',
-                    }}
+                    })}
                   >
                     {row.hybridPT}
                   </td>
                   <td
-                    style={{
-                      padding: '1rem',
-                      borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+                    style={styles.tableCell(theme, {
                       textAlign: 'center',
                       fontSize: '1.2rem',
-                    }}
+                    })}
                   >
                     {row.onlineHypertrophy}
                   </td>
                   <td
-                    style={{
-                      padding: '1rem',
-                      borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+                    style={styles.tableCell(theme, {
                       textAlign: 'center',
                       fontSize: '1.2rem',
-                    }}
+                    })}
                   >
                     {row.hybridHypertrophy}
                   </td>
@@ -853,6 +976,357 @@ const WhatsIncludedModal: React.FC<{
         </div>
       </div>
     </div>
+  );
+};
+
+// Program Tiers Section Component
+export const ProgramTiersSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+  const orientation = useDeviceOrientation();
+  const isMobile =
+    orientation === 'portrait' ||
+    orientation === 'tablet-portrait' ||
+    orientation === 'large-portrait';
+  const [showWhatsIncluded, setShowWhatsIncluded] = useState(false);
+
+  // Only show tiers for services that have them (currently just Personal Training)
+  if (currentView !== 'personal-training') {
+    return null;
+  }
+
+  return (
+    <Container
+      marginLeft='auto'
+      marginRight='auto'
+      marginBottom='3rem'
+      padding={
+        isMobile || orientation === 'mobile-landscape'
+          ? `${theme.spacing.l} ${theme.spacing.m}`
+          : '2.5rem'
+      }
+      maxWidth='1000px'
+    >
+      <hr style={styles.hrStyles} />
+      <H2Title
+        name='Program Tiers Offered'
+        style={{ margin: '0 0 2rem 0', textAlign: 'center' }}
+      />
+      <Typography
+        variant='p'
+        color={theme.palette.neutralSecondary}
+        marginBottom='2rem'
+        style={{ textAlign: 'center', fontStyle: 'italic' }}
+      >
+        Choose your path based on your archetype assessment and personal goals.
+      </Typography>
+
+      <ProgramTierTable theme={theme} isMobile={isMobile} />
+
+      <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+        <button
+          onClick={() => setShowWhatsIncluded(true)}
+          style={{
+            background: theme.palette.themePrimary,
+            color: 'white',
+            border: 'none',
+            padding: '1rem 2rem',
+            borderRadius: '4px',
+            fontSize: '1.1rem',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = theme.palette.themeDark;
+            e.currentTarget.style.transform = 'translateY(-2px)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = theme.palette.themePrimary;
+            e.currentTarget.style.transform = 'translateY(0)';
+          }}
+        >
+          View Full Comparison - What's Included in Each Tier?
+        </button>
+      </div>
+
+      {/* What's Included Modal */}
+      {showWhatsIncluded && (
+        <WhatsIncludedModal
+          isOpen={showWhatsIncluded}
+          onClose={() => setShowWhatsIncluded(false)}
+          theme={theme}
+        />
+      )}
+    </Container>
+  );
+};
+
+// Services Offered Section Component
+export const ServicesOfferedSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+  const navigate = useNavigate();
+  const orientation = useDeviceOrientation();
+  const isMobile =
+    orientation === 'portrait' ||
+    orientation === 'tablet-portrait' ||
+    orientation === 'large-portrait';
+
+  // Don't show for about page
+  if (currentView === 'about') {
+    return null;
+  }
+
+  // Get the appropriate bullet points based on current view
+  const getBulletPoints = () => {
+    switch (currentView) {
+      case 'services':
+        return SERVICES_EXPORTS.SERVICES_BULLET_POINTS;
+      case 'personal-training':
+        return SERVICES_EXPORTS.PERSONAL_TRAINING_BULLET_POINTS;
+      case 'resonance-core':
+        return SERVICES_EXPORTS.RESONANCE_CORE_BULLET_POINTS;
+      case 'education-training':
+        return SERVICES_EXPORTS.EDUCATION_TRAINING_BULLET_POINTS;
+      case 'consulting':
+        return SERVICES_EXPORTS.CONSULTING_BULLET_POINTS;
+      case 'development':
+        return SERVICES_EXPORTS.DEVELOPMENT_BULLET_POINTS;
+      case 'design':
+        return SERVICES_EXPORTS.DESIGN_BULLET_POINTS;
+      default:
+        return SERVICES_EXPORTS.SERVICES_BULLET_POINTS;
+    }
+  };
+
+  const bulletPoints = getBulletPoints();
+
+  // Group bullet points into pairs for desktop layout
+  const createPairs = (items: typeof bulletPoints) => {
+    const pairs = [];
+    for (let i = 0; i < items.length; i += 2) {
+      if (i + 1 >= items.length) {
+        pairs.push([items[i]]);
+      } else {
+        pairs.push([items[i], items[i + 1]]);
+      }
+    }
+    return pairs;
+  };
+
+  const bulletPairs = createPairs(bulletPoints);
+
+  return (
+    <Container
+      marginLeft='auto'
+      marginRight='auto'
+      marginBottom='3rem'
+      padding={
+        isMobile || orientation === 'mobile-landscape'
+          ? `${theme.spacing.l} ${theme.spacing.m}`
+          : '2.5rem'
+      }
+      maxWidth='1000px'
+    >
+      <hr style={styles.hrStyles} />
+      <H2Title name='Services Offered' style={{ margin: '0 0 1.5rem 0' }} />
+      <Typography
+        variant='p'
+        color={theme.palette.neutralSecondary}
+        marginBottom='2rem'
+        style={{ textAlign: 'center', fontStyle: 'italic' }}
+      >
+        {currentView === 'personal-training'
+          ? 'Scannable list of features and rituals. This is the scroll of invitations.'
+          : 'Comprehensive offerings designed for your specific needs.'}
+      </Typography>
+
+      <Container
+        display='flex'
+        flexDirection='column'
+        gap={
+          orientation === 'mobile-landscape'
+            ? theme.spacing.s1
+            : theme.spacing.m
+        }
+        paddingLeft='0'
+        paddingRight='0'
+        marginLeft='0'
+        style={{ width: '100%', padding: '0 !important' }}
+      >
+        {isMobile || orientation === 'mobile-landscape'
+          ? bulletPoints.map((point) => (
+              <BulletPoint
+                key={point.name}
+                name={point.name}
+                description={point.description}
+                onClick={() => point.route && navigate(point.route)}
+                isHoverable={!!point.route}
+              />
+            ))
+          : bulletPairs.map((pair, rowIndex) => (
+              <div
+                key={rowIndex}
+                style={{
+                  ...styles.gridContainer(false, '1fr 1fr'),
+                  gap: '0.5rem',
+                  width: '100%',
+                  padding: '0 0.5rem',
+                }}
+              >
+                {pair.map((point) => (
+                  <BulletPoint
+                    key={point.name}
+                    name={point.name}
+                    description={point.description}
+                    onClick={() => point.route && navigate(point.route)}
+                    isHoverable={!!point.route}
+                  />
+                ))}
+              </div>
+            ))}
+      </Container>
+    </Container>
+  );
+};
+
+// Overview Section Component (Program Overview & Archetype Mapping for PT)
+export const OverviewSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+  const orientation = useDeviceOrientation();
+  const isMobile =
+    orientation === 'portrait' ||
+    orientation === 'tablet-portrait' ||
+    orientation === 'large-portrait';
+
+  // Apply styles to links within personal training summary
+  useEffect(() => {
+    if (currentView === 'personal-training') {
+      const summaryDiv = document.querySelector('.personal-training-summary');
+      if (summaryDiv) {
+        const links = summaryDiv.querySelectorAll('a');
+        links.forEach((link: HTMLAnchorElement) => {
+          link.style.color = theme.palette.themePrimary;
+          link.style.textDecoration = 'underline';
+        });
+      }
+    }
+  }, [currentView, theme.palette.themePrimary]);
+
+  // Don't show for about page
+  if (currentView === 'about') {
+    return null;
+  }
+
+  const getOverviewTitle = () => {
+    switch (currentView) {
+      case 'personal-training':
+        return 'Program Overview & Archetype Mapping';
+      default:
+        return 'Overview';
+    }
+  };
+
+  const getSummary = () => {
+    switch (currentView) {
+      case 'services':
+        return SERVICES_EXPORTS.SERVICES_SUMMARY;
+      case 'education-training':
+        return SERVICES_EXPORTS.EDUCATION_TRAINING_SUMMARY;
+      case 'personal-training':
+        return SERVICES_EXPORTS.PERSONAL_TRAINING_SUMMARY;
+      case 'consulting':
+        return SERVICES_EXPORTS.CONSULTING_SUMMARY;
+      case 'resonance-core':
+        return SERVICES_EXPORTS.RESONANCE_CORE_SUMMARY;
+      case 'development':
+        return SERVICES_EXPORTS.DEVELOPMENT_SUMMARY;
+      case 'design':
+        return SERVICES_EXPORTS.DESIGN_SUMMARY;
+      default:
+        return SERVICES_EXPORTS.SERVICES_SUMMARY;
+    }
+  };
+
+  // Helper function to render summary content safely
+  const renderSummary = (summary: string | string[]) => {
+    if (Array.isArray(summary)) {
+      return (
+        <>
+          {summary.map((paragraph, index) => (
+            <React.Fragment key={index}>
+              {paragraph}
+              {index < summary.length - 1 && (
+                <>
+                  <br />
+                  <br />
+                </>
+              )}
+            </React.Fragment>
+          ))}
+        </>
+      );
+    }
+    return summary;
+  };
+
+  return (
+    <Container
+      marginLeft='auto'
+      marginRight='auto'
+      marginBottom='3rem'
+      padding={
+        isMobile || orientation === 'mobile-landscape'
+          ? `${theme.spacing.l} ${theme.spacing.m}`
+          : '2.5rem'
+      }
+      maxWidth='1000px'
+      style={{
+        background:
+          theme.themeMode === 'high-contrast'
+            ? theme.semanticColors.warningBackground
+            : theme.palette.neutralLight,
+        borderRadius: theme.borderRadius.container.medium,
+        border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+      }}
+    >
+      <H2Title name={getOverviewTitle()} style={{ margin: '0 0 1.5rem 0' }} />
+      {currentView === 'personal-training' && (
+        <Typography
+          variant='p'
+          color={theme.palette.neutralSecondary}
+          marginBottom='1rem'
+          style={{ textAlign: 'center', fontStyle: 'italic' }}
+        >
+          This is the mythic gate. Clients self-identify before choosing a path.
+        </Typography>
+      )}
+
+      <Typography
+        variant='p'
+        textAlign='left'
+        color={theme.palette.neutralPrimary}
+        marginBottom='2rem'
+        noHyphens
+        style={styles.textContent}
+      >
+        {currentView === 'personal-training' ? (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: SERVICES_EXPORTS.PERSONAL_TRAINING_SUMMARY,
+            }}
+            className='personal-training-summary'
+          />
+        ) : (
+          renderSummary(getSummary())
+        )}
+      </Typography>
+    </Container>
   );
 };
 
@@ -1854,17 +2328,9 @@ export const TaglineHeader: React.FC<{
     return null;
   }
 
-  const hrStyles = {
-    margin: '2rem 0',
-    border: 'none',
-    height: '1px',
-    backgroundColor: theme.palette.themePrimary,
-    opacity: 0.3,
-  };
-
   return (
     <>
-      <hr style={hrStyles} />
+      <hr style={styles.hrStyles} />
       <div
         style={{
           textAlign: 'center',
@@ -1913,7 +2379,7 @@ export const TaglineHeader: React.FC<{
           {SERVICES_EXPORTS.FLUXLINE_SECONDARY_TAGLINE}
         </Typography>
       </div>
-      <hr style={hrStyles} />
+      <hr style={styles.hrStyles} />
     </>
   );
 };
@@ -1941,6 +2407,7 @@ export const Services: React.FC<ServicesProps> = ({
   };
 
   const actualView = getViewFromPath();
+  const { theme } = useAppTheme();
 
   return (
     <AnimatePresence mode='wait'>
@@ -1963,22 +2430,54 @@ export const Services: React.FC<ServicesProps> = ({
               <GetStarted />
             </>
           ) : (
-            // Original layout for other service pages
+            // New hierarchical structure for all service pages
             <>
-              <ProfessionalSummary currentView={actualView} />
+              {/* 1. Hero Section / Opening Line */}
+              <HeroSection currentView={actualView} />
+
+              {/* 2. Program Overview & Archetype Mapping */}
+              <OverviewSection currentView={actualView} />
+
+              {/* 3. Services Offered (Bullet Format) */}
+              <ServicesOfferedSection currentView={actualView} />
+
+              {/* 4. Program Tiers Offered (Grid or Cards) */}
+              <ProgramTiersSection currentView={actualView} />
+
+              {/* 5. White Paper */}
               <WhitePagesSection currentView={actualView} />
-              <H2Title
-                name='Additional Resources'
-                style={{ margin: '2rem 0 1.5rem 13rem' }}
-              />
-              <CTACallout
-                variant='legal'
-                currentView={actualView}
-                showOnlyFor={[]}
-                hideTopHR={true}
-                hideBottomHR={true}
-              />
-              <GetStarted isServicesPage />
+
+              {/* 6. Ready to Get Started? (Final CTA) */}
+              <div style={{ margin: '3rem 0 2rem 0' }}>
+                <Container
+                  marginLeft='auto'
+                  marginRight='auto'
+                  maxWidth='1000px'
+                  style={{ textAlign: 'center' }}
+                >
+                  <H2Title
+                    name='Ready to Get Started?'
+                    style={{ margin: '0 0 1.5rem 0', textAlign: 'center' }}
+                  />
+                  <Typography
+                    variant='p'
+                    color={theme.palette.neutralSecondary}
+                    marginBottom='2rem'
+                    style={{
+                      textAlign: 'center',
+                      fontStyle: 'italic',
+                      maxWidth: '600px',
+                      margin: '0 auto 2rem auto',
+                      display: 'block',
+                    }}
+                  >
+                    {actualView === 'personal-training'
+                      ? 'This is the threshold crossing. The ritual begins.'
+                      : 'Transform your vision into reality with expert guidance.'}
+                  </Typography>
+                  <GetStarted isServicesPage />
+                </Container>
+              </div>
             </>
           )}
         </div>
