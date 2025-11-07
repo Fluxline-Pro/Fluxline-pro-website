@@ -25,13 +25,13 @@ const FLUXLINE_ETHOS = [
 ];
 
 const SERVICES_SUMMARY =
-  'Fluxline offers strategic, design-forward, and emotionally intelligent solutions that help individuals and businesses build their brand and identity. Every service we offer is rooted in progressive, intentional design and build to push yourself and/or your business forward. Click on a service below to learn more!';
+  'Fluxline offers strategic, emotionally intelligent, and design-forward solutions for founders, creatives, and organizations seeking transformation. Every service is a curriculum gate—crafted to align your identity, systems, and mission with intentionality and resonance.';
 
 const EDUCATION_TRAINING_SUMMARY =
   'Transformational coaching, founder mentorship, and emotionally intelligent team leadership for those who build with purpose.';
 
 const PERSONAL_TRAINING_SUMMARY =
-  "<strong>Training is not just physical—it's emotional, symbolic, and sovereign.</strong> At Fluxline, we specialize in modular coaching systems that adapt to your goals, limitations, and breakthroughs. Whether you're returning to movement, navigating chronic pain, or refining your edge, we design your path with precision and care.<br /><br />Before choosing a program, we invite you to take the <strong>Fluxline Archetype Quiz</strong> below—a brief emotional mapping tool that helps identify your training style, motivational patterns, and ideal coaching rhythm. <br /><br />Your results help guide us in selecting the right program tier, coaching cadence, and onboarding rituals. Every offering is tailored to your body, schedule, and emotional readiness.<br /><br />We work with all bodies, all backgrounds, and all thresholds. This is not just fitness—<strong><em>it's felt transformation</em></strong>.";
+  "<strong>Training is not just physical—it's emotional, symbolic, and sovereign.</strong> At Fluxline, we specialize in modular coaching systems that adapt to your goals, limitations, and breakthroughs. Whether you're returning to movement, navigating chronic pain, or refining your edge, we design your path with precision and care.<br /><br />Before choosing a program, we invite you to take the <strong>Fluxline Archetype Quiz</strong> in the header above—a brief emotional mapping tool that helps identify your training style, motivational patterns, and ideal coaching rhythm. <br /><br />Your results help guide us in selecting the right program tier, coaching cadence, and onboarding rituals. Every offering is tailored to your body, schedule, and emotional readiness.<br /><br />We work with all bodies, all backgrounds, and all thresholds. This is not just fitness—<strong><em>it's felt transformation</em></strong>.";
 
 const RESONANCE_CORE_SUMMARY =
   'Guiding individuals through transformative life coaching and personal development using the Resonance Core methodology.';
@@ -213,7 +213,7 @@ const SERVICES_BULLET_POINTS: IAboutBulletPoint[] = [
   {
     name: 'Personal Training & Wellness',
     description:
-      'Modular training for founders and creatives. Align your body, mind, and mission through intentional movement and emotional integration.',
+      'Modular coaching for founders and creatives. Align body, breath, and mission through movement, mindset, and emotional integration.',
     route: '/services/personal-training',
     // White pages integration
     id: 'personal-training',
@@ -225,7 +225,7 @@ const SERVICES_BULLET_POINTS: IAboutBulletPoint[] = [
   {
     name: 'Brand Identity & Experience Design',
     description:
-      'End-to-end brand architecture and emotionally intelligent UI/UX design that reflects your evolution and resonates.',
+      'End-to-end brand architecture and emotionally intelligent design that reflects your evolution and resonates with your audience.',
     route: '/services/design',
     // White pages integration
     id: 'graphic-design',
@@ -237,7 +237,7 @@ const SERVICES_BULLET_POINTS: IAboutBulletPoint[] = [
   {
     name: 'Web & Application Development',
     description:
-      'Crafting full-stack digital products using modern technologies—with an emphasis on modularity, usability, and long-term maintainability.',
+      'Full-stack digital products built with modular clarity, intuitive UX, sophisticated infrastructure and long-term maintainability.',
     route: '/services/development',
     // White pages integration
     id: 'development',
@@ -249,7 +249,7 @@ const SERVICES_BULLET_POINTS: IAboutBulletPoint[] = [
   {
     name: 'business strategy & systems alignment',
     description:
-      'Strategic business alignment, mission & vision development, and technology integration for small to medium businesses and entrepreneurs seeking purpose-driven growth.',
+      'Strategic alignment, mission development, and tech integration for purpose-driven growth and operational sovereignty.',
     route: '/services/consulting',
     // White pages integration
     id: 'consulting',
@@ -261,7 +261,7 @@ const SERVICES_BULLET_POINTS: IAboutBulletPoint[] = [
   {
     name: 'Coaching, Education & Leadership',
     description:
-      'Transformational coaching, founder mentorship, and emotionally intelligent team leadership for those who build with purpose.',
+      'Transformational coaching and emotionally intelligent leadership for founders and teams building with purpose.',
     route: '/services/education-training',
     // White pages integration
     id: 'education-training',
@@ -273,7 +273,7 @@ const SERVICES_BULLET_POINTS: IAboutBulletPoint[] = [
   {
     name: 'Life Coaching & The Resonance Core',
     description:
-      'Guiding individuals through transformative life coaching and personal development using the Resonance Core methodology.',
+      'Personal development through the Resonance Core Framework™—guiding individuals through emotional sovereignty and mythic integration.',
     route: '/services/resonance-core',
     // White pages integration
     id: 'resonance-core',

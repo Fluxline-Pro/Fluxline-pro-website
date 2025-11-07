@@ -107,7 +107,7 @@ export const WhitePagesView: React.FC = () => {
                 style={styles.h2Title(theme)}
                 textAlign='center'
               >
-                Services White Pages
+                Explore the Scrolls
               </Typography>
             </Container>
             <Typography
@@ -117,8 +117,8 @@ export const WhitePagesView: React.FC = () => {
               marginBottom='2rem'
               noHyphens
             >
-              Explore detailed information about each of our services through
-              our white pages below.
+              Dive deeper into each offering through our white papers—each one a
+              curriculum gate into your next transformation.
             </Typography>
 
             <div style={styles.cardContainer(isMobile)}>

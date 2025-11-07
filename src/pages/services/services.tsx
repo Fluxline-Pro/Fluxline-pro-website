@@ -145,7 +145,7 @@ export const WhitePagesSection: React.FC<{
         <hr style={styles.hrStyles(theme)} />
         <H2Title
           name={
-            currentView === 'services' ? 'Services White Pages' : 'White Page'
+            `📜 Explore the Scroll${currentView === 'services' ? 's' : ''}` /* Pluralize for main services page */
           }
         />
         <Typography
@@ -157,8 +157,8 @@ export const WhitePagesSection: React.FC<{
           style={styles.textContent}
         >
           {currentView === 'services'
-            ? 'Explore detailed information about each of our services through our white pages.'
-            : `View our detailed white paper below for more information about ${serviceName}.`}
+            ? 'Dive deeper into each offering through our white papers—each one a curriculum gate into your next transformation.'
+            : `View our detailed white paper scroll below for more information about ${serviceName}.`}
         </Typography>
 
         <div
