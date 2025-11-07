@@ -636,20 +636,27 @@ const SERVICES_STYLES = {
       left?: number;
     }
   ) => ({
-    background: options?.background || theme.palette.themePrimary,
+    background: options?.background || theme.palette.themeSecondary,
     color: theme.palette.white,
     padding: '1rem',
     fontSize: '1.1rem',
     fontFamily: theme.typography.fonts.h3.fontFamily,
-    textAlign: (options?.textAlign as any) || 'left',
+    textAlign: (options?.textAlign as any) || 'center',
     fontWeight: 'bold',
     borderRadius: options?.borderRadius || '0',
     position: options?.position as any,
     left: options?.left,
+    verticalAlign: 'middle',
   }),
   tableRow: (theme: any, index: number) => ({
     background:
-      index % 2 === 0 ? theme.palette.neutralLight : theme.palette.white,
+      theme.themeMode === 'dark' || theme.themeMode === 'high-contrast'
+        ? index % 2 === 0
+          ? theme.palette.neutralQuaternaryAlt
+          : theme.palette.neutralDark
+        : index % 2 === 0
+          ? 'rgba(0, 0, 0, 0.01)'
+          : 'rgba(0, 0, 0, 0.03)',
   }),
   tableCell: (
     theme: any,
@@ -662,19 +669,43 @@ const SERVICES_STYLES = {
       background?: string;
       fontSize?: string;
     }
-  ) => ({
-    fontFamily: theme.typography.fonts.body.fontFamily,
-    padding: '1rem',
-    borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
-    textAlign: (options?.textAlign as any) || 'left',
-    fontWeight: options?.fontWeight || 'normal',
-    maxWidth: '300px',
-    color: options?.color || theme.palette.neutralPrimary,
-    position: options?.position as any,
-    left: options?.left,
-    background: options?.background,
-    fontSize: options?.fontSize || '1rem',
-  }),
+  ) => {
+    const styles: any = {
+      fontFamily: theme.typography.fonts.body.fontFamily,
+      padding: '1rem',
+      borderBottom: `1px solid ${
+        theme.themeMode === 'dark'
+          ? theme.palette.neutralTertiary
+          : theme.palette.neutralTertiaryAlt
+      }`,
+      textAlign: (options?.textAlign as any) || 'left',
+      fontWeight: options?.fontWeight || 'normal',
+      maxWidth: '300px',
+      color:
+        options?.color ||
+        (theme.themeMode === 'dark'
+          ? theme.palette.white
+          : theme.themeMode === 'high-contrast'
+            ? theme.semanticColors.bodyText
+            : theme.palette.neutralPrimary),
+      fontSize: options?.fontSize || '1rem',
+      verticalAlign: 'middle',
+    };
+
+    // Only add position and left if specified
+    if (options?.position) {
+      styles.position = options.position;
+    }
+    if (options?.left !== undefined) {
+      styles.left = options.left;
+    }
+    // Only add background if explicitly specified
+    if (options?.background !== undefined) {
+      styles.background = options.background;
+    }
+
+    return styles;
+  },
 };
 
 // Program tiers data moved from services.tsx

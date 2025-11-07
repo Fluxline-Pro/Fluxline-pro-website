@@ -19,6 +19,7 @@ import { PdfModal } from '../../theme/components/modal/pdf-modal';
 import { WhitePageItem } from '../white-pages/white-pages-constants';
 import { WhitePageCard } from '../../theme/components/card/white-page-card/white-page-card';
 import { CTACallout } from '../../theme/components/cta';
+import { FadeIn } from '../../theme/components/animations/fade-animations';
 
 // Use styles from constants file
 const styles = SERVICES_EXPORTS.SERVICES_STYLES;
@@ -257,6 +258,8 @@ export const HeroSection: React.FC<{
           isMobile || orientation === 'mobile-landscape'
             ? `${theme.spacing.l} ${theme.spacing.m}`
             : theme.spacing.xxl,
+        maxWidth: '1100px',
+        margin: '0 auto',
       }}
     >
       {/* Navigation and Title Section */}
@@ -294,9 +297,12 @@ export const HeroSection: React.FC<{
         <Typography
           variant='h3'
           color={theme.palette.neutralPrimary}
+          textTransform='none'
           marginBottom='1.5rem'
           fontSize={isMobile ? '1.2rem' : '1.4rem'}
           fontWeight='400'
+          maxWidth='800px'
+          margin='0 auto'
           style={{ lineHeight: '1.6' }}
         >
           {heroContent.subtitle}
@@ -313,6 +319,15 @@ export const HeroSection: React.FC<{
           hideTopHR={true}
           hideBottomHR={true}
         />
+        {currentView === 'personal-training' && (
+          <CTACallout
+            variant='getStarted'
+            currentView={currentView}
+            showOnlyFor={[]}
+            hideTopHR={true}
+            hideBottomHR={true}
+          />
+        )}
       </div>
     </div>
   );
@@ -329,7 +344,12 @@ const ProgramTierTable: React.FC<{ theme: any; isMobile: boolean }> = ({
     <div
       style={{
         overflowX: 'auto',
-        background: theme.palette.neutralLighter,
+        background:
+          theme.themeMode === 'high-contrast'
+            ? theme.semanticColors.bodyBackground
+            : theme.themeMode === 'dark'
+              ? 'rgba(40,40,40, 0.8)' // Dark mode background hard coded for table
+              : theme.palette.neutralLighter,
         borderRadius: '8px',
         padding: '1rem',
       }}
@@ -361,7 +381,10 @@ const ProgramTierTable: React.FC<{ theme: any; isMobile: boolean }> = ({
               <td
                 style={styles.tableCell(theme, {
                   fontWeight: 'bold',
-                  color: theme.palette.themePrimary,
+                  color:
+                    theme.themeMode === 'dark'
+                      ? theme.palette.themeLight
+                      : theme.palette.themePrimary,
                 })}
               >
                 {tier.tier}
@@ -373,7 +396,10 @@ const ProgramTierTable: React.FC<{ theme: any; isMobile: boolean }> = ({
                   <div
                     style={{
                       fontSize: '0.9em',
-                      color: theme.palette.neutralTertiary,
+                      color:
+                        theme.themeMode === 'dark'
+                          ? theme.palette.neutralSecondary
+                          : theme.palette.neutralTertiary,
                       marginTop: '0.25rem',
                     }}
                   >
@@ -421,170 +447,168 @@ const WhatsIncludedModal: React.FC<{
       }}
       onClick={onClose}
     >
-      <div
-        style={{
-          background: theme.palette.neutralLighter,
-          borderRadius: '12px',
-          padding: '2rem',
-          maxWidth: '95vw',
-          maxHeight: '95vh',
-          overflow: 'auto',
-          position: 'relative',
-        }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          onClick={onClose}
+      <FadeIn duration={0.3} delay={0}>
+        <div
           style={{
-            position: 'absolute',
-            top: '1rem',
-            right: '1rem',
-            background: 'none',
-            border: 'none',
-            fontSize: '1.5rem',
-            cursor: 'pointer',
-            color: theme.palette.neutralPrimary,
+            background:
+              theme.themeMode === 'dark' || theme.themeMode === 'high-contrast'
+                ? theme.palette.neutralDark
+                : theme.palette.neutralLighter,
+            borderRadius: '12px',
+            padding: '2rem',
+            maxWidth: '95vw',
+            maxHeight: '95vh',
+            overflow: 'auto',
+            position: 'relative',
           }}
+          onClick={(e) => e.stopPropagation()}
         >
-          ✕
-        </button>
-
-        <h2
-          style={{
-            color: theme.palette.themePrimary,
-            marginBottom: '1.5rem',
-            textAlign: 'center',
-            fontSize: '1.8rem',
-            fontFamily: theme.typography.fonts.h2.fontFamily,
-          }}
-        >
-          🧩 What's Included - Program Comparison
-        </h2>
-
-        <div style={{ overflowX: 'auto' }}>
-          <table
-            style={{
-              ...styles.table,
-              minWidth: '800px',
-            }}
-          >
-            <thead>
-              <tr>
-                <th
-                  style={styles.tableHeader(theme, {
-                    borderRadius: '4px 0 0 0',
-                    position: 'sticky',
-                    left: 0,
-                  })}
-                >
-                  Feature
-                </th>
-                <th
-                  style={styles.tableHeader(theme, {
-                    background: theme.palette.neutralSecondary,
-                    textAlign: 'center',
-                  })}
-                >
-                  Online PT Only
-                </th>
-                <th
-                  style={styles.tableHeader(theme, {
-                    background: theme.palette.themeSecondary,
-                    textAlign: 'center',
-                  })}
-                >
-                  Hybrid PT
-                </th>
-                <th
-                  style={styles.tableHeader(theme, {
-                    background: theme.palette.themeTertiary,
-                    textAlign: 'center',
-                  })}
-                >
-                  Online Hypertrophy
-                </th>
-                <th
-                  style={styles.tableHeader(theme, {
-                    borderRadius: '0 4px 0 0',
-                    textAlign: 'center',
-                  })}
-                >
-                  Hybrid Hypertrophy
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {features.map((row, index) => (
-                <tr key={row.feature} style={styles.tableRow(theme, index)}>
-                  <td
-                    style={styles.tableCell(theme, {
-                      fontWeight: 'bold',
-                      position: 'sticky',
-                      left: 0,
-                      background:
-                        index % 2 === 0
-                          ? theme.palette.white
-                          : theme.palette.neutralLight,
-                    })}
-                  >
-                    {row.feature}
-                  </td>
-                  <td
-                    style={styles.tableCell(theme, {
-                      textAlign: 'center',
-                      fontSize: '1.2rem',
-                    })}
-                  >
-                    {row.onlinePT}
-                  </td>
-                  <td
-                    style={styles.tableCell(theme, {
-                      textAlign: 'center',
-                      fontSize: '1.2rem',
-                    })}
-                  >
-                    {row.hybridPT}
-                  </td>
-                  <td
-                    style={styles.tableCell(theme, {
-                      textAlign: 'center',
-                      fontSize: '1.2rem',
-                    })}
-                  >
-                    {row.onlineHypertrophy}
-                  </td>
-                  <td
-                    style={styles.tableCell(theme, {
-                      textAlign: 'center',
-                      fontSize: '1.2rem',
-                    })}
-                  >
-                    {row.hybridHypertrophy}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
           <button
             onClick={onClose}
             style={{
-              background: theme.palette.themePrimary,
-              color: theme.palette.white,
+              position: 'absolute',
+              top: '1rem',
+              right: '1rem',
+              background: 'none',
               border: 'none',
-              padding: '0.75rem 1.5rem',
-              fontFamily: theme.typography.fonts.body.fontFamily,
-              borderRadius: '4px',
-              fontSize: '1rem',
+              fontSize: '1.5rem',
               cursor: 'pointer',
+              color: theme.palette.neutralPrimary,
             }}
           >
-            Close
+            ✕
           </button>
+
+          <h2
+            style={{
+              color: theme.palette.themePrimary,
+              marginBottom: '1.5rem',
+              textAlign: 'center',
+              fontSize: '1.8rem',
+              fontFamily: theme.typography.fonts.h2.fontFamily,
+            }}
+          >
+            🧩 What's Included - Program Comparison
+          </h2>
+
+          <div style={{ overflowX: 'auto' }}>
+            <table
+              style={{
+                ...styles.table,
+                minWidth: '800px',
+              }}
+            >
+              <thead>
+                <tr>
+                  <th
+                    style={styles.tableHeader(theme, {
+                      borderRadius: '4px 0 0 0',
+                      position: 'sticky',
+                      left: 0,
+                    })}
+                  >
+                    Feature
+                  </th>
+                  <th
+                    style={styles.tableHeader(theme, {
+                      textAlign: 'center',
+                    })}
+                  >
+                    Online PT Only
+                  </th>
+                  <th
+                    style={styles.tableHeader(theme, {
+                      textAlign: 'center',
+                    })}
+                  >
+                    Hybrid PT
+                  </th>
+                  <th
+                    style={styles.tableHeader(theme, {
+                      textAlign: 'center',
+                    })}
+                  >
+                    Online Hypertrophy
+                  </th>
+                  <th
+                    style={styles.tableHeader(theme, {
+                      borderRadius: '0 4px 0 0',
+                      textAlign: 'center',
+                    })}
+                  >
+                    Hybrid Hypertrophy
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {features.map((row, index) => (
+                  <tr key={row.feature} style={styles.tableRow(theme, index)}>
+                    <td
+                      style={styles.tableCell(theme, {
+                        fontWeight: 'bold',
+                        position: 'sticky',
+                        left: 0,
+                      })}
+                    >
+                      {row.feature}
+                    </td>
+                    <td
+                      style={styles.tableCell(theme, {
+                        textAlign: 'center',
+                        fontSize: '1.2rem',
+                      })}
+                    >
+                      {row.onlinePT}
+                    </td>
+                    <td
+                      style={styles.tableCell(theme, {
+                        textAlign: 'center',
+                        fontSize: '1.2rem',
+                      })}
+                    >
+                      {row.hybridPT}
+                    </td>
+                    <td
+                      style={styles.tableCell(theme, {
+                        textAlign: 'center',
+                        fontSize: '1.2rem',
+                      })}
+                    >
+                      {row.onlineHypertrophy}
+                    </td>
+                    <td
+                      style={styles.tableCell(theme, {
+                        textAlign: 'center',
+                        fontSize: '1.2rem',
+                      })}
+                    >
+                      {row.hybridHypertrophy}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+            <button
+              onClick={onClose}
+              style={{
+                background: theme.palette.themePrimary,
+                color: theme.palette.white,
+                border: 'none',
+                padding: '0.75rem 1.5rem',
+                fontFamily: theme.typography.fonts.body.fontFamily,
+                borderRadius: '4px',
+                fontSize: '1rem',
+                cursor: 'pointer',
+              }}
+            >
+              Close
+            </button>
+          </div>
         </div>
-      </div>
+      </FadeIn>
     </div>
   );
 };
@@ -614,7 +638,7 @@ export const ProgramTiersSection: React.FC<{
       padding={
         isMobile || orientation === 'mobile-landscape'
           ? `${theme.spacing.l} ${theme.spacing.m}`
-          : '2.5rem 2.5rem 1rem 2.5rem'
+          : '1rem 2.5rem 0 2.5rem'
       }
       maxWidth='1000px'
     >
@@ -638,7 +662,7 @@ export const ProgramTiersSection: React.FC<{
         <button
           onClick={() => setShowWhatsIncluded(true)}
           style={{
-            background: theme.palette.themePrimary,
+            background: theme.palette.themeSecondary,
             color: theme.palette.white,
             border: 'none',
             padding: '1rem 2rem',
@@ -655,7 +679,7 @@ export const ProgramTiersSection: React.FC<{
             e.currentTarget.style.transform = 'translateY(-2px)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = theme.palette.themePrimary;
+            e.currentTarget.style.background = theme.palette.themeSecondary;
             e.currentTarget.style.transform = 'translateY(0)';
           }}
         >
@@ -664,13 +688,15 @@ export const ProgramTiersSection: React.FC<{
       </div>
 
       {/* What's Included Modal */}
-      {showWhatsIncluded && (
-        <WhatsIncludedModal
-          isOpen={showWhatsIncluded}
-          onClose={() => setShowWhatsIncluded(false)}
-          theme={theme}
-        />
-      )}
+      <AnimatePresence mode='wait'>
+        {showWhatsIncluded && (
+          <WhatsIncludedModal
+            isOpen={showWhatsIncluded}
+            onClose={() => setShowWhatsIncluded(false)}
+            theme={theme}
+          />
+        )}
+      </AnimatePresence>
     </Container>
   );
 };
@@ -739,7 +765,7 @@ export const ServicesOfferedSection: React.FC<{
       padding={
         isMobile || orientation === 'mobile-landscape'
           ? `${theme.spacing.l} ${theme.spacing.m}`
-          : '2.5rem 2.5rem 1rem 2.5rem'
+          : '1rem 2.5rem 0 2.5rem'
       }
       maxWidth='1000px'
     >
@@ -891,26 +917,14 @@ export const OverviewSection: React.FC<{
     <Container
       marginLeft='auto'
       marginRight='auto'
-      marginBottom='3rem'
       padding={
         isMobile || orientation === 'mobile-landscape'
           ? `${theme.spacing.l} ${theme.spacing.m}`
-          : '2.5rem'
+          : '2.5rem 2.5rem 0rem 2.5rem'
       }
       maxWidth='1000px'
     >
       <H2Title name={getOverviewTitle()} style={{ margin: '0 0 1.5rem 0' }} />
-      {currentView === 'personal-training' && (
-        <Typography
-          variant='p'
-          color={theme.palette.neutralSecondary}
-          marginBottom='1rem'
-          style={{ textAlign: 'center', fontStyle: 'italic' }}
-        >
-          This is the mythic gate. Clients self-identify before choosing a path.
-        </Typography>
-      )}
-
       <Typography
         variant='p'
         textAlign='left'
@@ -1309,9 +1323,7 @@ export const ProfessionalSummary: React.FC<{
         padding={
           isMobile || orientation === 'mobile-landscape'
             ? `${theme.spacing.l} ${theme.spacing.m}`
-            : currentView === 'personal-training'
-              ? '2.5rem 2.5rem 1rem 2.5rem'
-              : theme.spacing.xxl
+            : '1rem 2.5rem 0 2.5rem'
         }
         maxWidth='1000px'
         style={{
@@ -1417,7 +1429,7 @@ export const ProfessionalSummary: React.FC<{
           padding={
             isMobile || orientation === 'mobile-landscape'
               ? `${theme.spacing.l} ${theme.spacing.m}`
-              : '2.5rem 2.5rem 1rem 2.5rem'
+              : '1rem 2.5rem 0 2.5rem'
           }
           maxWidth='1000px'
         >
@@ -1508,13 +1520,15 @@ export const ProfessionalSummary: React.FC<{
       )}
 
       {/* What's Included Modal */}
-      {showWhatsIncluded && (
-        <WhatsIncludedModal
-          isOpen={showWhatsIncluded}
-          onClose={() => setShowWhatsIncluded(false)}
-          theme={theme}
-        />
-      )}
+      <AnimatePresence mode='wait'>
+        {showWhatsIncluded && (
+          <WhatsIncludedModal
+            isOpen={showWhatsIncluded}
+            onClose={() => setShowWhatsIncluded(false)}
+            theme={theme}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };

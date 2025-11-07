@@ -50,6 +50,7 @@ export const WhitePageCard: React.FC<WhitePageCardProps> = ({
     boxShadow: isHovered ? theme.shadows.xl : theme.shadows.card,
     transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
     height: variant === 'compact' ? '100%' : 'auto',
+    maxWidth: '400px',
   });
 
   return (
