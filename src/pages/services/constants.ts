@@ -31,7 +31,7 @@ const EDUCATION_TRAINING_SUMMARY =
   'Transformational coaching, founder mentorship, and emotionally intelligent team leadership for those who build with purpose.';
 
 const PERSONAL_TRAINING_SUMMARY =
-  '<strong>Training is not just physical—it\'s emotional, symbolic, and sovereign.</strong> At Fluxline, we specialize in modular coaching systems that adapt to your goals, limitations, and breakthroughs. Whether you\'re returning to movement, navigating chronic pain, or refining your edge, we design your path with precision and care.<br /><br />Before choosing a program, we invite you to take the <strong>Fluxline Archetype Quiz</strong> below—a brief emotional mapping tool that helps identify your training style, motivational patterns, and ideal coaching rhythm. <br /><br />Your results help guide us in selecting the right program tier, coaching cadence, and onboarding rituals. Every offering is tailored to your body, schedule, and emotional readiness.<br /><br />We work with all bodies, all backgrounds, and all thresholds. This is not just fitness—<strong><em>it\'s felt transformation</em></strong>.';
+  "<strong>Training is not just physical—it's emotional, symbolic, and sovereign.</strong> At Fluxline, we specialize in modular coaching systems that adapt to your goals, limitations, and breakthroughs. Whether you're returning to movement, navigating chronic pain, or refining your edge, we design your path with precision and care.<br /><br />Before choosing a program, we invite you to take the <strong>Fluxline Archetype Quiz</strong> below—a brief emotional mapping tool that helps identify your training style, motivational patterns, and ideal coaching rhythm. <br /><br />Your results help guide us in selecting the right program tier, coaching cadence, and onboarding rituals. Every offering is tailored to your body, schedule, and emotional readiness.<br /><br />We work with all bodies, all backgrounds, and all thresholds. This is not just fitness—<strong><em>it's felt transformation</em></strong>.";
 
 const RESONANCE_CORE_SUMMARY =
   'Guiding individuals through transformative life coaching and personal development using the Resonance Core methodology.';
@@ -535,6 +535,417 @@ const DESIGN_BULLET_POINTS: IAboutBulletPoint[] = [
   },
 ];
 
+// Styling constants moved from services.tsx
+const SERVICES_STYLES = {
+  sectionContainer: (
+    orientation?: string,
+    layoutPreference?: string,
+    view?: string,
+    includesArrow?: boolean
+  ) => {
+    // Define main page titles that should get special left-handed spacing
+    const mainTitles = [
+      'Business Strategy & Systems Alignment',
+      'Brand Identity & Experience Design',
+      'Life Coaching & The Resonance Core',
+      'Personal Training & Wellness',
+      'Coaching, Education & Leadership',
+      'Web & Application Development',
+    ];
+
+    return {
+      margin:
+        includesArrow && orientation !== 'mobile-landscape'
+          ? '0 auto'
+          : orientation === 'mobile-landscape'
+            ? layoutPreference === 'left-handed' &&
+              view &&
+              mainTitles.includes(view)
+              ? '0 0 0 14rem'
+              : '0 auto 0 1rem'
+            : '0 auto',
+      marginBottom: orientation === 'mobile-landscape' ? '0rem' : '1.5rem',
+      maxWidth:
+        orientation === 'mobile-landscape' && view && mainTitles.includes(view)
+          ? '400px'
+          : '900px',
+    };
+  },
+  sectionBox: (theme: any) => ({
+    background:
+      theme.themeMode === 'high-contrast'
+        ? theme.semanticColors.warningBackground
+        : theme.palette.neutralLight,
+    padding: '2rem',
+    borderRadius: '4px',
+    marginBottom: '4rem',
+  }),
+  textContent: {
+    textAlign: 'left' as const,
+    maxWidth: '800px',
+    margin: '0 auto',
+  },
+  gridContainer: (isMobile: boolean, columns?: number | string) => ({
+    display: 'grid',
+    gap: '1.5rem',
+    gridTemplateColumns:
+      typeof columns === 'string'
+        ? columns
+        : isMobile
+          ? '1fr 1fr'
+          : `repeat(auto-fit, minmax(${columns ? 900 / columns : 130}px, 1fr))`,
+    alignItems: 'start',
+    justifyItems: 'stretch',
+    width: '100%',
+    maxWidth: '900px',
+    margin: '0 auto',
+  }),
+  h2Title: (theme: any, orientation?: string) => ({
+    color: theme.palette.themePrimary,
+    margin: orientation === 'mobile-landscape' ? '0.5rem 0' : '1rem 0 0.5rem 0',
+    fontSize:
+      orientation === 'mobile-landscape'
+        ? theme.typography.fontSizes.clamp6 // Reduced from clamp7 to clamp6 for mobile-landscape
+        : theme.typography.fontSizes.clamp7,
+    maxWidth: orientation === 'mobile-landscape' ? '400px' : 'none',
+    fontFamily: theme.typography.fonts.h2.fontFamily,
+    fontWeight: theme.typography.fonts.h2.fontWeight,
+    fontVariationSettings: theme.typography.fonts.h2.fontVariationSettings,
+    textTransform: theme.typography.fonts.h2.textTransform,
+    letterSpacing: theme.typography.fonts.h2.letterSpacing,
+    lineHeight: theme.typography.fonts.h2.lineHeight,
+  }),
+  hrStyles: (theme: any) => ({
+    margin: '2rem 0',
+    border: 'none',
+    height: '1px',
+    backgroundColor: theme.palette.themePrimary,
+    opacity: 0.3,
+  }),
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse' as const,
+  },
+  tableHeader: (
+    theme: any,
+    options?: {
+      background?: string;
+      borderRadius?: string;
+      textAlign?: string;
+      position?: string;
+      left?: number;
+    }
+  ) => ({
+    background: options?.background || theme.palette.themePrimary,
+    color: theme.palette.white,
+    padding: '1rem',
+    fontSize: '1.1rem',
+    fontFamily: theme.typography.fonts.h3.fontFamily,
+    textAlign: (options?.textAlign as any) || 'left',
+    fontWeight: 'bold',
+    borderRadius: options?.borderRadius || '0',
+    position: options?.position as any,
+    left: options?.left,
+  }),
+  tableRow: (theme: any, index: number) => ({
+    background:
+      index % 2 === 0 ? theme.palette.neutralLight : theme.palette.white,
+  }),
+  tableCell: (
+    theme: any,
+    options?: {
+      textAlign?: string;
+      fontWeight?: string;
+      color?: string;
+      position?: string;
+      left?: number;
+      background?: string;
+      fontSize?: string;
+    }
+  ) => ({
+    fontFamily: theme.typography.fonts.body.fontFamily,
+    padding: '1rem',
+    borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+    textAlign: (options?.textAlign as any) || 'left',
+    fontWeight: options?.fontWeight || 'normal',
+    maxWidth: '300px',
+    color: options?.color || theme.palette.neutralPrimary,
+    position: options?.position as any,
+    left: options?.left,
+    background: options?.background,
+    fontSize: options?.fontSize || '1rem',
+  }),
+};
+
+// Program tiers data moved from services.tsx
+const PROGRAM_TIERS = [
+  {
+    tier: 'Single Session',
+    idealFor:
+      'Clients needing simplified instruction, unsure about performing exercises, not wanting to commit to a monthly cadence',
+    rate: '$110/session',
+  },
+  {
+    tier: 'Online PT Only',
+    idealFor: 'Remote clients, creatives seeking flexible support',
+    rate: 'Starting at $225/month',
+    note: '(Varies by term length)',
+  },
+  {
+    tier: 'Hybrid PT',
+    idealFor: 'Local clients seeking in-person sessions + remote structure',
+    rate: 'Starting at $350/month',
+    note: '(Varies by term length)',
+  },
+  {
+    tier: 'Online Hypertrophy',
+    idealFor:
+      'Remote clients focused on physique, nutrition, and metabolic coaching',
+    rate: 'Starting at $275/month',
+    note: '(Varies by term length)',
+  },
+  {
+    tier: 'Hybrid Hypertrophy',
+    idealFor:
+      'Full-spectrum transformation: movement, nutrition, emotional integration',
+    rate: 'Starting at $450/month',
+    note: '(Varies by term length)',
+  },
+];
+
+// Features comparison data moved from services.tsx
+const PROGRAM_FEATURES = [
+  {
+    feature: 'Custom Training Plan',
+    onlinePT: '✅',
+    hybridPT: '✅',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Biweekly Check-Ins',
+    onlinePT: '✅',
+    hybridPT: '✅',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Discord Access',
+    onlinePT: '✅',
+    hybridPT: '✅',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Milestone Reviews',
+    onlinePT: '✅',
+    hybridPT: '✅',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Emotional Integration Coaching',
+    onlinePT: '✅',
+    hybridPT: '✅',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'PTDistinction Portal Access',
+    onlinePT: '✅',
+    hybridPT: '✅',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'First 2 Sessions Free',
+    onlinePT: '✅',
+    hybridPT: '✅',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Cancel Anytime (First 2 Sessions)',
+    onlinePT: '✅',
+    hybridPT: '✅',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'In-Person Training Sessions',
+    onlinePT: '❌',
+    hybridPT: '✅',
+    onlineHypertrophy: '❌',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Hands-On Form Correction',
+    onlinePT: '❌',
+    hybridPT: '✅',
+    onlineHypertrophy: '❌',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'On-Site Meditation & Breathwork',
+    onlinePT: '❌',
+    hybridPT: '✅',
+    onlineHypertrophy: '❌',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Real-Time Cueing & Adjustments',
+    onlinePT: '❌',
+    hybridPT: '✅',
+    onlineHypertrophy: '❌',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Local Access (Salt Lake & Davis Counties)',
+    onlinePT: '❌',
+    hybridPT: '✅',
+    onlineHypertrophy: '❌',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Nutrition Coaching',
+    onlinePT: '🟡- Basic, advanced coaching available as add-on',
+    hybridPT: '🟡- Basic, advanced coaching available as add-on',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Recipes & Meal Plans',
+    onlinePT: '🟡- Basic through Discord Server',
+    hybridPT: '🟡- Basic through Discord Server',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Cycle Tracking / Fasting Protocols',
+    onlinePT: '❌',
+    hybridPT: '❌',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Metabolic Phase Mapping',
+    onlinePT: '❌',
+    hybridPT: '❌',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Muscle-building Specific Programming',
+    onlinePT: '❌',
+    hybridPT: '❌',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Progressive Overload Tracking',
+    onlinePT: '❌',
+    hybridPT: '❌',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Physique Optimization Strategy',
+    onlinePT: '❌',
+    hybridPT: '🟡- Basic movement fixes for body sculpting offered',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Supplemental Recovery Rituals',
+    onlinePT: '❌',
+    hybridPT: '❌',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Hormonal Phase Integration',
+    onlinePT: '❌',
+    hybridPT: '❌',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+];
+
+// Helper functions for hero content
+const getHeroContent = (currentView: string) => {
+  switch (currentView) {
+    case 'personal-training':
+      return {
+        title: 'Personal Training & Wellness',
+        subtitle:
+          'Modular training for founders and creatives. Align your body, mind, and mission through intentional movement and emotional integration.',
+        cta: 'Book a consultation',
+      };
+    case 'consulting':
+      return {
+        title: 'Business Strategy & Systems Alignment',
+        subtitle:
+          'Strategic frameworks for sustainable growth. Transform complexity into clarity through systematic business design.',
+        cta: 'Start a project',
+      };
+    case 'education-training':
+      return {
+        title: 'Coaching, Education & Leadership',
+        subtitle:
+          'Leadership development through experiential learning. Build authentic influence and transformational coaching skills.',
+        cta: 'Explore programs',
+      };
+    case 'resonance-core':
+      return {
+        title: 'Life Coaching & The Resonance Core',
+        subtitle:
+          'Deep personal transformation through archetypal integration. Align your inner world with your outer mission.',
+        cta: 'Begin your journey',
+      };
+    case 'development':
+      return {
+        title: 'Web & Application Development',
+        subtitle:
+          'Digital solutions that embody your vision. Clean, purposeful technology that serves your mission.',
+        cta: 'Discuss your project',
+      };
+    case 'design':
+      return {
+        title: 'Brand Identity & Experience Design',
+        subtitle:
+          'Visual identity that resonates with purpose. Create meaningful connections through intentional design.',
+        cta: 'Create together',
+      };
+    default:
+      return {
+        title: 'Our Services',
+        subtitle:
+          'Comprehensive solutions for conscious leaders and innovative organizations.',
+        cta: 'Explore services',
+      };
+  }
+};
+
+// Helper function for service names
+const getServiceName = (currentView: string) => {
+  switch (currentView) {
+    case 'personal-training':
+      return 'Personal Training & Wellness';
+    case 'education-training':
+      return 'Coaching, Education & Leadership';
+    case 'consulting':
+      return 'Business Strategy & Systems Alignment';
+    case 'resonance-core':
+      return 'Life Coaching & The Resonance Core';
+    case 'development':
+      return 'Web & Application Development';
+    case 'design':
+      return 'Brand Identity & Experience Design';
+    default:
+      return 'service';
+  }
+};
+
 const SERVICES_EXPORTS = {
   ABOUT_BULLET_POINTS,
   ABOUT_PERCENTAGE_POINTS,
@@ -559,6 +970,12 @@ const SERVICES_EXPORTS = {
   SERVICES_SUMMARY,
   // White pages helper
   getWhitePagesFromServices,
+  // New consolidated constants
+  SERVICES_STYLES,
+  PROGRAM_TIERS,
+  PROGRAM_FEATURES,
+  getHeroContent,
+  getServiceName,
 };
 
 export default SERVICES_EXPORTS;

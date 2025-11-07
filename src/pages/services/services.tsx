@@ -19,149 +19,9 @@ import { PdfModal } from '../../theme/components/modal/pdf-modal';
 import { WhitePageItem } from '../white-pages/white-pages-constants';
 import { WhitePageCard } from '../../theme/components/card/white-page-card/white-page-card';
 import { CTACallout } from '../../theme/components/cta';
-import theme from '../../theme/theme';
 
-// Reusable style objects
-const styles = {
-  sectionContainer: (
-    orientation?: string,
-    layoutPreference?: string,
-    view?: string,
-    includesArrow?: boolean
-  ) => {
-    // Define main page titles that should get special left-handed spacing
-    const mainTitles = [
-      'Business Strategy & Systems Alignment',
-      'Brand Identity & Experience Design',
-      'Life Coaching & The Resonance Core',
-      'Personal Training & Wellness',
-      'Coaching, Education & Leadership',
-      'Web & Application Development',
-    ];
-
-    return {
-      margin:
-        includesArrow && orientation !== 'mobile-landscape'
-          ? '0 auto'
-          : orientation === 'mobile-landscape'
-            ? layoutPreference === 'left-handed' &&
-              view &&
-              mainTitles.includes(view)
-              ? '0 0 0 14rem'
-              : '0 auto 0 1rem'
-            : '0 auto',
-      marginBottom: orientation === 'mobile-landscape' ? '0rem' : '1.5rem',
-      maxWidth:
-        orientation === 'mobile-landscape' && view && mainTitles.includes(view)
-          ? '400px'
-          : '900px',
-    };
-  },
-  sectionBox: (theme: any) => ({
-    background:
-      theme.themeMode === 'high-contrast'
-        ? theme.semanticColors.warningBackground
-        : theme.palette.neutralLight,
-    padding: '2rem',
-    borderRadius: '4px',
-    marginBottom: '4rem',
-  }),
-  textContent: {
-    textAlign: 'left' as const,
-    maxWidth: '800px',
-    margin: '0 auto',
-  },
-  gridContainer: (isMobile: boolean, columns?: number | string) => ({
-    display: 'grid',
-    gap: '1.5rem',
-    gridTemplateColumns:
-      typeof columns === 'string'
-        ? columns
-        : isMobile
-          ? '1fr 1fr'
-          : `repeat(auto-fit, minmax(${columns ? 900 / columns : 130}px, 1fr))`,
-    alignItems: 'start',
-    justifyItems: 'stretch',
-    width: '100%',
-    maxWidth: '900px',
-    margin: '0 auto',
-  }),
-  h2Title: (theme: any, orientation?: string) => ({
-    color: theme.palette.themePrimary,
-    margin: orientation === 'mobile-landscape' ? '0.5rem 0' : '1rem 0 0.5rem 0',
-    fontSize:
-      orientation === 'mobile-landscape'
-        ? theme.typography.fontSizes.clamp6 // Reduced from clamp7 to clamp6 for mobile-landscape
-        : theme.typography.fontSizes.clamp7,
-    maxWidth: orientation === 'mobile-landscape' ? '400px' : 'none',
-    fontFamily: theme.typography.fonts.h2.fontFamily,
-    fontWeight: theme.typography.fonts.h2.fontWeight,
-    fontVariationSettings: theme.typography.fonts.h2.fontVariationSettings,
-    textTransform: theme.typography.fonts.h2.textTransform,
-    letterSpacing: theme.typography.fonts.h2.letterSpacing,
-    lineHeight: theme.typography.fonts.h2.lineHeight,
-  }),
-  hrStyles: {
-    margin: '2rem 0',
-    border: 'none',
-    height: '1px',
-    backgroundColor: theme.palette.themePrimary,
-    opacity: 0.3,
-  },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse' as const,
-  },
-  tableHeader: (
-    theme: any,
-    options?: {
-      background?: string;
-      borderRadius?: string;
-      textAlign?: string;
-      position?: string;
-      left?: number;
-    }
-  ) => ({
-    background: options?.background || theme.palette.themePrimary,
-    color: theme.palette.white,
-    padding: '1rem',
-    fontSize: '1.1rem',
-    fontFamily: theme.typography.fonts.h3.fontFamily,
-    textAlign: (options?.textAlign as any) || 'left',
-    fontWeight: 'bold',
-    borderRadius: options?.borderRadius || '0',
-    position: options?.position as any,
-    left: options?.left,
-  }),
-  tableRow: (theme: any, index: number) => ({
-    background:
-      index % 2 === 0 ? theme.palette.neutralLight : theme.palette.white,
-  }),
-  tableCell: (
-    theme: any,
-    options?: {
-      textAlign?: string;
-      fontWeight?: string;
-      color?: string;
-      position?: string;
-      left?: number;
-      background?: string;
-      fontSize?: string;
-    }
-  ) => ({
-    fontFamily: theme.typography.fonts.body.fontFamily,
-    padding: '1rem',
-    borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
-    textAlign: (options?.textAlign as any) || 'left',
-    fontWeight: options?.fontWeight || 'normal',
-    maxWidth: '300px',
-    color: options?.color || theme.palette.neutralPrimary,
-    position: options?.position as any,
-    left: options?.left,
-    background: options?.background,
-    fontSize: options?.fontSize || '1rem',
-  }),
-};
+// Use styles from constants file
+const styles = SERVICES_EXPORTS.SERVICES_STYLES;
 interface ServicesProps {
   currentView?:
     | 'about'
@@ -257,24 +117,9 @@ export const WhitePagesSection: React.FC<{
     );
   };
 
-  const getServiceName = () => {
-    switch (currentView) {
-      case 'personal-training':
-        return 'Personal Training & Wellness';
-      case 'education-training':
-        return 'Coaching, Education & Leadership';
-      case 'consulting':
-        return 'Business Strategy & Systems Alignment';
-      case 'resonance-core':
-        return 'Life Coaching & The Resonance Core';
-      case 'development':
-        return 'Web & Application Development';
-      case 'design':
-        return 'Brand Identity & Experience Design';
-      default:
-        return 'service';
-    }
-  };
+  const serviceName = SERVICES_EXPORTS.getServiceName(
+    currentView || 'services'
+  );
 
   const relevantWhitePages = getRelevantWhitePages();
 
@@ -296,7 +141,7 @@ export const WhitePagesSection: React.FC<{
           marginBottom: '3rem',
         }}
       >
-        <hr style={styles.hrStyles} />
+        <hr style={styles.hrStyles(theme)} />
         <H2Title
           name={
             currentView === 'services' ? 'Services White Pages' : 'White Page'
@@ -312,7 +157,7 @@ export const WhitePagesSection: React.FC<{
         >
           {currentView === 'services'
             ? 'Explore detailed information about each of our services through our white pages.'
-            : `View our detailed white paper below for more information about ${getServiceName()}.`}
+            : `View our detailed white paper below for more information about ${serviceName}.`}
         </Typography>
 
         <div
@@ -360,7 +205,7 @@ export const WhitePagesSection: React.FC<{
             </Typography>
           </div>
         )}
-        <hr style={styles.hrStyles} />
+        <hr style={styles.hrStyles(theme)} />
       </div>
 
       {/* PDF Modal */}
@@ -393,74 +238,28 @@ export const HeroSection: React.FC<{
     return null;
   }
 
-  const getHeroContent = () => {
-    switch (currentView) {
-      case 'personal-training':
-        return {
-          title: 'Personal Training & Wellness',
-          subtitle:
-            'Modular training for founders and creatives. Align your body, mind, and mission through intentional movement and emotional integration.',
-          cta: 'Book a consultation',
-        };
-      case 'consulting':
-        return {
-          title: 'Business Strategy & Systems Alignment',
-          subtitle:
-            'Strategic frameworks for sustainable growth. Transform complexity into clarity through systematic business design.',
-          cta: 'Start a project',
-        };
-      case 'education-training':
-        return {
-          title: 'Coaching, Education & Leadership',
-          subtitle:
-            'Leadership development through experiential learning. Build authentic influence and transformational coaching skills.',
-          cta: 'Explore programs',
-        };
-      case 'resonance-core':
-        return {
-          title: 'Life Coaching & The Resonance Core',
-          subtitle:
-            'Deep personal transformation through archetypal integration. Align your inner world with your outer mission.',
-          cta: 'Begin your journey',
-        };
-      case 'development':
-        return {
-          title: 'Web & Application Development',
-          subtitle:
-            'Digital solutions that embody your vision. Clean, purposeful technology that serves your mission.',
-          cta: 'Discuss your project',
-        };
-      case 'design':
-        return {
-          title: 'Brand Identity & Experience Design',
-          subtitle:
-            'Visual identity that resonates with purpose. Create meaningful connections through intentional design.',
-          cta: 'Create together',
-        };
-      default:
-        return {
-          title: 'Our Services',
-          subtitle:
-            'Comprehensive solutions for conscious leaders and innovative organizations.',
-          cta: 'Explore services',
-        };
-    }
-  };
-
-  const heroContent = getHeroContent();
+  const heroContent = SERVICES_EXPORTS.getHeroContent(
+    currentView || 'services'
+  );
 
   return (
     <div
       style={{
-        ...styles.sectionContainer(
-          orientation,
-          layoutPreference,
-          heroContent.title,
-          currentView !== 'services'
-        ),
+        width: '100%',
         marginBottom: '3rem',
+        background:
+          theme.themeMode === 'high-contrast'
+            ? theme.semanticColors.warningBackground
+            : theme.palette.neutralLight,
+        borderRadius: theme.borderRadius.container.medium,
+        border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+        padding:
+          isMobile || orientation === 'mobile-landscape'
+            ? `${theme.spacing.l} ${theme.spacing.m}`
+            : theme.spacing.xxl,
       }}
     >
+      {/* Navigation and Title Section */}
       <Container
         display='flex'
         flexDirection='row'
@@ -488,24 +287,9 @@ export const HeroSection: React.FC<{
         <H2Title name={heroContent.title} />
       </Container>
 
-      <Container
-        marginLeft='auto'
-        marginRight='auto'
-        padding={
-          isMobile || orientation === 'mobile-landscape'
-            ? `${theme.spacing.l} ${theme.spacing.m}`
-            : theme.spacing.xxl
-        }
-        maxWidth='1000px'
-        style={{
-          background:
-            theme.themeMode === 'high-contrast'
-              ? theme.semanticColors.warningBackground
-              : theme.palette.neutralLight,
-          borderRadius: theme.borderRadius.container.medium,
-          border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
-          textAlign: 'center',
-        }}
+      {/* Hero Content */}
+      <div
+        style={{ textAlign: 'center', maxWidth: '1000px', margin: '0 auto' }}
       >
         <Typography
           variant='h3'
@@ -529,7 +313,7 @@ export const HeroSection: React.FC<{
           hideTopHR={true}
           hideBottomHR={true}
         />
-      </Container>
+      </div>
     </div>
   );
 };
@@ -539,40 +323,7 @@ const ProgramTierTable: React.FC<{ theme: any; isMobile: boolean }> = ({
   theme,
   isMobile,
 }) => {
-  const programTiers = [
-    {
-      tier: 'Single Session',
-      idealFor:
-        'Clients needing simplified instruction, unsure about performing exercises, not wanting to commit to a monthly cadence',
-      rate: '$110/session',
-    },
-    {
-      tier: 'Online PT Only',
-      idealFor: 'Remote clients, creatives seeking flexible support',
-      rate: 'Starting at $225/month',
-      note: '(Varies by term length)',
-    },
-    {
-      tier: 'Hybrid PT',
-      idealFor: 'Local clients seeking in-person sessions + remote structure',
-      rate: 'Starting at $350/month',
-      note: '(Varies by term length)',
-    },
-    {
-      tier: 'Online Hypertrophy',
-      idealFor:
-        'Remote clients focused on physique, nutrition, and metabolic coaching',
-      rate: 'Starting at $275/month',
-      note: '(Varies by term length)',
-    },
-    {
-      tier: 'Hybrid Hypertrophy',
-      idealFor:
-        'Full-spectrum transformation: movement, nutrition, emotional integration',
-      rate: 'Starting at $450/month',
-      note: '(Varies by term length)',
-    },
-  ];
+  const programTiers = SERVICES_EXPORTS.PROGRAM_TIERS;
 
   return (
     <div
@@ -646,162 +397,7 @@ const WhatsIncludedModal: React.FC<{
 }> = ({ isOpen, onClose, theme }) => {
   if (!isOpen) return null;
 
-  const features = [
-    {
-      feature: 'Custom Training Plan',
-      onlinePT: '✅',
-      hybridPT: '✅',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Biweekly Check-Ins',
-      onlinePT: '✅',
-      hybridPT: '✅',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Discord Access',
-      onlinePT: '✅',
-      hybridPT: '✅',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Milestone Reviews',
-      onlinePT: '✅',
-      hybridPT: '✅',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Emotional Integration Coaching',
-      onlinePT: '✅',
-      hybridPT: '✅',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'PTDistinction Portal Access',
-      onlinePT: '✅',
-      hybridPT: '✅',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'First 2 Sessions Free',
-      onlinePT: '✅',
-      hybridPT: '✅',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Cancel Anytime (First 2 Sessions)',
-      onlinePT: '✅',
-      hybridPT: '✅',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'In-Person Training Sessions',
-      onlinePT: '❌',
-      hybridPT: '✅',
-      onlineHypertrophy: '❌',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Hands-On Form Correction',
-      onlinePT: '❌',
-      hybridPT: '✅',
-      onlineHypertrophy: '❌',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'On-Site Meditation & Breathwork',
-      onlinePT: '❌',
-      hybridPT: '✅',
-      onlineHypertrophy: '❌',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Real-Time Cueing & Adjustments',
-      onlinePT: '❌',
-      hybridPT: '✅',
-      onlineHypertrophy: '❌',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Local Access (Salt Lake & Davis Counties)',
-      onlinePT: '❌',
-      hybridPT: '✅',
-      onlineHypertrophy: '❌',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Nutrition Coaching',
-      onlinePT: '🟡- Basic, advanced coaching available as add-on',
-      hybridPT: '🟡- Basic, advanced coaching available as add-on',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Recipes & Meal Plans',
-      onlinePT: '🟡- Basic through Discord Server',
-      hybridPT: '🟡- Basic through Discord Server',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Cycle Tracking / Fasting Protocols',
-      onlinePT: '❌',
-      hybridPT: '❌',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Metabolic Phase Mapping',
-      onlinePT: '❌',
-      hybridPT: '❌',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Muscle-building Specific Programming',
-      onlinePT: '❌',
-      hybridPT: '❌',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Progressive Overload Tracking',
-      onlinePT: '❌',
-      hybridPT: '❌',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Physique Optimization Strategy',
-      onlinePT: '❌',
-      hybridPT: '🟡- Basic movement fixes for body sculpting offered',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Supplemental Recovery Rituals',
-      onlinePT: '❌',
-      hybridPT: '❌',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-    {
-      feature: 'Hormonal Phase Integration',
-      onlinePT: '❌',
-      hybridPT: '❌',
-      onlineHypertrophy: '✅',
-      hybridHypertrophy: '✅',
-    },
-  ];
+  const features = SERVICES_EXPORTS.PROGRAM_FEATURES;
 
   return (
     <div
@@ -1022,7 +618,7 @@ export const ProgramTiersSection: React.FC<{
       }
       maxWidth='1000px'
     >
-      <hr style={styles.hrStyles} />
+      <hr style={styles.hrStyles(theme)} />
       <H2Title
         name='Program Tiers Offered'
         style={{ margin: '0 0 2rem 0', textAlign: 'center' }}
@@ -1147,7 +743,7 @@ export const ServicesOfferedSection: React.FC<{
       }
       maxWidth='1000px'
     >
-      <hr style={styles.hrStyles} />
+      <hr style={styles.hrStyles(theme)} />
       <H2Title name='Services Offered' style={{ margin: '0 0 1.5rem 0' }} />
       <Typography
         variant='p'
@@ -1302,14 +898,6 @@ export const OverviewSection: React.FC<{
           : '2.5rem'
       }
       maxWidth='1000px'
-      style={{
-        background:
-          theme.themeMode === 'high-contrast'
-            ? theme.semanticColors.warningBackground
-            : theme.palette.neutralLight,
-        borderRadius: theme.borderRadius.container.medium,
-        border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
-      }}
     >
       <H2Title name={getOverviewTitle()} style={{ margin: '0 0 1.5rem 0' }} />
       {currentView === 'personal-training' && (
@@ -2345,7 +1933,7 @@ export const TaglineHeader: React.FC<{
 
   return (
     <>
-      <hr style={styles.hrStyles} />
+      <hr style={styles.hrStyles(theme)} />
       <div
         style={{
           textAlign: 'center',
@@ -2394,7 +1982,7 @@ export const TaglineHeader: React.FC<{
           {SERVICES_EXPORTS.FLUXLINE_SECONDARY_TAGLINE}
         </Typography>
       </div>
-      <hr style={styles.hrStyles} />
+      <hr style={styles.hrStyles(theme)} />
     </>
   );
 };
@@ -2422,7 +2010,6 @@ export const Services: React.FC<ServicesProps> = ({
   };
 
   const actualView = getViewFromPath();
-  const { theme } = useAppTheme();
 
   return (
     <AnimatePresence mode='wait'>
