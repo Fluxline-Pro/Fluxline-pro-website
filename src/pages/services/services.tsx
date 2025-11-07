@@ -123,8 +123,10 @@ const styles = {
     }
   ) => ({
     background: options?.background || theme.palette.themePrimary,
-    color: 'white',
+    color: theme.palette.white,
     padding: '1rem',
+    fontSize: '1.1rem',
+    fontFamily: theme.typography.fonts.h3.fontFamily,
     textAlign: (options?.textAlign as any) || 'left',
     fontWeight: 'bold',
     borderRadius: options?.borderRadius || '0',
@@ -132,7 +134,8 @@ const styles = {
     left: options?.left,
   }),
   tableRow: (theme: any, index: number) => ({
-    background: index % 2 === 0 ? theme.palette.neutralLight : 'white',
+    background:
+      index % 2 === 0 ? theme.palette.neutralLight : theme.palette.white,
   }),
   tableCell: (
     theme: any,
@@ -146,10 +149,12 @@ const styles = {
       fontSize?: string;
     }
   ) => ({
+    fontFamily: theme.typography.fonts.body.fontFamily,
     padding: '1rem',
     borderBottom: `1px solid ${theme.palette.neutralTertiaryAlt}`,
     textAlign: (options?.textAlign as any) || 'left',
     fontWeight: options?.fontWeight || 'normal',
+    maxWidth: '300px',
     color: options?.color || theme.palette.neutralPrimary,
     position: options?.position as any,
     left: options?.left,
@@ -617,7 +622,7 @@ const ProgramTierTable: React.FC<{ theme: any; isMobile: boolean }> = ({
                   <div
                     style={{
                       fontSize: '0.9em',
-                      color: '#666',
+                      color: theme.palette.neutralTertiary,
                       marginTop: '0.25rem',
                     }}
                   >
@@ -700,99 +705,99 @@ const WhatsIncludedModal: React.FC<{
     },
     {
       feature: 'In-Person Training Sessions',
-      onlinePT: '➖',
+      onlinePT: '❌',
       hybridPT: '✅',
-      onlineHypertrophy: '➖',
+      onlineHypertrophy: '❌',
       hybridHypertrophy: '✅',
     },
     {
       feature: 'Hands-On Form Correction',
-      onlinePT: '➖',
+      onlinePT: '❌',
       hybridPT: '✅',
-      onlineHypertrophy: '➖',
+      onlineHypertrophy: '❌',
       hybridHypertrophy: '✅',
     },
     {
       feature: 'On-Site Meditation & Breathwork',
-      onlinePT: '➖',
+      onlinePT: '❌',
       hybridPT: '✅',
-      onlineHypertrophy: '➖',
+      onlineHypertrophy: '❌',
       hybridHypertrophy: '✅',
     },
     {
       feature: 'Real-Time Cueing & Adjustments',
-      onlinePT: '➖',
+      onlinePT: '❌',
       hybridPT: '✅',
-      onlineHypertrophy: '➖',
+      onlineHypertrophy: '❌',
       hybridHypertrophy: '✅',
     },
     {
       feature: 'Local Access (Salt Lake & Davis Counties)',
-      onlinePT: '➖',
+      onlinePT: '❌',
       hybridPT: '✅',
-      onlineHypertrophy: '➖',
+      onlineHypertrophy: '❌',
       hybridHypertrophy: '✅',
     },
     {
       feature: 'Nutrition Coaching',
-      onlinePT: '➖',
-      hybridPT: '➖',
+      onlinePT: '🟡- Basic, advanced coaching available as add-on',
+      hybridPT: '🟡- Basic, advanced coaching available as add-on',
       onlineHypertrophy: '✅',
       hybridHypertrophy: '✅',
     },
     {
       feature: 'Recipes & Meal Plans',
-      onlinePT: '➖',
-      hybridPT: '➖',
+      onlinePT: '🟡- Basic through Discord Server',
+      hybridPT: '🟡- Basic through Discord Server',
       onlineHypertrophy: '✅',
       hybridHypertrophy: '✅',
     },
     {
       feature: 'Cycle Tracking / Fasting Protocols',
-      onlinePT: '➖',
-      hybridPT: '➖',
+      onlinePT: '❌',
+      hybridPT: '❌',
       onlineHypertrophy: '✅',
       hybridHypertrophy: '✅',
     },
     {
       feature: 'Metabolic Phase Mapping',
-      onlinePT: '➖',
-      hybridPT: '➖',
+      onlinePT: '❌',
+      hybridPT: '❌',
       onlineHypertrophy: '✅',
       hybridHypertrophy: '✅',
     },
     {
-      feature: 'Hypertrophy-Specific Programming',
-      onlinePT: '➖',
-      hybridPT: '➖',
+      feature: 'Muscle-building Specific Programming',
+      onlinePT: '❌',
+      hybridPT: '❌',
       onlineHypertrophy: '✅',
       hybridHypertrophy: '✅',
     },
     {
       feature: 'Progressive Overload Tracking',
-      onlinePT: '➖',
-      hybridPT: '➖',
+      onlinePT: '❌',
+      hybridPT: '❌',
       onlineHypertrophy: '✅',
       hybridHypertrophy: '✅',
     },
     {
       feature: 'Physique Optimization Strategy',
-      onlinePT: '➖',
-      hybridPT: '➖',
+      onlinePT: '❌',
+      hybridPT: '🟡- Basic movement fixes for body sculpting offered',
       onlineHypertrophy: '✅',
       hybridHypertrophy: '✅',
     },
     {
       feature: 'Supplemental Recovery Rituals',
-      onlinePT: '➖',
-      hybridPT: '➖',
+      onlinePT: '❌',
+      hybridPT: '❌',
       onlineHypertrophy: '✅',
       hybridHypertrophy: '✅',
     },
     {
       feature: 'Hormonal Phase Integration',
-      onlinePT: '➖',
-      hybridPT: '➖',
+      onlinePT: '❌',
+      hybridPT: '❌',
       onlineHypertrophy: '✅',
       hybridHypertrophy: '✅',
     },
@@ -806,7 +811,12 @@ const WhatsIncludedModal: React.FC<{
         left: 0,
         right: 0,
         bottom: 0,
-        background: 'rgba(0, 0, 0, 0.8)',
+        background:
+          theme.themeMode === 'high-contrast'
+            ? theme.semanticColors.bodyBackground
+            : theme.themeMode === 'dark'
+              ? 'rgba(0, 0, 0, 0.9)'
+              : 'rgba(0, 0, 0, 0.8)',
         zIndex: 1000,
         display: 'flex',
         alignItems: 'center',
@@ -849,6 +859,7 @@ const WhatsIncludedModal: React.FC<{
             marginBottom: '1.5rem',
             textAlign: 'center',
             fontSize: '1.8rem',
+            fontFamily: theme.typography.fonts.h2.fontFamily,
           }}
         >
           🧩 What's Included - Program Comparison
@@ -915,7 +926,9 @@ const WhatsIncludedModal: React.FC<{
                       position: 'sticky',
                       left: 0,
                       background:
-                        index % 2 === 0 ? 'white' : theme.palette.neutralLight,
+                        index % 2 === 0
+                          ? theme.palette.white
+                          : theme.palette.neutralLight,
                     })}
                   >
                     {row.feature}
@@ -963,9 +976,10 @@ const WhatsIncludedModal: React.FC<{
             onClick={onClose}
             style={{
               background: theme.palette.themePrimary,
-              color: 'white',
+              color: theme.palette.white,
               border: 'none',
               padding: '0.75rem 1.5rem',
+              fontFamily: theme.typography.fonts.body.fontFamily,
               borderRadius: '4px',
               fontSize: '1rem',
               cursor: 'pointer',
@@ -1000,11 +1014,11 @@ export const ProgramTiersSection: React.FC<{
     <Container
       marginLeft='auto'
       marginRight='auto'
-      marginBottom='3rem'
+      marginBottom='1rem'
       padding={
         isMobile || orientation === 'mobile-landscape'
           ? `${theme.spacing.l} ${theme.spacing.m}`
-          : '2.5rem'
+          : '2.5rem 2.5rem 1rem 2.5rem'
       }
       maxWidth='1000px'
     >
@@ -1029,7 +1043,7 @@ export const ProgramTiersSection: React.FC<{
           onClick={() => setShowWhatsIncluded(true)}
           style={{
             background: theme.palette.themePrimary,
-            color: 'white',
+            color: theme.palette.white,
             border: 'none',
             padding: '1rem 2rem',
             borderRadius: '4px',
@@ -1037,6 +1051,8 @@ export const ProgramTiersSection: React.FC<{
             fontWeight: 'bold',
             cursor: 'pointer',
             transition: 'all 0.3s ease',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            fontFamily: theme.typography.fonts.body.fontFamily,
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = theme.palette.themeDark;
@@ -1123,11 +1139,11 @@ export const ServicesOfferedSection: React.FC<{
     <Container
       marginLeft='auto'
       marginRight='auto'
-      marginBottom='3rem'
+      marginBottom='0'
       padding={
         isMobile || orientation === 'mobile-landscape'
           ? `${theme.spacing.l} ${theme.spacing.m}`
-          : '2.5rem'
+          : '2.5rem 2.5rem 1rem 2.5rem'
       }
       maxWidth='1000px'
     >
@@ -1426,9 +1442,8 @@ export const AboutSection: React.FC<{
                   ) as HTMLElement;
                   if (subheading && tile) {
                     e.currentTarget.style.transform = 'translateY(-2px)';
-                    subheading.style.boxShadow =
-                      '0 4px 16px rgba(0, 0, 0, 0.12)';
-                    tile.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.12)';
+                    subheading.style.boxShadow = theme.shadows.m;
+                    tile.style.boxShadow = theme.shadows.m;
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -1453,7 +1468,7 @@ export const AboutSection: React.FC<{
                       theme.themeMode === 'high-contrast'
                         ? theme.palette.neutralDark
                         : theme.palette.themeSecondary,
-                    color: 'white',
+                    color: theme.palette.white,
                     padding: '0.25rem 0.75rem',
                     borderRadius: '4px 4px 0 0',
                     border: `2px solid ${theme.palette.themeSecondary}`,
@@ -1879,7 +1894,7 @@ export const ProfessionalSummary: React.FC<{
                 onClick={() => setShowWhatsIncluded(true)}
                 style={{
                   background: theme.palette.themePrimary,
-                  color: 'white',
+                  color: theme.palette.white,
                   border: 'none',
                   padding: '1rem 2rem',
                   borderRadius: '4px',
@@ -2449,34 +2464,7 @@ export const Services: React.FC<ServicesProps> = ({
 
               {/* 6. Ready to Get Started? (Final CTA) */}
               <div style={{ margin: '3rem 0 2rem 0' }}>
-                <Container
-                  marginLeft='auto'
-                  marginRight='auto'
-                  maxWidth='1000px'
-                  style={{ textAlign: 'center' }}
-                >
-                  <H2Title
-                    name='Ready to Get Started?'
-                    style={{ margin: '0 0 1.5rem 0', textAlign: 'center' }}
-                  />
-                  <Typography
-                    variant='p'
-                    color={theme.palette.neutralSecondary}
-                    marginBottom='2rem'
-                    style={{
-                      textAlign: 'center',
-                      fontStyle: 'italic',
-                      maxWidth: '600px',
-                      margin: '0 auto 2rem auto',
-                      display: 'block',
-                    }}
-                  >
-                    {actualView === 'personal-training'
-                      ? 'This is the threshold crossing. The ritual begins.'
-                      : 'Transform your vision into reality with expert guidance.'}
-                  </Typography>
-                  <GetStarted isServicesPage />
-                </Container>
+                <GetStarted isServicesPage />
               </div>
             </>
           )}
