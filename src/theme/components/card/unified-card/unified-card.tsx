@@ -405,7 +405,7 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
       fontSize: imageText
         ? 'clamp(1.75rem, 3cqi, 2.25rem)' // Reduced from clamp(2.5rem, 4cqi, 3.25rem) for subtler appearance
         : theme.typography.fontSizes.clamp3,
-      textShadow: isLight ? 'none' : theme.typography.textShadows.cardImage,
+      textShadow: isLight ? 'none' : '1px 2px 3px rgba(0,0,0,0.7)',
       maxWidth: 'calc(100% - 3rem)',
       wordWrap: 'break-word' as const,
     };

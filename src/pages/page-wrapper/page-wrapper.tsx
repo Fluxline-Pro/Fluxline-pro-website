@@ -36,7 +36,7 @@ const PAGE_CONFIGS = {
   },
   '/services': {
     image: require('../../assets/images/OurServices1197x1600.jpg'), // Business services illustration
-    imageText: 'Services',
+    imageText: 'Our Services',
   },
   '/white-pages': {
     image: 'FLUXLINE_LOGO', // Special marker for dynamic logo

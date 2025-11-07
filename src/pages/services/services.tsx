@@ -206,7 +206,6 @@ export const WhitePagesSection: React.FC<{
             </Typography>
           </div>
         )}
-        <hr style={styles.hrStyles(theme)} />
       </div>
 
       {/* PDF Modal */}
@@ -2083,8 +2082,16 @@ export const Services: React.FC<ServicesProps> = ({
               {/* 5. White Paper */}
               <WhitePagesSection currentView={actualView} />
 
-              {/* 6. Ready to Get Started? (Final CTA) */}
-              <div style={{ margin: '3rem 0 2rem 0' }}>
+              {/* 6. Legal CTA */}
+              <CTACallout
+                variant='legal'
+                showOnlyFor={[]}
+                hideTopHR={false}
+                hideBottomHR={true}
+              />
+
+              {/* 7. Ready to Get Started? (Final CTA) */}
+              <div style={{ margin: '0 0 2rem 0' }}>
                 <GetStarted isServicesPage />
               </div>
             </>

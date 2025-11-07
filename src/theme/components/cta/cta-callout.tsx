@@ -6,7 +6,12 @@ import { Container } from '../../layouts/Container';
 import { useIsMobile, useDeviceOrientation } from '../../hooks/useMediaQuery';
 
 export interface CTACalloutProps {
-  variant: 'services' | 'legal' | 'consultation' | 'getStarted' | 'personalTraining';
+  variant:
+    | 'services'
+    | 'legal'
+    | 'consultation'
+    | 'getStarted'
+    | 'personalTraining';
   currentView?: string;
   showOnlyFor?: string[]; // Which views to show this CTA on
   hideTopHR?: boolean; // Option to hide the top HR when stacking CTAs
@@ -38,7 +43,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
   // Configuration based on variant- Constants for each CTA type
   const config = {
     services: {
-      title: 'Explore Our Services',
+      title: '👉 Explore Our Services',
       description:
         'Discover how we can help transform your vision into reality',
       icon: ARROW_ICON,
@@ -46,7 +51,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
       isExternal: false,
     },
     legal: {
-      title: 'Legal & Reference Documents',
+      title: '💼 Legal & Reference Documents',
       description: 'Access our policies, terms, and important legal documents',
       icon: ARROW_ICON,
       route: '/legal',
@@ -61,7 +66,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
       isExternal: true,
     },
     consultation: {
-      title: "Let's Make Your Vision Happen!",
+      title: "💡 Let's Make Your Vision Happen!",
       description:
         'Book a free consultation to discuss your project estimates, training, consulting, or development needs',
       icon: ARROW_ICON,
@@ -69,9 +74,11 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
       isExternal: true,
     },
     getStarted: {
-      title: 'Ready to Get Started?',
+      title: '👉 Ready to Get Started?',
       description:
-        "We'd love to help you with your next project! Click this button to book a free, no obligation consultation with us to discuss your vision and needs.",
+        currentView === 'personal-training'
+          ? "Let's get your personalized plan started! Click this button to book a free, no obligation consultation with us to discuss your health and training goals."
+          : 'Book your free consultation to discuss your project needs and get started today!',
       icon: ARROW_ICON,
       route: BOOKINGS_URL,
       isExternal: true,
