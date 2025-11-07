@@ -103,9 +103,11 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
   const ctaContainerStyle = {
     textAlign: 'center' as const,
     background:
-      theme.themeMode === 'high-contrast'
-        ? theme.palette.neutralDark
-        : theme.palette.neutralQuaternaryAlt,
+      theme.themeMode === 'high-contrast' ||
+      theme.themeMode === 'dark' ||
+      theme.themeMode === 'grayscale-dark'
+        ? theme.palette.themeDark
+        : theme.palette.themeLight,
     borderRadius: '8px',
     borderLeft: `6px solid ${theme.semanticColors.messageText}`, // Mythic Gold color
     maxWidth: '800px',
