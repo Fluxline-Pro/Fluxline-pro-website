@@ -14,6 +14,9 @@ import { mergeStyles } from '@fluentui/react';
 // import OnboardingComplete from '../pages/onboarding/views/onboarding-complete';
 // import OnboardingSkip from '../pages/onboarding/views/onboarding-skip';
 
+// Questionnaire
+import Questionnaire from '../pages/questionnaire/questionnaire';
+
 // CSS Transition
 import InitialLayout from '../theme/layouts/InitialLayout';
 
@@ -273,6 +276,10 @@ const routes: RouteObject[] = [
       //     },
       //   ],
       // },
+      {
+        path: 'questionnaire/*',
+        element: <Questionnaire />,
+      },
       {
         path: '*',
         element: <Loading>{<NotFound />}</Loading>,

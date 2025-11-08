@@ -214,5 +214,72 @@ export const ROUTES: Routes[] = [
     isMenuItem: false,
     isContentScreen: false,
   },
+  // Questionnaire routes
+  {
+    name: 'questionnaire',
+    path: 'questionnaire',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'questionnaire-welcome',
+    path: '/questionnaire/welcome',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'questionnaire-client-type',
+    path: '/questionnaire/client-type',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'questionnaire-goals',
+    path: '/questionnaire/goals',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'questionnaire-challenges',
+    path: '/questionnaire/challenges',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'questionnaire-motivation',
+    path: '/questionnaire/motivation',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'questionnaire-services',
+    path: '/questionnaire/services',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'questionnaire-commitment',
+    path: '/questionnaire/commitment',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'questionnaire-investment',
+    path: '/questionnaire/investment',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'questionnaire-contact',
+    path: '/questionnaire/contact',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'questionnaire-results',
+    path: '/questionnaire/results',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
   // Add more as needed
 ];
