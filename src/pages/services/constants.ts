@@ -34,7 +34,7 @@ const PERSONAL_TRAINING_SUMMARY =
   "<strong>Training is not just physical—it's emotional, symbolic, and sovereign.</strong> At Fluxline, we specialize in modular coaching systems that adapt to your goals, limitations, and breakthroughs. Whether you're returning to movement, navigating chronic pain, or refining your edge, we design your path with precision and care.<br /><br />Before choosing a program, we invite you to take the <strong>Fluxline Archetype Quiz</strong> in the header above—a brief emotional mapping tool that helps identify your training style, motivational patterns, and ideal coaching rhythm. <br /><br />Your results help guide us in selecting the right program tier, coaching cadence, and onboarding rituals. Every offering is tailored to your body, schedule, and emotional readiness.<br /><br />We work with all bodies, all backgrounds, and all thresholds. This is not just fitness—<strong><em>it's felt transformation</em></strong>.";
 
 const RESONANCE_CORE_SUMMARY =
-  'Guiding individuals through transformative life coaching and personal development using the Resonance Core methodology.';
+  '<strong>The Resonance Core Framework™ is not just coaching—it’s a curriculum of becoming.</strong> Through archetypal mapping, emotional emergence, and symbolic ritual, we guide individuals through deep transformation. Whether you’re navigating a threshold, reframing your story, or anchoring your legacy, this framework offers structured modules, personalized rituals, and breakthrough documentation to align your inner world with your outer mission. Every session is a scroll. Every insight, a gate. This is coaching for those ready to reclaim their light.';
 
 const CONSULTING_SUMMARY =
   'Strategic business alignment, systems architecture, and technology integration to help small to medium businesses and entrepreneurs build their most effective and authentic selves.';
@@ -390,7 +390,8 @@ const RESONANCE_CORE_BULLET_POINTS: IAboutBulletPoint[] = [
   },
   {
     name: 'Breakthrough Documentation',
-    description: 'Turning insights into templates, rituals, and legacy assets',
+    description:
+      'Turning insights into templates, rituals, and legacy assets for ongoing integration',
   },
   {
     name: 'Shadow & Resonance Work',
@@ -400,7 +401,7 @@ const RESONANCE_CORE_BULLET_POINTS: IAboutBulletPoint[] = [
   {
     name: 'Sovereignty Practices',
     description:
-      'Daily rituals for individual clarity, boundaries, and personal alignment',
+      'Daily rituals for clarity, boundaries, and personal alignment',
   },
   {
     name: 'Digital Library & Emotional Scoring',
@@ -408,6 +409,7 @@ const RESONANCE_CORE_BULLET_POINTS: IAboutBulletPoint[] = [
       'Personalized framework to understand your DRIVEs, resonances, and role in life, society, and community',
   },
 ];
+
 
 const CONSULTING_BULLET_POINTS: IAboutBulletPoint[] = [
   {
@@ -1033,6 +1035,28 @@ const DEVELOPMENT_PROGRAM_TIERS = [
   },
 ];
 
+// The Resonance Core program tiers data
+const RESONANCE_CORE_PROGRAM_TIERS = [
+  {
+    tier: 'Initiate (Clarity Phase)',
+    idealFor: 'Individuals seeking emotional clarity and foundational sovereignty rituals',
+    rate: '$300/month',
+    note: '2 coaching sessions/month with starter ritual kit',
+  },
+  {
+    tier: 'Embodied (Integration Phase)',
+    idealFor: 'Active practitioners ready for deep shadow work and custom ritual design',
+    rate: '$600/month',
+    note: '4 coaching sessions/month with full curriculum access',
+  },
+  {
+    tier: 'Legacy (Transmission Phase)',
+    idealFor: 'Advanced practitioners creating lasting impact and teaching others',
+    rate: '$1,200/month',
+    note: 'Weekly sessions with legacy asset creation and retainer support',
+  },
+];
+
 // Web & App Development features comparison data
 const DEVELOPMENT_PROGRAM_FEATURES = [
   {
@@ -1133,6 +1157,58 @@ const DEVELOPMENT_PROGRAM_FEATURES = [
   },
 ];
 
+// The Resonance Core features comparison data
+const RESONANCE_CORE_PROGRAM_FEATURES = [
+  {
+    feature: 'Coaching Sessions',
+    initiate: '2/month',
+    embodied: '4/month',
+    legacy: 'Weekly',
+  },
+  {
+    feature: 'Emotional Scoring',
+    initiate: '✅',
+    embodied: '✅',
+    legacy: '✅',
+  },
+  {
+    feature: 'Curriculum Modules',
+    initiate: '❌',
+    embodied: '✅',
+    legacy: '✅',
+  },
+  {
+    feature: 'Shadow Work',
+    initiate: '❌',
+    embodied: '✅',
+    legacy: '✅',
+  },
+  {
+    feature: 'Ritual Design',
+    initiate: 'Starter Kit',
+    embodied: 'Custom',
+    legacy: 'Custom + Legacy',
+  },
+  {
+    feature: 'Breakthrough Docs',
+    initiate: 'PDF',
+    embodied: 'PDF + Templates',
+    legacy: 'Scrolls + Templates',
+  },
+  {
+    feature: 'Archetype Mapping',
+    initiate: '❌',
+    embodied: '❌',
+    legacy: '✅',
+  },
+  {
+    feature: 'Retainer Support',
+    initiate: '❌',
+    embodied: '❌',
+    legacy: '✅',
+  },
+];
+
 // Helper function to get program tiers by service
 const getProgramTiers = (service: string) => {
   switch (service) {
@@ -1142,6 +1218,8 @@ const getProgramTiers = (service: string) => {
       return BRAND_IDENTITY_PROGRAM_TIERS;
     case 'development':
       return DEVELOPMENT_PROGRAM_TIERS;
+    case 'resonance-core':
+      return RESONANCE_CORE_PROGRAM_TIERS;
     default:
       return [];
   }
@@ -1156,6 +1234,8 @@ const getProgramFeatures = (service: string) => {
       return BRAND_IDENTITY_PROGRAM_FEATURES;
     case 'development':
       return DEVELOPMENT_PROGRAM_FEATURES;
+    case 'resonance-core':
+      return RESONANCE_CORE_PROGRAM_FEATURES;
     default:
       return [];
   }
@@ -1268,6 +1348,8 @@ const SERVICES_EXPORTS = {
   BRAND_IDENTITY_PROGRAM_FEATURES,
   DEVELOPMENT_PROGRAM_TIERS,
   DEVELOPMENT_PROGRAM_FEATURES,
+  RESONANCE_CORE_PROGRAM_TIERS,
+  RESONANCE_CORE_PROGRAM_FEATURES,
   getProgramTiers,
   getProgramFeatures,
   getHeroContent,

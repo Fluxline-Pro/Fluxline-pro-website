@@ -57,12 +57,14 @@ const H2Title = ({
   );
 };
 
-export const GetStarted: React.FC<{ isServicesPage?: boolean }> = ({
+export const GetStarted: React.FC<{ currentView?: string; isServicesPage?: boolean }> = ({
+  currentView,
   isServicesPage = false,
 }) => {
   return (
     <CTACallout
       variant='getStarted'
+      currentView={ isServicesPage ? 'services' : currentView || undefined }
       showOnlyFor={[]} // Show on all views
       hideTopHR={true}
       hideBottomHR={true}
@@ -473,6 +475,7 @@ const WhatsIncludedModal: React.FC<{
   const isPersonalTraining = service === 'personal-training';
   const isBrandIdentity = service === 'design';
   const isDevelopment = service === 'development';
+  const isResonanceCore = service === 'resonance-core';
 
   return (
     <div
@@ -644,6 +647,32 @@ const WhatsIncludedModal: React.FC<{
                       </th>
                     </>
                   )}
+                  {isResonanceCore && (
+                    <>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                        })}
+                      >
+                        Initiate
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                        })}
+                      >
+                        Embodied
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          borderRadius: '0 4px 0 0',
+                          textAlign: 'center',
+                        })}
+                      >
+                        Legacy
+                      </th>
+                    </>
+                  )}
                 </tr>
               </thead>
               <tbody>
@@ -762,6 +791,37 @@ const WhatsIncludedModal: React.FC<{
                         />
                       </>
                     )}
+                    {isResonanceCore && (
+                      <>
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).initiate,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).embodied,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).legacy,
+                          }}
+                        />
+                      </>
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -809,7 +869,9 @@ export const ProgramTiersSection: React.FC<{
       ? 'personal-training'
       : currentView === 'development'
         ? 'development'
-        : 'design';
+        : currentView === 'resonance-core'
+          ? 'resonance-core'
+          : 'design';
 
   // Dispatch event when modal opens
   React.useEffect(() => {
@@ -819,7 +881,7 @@ export const ProgramTiersSection: React.FC<{
   }, [showWhatsIncluded]);
 
   // Only show tiers for services that have them
-  const servicesWithTiers = ['personal-training', 'design', 'development'];
+  const servicesWithTiers = ['personal-training', 'design', 'development', 'resonance-core'];
   if (!currentView || !servicesWithTiers.includes(currentView)) {
     return null;
   }
@@ -1206,6 +1268,13 @@ export const OverviewSection: React.FC<{
               __html: SERVICES_EXPORTS.DEVELOPMENT_SUMMARY,
             }}
             className='development-summary'
+          />
+        ) : currentView === 'resonance-core' ? (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: SERVICES_EXPORTS.RESONANCE_CORE_SUMMARY,
+            }}
+            className='resonance-core-summary'
           />
         ) : (
           renderSummary(getSummary())
@@ -2368,7 +2437,7 @@ export const Services: React.FC<ServicesProps> = ({
 
               {/* 7. Ready to Get Started? (Final CTA) */}
               <div style={{ margin: '0 0 2rem 0' }}>
-                <GetStarted isServicesPage />
+                  <GetStarted currentView={actualView} isServicesPage />
               </div>
             </>
           )}
