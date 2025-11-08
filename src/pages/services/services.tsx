@@ -1191,7 +1191,7 @@ export const ProgramTiersSection: React.FC<{
   }
 
   return (
-    <ServiceContainer showHR>
+    <ServiceContainer>
       <H2Title
         name='Program Tiers Offered'
         style={{ margin: '0 0 2rem 0', textAlign: 'center' }}
