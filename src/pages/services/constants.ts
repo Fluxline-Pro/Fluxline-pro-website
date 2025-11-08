@@ -247,6 +247,30 @@ const SERVICES_BULLET_POINTS: IAboutBulletPoint[] = [
     category: 'development' as const,
   },
   {
+    name: 'Life Coaching & The Resonance Core',
+    description:
+    'Personal development through the Resonance Core Framework™—guiding individuals through emotional sovereignty and mythic integration.',
+    route: '/services/resonance-core',
+    // White pages integration
+    id: 'resonance-core',
+    title: 'Life Coaching & The Resonance Core',
+    displayName: 'Life Coaching & Resonance Core',
+    pdfPath: require('../../assets/white-pages/Fluxline-Life-Coaching-Resonance-Core.pdf'),
+    category: 'resonance-core' as const,
+  },
+  {
+    name: 'Coaching, Education & Leadership',
+    description:
+    'Transformational coaching and emotionally intelligent leadership for founders and teams building with purpose.',
+    route: '/services/education-training',
+    // White pages integration
+    id: 'education-training',
+    title: 'Coaching, Education & Leadership',
+    displayName: 'Education & Mentoring',
+    pdfPath: require('../../assets/white-pages/Fluxline-Education-Mentoring.pdf'),
+    category: 'education-training' as const,
+  },
+  {
     name: 'business strategy & systems alignment',
     description:
       'Strategic alignment, mission development, and tech integration for purpose-driven growth and operational sovereignty.',
@@ -257,30 +281,6 @@ const SERVICES_BULLET_POINTS: IAboutBulletPoint[] = [
     displayName: 'Business Strategy Consulting',
     pdfPath: require('../../assets/white-pages/Fluxline-Business-IT-Consulting.pdf'),
     category: 'consulting' as const,
-  },
-  {
-    name: 'Coaching, Education & Leadership',
-    description:
-      'Transformational coaching and emotionally intelligent leadership for founders and teams building with purpose.',
-    route: '/services/education-training',
-    // White pages integration
-    id: 'education-training',
-    title: 'Coaching, Education & Leadership',
-    displayName: 'Education & Mentoring',
-    pdfPath: require('../../assets/white-pages/Fluxline-Education-Mentoring.pdf'),
-    category: 'education-training' as const,
-  },
-  {
-    name: 'Life Coaching & The Resonance Core',
-    description:
-      'Personal development through the Resonance Core Framework™—guiding individuals through emotional sovereignty and mythic integration.',
-    route: '/services/resonance-core',
-    // White pages integration
-    id: 'resonance-core',
-    title: 'Life Coaching & The Resonance Core',
-    displayName: 'Life Coaching & Resonance Core',
-    pdfPath: require('../../assets/white-pages/Fluxline-Life-Coaching-Resonance-Core.pdf'),
-    category: 'resonance-core' as const,
   },
 ];
 

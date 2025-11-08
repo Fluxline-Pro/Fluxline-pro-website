@@ -17,7 +17,6 @@ import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { NavigationArrow } from '../../theme/components/navigation-arrow/navigation-arrow';
 import { PdfModal } from '../../theme/components/modal/pdf-modal';
 import { WhitePageItem } from '../white-pages/white-pages-constants';
-import { WhitePageCard } from '../../theme/components/card/white-page-card/white-page-card';
 import { CTACallout } from '../../theme/components/cta';
 import { FadeIn } from '../../theme/components/animations/fade-animations';
 
@@ -143,17 +142,22 @@ export const WhitePagesSection: React.FC<{
         }}
       >
         <hr style={styles.hrStyles(theme)} />
-        <H2Title
-          name={
-            `📜 Explore the Scroll${currentView === 'services' ? 's' : ''}` /* Pluralize for main services page */
-          }
-        />
+        <Typography
+          variant='h2'
+          color={theme.palette.themePrimary}
+          marginBottom='1rem'
+          fontSize={theme.typography.fontSizes.clamp7}
+          style={{ fontWeight: 500 }}
+        >
+          📜 Explore the Scroll{currentView === 'services' ? 's' : ''}
+        </Typography>
         <Typography
           variant='p'
           textAlign='left'
-          color={theme.palette.neutralPrimary}
-          marginBottom='2rem'
+          color={theme.palette.neutralSecondary}
+          marginBottom='1.5rem'
           noHyphens
+          fontSize='0.9rem'
           style={styles.textContent}
         >
           {currentView === 'services'
@@ -169,19 +173,60 @@ export const WhitePagesSection: React.FC<{
               : currentView === 'services'
                 ? 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))'
                 : '1fr',
-            gap: '1.5rem',
+            gap: '1rem',
           }}
         >
           {relevantWhitePages.map((whitePage) => (
-            <WhitePageCard
+            <div
               key={whitePage.id}
-              whitePage={whitePage}
-              isHovered={hoveredCard === whitePage.id}
-              onClick={handleCardClick}
+              style={{
+                backgroundColor: 'transparent',
+                border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+                borderRadius: theme.borderRadius.container.small,
+                padding: '1rem',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                opacity: hoveredCard === whitePage.id ? 1 : 0.85,
+                transform:
+                  hoveredCard === whitePage.id
+                    ? 'translateY(-2px)'
+                    : 'translateY(0)',
+                boxShadow:
+                  hoveredCard === whitePage.id ? theme.shadows.s : 'none',
+              }}
+              onClick={() => handleCardClick(whitePage)}
               onMouseEnter={() => setHoveredCard(whitePage.id)}
               onMouseLeave={() => setHoveredCard(null)}
-              variant='compact'
-            />
+            >
+              <Typography
+                variant='h4'
+                color={theme.palette.neutralPrimary}
+                marginBottom='0.5rem'
+                fontSize={theme.typography.fontSizes.clamp4}
+              >
+                {whitePage.title}
+              </Typography>
+              <Typography
+                variant='p'
+                color={theme.palette.neutralSecondary}
+                fontSize='0.9rem'
+                marginBottom='0.5rem'
+              >
+                {whitePage.description}
+              </Typography>
+              <Typography
+                variant='p'
+                color={theme.palette.themeTertiary}
+                fontSize='0.8rem'
+                fontWeight={400}
+                style={{
+                  opacity: hoveredCard === whitePage.id ? 1 : 0.7,
+                  transition: 'opacity 0.2s ease',
+                }}
+              >
+                View White Paper
+              </Typography>
+            </div>
           ))}
         </div>
 
@@ -812,6 +857,9 @@ export const ServicesOfferedSection: React.FC<{
     orientation === 'portrait' ||
     orientation === 'tablet-portrait' ||
     orientation === 'large-portrait';
+  const [hoveredServiceCard, setHoveredServiceCard] = useState<string | null>(
+    null
+  );
 
   // Don't show for about page
   if (currentView === 'about') {
@@ -843,19 +891,19 @@ export const ServicesOfferedSection: React.FC<{
   const bulletPoints = getBulletPoints();
 
   // Group bullet points into pairs for desktop layout
-  const createPairs = (items: typeof bulletPoints) => {
-    const pairs = [];
-    for (let i = 0; i < items.length; i += 2) {
-      if (i + 1 >= items.length) {
-        pairs.push([items[i]]);
-      } else {
-        pairs.push([items[i], items[i + 1]]);
-      }
-    }
-    return pairs;
-  };
+  // const createPairs = (items: typeof bulletPoints) => {
+  //   const pairs = [];
+  //   for (let i = 0; i < items.length; i += 2) {
+  //     if (i + 1 >= items.length) {
+  //       pairs.push([items[i]]);
+  //     } else {
+  //       pairs.push([items[i], items[i + 1]]);
+  //     }
+  //   }
+  //   return pairs;
+  // };
 
-  const bulletPairs = createPairs(bulletPoints);
+  // const bulletPairs = createPairs(bulletPoints);
 
   return (
     <Container
@@ -882,51 +930,86 @@ export const ServicesOfferedSection: React.FC<{
           : 'Comprehensive offerings designed for your specific needs.'}
       </Typography>
 
-      <Container
-        display='flex'
-        flexDirection='column'
-        gap={
-          orientation === 'mobile-landscape'
-            ? theme.spacing.s1
-            : theme.spacing.m
-        }
-        paddingLeft='0'
-        paddingRight='0'
-        marginLeft='0'
-        style={{ width: '100%', padding: '0 !important' }}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns:
+            isMobile || orientation === 'mobile-landscape'
+              ? '1fr'
+              : 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
+          gap: '1.5rem',
+          width: '100%',
+        }}
       >
-        {isMobile || orientation === 'mobile-landscape'
-          ? bulletPoints.map((point) => (
-              <BulletPoint
-                key={point.name}
-                name={point.name}
-                description={point.description}
-                onClick={() => point.route && navigate(point.route)}
-                isHoverable={!!point.route}
-              />
-            ))
-          : bulletPairs.map((pair, rowIndex) => (
-              <div
-                key={rowIndex}
+        {bulletPoints.map((point, index) => {
+          const isHovered = hoveredServiceCard === point.name;
+
+          return (
+            <div
+              key={point.name}
+              style={{
+                backgroundColor:
+                  theme.themeMode === 'high-contrast'
+                    ? theme.palette.neutralDark
+                    : theme.palette.neutralLight,
+                borderRadius: theme.borderRadius.container.button,
+                padding: '1.5rem',
+                cursor: point.route ? 'pointer' : 'default',
+                transition: 'all 0.3s ease',
+                border: `2px solid ${isHovered && point.route ? theme.palette.themePrimary : 'transparent'}`,
+                boxShadow:
+                  isHovered && point.route
+                    ? theme.shadows.xl
+                    : theme.shadows.card,
+                transform:
+                  isHovered && point.route
+                    ? 'translateY(-4px)'
+                    : 'translateY(0)',
+                opacity: point.route ? 1 : 0.8,
+              }}
+              onClick={() => point.route && navigate(point.route)}
+              onMouseEnter={() => setHoveredServiceCard(point.name)}
+              onMouseLeave={() => setHoveredServiceCard(null)}
+            >
+              <Typography
+                variant='h3'
+                color={theme.palette.themePrimary}
+                marginBottom='0.75rem'
+                fontSize={theme.typography.fontSizes.clamp5}
                 style={{
-                  ...styles.gridContainer(false, '1fr 1fr'),
-                  gap: '0.5rem',
-                  width: '100%',
-                  padding: '0 0.5rem',
+                  textDecoration:
+                    isHovered && point.route ? 'underline' : 'none',
+                  textUnderlineOffset: '4px',
                 }}
               >
-                {pair.map((point) => (
-                  <BulletPoint
-                    key={point.name}
-                    name={point.name}
-                    description={point.description}
-                    onClick={() => point.route && navigate(point.route)}
-                    isHoverable={!!point.route}
-                  />
-                ))}
-              </div>
-            ))}
-      </Container>
+                {point.name}
+              </Typography>
+              <Typography
+                variant='p'
+                color={theme.palette.neutralPrimary}
+                fontSize='0.95rem'
+              >
+                {point.description}
+              </Typography>
+              {point.route && (
+                <Typography
+                  variant='h6'
+                  color={theme.palette.themeSecondary}
+                  fontSize='1rem'
+                  marginTop='1rem'
+                  fontWeight={700}
+                  style={{
+                    opacity: isHovered ? 1 : 0.8,
+                    transition: 'opacity 0.3s ease',
+                  }}
+                >
+                  Learn More ➤
+                </Typography>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </Container>
   );
 };
