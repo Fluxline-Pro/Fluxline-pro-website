@@ -43,7 +43,7 @@ const DEVELOPMENT_SUMMARY =
   'Crafting full-stack digital products using modern technologies—with an emphasis on modularity, usability, and long-term maintainability.';
 
 const DESIGN_SUMMARY =
-  'End-to-end brand architecture and emotionally intelligent UI/UX design that reflects your evolution and resonates.';
+  "Fluxline Design is where strategy meets symbolism. We architect visual identities and digital experiences that don’t just look good—<strong>they feel aligned</strong>. Every logo, layout, and interface is a ritual of clarity, crafted to reflect your evolution and resonate with your audience. Whether you're launching, scaling, or immortalizing your legacy, we design with emotional intelligence, modular precision, and mythic depth.";
 
 const ABOUT_BULLET_POINTS: IAboutBulletPoint[] = [
   {
@@ -496,42 +496,42 @@ const DESIGN_BULLET_POINTS: IAboutBulletPoint[] = [
   {
     name: 'Design Thinking & Strategy',
     description:
-      'Applying design thinking principles to solve complex problems and drive innovation',
+      'Solving complex brand puzzles through ritualized inquiry, emotional mapping, and intentional innovation',
   },
   {
     name: 'User Interface Design',
     description:
-      'Creating intuitive and engaging interfaces that enhance and elevate the user experience',
+      'Crafting intuitive portals that guide users through your digital experience with clarity, flow, and delight',
   },
   {
     name: 'Identity Systems',
     description:
-      'Crafting cohesive brand identities that resonate with target audiences',
+      'Forging cohesive visual languages that anchor your brand’s essence and resonate across every touchpoint',
   },
   {
     name: 'Customer Journey & Empathy Mapping',
     description:
-      'Mapping user journeys to understand needs, pain points, and opportunities for improvement',
+      'Charting emotional landscapes and user rituals to uncover friction, desire, and transformation pathways',
   },
   {
     name: 'Responsive & Adaptive Design',
     description:
-      'Ensuring designs are flexible and accessible across devices and platforms',
+      'Designing fluid interfaces that honor every device, context, and user threshold with grace and precision',
   },
   {
     name: 'User-Centric Design',
     description:
-      'Designing with empathy, focusing on user needs and emotional responses',
+      'Centering empathy and emotional cadence to create experiences that feel intuitive, human, and alive',
   },
   {
     name: 'Wireframing & Prototyping',
     description:
-      'Developing interactive prototypes to visualize and test design concepts',
+      'Visualizing structure and flow through interactive sketches that invite feedback and refine resonance',
   },
   {
     name: 'Design Systems & Style Guides',
     description:
-      'Building modular design systems for consistency and scalability across products',
+      'Building modular design libraries that scale with your brand’s evolution and ensure symbolic consistency',
   },
 ];
 
@@ -831,7 +831,7 @@ const PROGRAM_FEATURES = [
     hybridHypertrophy: '✅',
   },
   {
-    feature: 'Local Access (Salt Lake & Davis Counties)',
+    feature: 'Local Access<br />(Utah\'s Salt Lake, Provo & Davis Counties)',
     onlinePT: '❌',
     hybridPT: '✅',
     onlineHypertrophy: '❌',
@@ -839,15 +839,22 @@ const PROGRAM_FEATURES = [
   },
   {
     feature: 'Nutrition Coaching',
-    onlinePT: '🟡- Basic, advanced coaching available as add-on',
-    hybridPT: '🟡- Basic, advanced coaching available as add-on',
+    onlinePT: '🟡<br />Basic only; advanced coaching available as add-on',
+    hybridPT: '🟡<br />Basic only; advanced coaching available as add-on',
     onlineHypertrophy: '✅',
     hybridHypertrophy: '✅',
   },
   {
     feature: 'Recipes & Meal Plans',
-    onlinePT: '🟡- Basic through Discord Server',
-    hybridPT: '🟡- Basic through Discord Server',
+    onlinePT: '🟡<br />Basic through Discord Server',
+    hybridPT: '🟡<br />Basic through Discord Server',
+    onlineHypertrophy: '✅',
+    hybridHypertrophy: '✅',
+  },
+  {
+    feature: 'Physique Optimization Strategy',
+    onlinePT: '❌',
+    hybridPT: '🟡<br />Basic movement fixes for body sculpting offered',
     onlineHypertrophy: '✅',
     hybridHypertrophy: '✅',
   },
@@ -880,13 +887,6 @@ const PROGRAM_FEATURES = [
     hybridHypertrophy: '✅',
   },
   {
-    feature: 'Physique Optimization Strategy',
-    onlinePT: '❌',
-    hybridPT: '🟡- Basic movement fixes for body sculpting offered',
-    onlineHypertrophy: '✅',
-    hybridHypertrophy: '✅',
-  },
-  {
     feature: 'Supplemental Recovery Rituals',
     onlinePT: '❌',
     hybridPT: '❌',
@@ -901,6 +901,134 @@ const PROGRAM_FEATURES = [
     hybridHypertrophy: '✅',
   },
 ];
+
+// Brand Identity program tiers
+const BRAND_IDENTITY_PROGRAM_TIERS = [
+  {
+    tier: 'Logo Design',
+    idealFor: 'Online Only',
+    rate: '$350',
+    note: 'Extra revision: $40/change',
+  },
+  {
+    tier: 'App UI Design',
+    idealFor: 'Online Only',
+    rate: '$400',
+    note: 'Optional design system kit: $175',
+  },
+  {
+    tier: 'Website Design (UI only)',
+    idealFor: 'Online Only',
+    rate: '$900',
+    note: 'Mobile-first mockups: +$150',
+  },
+  {
+    tier: 'Branding Package',
+    idealFor: 'Logo, slogan, business card, letterhead, envelope, trifold',
+    rate: '$1,100',
+    note: 'Add social media kit: +$200',
+  },
+  {
+    tier: 'Full Branding + Website Designs',
+    idealFor: 'Development additional',
+    rate: '$1,800',
+    note: 'Add pitch deck design: +$300',
+  },
+  {
+    tier: 'Custom Artwork',
+    idealFor: 'Illustrations, posters, ad creatives',
+    rate: '$100/hr.',
+    note: 'Rush delivery (48 hrs): +25%',
+  },
+  {
+    tier: 'À La Carte Branding',
+    idealFor: 'Choose 2–4 items from branding package',
+    rate: 'From $400',
+    note: 'Add brand style guide: +$175',
+  },
+];
+
+// Brand Identity features comparison data
+const BRAND_IDENTITY_PROGRAM_FEATURES = [
+  {
+    feature: 'Logo Design',
+    starter: '✅',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'Pitch Deck',
+    starter: '✅',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'Milestone Check-Ins',
+    starter: '✅',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'File Delivery (.AI, .SVG, etc.)',
+    starter: '✅',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'Brand Discovery Worksheet',
+    starter: '✅',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'Brand Style Guide',
+    starter: '❌<br />available as add-on',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'Custom Artwork',
+    starter: '❌<br />available as add-on',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'Website UI',
+    starter: '❌<br />available as add-on',
+    signature: '❌<br />available as add-on',
+    premium: '✅',
+  },
+  {
+    feature: 'App UI',
+    starter: '❌<br />available as add-on',
+    signature: '❌<br />available as add-on',
+    premium: '✅',
+  },
+];
+
+// Helper function to get program tiers by service
+const getProgramTiers = (service: string) => {
+  switch (service) {
+    case 'personal-training':
+      return PROGRAM_TIERS;
+    case 'design':
+      return BRAND_IDENTITY_PROGRAM_TIERS;
+    default:
+      return [];
+  }
+};
+
+// Helper function to get program features by service
+const getProgramFeatures = (service: string) => {
+  switch (service) {
+    case 'personal-training':
+      return PROGRAM_FEATURES;
+    case 'design':
+      return BRAND_IDENTITY_PROGRAM_FEATURES;
+    default:
+      return [];
+  }
+};
 
 // Helper functions for hero content
 const getHeroContent = (currentView: string) => {
@@ -1005,6 +1133,10 @@ const SERVICES_EXPORTS = {
   SERVICES_STYLES,
   PROGRAM_TIERS,
   PROGRAM_FEATURES,
+  BRAND_IDENTITY_PROGRAM_TIERS,
+  BRAND_IDENTITY_PROGRAM_FEATURES,
+  getProgramTiers,
+  getProgramFeatures,
   getHeroContent,
   getServiceName,
 };

@@ -333,11 +333,12 @@ export const HeroSection: React.FC<{
 };
 
 // Program Tier Table Component
-const ProgramTierTable: React.FC<{ theme: any; isMobile: boolean }> = ({
-  theme,
-  isMobile,
-}) => {
-  const programTiers = SERVICES_EXPORTS.PROGRAM_TIERS;
+const ProgramTierTable: React.FC<{
+  theme: any;
+  isMobile: boolean;
+  service: string;
+}> = ({ theme, isMobile, service }) => {
+  const programTiers = SERVICES_EXPORTS.getProgramTiers(service);
 
   return (
     <div
@@ -419,10 +420,13 @@ const WhatsIncludedModal: React.FC<{
   isOpen: boolean;
   onClose: () => void;
   theme: any;
-}> = ({ isOpen, onClose, theme }) => {
+  service: string;
+}> = ({ isOpen, onClose, theme, service }) => {
   if (!isOpen) return null;
 
-  const features = SERVICES_EXPORTS.PROGRAM_FEATURES;
+  const features = SERVICES_EXPORTS.getProgramFeatures(service);
+  const isPersonalTraining = service === 'personal-training';
+  const isBrandIdentity = service === 'design';
 
   return (
     <div
@@ -509,35 +513,65 @@ const WhatsIncludedModal: React.FC<{
                   >
                     Feature
                   </th>
-                  <th
-                    style={styles.tableHeader(theme, {
-                      textAlign: 'center',
-                    })}
-                  >
-                    Online PT Only
-                  </th>
-                  <th
-                    style={styles.tableHeader(theme, {
-                      textAlign: 'center',
-                    })}
-                  >
-                    Hybrid PT
-                  </th>
-                  <th
-                    style={styles.tableHeader(theme, {
-                      textAlign: 'center',
-                    })}
-                  >
-                    Online Hypertrophy
-                  </th>
-                  <th
-                    style={styles.tableHeader(theme, {
-                      borderRadius: '0 4px 0 0',
-                      textAlign: 'center',
-                    })}
-                  >
-                    Hybrid Hypertrophy
-                  </th>
+                  {isPersonalTraining && (
+                    <>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                        })}
+                      >
+                        Online PT Only
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                        })}
+                      >
+                        Hybrid PT
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                        })}
+                      >
+                        Online Hypertrophy
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          borderRadius: '0 4px 0 0',
+                          textAlign: 'center',
+                        })}
+                      >
+                        Hybrid Hypertrophy
+                      </th>
+                    </>
+                  )}
+                  {isBrandIdentity && (
+                    <>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                        })}
+                      >
+                        Starter
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                        })}
+                      >
+                        Signature
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          borderRadius: '0 4px 0 0',
+                          textAlign: 'center',
+                        })}
+                      >
+                        Premium
+                      </th>
+                    </>
+                  )}
                 </tr>
               </thead>
               <tbody>
@@ -547,43 +581,84 @@ const WhatsIncludedModal: React.FC<{
                       style={styles.tableCell(theme, {
                         fontWeight: 'bold',
                         position: 'sticky',
+                        fontSize: '1rem',
                         left: 0,
                       })}
-                    >
-                      {row.feature}
-                    </td>
-                    <td
-                      style={styles.tableCell(theme, {
-                        textAlign: 'center',
-                        fontSize: '1.2rem',
-                      })}
-                    >
-                      {row.onlinePT}
-                    </td>
-                    <td
-                      style={styles.tableCell(theme, {
-                        textAlign: 'center',
-                        fontSize: '1.2rem',
-                      })}
-                    >
-                      {row.hybridPT}
-                    </td>
-                    <td
-                      style={styles.tableCell(theme, {
-                        textAlign: 'center',
-                        fontSize: '1.2rem',
-                      })}
-                    >
-                      {row.onlineHypertrophy}
-                    </td>
-                    <td
-                      style={styles.tableCell(theme, {
-                        textAlign: 'center',
-                        fontSize: '1.2rem',
-                      })}
-                    >
-                      {row.hybridHypertrophy}
-                    </td>
+                      dangerouslySetInnerHTML={{
+                        __html: (row as any).feature,
+                      }}
+                    />
+                    {isPersonalTraining && (
+                      <>
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).onlinePT,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).hybridPT,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).onlineHypertrophy,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).hybridHypertrophy,
+                          }}
+                        />
+                      </>
+                    )}
+                    {isBrandIdentity && (
+                      <>
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).starter,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).signature,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).premium,
+                          }}
+                        />
+                      </>
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -625,6 +700,10 @@ export const ProgramTiersSection: React.FC<{
     orientation === 'large-portrait';
   const [showWhatsIncluded, setShowWhatsIncluded] = useState(false);
 
+  // Determine service based on currentView
+  const service =
+    currentView === 'personal-training' ? 'personal-training' : 'design';
+
   // Dispatch event when modal opens
   React.useEffect(() => {
     if (showWhatsIncluded) {
@@ -632,8 +711,9 @@ export const ProgramTiersSection: React.FC<{
     }
   }, [showWhatsIncluded]);
 
-  // Only show tiers for services that have them (currently just Personal Training)
-  if (currentView !== 'personal-training') {
+  // Only show tiers for services that have them
+  const servicesWithTiers = ['personal-training', 'design'];
+  if (!currentView || !servicesWithTiers.includes(currentView)) {
     return null;
   }
 
@@ -660,10 +740,16 @@ export const ProgramTiersSection: React.FC<{
         marginBottom='2rem'
         style={{ textAlign: 'center', fontStyle: 'italic' }}
       >
-        Choose your path based on your archetype assessment and personal goals.
+        {currentView === 'personal-training'
+          ? 'Choose your path based on your archetype assessment and personal goals.'
+          : 'Select the package that best fits your brand development needs.'}
       </Typography>
 
-      <ProgramTierTable theme={theme} isMobile={isMobile} />
+      <ProgramTierTable
+        theme={theme}
+        isMobile={isMobile}
+        service={currentView}
+      />
 
       <div style={{ marginTop: '2rem', textAlign: 'center' }}>
         <button
@@ -698,6 +784,7 @@ export const ProgramTiersSection: React.FC<{
       <AnimatePresence mode='wait'>
         {showWhatsIncluded && (
           <WhatsIncludedModal
+            service={service}
             isOpen={showWhatsIncluded}
             onClose={() => {
               setShowWhatsIncluded(false);
@@ -876,6 +963,14 @@ export const OverviewSection: React.FC<{
 
   const getOverviewTitle = () => {
     switch (currentView) {
+      case 'services':
+      case 'consulting':
+      case 'education-training':
+      case 'resonance-core':
+      case 'development':
+        return 'Overview';
+      case 'design':
+        return 'Design Program Overview';
       case 'personal-training':
         return 'Program Overview & Archetype Mapping';
       default:
@@ -942,7 +1037,6 @@ export const OverviewSection: React.FC<{
         variant='p'
         textAlign='left'
         color={theme.palette.neutralPrimary}
-        marginBottom='2rem'
         noHyphens
         style={styles.textContent}
       >
@@ -952,6 +1046,13 @@ export const OverviewSection: React.FC<{
               __html: SERVICES_EXPORTS.PERSONAL_TRAINING_SUMMARY,
             }}
             className='personal-training-summary'
+          />
+        ) : currentView === 'design' ? (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: SERVICES_EXPORTS.DESIGN_SUMMARY,
+            }}
+            className='design-summary'
           />
         ) : (
           renderSummary(getSummary())
@@ -1149,6 +1250,10 @@ export const ProfessionalSummary: React.FC<{
     orientation === 'large-portrait';
   const [showWhatsIncluded, setShowWhatsIncluded] = useState(false);
 
+  // Determine service based on currentView
+  const service =
+    currentView === 'personal-training' ? 'personal-training' : 'design';
+
   // Apply styles to links within personal training summary
   useEffect(() => {
     if (currentView === 'personal-training') {
@@ -1218,8 +1323,9 @@ export const ProfessionalSummary: React.FC<{
       case 'education-training':
       case 'resonance-core':
       case 'development':
-      case 'design':
         return 'Overview';
+      case 'design':
+        return 'Design Program Overview';
       case 'personal-training':
         return 'Program Overview & Archetype Mapping';
       default:
@@ -1357,10 +1463,10 @@ export const ProfessionalSummary: React.FC<{
           noHyphens
           style={styles.textContent}
         >
-          {currentView === 'personal-training' ? (
+          {currentView === 'personal-training' || currentView === 'design' ? (
             <div
               dangerouslySetInnerHTML={{
-                __html: SERVICES_EXPORTS.PERSONAL_TRAINING_SUMMARY,
+                __html: getSummary(),
               }}
               className='personal-training-summary'
             />
@@ -1498,7 +1604,11 @@ export const ProfessionalSummary: React.FC<{
                 name='Program Tiers'
                 style={{ margin: '0 0 1.5rem 0' }}
               />
-              <ProgramTierTable theme={theme} isMobile={isMobile} />
+              <ProgramTierTable
+                theme={theme}
+                isMobile={isMobile}
+                service={currentView}
+              />
             </div>
 
             {/* What's Included CTA */}
@@ -1536,6 +1646,7 @@ export const ProfessionalSummary: React.FC<{
       <AnimatePresence mode='wait'>
         {showWhatsIncluded && (
           <WhatsIncludedModal
+            service={service}
             isOpen={showWhatsIncluded}
             onClose={() => {
               setShowWhatsIncluded(false);
