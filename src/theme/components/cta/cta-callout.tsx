@@ -79,7 +79,9 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
           ? '👉 You’ve felt the shift. Now choose your path.'
           : currentView === 'education-training'
             ? '👉 You’re not just leading—you’re transmitting.'
-            : '👉 Your vision is calling. Let’s architect it into form.',
+            : currentView === 'consulting'
+              ? '👉 Your systems are sacred. Your strategy is a scroll.'
+              : '👉 Your vision is calling. Let’s architect it into form.',
       description:
         currentView === 'personal-training'
           ? "Let's get your personalized plan started! Click this button to book a free, no obligation consultation with us to discuss your health and training goals."
@@ -89,7 +91,9 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
               ? 'Book your free consultation and begin your Resonance Core journey.'
               : currentView === 'education-training'
                 ? 'Book your free consultation and let’s architect your coaching or training legacy.'
-                : 'Book your free consultation to discuss your project needs and get started today!',
+                : currentView === 'consulting'
+                  ? 'Book your free consultation and let’s architect your operational legacy.'
+                  : 'Book your free consultation to discuss your project needs and get started today!',
       icon: ARROW_ICON,
       route: BOOKINGS_URL,
       isExternal: true,

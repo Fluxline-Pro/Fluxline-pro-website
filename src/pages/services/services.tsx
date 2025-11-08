@@ -477,6 +477,7 @@ const WhatsIncludedModal: React.FC<{
   const isDevelopment = service === 'development';
   const isResonanceCore = service === 'resonance-core';
   const isEducationTraining = service === 'education-training';
+  const isConsulting = service === 'consulting';
 
   return (
     <div
@@ -700,6 +701,32 @@ const WhatsIncludedModal: React.FC<{
                       </th>
                     </>
                   )}
+                  {isConsulting && (
+                    <>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                        })}
+                      >
+                        Foundation
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                        })}
+                      >
+                        Expansion
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          borderRadius: '0 4px 0 0',
+                          textAlign: 'center',
+                        })}
+                      >
+                        Sovereign
+                      </th>
+                    </>
+                  )}
                 </tr>
               </thead>
               <tbody>
@@ -880,6 +907,37 @@ const WhatsIncludedModal: React.FC<{
                         />
                       </>
                     )}
+                    {isConsulting && (
+                      <>
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).foundation,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).expansion,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).sovereign,
+                          }}
+                        />
+                      </>
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -931,7 +989,9 @@ export const ProgramTiersSection: React.FC<{
           ? 'resonance-core'
           : currentView === 'education-training'
             ? 'education-training'
-            : 'design';
+            : currentView === 'consulting'
+              ? 'consulting'
+              : 'design';
 
   // Dispatch event when modal opens
   React.useEffect(() => {
@@ -947,6 +1007,7 @@ export const ProgramTiersSection: React.FC<{
     'development',
     'resonance-core',
     'education-training',
+    'consulting',
   ];
   if (!currentView || !servicesWithTiers.includes(currentView)) {
     return null;
@@ -1348,6 +1409,13 @@ export const OverviewSection: React.FC<{
               __html: SERVICES_EXPORTS.EDUCATION_TRAINING_SUMMARY,
             }}
             className='education-training-summary'
+          />
+        ) : currentView === 'consulting' ? (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: SERVICES_EXPORTS.CONSULTING_SUMMARY,
+            }}
+            className='consulting-summary'
           />
         ) : (
           renderSummary(getSummary())
@@ -1766,7 +1834,8 @@ export const ProfessionalSummary: React.FC<{
           currentView === 'design' ||
           currentView === 'development' ||
           currentView === 'resonance-core' ||
-          currentView === 'education-training' ? (
+          currentView === 'education-training' ||
+          currentView === 'consulting' ? (
             <div
               dangerouslySetInnerHTML={{
                 __html: getSummary(),
@@ -1780,7 +1849,9 @@ export const ProfessionalSummary: React.FC<{
                       ? 'development-summary'
                       : currentView === 'resonance-core'
                         ? 'resonance-core-summary'
-                        : 'education-training-summary'
+                        : currentView === 'education-training'
+                          ? 'education-training-summary'
+                          : 'consulting-summary'
               }
             />
           ) : (

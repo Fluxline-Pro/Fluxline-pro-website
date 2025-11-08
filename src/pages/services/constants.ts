@@ -37,7 +37,7 @@ const RESONANCE_CORE_SUMMARY =
   '<strong>The Resonance Core Framework™ is not just coaching—it’s a curriculum of becoming.</strong> Through archetypal mapping, emotional emergence, and symbolic ritual, we guide individuals through deep transformation. Whether you’re navigating a threshold, reframing your story, or anchoring your legacy, this framework offers structured modules, personalized rituals, and breakthrough documentation to align your inner world with your outer mission. Every session is a scroll. Every insight, a gate. This is coaching for those ready to reclaim their light.';
 
 const CONSULTING_SUMMARY =
-  'Strategic business alignment, systems architecture, and technology integration to help small to medium businesses and entrepreneurs build their most effective and authentic selves.';
+  '<strong>This is where clarity meets infrastructure.</strong> Fluxline’s Business Strategy & Systems Alignment offering guides founders and small teams through the sacred work of designing systems that scale, strategies that resonate, and operations that reflect their deepest values.<br /><br />Every engagement is tailored to your archetype, growth phase, and operational rhythm—ensuring your systems serve not just your mission, but your legacy.<br /><br />Whether you’re launching a new venture, optimizing your backend, or preparing to scale, we offer modular frameworks, tech integration, and strategic alignment rituals that turn friction into flow. This isn’t just consulting—<strong>it’s curriculum for your business soul.</strong>';
 
 const DEVELOPMENT_SUMMARY =
   "<strong>At Fluxline, we don't just build websites—we architect digital temples.</strong> Every line of code, every interface, every deployment pipeline is designed to serve your mission with modular clarity and emotional intelligence. Whether you're launching a lean MVP, scaling a full-stack platform, or immortalizing your brand through a custom app, our development rituals blend intuitive UX, resilient infrastructure, and long-term maintainability. <br /><br />From frontend flow to backend logic, cloud architecture to CI/CD pipelines, we guide founders and creatives through a build process that feels intentional, empowering, and aligned. Your product isn't just functional—<strong>it's a living system, built to evolve</strong>.";
@@ -416,42 +416,42 @@ const CONSULTING_BULLET_POINTS: IAboutBulletPoint[] = [
   {
     name: 'Business Identity & Purpose Development',
     description:
-      'Defining your core mission, vision, and values to create authentic business alignment',
+      'Clarify your mission, vision, and values to anchor every decision in alignment',
   },
   {
     name: 'Strategic Business Planning',
     description:
-      'Developing comprehensive business strategies that align with your purpose and goals',
+      'Design modular roadmaps that align with your goals, archetype, and growth phase',
   },
   {
     name: 'Systems Architecture & Integration',
     description:
-      'Designing scalable technology solutions that support your business objectives',
+      'Build scalable, symbolic systems that support your operations and evolution',
   },
   {
     name: 'Operational Efficiency Optimization',
     description:
-      'Streamlining processes and workflows to maximize productivity and growth',
+      'Streamline workflows and eliminate friction to reclaim time and energy',
   },
   {
     name: 'Technology Stack Assessment',
     description:
-      'Evaluating and optimizing your current technology to align with business goals',
+      'Audit and align your tools to ensure they serve—not sabotage—your mission',
   },
   {
     name: 'Team Development & Leadership',
     description:
-      'Building effective teams and leadership structures through proven methodologies',
+      'Cultivate emotionally intelligent teams and leadership structures that scale with grace',
   },
   {
     name: 'Digital Transformation Strategy',
     description:
-      'Guiding businesses through purposeful digital evolution and innovation',
+      'Navigate change with intention—ritualizing your shift into modern, aligned systems',
   },
   {
     name: 'Business Growth & Scaling',
     description:
-      'Creating sustainable growth strategies for small to medium businesses and entrepreneurs',
+      'Craft sustainable growth strategies rooted in clarity, capacity, and curriculum',
   },
 ];
 
@@ -1295,6 +1295,95 @@ const EDUCATION_TRAINING_PROGRAM_FEATURES = [
   },
 ];
 
+// Business Strategy & Consulting program tiers data
+const CONSULTING_PROGRAM_TIERS = [
+  {
+    tier: 'Foundation (Alignment Phase)',
+    idealFor:
+      'Startups and small businesses seeking clarity on identity, purpose, and foundational systems',
+    rate: '$750',
+    note: '1 strategy session with tech audit and integration support',
+  },
+  {
+    tier: 'Expansion (Optimization Phase)',
+    idealFor:
+      'Growing businesses ready to optimize operations and scale strategically',
+    rate: '$2,000',
+    note: '3 strategy sessions with comprehensive business and systems planning',
+  },
+  {
+    tier: 'Sovereign Scaling (Legacy Phase)',
+    idealFor:
+      'Established organizations building long-term strategic roadmaps and legacy systems',
+    rate: '$4,500+',
+    note: 'Ongoing strategic support with custom implementation and leadership coaching',
+  },
+];
+
+// Business Strategy & Consulting features comparison data
+const CONSULTING_PROGRAM_FEATURES = [
+  {
+    feature: 'Strategy Sessions',
+    foundation: '1',
+    expansion: '3',
+    sovereign: 'Ongoing',
+  },
+  {
+    feature: 'Business Identity Mapping',
+    foundation: '✅',
+    expansion: '✅',
+    sovereign: '✅',
+  },
+  {
+    feature: 'Tech Stack Audit',
+    foundation: '✅',
+    expansion: '✅',
+    sovereign: '✅',
+  },
+  {
+    feature: 'Systems Architecture',
+    foundation: '❌',
+    expansion: '✅',
+    sovereign: '✅',
+  },
+  {
+    feature: 'Operational Audit',
+    foundation: '❌',
+    expansion: '✅',
+    sovereign: '✅',
+  },
+  {
+    feature: 'Team Development',
+    foundation: '❌',
+    expansion: '✅',
+    sovereign: '✅',
+  },
+  {
+    feature: 'Leadership Coaching',
+    foundation: '❌',
+    expansion: '❌',
+    sovereign: '✅',
+  },
+  {
+    feature: 'Digital Transformation',
+    foundation: '❌',
+    expansion: '❌',
+    sovereign: '✅',
+  },
+  {
+    feature: 'Retainer Support',
+    foundation: '❌',
+    expansion: '❌',
+    sovereign: '✅',
+  },
+  {
+    feature: 'Legacy Dashboard',
+    foundation: '❌',
+    expansion: '❌',
+    sovereign: '✅',
+  },
+];
+
 // Helper function to get program tiers by service
 const getProgramTiers = (service: string) => {
   switch (service) {
@@ -1308,6 +1397,8 @@ const getProgramTiers = (service: string) => {
       return RESONANCE_CORE_PROGRAM_TIERS;
     case 'education-training':
       return EDUCATION_TRAINING_PROGRAM_TIERS;
+    case 'consulting':
+      return CONSULTING_PROGRAM_TIERS;
     default:
       return [];
   }
@@ -1326,6 +1417,8 @@ const getProgramFeatures = (service: string) => {
       return RESONANCE_CORE_PROGRAM_FEATURES;
     case 'education-training':
       return EDUCATION_TRAINING_PROGRAM_FEATURES;
+    case 'consulting':
+      return CONSULTING_PROGRAM_FEATURES;
     default:
       return [];
   }
@@ -1442,6 +1535,8 @@ const SERVICES_EXPORTS = {
   RESONANCE_CORE_PROGRAM_FEATURES,
   EDUCATION_TRAINING_PROGRAM_TIERS,
   EDUCATION_TRAINING_PROGRAM_FEATURES,
+  CONSULTING_PROGRAM_TIERS,
+  CONSULTING_PROGRAM_FEATURES,
   getProgramTiers,
   getProgramFeatures,
   getHeroContent,
