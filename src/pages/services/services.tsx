@@ -21,10 +21,7 @@ import { CTACallout } from '../../theme/components/cta';
 import { FadeIn } from '../../theme/components/animations/fade-animations';
 
 // New utility imports
-import {
-  getServiceFromView,
-  serviceHasTiers,
-} from './utils/serviceUtils';
+import { getServiceFromView, serviceHasTiers } from './utils/serviceUtils';
 import { useMobileDetection } from './hooks/useMobileDetection';
 import { StyledButton } from './components/StyledButton';
 import { ServiceContainer } from './components/ServiceContainer';
@@ -446,8 +443,26 @@ const ProgramTierTable: React.FC<{
               >
                 {tier.tier}
               </td>
-              <td style={styles.tableCell(theme)}>{tier.idealFor}</td>
-              <td style={styles.tableCell(theme)}>
+              <td
+                style={styles.tableCell(theme, {
+                  minWidth: '150px',
+                  maxWidth: '250px',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                })}
+              >
+                {tier.idealFor}
+              </td>
+              <td
+                style={styles.tableCell(theme, {
+                  minWidth: '150px',
+                  maxWidth: '200px',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                })}
+              >
                 <div style={{ fontWeight: 'bold' }}>{tier.rate}</div>
                 {tier.note && (
                   <div
@@ -479,6 +494,24 @@ const WhatsIncludedModal: React.FC<{
   theme: any;
   service: string;
 }> = ({ isOpen, onClose, theme, service }) => {
+  const { isMobile } = useMobileDetection();
+
+  // Prevent body scrolling when modal is open
+  React.useEffect(() => {
+    if (isOpen && isMobile) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+    };
+  }, [isOpen, isMobile]);
+
   if (!isOpen) return null;
 
   const features = SERVICES_EXPORTS.getProgramFeatures(service);
@@ -503,11 +536,12 @@ const WhatsIncludedModal: React.FC<{
             : theme.themeMode === 'dark'
               ? 'rgba(0, 0, 0, 0.9)'
               : 'rgba(0, 0, 0, 0.8)',
-        zIndex: 1000,
+        zIndex: 9999,
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '2rem',
+        alignItems: isMobile ? 'flex-start' : 'center',
+        justifyContent: isMobile ? 'flex-start' : 'center',
+        padding: isMobile ? '0' : '2rem',
+        overflow: 'hidden',
       }}
       onClick={onClose}
     >
@@ -518,12 +552,16 @@ const WhatsIncludedModal: React.FC<{
               theme.themeMode === 'dark' || theme.themeMode === 'high-contrast'
                 ? theme.palette.neutralDark
                 : theme.palette.neutralLighter,
-            borderRadius: '12px',
-            padding: '2rem',
-            maxWidth: '95vw',
-            maxHeight: '95vh',
-            overflow: 'auto',
+            borderRadius: isMobile ? '0' : '12px',
+            padding: isMobile ? '0.75rem' : '2rem',
+            width: isMobile ? '100vw' : 'auto',
+            height: isMobile ? '100vh' : 'auto',
+            maxWidth: isMobile ? '100vw' : '95vw',
+            maxHeight: isMobile ? '100vh' : '95vh',
+            overflow: isMobile ? 'hidden' : 'auto',
             position: 'relative',
+            display: 'flex',
+            flexDirection: 'column',
           }}
           onClick={(e) => e.stopPropagation()}
         >
@@ -531,13 +569,17 @@ const WhatsIncludedModal: React.FC<{
             onClick={onClose}
             style={{
               position: 'absolute',
-              top: '1rem',
-              right: '1rem',
+              top: isMobile ? '0.5rem' : '1rem',
+              right: isMobile ? '0.5rem' : '1rem',
               background: 'none',
               border: 'none',
-              fontSize: '1.5rem',
+              fontSize: isMobile ? '2rem' : '1.5rem',
               cursor: 'pointer',
               color: theme.palette.neutralPrimary,
+              zIndex: 10,
+              padding: isMobile ? '0.5rem' : '0',
+              minWidth: isMobile ? '44px' : 'auto',
+              minHeight: isMobile ? '44px' : 'auto',
             }}
           >
             ✕
@@ -546,62 +588,96 @@ const WhatsIncludedModal: React.FC<{
           <h2
             style={{
               color: theme.palette.themePrimary,
-              marginBottom: '1.5rem',
+              marginBottom: isMobile ? '0.75rem' : '1.5rem',
+              marginTop: isMobile ? '2.5rem' : '0',
               textAlign: 'center',
-              fontSize: '1.8rem',
+              fontSize: isMobile ? '1.2rem' : '1.8rem',
               fontWeight: 'bold',
               fontFamily: theme.typography.fonts.h2.fontFamily,
+              paddingRight: isMobile ? '3rem' : '0',
+              paddingLeft: isMobile ? '1rem' : '0',
+              lineHeight: isMobile ? '1.3' : '1.4',
             }}
           >
             🧩 What's Included - Program Comparison
           </h2>
 
-          <div style={{ overflowX: 'auto' }}>
+          <div
+            style={{
+              overflowX: 'auto',
+              overflowY: 'auto',
+              flex: 1,
+              marginTop: isMobile ? '0.5rem' : '0',
+              WebkitOverflowScrolling: 'touch',
+            }}
+          >
             <table
               style={{
                 ...styles.table,
-                minWidth: '800px',
+                minWidth: isMobile ? '650px' : '800px',
+                width: '100%',
               }}
             >
               <thead>
                 <tr>
                   <th
-                    style={styles.tableHeader(theme, {
-                      borderRadius: '4px 0 0 0',
-                      position: 'sticky',
-                      left: 0,
-                    })}
+                    style={{
+                      ...styles.tableHeader(theme, {
+                        borderRadius: '4px 0 0 0',
+                        position: isMobile ? 'static' : 'sticky',
+                        left: isMobile ? undefined : 0,
+                      }),
+                      width: isMobile ? '150px' : '200px',
+                      minWidth: isMobile ? '150px' : '200px',
+                      whiteSpace: 'nowrap',
+                    }}
                   >
                     Feature
                   </th>
                   {isPersonalTraining && (
                     <>
                       <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            textAlign: 'center',
+                          }),
+                          minWidth: isMobile ? '120px' : '140px',
+                          whiteSpace: 'nowrap',
+                        }}
                       >
                         Online PT Only
                       </th>
                       <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            textAlign: 'center',
+                          }),
+                          minWidth: isMobile ? '120px' : '140px',
+                          whiteSpace: 'nowrap',
+                        }}
                       >
                         Hybrid PT
                       </th>
                       <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            textAlign: 'center',
+                          }),
+                          minWidth: isMobile ? '140px' : '160px',
+                          whiteSpace: 'nowrap',
+                        }}
                       >
                         Online Hypertrophy
                       </th>
                       <th
-                        style={styles.tableHeader(theme, {
-                          borderRadius: '0 4px 0 0',
-                          textAlign: 'center',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            borderRadius: '0 4px 0 0',
+                            textAlign: 'center',
+                          }),
+                          minWidth: isMobile ? '140px' : '160px',
+                          whiteSpace: 'nowrap',
+                        }}
                       >
                         Hybrid Hypertrophy
                       </th>
@@ -612,6 +688,8 @@ const WhatsIncludedModal: React.FC<{
                       <th
                         style={styles.tableHeader(theme, {
                           textAlign: 'center',
+                          minWidth: '120px',
+                          whiteSpace: 'nowrap',
                         })}
                       >
                         Starter
@@ -638,6 +716,8 @@ const WhatsIncludedModal: React.FC<{
                       <th
                         style={styles.tableHeader(theme, {
                           textAlign: 'center',
+                          minWidth: '120px',
+                          whiteSpace: 'nowrap',
                         })}
                       >
                         Starter
@@ -645,6 +725,8 @@ const WhatsIncludedModal: React.FC<{
                       <th
                         style={styles.tableHeader(theme, {
                           textAlign: 'center',
+                          minWidth: '120px',
+                          whiteSpace: 'nowrap',
                         })}
                       >
                         Signature
@@ -653,6 +735,8 @@ const WhatsIncludedModal: React.FC<{
                         style={styles.tableHeader(theme, {
                           borderRadius: '0 4px 0 0',
                           textAlign: 'center',
+                          minWidth: '120px',
+                          whiteSpace: 'nowrap',
                         })}
                       >
                         Premium
@@ -664,6 +748,8 @@ const WhatsIncludedModal: React.FC<{
                       <th
                         style={styles.tableHeader(theme, {
                           textAlign: 'center',
+                          minWidth: '120px',
+                          whiteSpace: 'nowrap',
                         })}
                       >
                         Initiate
@@ -671,6 +757,8 @@ const WhatsIncludedModal: React.FC<{
                       <th
                         style={styles.tableHeader(theme, {
                           textAlign: 'center',
+                          minWidth: '120px',
+                          whiteSpace: 'nowrap',
                         })}
                       >
                         Embodied
@@ -679,6 +767,8 @@ const WhatsIncludedModal: React.FC<{
                         style={styles.tableHeader(theme, {
                           borderRadius: '0 4px 0 0',
                           textAlign: 'center',
+                          minWidth: '120px',
+                          whiteSpace: 'nowrap',
                         })}
                       >
                         Legacy
@@ -690,6 +780,8 @@ const WhatsIncludedModal: React.FC<{
                       <th
                         style={styles.tableHeader(theme, {
                           textAlign: 'center',
+                          minWidth: '140px',
+                          whiteSpace: 'nowrap',
                         })}
                       >
                         Individual
@@ -697,6 +789,8 @@ const WhatsIncludedModal: React.FC<{
                       <th
                         style={styles.tableHeader(theme, {
                           textAlign: 'center',
+                          minWidth: '120px',
+                          whiteSpace: 'nowrap',
                         })}
                       >
                         Team
@@ -705,6 +799,8 @@ const WhatsIncludedModal: React.FC<{
                         style={styles.tableHeader(theme, {
                           borderRadius: '0 4px 0 0',
                           textAlign: 'center',
+                          minWidth: '160px',
+                          whiteSpace: 'nowrap',
                         })}
                       >
                         Organizational
@@ -716,6 +812,8 @@ const WhatsIncludedModal: React.FC<{
                       <th
                         style={styles.tableHeader(theme, {
                           textAlign: 'center',
+                          minWidth: '140px',
+                          whiteSpace: 'nowrap',
                         })}
                       >
                         Foundation
@@ -723,6 +821,8 @@ const WhatsIncludedModal: React.FC<{
                       <th
                         style={styles.tableHeader(theme, {
                           textAlign: 'center',
+                          minWidth: '130px',
+                          whiteSpace: 'nowrap',
                         })}
                       >
                         Expansion
@@ -731,6 +831,8 @@ const WhatsIncludedModal: React.FC<{
                         style={styles.tableHeader(theme, {
                           borderRadius: '0 4px 0 0',
                           textAlign: 'center',
+                          minWidth: '130px',
+                          whiteSpace: 'nowrap',
                         })}
                       >
                         Sovereign
@@ -743,12 +845,18 @@ const WhatsIncludedModal: React.FC<{
                 {features.map((row, index) => (
                   <tr key={row.feature} style={styles.tableRow(theme, index)}>
                     <td
-                      style={styles.tableCell(theme, {
-                        fontWeight: 'bold',
-                        position: 'sticky',
-                        fontSize: '1rem',
-                        left: 0,
-                      })}
+                      style={{
+                        ...styles.tableCell(theme, {
+                          fontWeight: 'bold',
+                          position: isMobile ? 'static' : 'sticky',
+                          fontSize: '1rem',
+                          left: isMobile ? undefined : 0,
+                        }),
+                        width: isMobile ? '180px' : '200px',
+                        minWidth: isMobile ? '180px' : '200px',
+                        whiteSpace: 'nowrap',
+                        paddingRight: '1rem',
+                      }}
                       dangerouslySetInnerHTML={{
                         __html: (row as any).feature,
                       }}
@@ -759,6 +867,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).onlinePT,
@@ -768,6 +881,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).hybridPT,
@@ -777,6 +895,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).onlineHypertrophy,
@@ -786,6 +909,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).hybridHypertrophy,
@@ -799,6 +927,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).starter,
@@ -808,6 +941,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).signature,
@@ -817,6 +955,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).premium,
@@ -830,6 +973,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).starter,
@@ -839,6 +987,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).signature,
@@ -848,6 +1001,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).premium,
@@ -861,6 +1019,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).initiate,
@@ -870,6 +1033,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).embodied,
@@ -879,6 +1047,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).legacy,
@@ -892,6 +1065,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).individual,
@@ -901,6 +1079,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).team,
@@ -910,6 +1093,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).organizational,
@@ -923,6 +1111,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).foundation,
@@ -932,6 +1125,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).expansion,
@@ -941,6 +1139,11 @@ const WhatsIncludedModal: React.FC<{
                           style={styles.tableCell(theme, {
                             textAlign: 'center',
                             fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                           })}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).sovereign,

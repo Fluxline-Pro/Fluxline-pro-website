@@ -640,6 +640,8 @@ const SERVICES_STYLES = {
       textAlign?: string;
       position?: string;
       left?: number;
+      minWidth?: string;
+      whiteSpace?: string;
     }
   ) => ({
     background: options?.background || theme.palette.themeSecondary,
@@ -653,6 +655,8 @@ const SERVICES_STYLES = {
     position: options?.position as any,
     left: options?.left,
     verticalAlign: 'middle',
+    minWidth: options?.minWidth || 'auto',
+    whiteSpace: (options?.whiteSpace as any) || 'normal',
   }),
   tableRow: (theme: any, index: number) => ({
     background:
@@ -674,6 +678,11 @@ const SERVICES_STYLES = {
       left?: number;
       background?: string;
       fontSize?: string;
+      minWidth?: string;
+      whiteSpace?: string;
+      maxWidth?: string;
+      overflow?: string;
+      textOverflow?: string;
     }
   ) => {
     const styles: any = {
@@ -686,7 +695,6 @@ const SERVICES_STYLES = {
       }`,
       textAlign: (options?.textAlign as any) || 'left',
       fontWeight: options?.fontWeight || 'normal',
-      maxWidth: '300px',
       color:
         options?.color ||
         (theme.themeMode === 'dark'
@@ -696,6 +704,11 @@ const SERVICES_STYLES = {
             : theme.palette.neutralPrimary),
       fontSize: options?.fontSize || '1rem',
       verticalAlign: 'middle',
+      minWidth: options?.minWidth || 'auto',
+      whiteSpace: (options?.whiteSpace as any) || 'normal',
+      maxWidth: options?.maxWidth || 'none',
+      overflow: (options?.overflow as any) || 'visible',
+      textOverflow: (options?.textOverflow as any) || 'clip',
     };
 
     // Only add position and left if specified
