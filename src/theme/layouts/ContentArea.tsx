@@ -157,11 +157,20 @@ export const ContentArea = React.forwardRef<HTMLDivElement, ContentAreaProps>(
                   ? 'clamp(0px, 90vh, 900px)' // Using clamp instead of min for better cross-environment support
                   : orientation === 'tablet-portrait'
                     ? 'clamp(0px, 100vh, 850px)' // Smaller height to not run into menu buttons on tablet-portrait
-                    : orientation === 'ultrawide' || orientation === 'landscape'
-                      ? 'clamp(0px, 100vh, 900px)' // Using clamp instead of min for better cross-environment support
-                      : orientation === 'large-portrait'
-                        ? 'clamp(0px, 100vh, 1200px)'
-                        : '100vh',
+                    : orientation === 'ultrawide'
+                      ? (() => {
+                          // Check if aspect ratio is 3:1 or higher for ultrawide constraint
+                          const aspectRatio =
+                            window.innerWidth / window.innerHeight;
+                          return aspectRatio >= 2.2
+                            ? 'clamp(0px, 100vh, 700px)' // Constrain to 700px for 3:1+ aspect ratios
+                            : 'clamp(0px, 100vh, 900px)'; // Standard ultrawide constraint
+                        })()
+                      : orientation === 'landscape'
+                        ? 'clamp(0px, 100vh, 900px)' // Using clamp instead of min for better cross-environment support
+                        : orientation === 'large-portrait'
+                          ? 'clamp(0px, 100vh, 1200px)'
+                          : '100vh',
           overflowY: hasCardImage
             ? 'clip'
             : orientation === 'portrait' && !isHomePage

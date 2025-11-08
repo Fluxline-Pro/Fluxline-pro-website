@@ -6,9 +6,15 @@ import { Container } from '../../layouts/Container';
 import { useIsMobile, useDeviceOrientation } from '../../hooks/useMediaQuery';
 
 export interface CTACalloutProps {
-  variant: 'services' | 'legal' | 'consultation' | 'getStarted';
+  variant:
+    | 'services'
+    | 'legal'
+    | 'consultation'
+    | 'getStarted'
+    | 'personalTraining';
   currentView?: string;
   showOnlyFor?: string[]; // Which views to show this CTA on
+  hideTopHR?: boolean; // Option to hide the top HR when stacking CTAs
   hideBottomHR?: boolean; // Option to hide the bottom HR when stacking CTAs
 }
 
@@ -16,6 +22,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
   variant,
   currentView,
   showOnlyFor = ['about'],
+  hideTopHR = false,
   hideBottomHR = false,
 }) => {
   const { theme } = useAppTheme();
@@ -33,10 +40,10 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
   const BOOKINGS_URL =
     'https://outlook.office.com/book/Bookings@terencewaters.com';
 
-  // Configuration based on variant
+  // Configuration based on variant- Constants for each CTA type
   const config = {
     services: {
-      title: 'Explore Our Services',
+      title: '👉 Explore Our Services',
       description:
         'Discover how we can help transform your vision into reality',
       icon: ARROW_ICON,
@@ -44,14 +51,22 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
       isExternal: false,
     },
     legal: {
-      title: 'Legal & Reference Documents',
+      title: '💼 Legal & Reference Documents',
       description: 'Access our policies, terms, and important legal documents',
       icon: ARROW_ICON,
       route: '/legal',
       isExternal: false,
     },
+    personalTraining: {
+      title: '💡 Take our Emotional Archetype Assessment',
+      description:
+        'Discover your emotional archetype to help us better understand your drives and motivations.',
+      icon: ARROW_ICON,
+      route: 'https://forms.office.com/r/dn7wneDXfr',
+      isExternal: true,
+    },
     consultation: {
-      title: "Let's Make Your Vision Happen!",
+      title: "💡 Let's Make Your Vision Happen!",
       description:
         'Book a free consultation to discuss your project estimates, training, consulting, or development needs',
       icon: ARROW_ICON,
@@ -59,9 +74,26 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
       isExternal: true,
     },
     getStarted: {
-      title: 'Ready to Get Started?',
+      title:
+        currentView === 'resonance-core'
+          ? '👉 You’ve felt the shift. Now choose your path.'
+          : currentView === 'education-training'
+            ? '👉 You’re not just leading—you’re transmitting.'
+            : currentView === 'consulting'
+              ? '👉 Your systems are sacred. Your strategy is a scroll.'
+              : '👉 Your vision is calling. Let’s architect it into form.',
       description:
-        "We'd love to help you with your next project! Click this button to book a free, no obligation consultation with us to discuss your vision and needs.",
+        currentView === 'personal-training'
+          ? "Let's get your personalized plan started! Click this button to book a free, no obligation consultation with us to discuss your health and training goals."
+          : currentView === 'development'
+            ? 'Every build begins with a conversation. Book your free consultation—let’s architect your vision.'
+            : currentView === 'resonance-core'
+              ? 'Book your free consultation and begin your Resonance Core journey.'
+              : currentView === 'education-training'
+                ? 'Book your free consultation and let’s architect your coaching or training legacy.'
+                : currentView === 'consulting'
+                  ? 'Book your free consultation and let’s architect your operational legacy.'
+                  : 'Book your free consultation to discuss your project needs and get started today!',
       icon: ARROW_ICON,
       route: BOOKINGS_URL,
       isExternal: true,
@@ -86,9 +118,11 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
   const ctaContainerStyle = {
     textAlign: 'center' as const,
     background:
-      theme.themeMode === 'high-contrast'
-        ? theme.palette.neutralDark
-        : theme.palette.neutralLight,
+      theme.themeMode === 'high-contrast' ||
+      theme.themeMode === 'dark' ||
+      theme.themeMode === 'grayscale-dark'
+        ? theme.palette.themeDark
+        : theme.palette.themeLight,
     borderRadius: '8px',
     borderLeft: `6px solid ${theme.semanticColors.messageText}`, // Mythic Gold color
     maxWidth: '800px',
@@ -127,7 +161,7 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
 
   return (
     <>
-      <hr style={hrStyles} />
+      {!hideTopHR && <hr style={hrStyles} />}
       <Container
         padding={
           isMobile ||

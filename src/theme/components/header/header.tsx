@@ -15,6 +15,8 @@ const Header: React.FC = () => {
   const [isViewTransitioning, setIsViewTransitioning] = React.useState(false);
   const [isPdfModalOpen, setIsPdfModalOpen] = React.useState(false); // Track PDF modal state
   const [isImageModalOpen, setIsImageModalOpen] = React.useState(false); // Track image modal state
+  const [isWhatsIncludedModalOpen, setIsWhatsIncludedModalOpen] =
+    React.useState(false); // Track What's Included modal state
   const { themeMode, setThemeMode } = useAppTheme();
   const isMobileLandscape = useDeviceOrientation() === 'mobile-landscape';
 
@@ -29,6 +31,34 @@ const Header: React.FC = () => {
     return () => {
       window.removeEventListener('pdf-modal-open', handlePdfModalOpen);
       window.removeEventListener('pdf-modal-close', handlePdfModalClose);
+    };
+  }, []);
+
+  // Listen for What's Included modal state changes via custom events
+  React.useEffect(() => {
+    const handleWhatsIncludedModalOpen = () =>
+      setIsWhatsIncludedModalOpen(true);
+    const handleWhatsIncludedModalClose = () =>
+      setIsWhatsIncludedModalOpen(false);
+
+    window.addEventListener(
+      'whats-included-modal-open',
+      handleWhatsIncludedModalOpen
+    );
+    window.addEventListener(
+      'whats-included-modal-close',
+      handleWhatsIncludedModalClose
+    );
+
+    return () => {
+      window.removeEventListener(
+        'whats-included-modal-open',
+        handleWhatsIncludedModalOpen
+      );
+      window.removeEventListener(
+        'whats-included-modal-close',
+        handleWhatsIncludedModalClose
+      );
     };
   }, []);
 
@@ -56,12 +86,12 @@ const Header: React.FC = () => {
     setActiveModal(null);
   };
 
-  // Close navigation modals when image modal opens
+  // Close navigation modals when other modals open
   React.useEffect(() => {
-    if (isImageModalOpen || isPdfModalOpen) {
+    if (isImageModalOpen || isPdfModalOpen || isWhatsIncludedModalOpen) {
       setActiveModal(null);
     }
-  }, [isImageModalOpen, isPdfModalOpen]);
+  }, [isImageModalOpen, isPdfModalOpen, isWhatsIncludedModalOpen]);
 
   const handleSettingsClick = () => {
     if (activeModal === 'settings') {
@@ -96,8 +126,8 @@ const Header: React.FC = () => {
     setThemeMode(themeMode === 'light' ? 'dark' : 'light');
   };
 
-  // Don't render header when image or PDF modal is open
-  if (isImageModalOpen || isPdfModalOpen) {
+  // Don't render header when any modal is open
+  if (isImageModalOpen || isPdfModalOpen || isWhatsIncludedModalOpen) {
     return null;
   }
 

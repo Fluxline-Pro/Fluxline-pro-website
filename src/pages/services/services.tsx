@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { BulletPoint } from '../../theme/components/bullet-point/bullet-point';
@@ -17,90 +17,18 @@ import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { NavigationArrow } from '../../theme/components/navigation-arrow/navigation-arrow';
 import { PdfModal } from '../../theme/components/modal/pdf-modal';
 import { WhitePageItem } from '../white-pages/white-pages-constants';
-import { WhitePageCard } from '../../theme/components/card/white-page-card/white-page-card';
 import { CTACallout } from '../../theme/components/cta';
+import { FadeIn } from '../../theme/components/animations/fade-animations';
 
-// Reusable style objects
-const styles = {
-  sectionContainer: (
-    orientation?: string,
-    layoutPreference?: string,
-    view?: string,
-    includesArrow?: boolean
-  ) => {
-    // Define main page titles that should get special left-handed spacing
-    const mainTitles = [
-      'Business Strategy & Systems Alignment',
-      'Brand Identity & Experience Design',
-      'Life Coaching & The Resonance Core',
-      'Personal Training & Wellness',
-      'Coaching, Education & Leadership',
-      'Web & Application Development',
-    ];
+// New utility imports
+import { getServiceFromView, serviceHasTiers } from './utils/serviceUtils';
+import { useMobileDetection } from './hooks/useMobileDetection';
+import { StyledButton } from './components/StyledButton';
+import { ServiceContainer } from './components/ServiceContainer';
+import { ServiceSummaryRenderer } from './components/ServiceSummaryRenderer';
 
-    return {
-      margin:
-        includesArrow && orientation !== 'mobile-landscape'
-          ? '0 auto'
-          : orientation === 'mobile-landscape'
-            ? layoutPreference === 'left-handed' &&
-              view &&
-              mainTitles.includes(view)
-              ? '0 0 0 14rem'
-              : '0 auto 0 1rem'
-            : '0 auto',
-      marginBottom: orientation === 'mobile-landscape' ? '0rem' : '1.5rem',
-      maxWidth:
-        orientation === 'mobile-landscape' && view && mainTitles.includes(view)
-          ? '400px'
-          : '900px',
-    };
-  },
-  sectionBox: (theme: any) => ({
-    background:
-      theme.themeMode === 'high-contrast'
-        ? theme.semanticColors.warningBackground
-        : theme.palette.neutralLight,
-    padding: '2rem',
-    borderRadius: '4px',
-    marginBottom: '4rem',
-  }),
-  textContent: {
-    textAlign: 'left' as const,
-    maxWidth: '800px',
-    margin: '0 auto',
-  },
-  gridContainer: (isMobile: boolean, columns?: number | string) => ({
-    display: 'grid',
-    gap: '1.5rem',
-    gridTemplateColumns:
-      typeof columns === 'string'
-        ? columns
-        : isMobile
-          ? '1fr 1fr'
-          : `repeat(auto-fit, minmax(${columns ? 900 / columns : 130}px, 1fr))`,
-    alignItems: 'start',
-    justifyItems: 'stretch',
-    width: '100%',
-    maxWidth: '900px',
-    margin: '0 auto',
-  }),
-  h2Title: (theme: any, orientation?: string) => ({
-    color: theme.palette.themePrimary,
-    margin: orientation === 'mobile-landscape' ? '0.5rem 0' : '1rem 0 0.5rem 0',
-    fontSize:
-      orientation === 'mobile-landscape'
-        ? theme.typography.fontSizes.clamp6 // Reduced from clamp7 to clamp6 for mobile-landscape
-        : theme.typography.fontSizes.clamp7,
-    maxWidth: orientation === 'mobile-landscape' ? '400px' : 'none',
-    fontFamily: theme.typography.fonts.h2.fontFamily,
-    fontWeight: theme.typography.fonts.h2.fontWeight,
-    fontVariationSettings: theme.typography.fonts.h2.fontVariationSettings,
-    textTransform: theme.typography.fonts.h2.textTransform,
-    letterSpacing: theme.typography.fonts.h2.letterSpacing,
-    lineHeight: theme.typography.fonts.h2.lineHeight,
-  }),
-};
+// Use styles from constants file
+const styles = SERVICES_EXPORTS.SERVICES_STYLES;
 interface ServicesProps {
   currentView?:
     | 'about'
@@ -136,11 +64,16 @@ const H2Title = ({
   );
 };
 
-export const GetStarted: React.FC = () => {
+export const GetStarted: React.FC<{
+  currentView?: string;
+  isServicesPage?: boolean;
+}> = ({ currentView, isServicesPage = false }) => {
   return (
     <CTACallout
       variant='getStarted'
+      currentView={isServicesPage ? 'services' : currentView || undefined}
       showOnlyFor={[]} // Show on all views
+      hideTopHR={true}
       hideBottomHR={true}
     />
   );
@@ -181,14 +114,6 @@ export const WhitePagesSection: React.FC<{
     }
   };
 
-  const hrStyles = {
-    margin: '2rem 0',
-    border: 'none',
-    height: '1px',
-    backgroundColor: theme.palette.themePrimary,
-    opacity: 0.3,
-  };
-
   // Filter white pages for current view
   const getRelevantWhitePages = () => {
     const whitePages = SERVICES_EXPORTS.getWhitePagesFromServices();
@@ -201,24 +126,9 @@ export const WhitePagesSection: React.FC<{
     );
   };
 
-  const getServiceName = () => {
-    switch (currentView) {
-      case 'personal-training':
-        return 'Personal Training & Wellness';
-      case 'education-training':
-        return 'Coaching, Education & Leadership';
-      case 'consulting':
-        return 'Business Strategy & Systems Alignment';
-      case 'resonance-core':
-        return 'Life Coaching & The Resonance Core';
-      case 'development':
-        return 'Web & Application Development';
-      case 'design':
-        return 'Brand Identity & Experience Design';
-      default:
-        return 'service';
-    }
-  };
+  const serviceName = SERVICES_EXPORTS.getServiceName(
+    currentView || 'services'
+  );
 
   const relevantWhitePages = getRelevantWhitePages();
 
@@ -240,23 +150,28 @@ export const WhitePagesSection: React.FC<{
           marginBottom: '3rem',
         }}
       >
-        <hr style={hrStyles} />
-        <H2Title
-          name={
-            currentView === 'services' ? 'Services White Pages' : 'White Page'
-          }
-        />
+        <hr style={styles.hrStyles(theme)} />
+        <Typography
+          variant='h2'
+          color={theme.palette.themePrimary}
+          marginBottom='1rem'
+          fontSize={theme.typography.fontSizes.clamp7}
+          style={{ fontWeight: 500 }}
+        >
+          📜 Explore the Scroll{currentView === 'services' ? 's' : ''}
+        </Typography>
         <Typography
           variant='p'
           textAlign='left'
-          color={theme.palette.neutralPrimary}
-          marginBottom='2rem'
+          color={theme.palette.neutralSecondary}
+          marginBottom='1.5rem'
           noHyphens
+          fontSize='0.9rem'
           style={styles.textContent}
         >
           {currentView === 'services'
-            ? 'Explore detailed information about each of our services through our white pages.'
-            : `View the detailed white paper for ${getServiceName()}.`}
+            ? 'Dive deeper into each offering through our white papers—each one a curriculum gate into your next transformation.'
+            : `View our detailed white paper scroll below for more information about ${serviceName}.`}
         </Typography>
 
         <div
@@ -267,19 +182,60 @@ export const WhitePagesSection: React.FC<{
               : currentView === 'services'
                 ? 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))'
                 : '1fr',
-            gap: '1.5rem',
+            gap: '1rem',
           }}
         >
           {relevantWhitePages.map((whitePage) => (
-            <WhitePageCard
+            <div
               key={whitePage.id}
-              whitePage={whitePage}
-              isHovered={hoveredCard === whitePage.id}
-              onClick={handleCardClick}
+              style={{
+                backgroundColor: 'transparent',
+                border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+                borderRadius: theme.borderRadius.container.small,
+                padding: '1rem',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                opacity: hoveredCard === whitePage.id ? 1 : 0.85,
+                transform:
+                  hoveredCard === whitePage.id
+                    ? 'translateY(-2px)'
+                    : 'translateY(0)',
+                boxShadow:
+                  hoveredCard === whitePage.id ? theme.shadows.s : 'none',
+              }}
+              onClick={() => handleCardClick(whitePage)}
               onMouseEnter={() => setHoveredCard(whitePage.id)}
               onMouseLeave={() => setHoveredCard(null)}
-              variant='compact'
-            />
+            >
+              <Typography
+                variant='h4'
+                color={theme.palette.neutralPrimary}
+                marginBottom='0.5rem'
+                fontSize={theme.typography.fontSizes.clamp4}
+              >
+                {whitePage.title}
+              </Typography>
+              <Typography
+                variant='p'
+                color={theme.palette.neutralSecondary}
+                fontSize='0.9rem'
+                marginBottom='0.5rem'
+              >
+                {whitePage.description}
+              </Typography>
+              <Typography
+                variant='p'
+                color={theme.palette.themeTertiary}
+                fontSize='0.8rem'
+                fontWeight={400}
+                style={{
+                  opacity: hoveredCard === whitePage.id ? 1 : 0.7,
+                  transition: 'opacity 0.2s ease',
+                }}
+              >
+                View White Paper
+              </Typography>
+            </div>
           ))}
         </div>
 
@@ -316,6 +272,1234 @@ export const WhitePagesSection: React.FC<{
         />
       )}
     </>
+  );
+};
+
+// Hero Section Component
+export const HeroSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme, layoutPreference } = useAppTheme();
+  const orientation = useDeviceOrientation();
+  const navigate = useNavigate();
+  const isMobile =
+    orientation === 'portrait' ||
+    orientation === 'tablet-portrait' ||
+    orientation === 'large-portrait';
+
+  // Don't show hero for about page
+  if (currentView === 'about') {
+    return null;
+  }
+
+  const heroContent = SERVICES_EXPORTS.getHeroContent(
+    currentView || 'services'
+  );
+
+  return (
+    <div
+      style={{
+        width: '100%',
+        marginBottom: '3rem',
+        background:
+          theme.themeMode === 'high-contrast'
+            ? theme.semanticColors.warningBackground
+            : theme.palette.neutralLight,
+        borderRadius: theme.borderRadius.container.medium,
+        border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
+        padding:
+          isMobile || orientation === 'mobile-landscape'
+            ? `${theme.spacing.l} ${theme.spacing.m}`
+            : theme.spacing.xxl,
+        maxWidth: '1100px',
+        margin: '0 auto',
+      }}
+    >
+      {/* Navigation and Title Section */}
+      <Container
+        display='flex'
+        flexDirection='row'
+        justifyContent={
+          orientation === 'mobile-landscape' &&
+          layoutPreference === 'left-handed'
+            ? 'flex-end'
+            : 'flex-start'
+        }
+        alignItems='center'
+        paddingLeft='0'
+        marginLeft='0'
+        marginBottom='2rem'
+        gap={theme.spacing.s}
+        style={{ padding: '0' }}
+      >
+        {currentView !== 'services' && (
+          <NavigationArrow
+            direction='backward'
+            navigate={() => navigate('/services')}
+            size={isMobile ? 'large' : 'medium'}
+            showBackground={false}
+          />
+        )}
+        <H2Title name={heroContent.title} />
+      </Container>
+
+      {/* Hero Content */}
+      <div
+        style={{ textAlign: 'center', maxWidth: '1000px', margin: '0 auto' }}
+      >
+        <Typography
+          variant='h3'
+          color={theme.palette.neutralPrimary}
+          textTransform='none'
+          marginBottom='1.5rem'
+          fontSize={isMobile ? '1.2rem' : '1.4rem'}
+          fontWeight='400'
+          maxWidth='800px'
+          margin='0 auto'
+          style={{ lineHeight: '1.6' }}
+        >
+          {heroContent.subtitle}
+        </Typography>
+
+        <CTACallout
+          variant={
+            currentView === 'personal-training'
+              ? 'personalTraining'
+              : 'getStarted'
+          }
+          currentView={currentView}
+          showOnlyFor={[]}
+          hideTopHR={true}
+          hideBottomHR={true}
+        />
+        {currentView === 'personal-training' && (
+          <CTACallout
+            variant='getStarted'
+            currentView={currentView}
+            showOnlyFor={[]}
+            hideTopHR={true}
+            hideBottomHR={true}
+          />
+        )}
+      </div>
+    </div>
+  );
+};
+
+// Program Tier Table Component
+const ProgramTierTable: React.FC<{
+  theme: any;
+  isMobile: boolean;
+  service: string;
+}> = ({ theme, isMobile, service }) => {
+  const programTiers = SERVICES_EXPORTS.getProgramTiers(service);
+
+  return (
+    <div
+      style={{
+        overflowX: 'auto',
+        background:
+          theme.themeMode === 'high-contrast'
+            ? theme.semanticColors.bodyBackground
+            : theme.themeMode === 'dark'
+              ? 'rgba(40,40,40, 0.8)' // Dark mode background hard coded for table
+              : theme.palette.neutralLighterAlt,
+        borderRadius: '8px',
+        padding: '1rem',
+      }}
+    >
+      <table
+        style={{
+          ...styles.table,
+          minWidth: isMobile ? '600px' : 'auto',
+        }}
+      >
+        <thead>
+          <tr>
+            <th
+              style={styles.tableHeader(theme, { borderRadius: '4px 0 0 0' })}
+            >
+              Program Tier
+            </th>
+            <th style={styles.tableHeader(theme)}>Ideal For</th>
+            <th
+              style={styles.tableHeader(theme, { borderRadius: '0 4px 0 0' })}
+            >
+              Monthly Rate
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {programTiers.map((tier, index) => (
+            <tr key={tier.tier} style={styles.tableRow(theme, index)}>
+              <td
+                style={styles.tableCell(theme, {
+                  fontWeight: 'bold',
+                  color:
+                    theme.themeMode === 'dark'
+                      ? theme.palette.themeLight
+                      : theme.palette.themePrimary,
+                })}
+              >
+                {tier.tier}
+              </td>
+              <td
+                style={styles.tableCell(theme, {
+                  minWidth: '150px',
+                  maxWidth: '250px',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                })}
+              >
+                {tier.idealFor}
+              </td>
+              <td
+                style={styles.tableCell(theme, {
+                  minWidth: '150px',
+                  maxWidth: '200px',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                })}
+              >
+                <div style={{ fontWeight: 'bold' }}>{tier.rate}</div>
+                {tier.note && (
+                  <div
+                    style={{
+                      fontSize: '0.9em',
+                      color:
+                        theme.themeMode === 'dark'
+                          ? theme.palette.neutralSecondary
+                          : theme.palette.neutralTertiary,
+                      marginTop: '0.25rem',
+                    }}
+                  >
+                    {tier.note}
+                  </div>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+// What's Included Modal Component
+const WhatsIncludedModal: React.FC<{
+  isOpen: boolean;
+  onClose: () => void;
+  theme: any;
+  service: string;
+}> = ({ isOpen, onClose, theme, service }) => {
+  const { isMobile } = useMobileDetection();
+
+  // Prevent body scrolling when modal is open
+  React.useEffect(() => {
+    if (isOpen && isMobile) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+    };
+  }, [isOpen, isMobile]);
+
+  if (!isOpen) return null;
+
+  const features = SERVICES_EXPORTS.getProgramFeatures(service);
+  const isPersonalTraining = service === 'personal-training';
+  const isBrandIdentity = service === 'design';
+  const isDevelopment = service === 'development';
+  const isResonanceCore = service === 'resonance-core';
+  const isEducationTraining = service === 'education-training';
+  const isConsulting = service === 'consulting';
+
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background:
+          theme.themeMode === 'high-contrast'
+            ? theme.semanticColors.bodyBackground
+            : theme.themeMode === 'dark'
+              ? 'rgba(0, 0, 0, 0.9)'
+              : 'rgba(0, 0, 0, 0.8)',
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: isMobile ? 'flex-start' : 'center',
+        justifyContent: isMobile ? 'flex-start' : 'center',
+        padding: isMobile ? '0' : '2rem',
+        overflow: 'hidden',
+      }}
+      onClick={onClose}
+    >
+      <FadeIn duration={0.3} delay={0}>
+        <div
+          style={{
+            background:
+              theme.themeMode === 'dark' || theme.themeMode === 'high-contrast'
+                ? theme.palette.neutralDark
+                : theme.palette.neutralLighter,
+            borderRadius: isMobile ? '0' : '12px',
+            padding: isMobile ? '0.75rem' : '2rem',
+            width: isMobile ? '100vw' : 'auto',
+            height: isMobile ? '100vh' : 'auto',
+            maxWidth: isMobile ? '100vw' : '95vw',
+            maxHeight: isMobile ? '100vh' : '95vh',
+            overflow: isMobile ? 'hidden' : 'auto',
+            position: 'relative',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={onClose}
+            style={{
+              position: 'absolute',
+              top: isMobile ? '0.5rem' : '1rem',
+              right: isMobile ? '0.5rem' : '1rem',
+              background: 'none',
+              border: 'none',
+              fontSize: isMobile ? '2rem' : '1.5rem',
+              cursor: 'pointer',
+              color: theme.palette.neutralPrimary,
+              zIndex: 10,
+              padding: isMobile ? '0.5rem' : '0',
+              minWidth: isMobile ? '44px' : 'auto',
+              minHeight: isMobile ? '44px' : 'auto',
+            }}
+          >
+            ✕
+          </button>
+
+          <h2
+            style={{
+              color: theme.palette.themePrimary,
+              marginBottom: isMobile ? '0.75rem' : '1.5rem',
+              marginTop: isMobile ? '2.5rem' : '0',
+              textAlign: 'center',
+              fontSize: isMobile ? '1.2rem' : '1.8rem',
+              fontWeight: 'bold',
+              fontFamily: theme.typography.fonts.h2.fontFamily,
+              paddingRight: isMobile ? '3rem' : '0',
+              paddingLeft: isMobile ? '1rem' : '0',
+              lineHeight: isMobile ? '1.3' : '1.4',
+            }}
+          >
+            🧩 What's Included - Program Comparison
+          </h2>
+
+          <div
+            style={{
+              overflowX: 'auto',
+              overflowY: 'auto',
+              flex: 1,
+              marginTop: isMobile ? '0.5rem' : '0',
+              WebkitOverflowScrolling: 'touch',
+            }}
+          >
+            <table
+              style={{
+                ...styles.table,
+                minWidth: isMobile ? '650px' : '800px',
+                width: '100%',
+              }}
+            >
+              <thead>
+                <tr>
+                  <th
+                    style={{
+                      ...styles.tableHeader(theme, {
+                        borderRadius: '4px 0 0 0',
+                        position: isMobile ? 'static' : 'sticky',
+                        left: isMobile ? undefined : 0,
+                      }),
+                      width: isMobile ? '150px' : '200px',
+                      minWidth: isMobile ? '150px' : '200px',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    Feature
+                  </th>
+                  {isPersonalTraining && (
+                    <>
+                      <th
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            textAlign: 'center',
+                          }),
+                          minWidth: isMobile ? '120px' : '140px',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        Online PT Only
+                      </th>
+                      <th
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            textAlign: 'center',
+                          }),
+                          minWidth: isMobile ? '120px' : '140px',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        Hybrid PT
+                      </th>
+                      <th
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            textAlign: 'center',
+                          }),
+                          minWidth: isMobile ? '140px' : '160px',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        Online Hypertrophy
+                      </th>
+                      <th
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            borderRadius: '0 4px 0 0',
+                            textAlign: 'center',
+                          }),
+                          minWidth: isMobile ? '140px' : '160px',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        Hybrid Hypertrophy
+                      </th>
+                    </>
+                  )}
+                  {isBrandIdentity && (
+                    <>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                          minWidth: '120px',
+                          whiteSpace: 'nowrap',
+                        })}
+                      >
+                        Starter
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                        })}
+                      >
+                        Signature
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          borderRadius: '0 4px 0 0',
+                          textAlign: 'center',
+                        })}
+                      >
+                        Premium
+                      </th>
+                    </>
+                  )}
+                  {isDevelopment && (
+                    <>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                          minWidth: '120px',
+                          whiteSpace: 'nowrap',
+                        })}
+                      >
+                        Starter
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                          minWidth: '120px',
+                          whiteSpace: 'nowrap',
+                        })}
+                      >
+                        Signature
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          borderRadius: '0 4px 0 0',
+                          textAlign: 'center',
+                          minWidth: '120px',
+                          whiteSpace: 'nowrap',
+                        })}
+                      >
+                        Premium
+                      </th>
+                    </>
+                  )}
+                  {isResonanceCore && (
+                    <>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                          minWidth: '120px',
+                          whiteSpace: 'nowrap',
+                        })}
+                      >
+                        Initiate
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                          minWidth: '120px',
+                          whiteSpace: 'nowrap',
+                        })}
+                      >
+                        Embodied
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          borderRadius: '0 4px 0 0',
+                          textAlign: 'center',
+                          minWidth: '120px',
+                          whiteSpace: 'nowrap',
+                        })}
+                      >
+                        Legacy
+                      </th>
+                    </>
+                  )}
+                  {isEducationTraining && (
+                    <>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                          minWidth: '140px',
+                          whiteSpace: 'nowrap',
+                        })}
+                      >
+                        Individual
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                          minWidth: '120px',
+                          whiteSpace: 'nowrap',
+                        })}
+                      >
+                        Team
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          borderRadius: '0 4px 0 0',
+                          textAlign: 'center',
+                          minWidth: '160px',
+                          whiteSpace: 'nowrap',
+                        })}
+                      >
+                        Organizational
+                      </th>
+                    </>
+                  )}
+                  {isConsulting && (
+                    <>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                          minWidth: '140px',
+                          whiteSpace: 'nowrap',
+                        })}
+                      >
+                        Foundation
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                          minWidth: '130px',
+                          whiteSpace: 'nowrap',
+                        })}
+                      >
+                        Expansion
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          borderRadius: '0 4px 0 0',
+                          textAlign: 'center',
+                          minWidth: '130px',
+                          whiteSpace: 'nowrap',
+                        })}
+                      >
+                        Sovereign
+                      </th>
+                    </>
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                {features.map((row, index) => (
+                  <tr key={row.feature} style={styles.tableRow(theme, index)}>
+                    <td
+                      style={{
+                        ...styles.tableCell(theme, {
+                          fontWeight: 'bold',
+                          position: isMobile ? 'static' : 'sticky',
+                          fontSize: '1rem',
+                          left: isMobile ? undefined : 0,
+                        }),
+                        width: isMobile ? '180px' : '200px',
+                        minWidth: isMobile ? '180px' : '200px',
+                        whiteSpace: 'nowrap',
+                        paddingRight: '1rem',
+                      }}
+                      dangerouslySetInnerHTML={{
+                        __html: (row as any).feature,
+                      }}
+                    />
+                    {isPersonalTraining && (
+                      <>
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).onlinePT,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).hybridPT,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).onlineHypertrophy,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).hybridHypertrophy,
+                          }}
+                        />
+                      </>
+                    )}
+                    {isBrandIdentity && (
+                      <>
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).starter,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).signature,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).premium,
+                          }}
+                        />
+                      </>
+                    )}
+                    {isDevelopment && (
+                      <>
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).starter,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).signature,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).premium,
+                          }}
+                        />
+                      </>
+                    )}
+                    {isResonanceCore && (
+                      <>
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).initiate,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).embodied,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).legacy,
+                          }}
+                        />
+                      </>
+                    )}
+                    {isEducationTraining && (
+                      <>
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).individual,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).team,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).organizational,
+                          }}
+                        />
+                      </>
+                    )}
+                    {isConsulting && (
+                      <>
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).foundation,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).expansion,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                            minWidth: '150px',
+                            maxWidth: '200px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).sovereign,
+                          }}
+                        />
+                      </>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+            <StyledButton onClick={onClose} variant='primary' size='small'>
+              Close
+            </StyledButton>
+          </div>
+        </div>
+      </FadeIn>
+    </div>
+  );
+};
+
+// Program Tiers Section Component
+export const ProgramTiersSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+  const { isMobile } = useMobileDetection();
+  const [showWhatsIncluded, setShowWhatsIncluded] = useState(false);
+
+  const service = getServiceFromView(currentView);
+
+  // Dispatch event when modal opens
+  React.useEffect(() => {
+    if (showWhatsIncluded) {
+      window.dispatchEvent(new CustomEvent('whats-included-modal-open'));
+    }
+  }, [showWhatsIncluded]);
+
+  // Only show tiers for services that have them
+  if (!serviceHasTiers(currentView)) {
+    return null;
+  }
+
+  return (
+    <ServiceContainer>
+      <H2Title
+        name='Program Tiers Offered'
+        style={{ margin: '0 0 2rem 0', textAlign: 'center' }}
+      />
+      <Typography
+        variant='p'
+        color={theme.palette.neutralSecondary}
+        marginBottom='2rem'
+        style={{ textAlign: 'center', fontStyle: 'italic' }}
+      >
+        {currentView === 'personal-training'
+          ? 'Choose your path based on your archetype assessment and personal goals.'
+          : 'Choose the tier that aligns with your brand’s current phase, archetype, and unfolding vision.'}
+      </Typography>
+
+      <ProgramTierTable
+        theme={theme}
+        isMobile={isMobile}
+        service={currentView || 'services'}
+      />
+
+      <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+        <StyledButton
+          onClick={() => setShowWhatsIncluded(true)}
+          variant='primary'
+          size='medium'
+        >
+          View Full Comparison - What's Included in Each Tier?
+        </StyledButton>
+      </div>
+
+      {/* What's Included Modal */}
+      <AnimatePresence mode='wait'>
+        {showWhatsIncluded && (
+          <WhatsIncludedModal
+            service={service}
+            isOpen={showWhatsIncluded}
+            onClose={() => {
+              setShowWhatsIncluded(false);
+              // Dispatch event to notify header that modal is closing
+              window.dispatchEvent(
+                new CustomEvent('whats-included-modal-close')
+              );
+            }}
+            theme={theme}
+          />
+        )}
+      </AnimatePresence>
+    </ServiceContainer>
+  );
+};
+
+// Services Offered Section Component
+export const ServicesOfferedSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+  const navigate = useNavigate();
+  const { isMobile, isMobileLandscape } = useMobileDetection();
+  const [hoveredServiceCard, setHoveredServiceCard] = useState<string | null>(
+    null
+  );
+
+  // Don't show for about page
+  if (currentView === 'about') {
+    return null;
+  }
+
+  // Get the appropriate bullet points based on current view
+  const getBulletPoints = () => {
+    switch (currentView) {
+      case 'services':
+        return SERVICES_EXPORTS.SERVICES_BULLET_POINTS;
+      case 'personal-training':
+        return SERVICES_EXPORTS.PERSONAL_TRAINING_BULLET_POINTS;
+      case 'resonance-core':
+        return SERVICES_EXPORTS.RESONANCE_CORE_BULLET_POINTS;
+      case 'education-training':
+        return SERVICES_EXPORTS.EDUCATION_TRAINING_BULLET_POINTS;
+      case 'consulting':
+        return SERVICES_EXPORTS.CONSULTING_BULLET_POINTS;
+      case 'development':
+        return SERVICES_EXPORTS.DEVELOPMENT_BULLET_POINTS;
+      case 'design':
+        return SERVICES_EXPORTS.DESIGN_BULLET_POINTS;
+      default:
+        return SERVICES_EXPORTS.SERVICES_BULLET_POINTS;
+    }
+  };
+
+  const bulletPoints = getBulletPoints();
+
+  // Group bullet points into pairs for desktop layout
+  // const createPairs = (items: typeof bulletPoints) => {
+  //   const pairs = [];
+  //   for (let i = 0; i < items.length; i += 2) {
+  //     if (i + 1 >= items.length) {
+  //       pairs.push([items[i]]);
+  //     } else {
+  //       pairs.push([items[i], items[i + 1]]);
+  //     }
+  //   }
+  //   return pairs;
+  // };
+
+  // const bulletPairs = createPairs(bulletPoints);
+
+  return (
+    <ServiceContainer marginBottom='0' showHR>
+      <H2Title name='Services Offered' style={{ margin: '0 0 1.5rem 0' }} />
+      <Typography
+        variant='p'
+        color={theme.palette.neutralSecondary}
+        marginBottom='2rem'
+        style={{ textAlign: 'center', fontStyle: 'italic' }}
+      >
+        {currentView === 'personal-training'
+          ? 'Scannable list of features and rituals. This is the scroll of invitations.'
+          : 'Every module a milestone, every feature a ritual—crafted for your sovereign ascent.'}
+      </Typography>
+
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns:
+            isMobile || isMobileLandscape
+              ? '1fr'
+              : 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
+          gap: '1.5rem',
+          width: '100%',
+        }}
+      >
+        {bulletPoints.map((point, index) => {
+          const isHovered = hoveredServiceCard === point.name;
+
+          return (
+            <div
+              key={point.name}
+              style={{
+                backgroundColor:
+                  theme.themeMode === 'high-contrast'
+                    ? theme.palette.neutralDark
+                    : theme.palette.neutralLight,
+                borderRadius: theme.borderRadius.container.button,
+                padding: '1.5rem',
+                cursor: point.route ? 'pointer' : 'default',
+                transition: 'all 0.3s ease',
+                border: `2px solid ${isHovered && point.route ? theme.palette.themePrimary : 'transparent'}`,
+                boxShadow:
+                  isHovered && point.route
+                    ? theme.shadows.xl
+                    : theme.shadows.card,
+                transform:
+                  isHovered && point.route
+                    ? 'translateY(-4px)'
+                    : 'translateY(0)',
+                opacity: point.route ? 1 : 0.8,
+              }}
+              onClick={() => point.route && navigate(point.route)}
+              onMouseEnter={() => setHoveredServiceCard(point.name)}
+              onMouseLeave={() => setHoveredServiceCard(null)}
+            >
+              <Typography
+                variant='h3'
+                color={theme.palette.themePrimary}
+                marginBottom='0.75rem'
+                fontSize={theme.typography.fontSizes.clamp5}
+                style={{
+                  textDecoration:
+                    isHovered && point.route ? 'underline' : 'none',
+                  textUnderlineOffset: '4px',
+                }}
+              >
+                {point.name}
+              </Typography>
+              <Typography
+                variant='p'
+                color={theme.palette.neutralPrimary}
+                fontSize='0.95rem'
+              >
+                {point.description}
+              </Typography>
+              {point.route && (
+                <Typography
+                  variant='h6'
+                  color={theme.palette.themeSecondary}
+                  fontSize='1rem'
+                  marginTop='1rem'
+                  fontWeight={700}
+                  style={{
+                    opacity: isHovered ? 1 : 0.8,
+                    transition: 'opacity 0.3s ease',
+                  }}
+                >
+                  Learn More ➤
+                </Typography>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </ServiceContainer>
+  );
+};
+
+// Overview Section Component (Program Overview & Archetype Mapping for PT)
+export const OverviewSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+
+  // Apply styles to links within personal training summary
+  useEffect(() => {
+    if (currentView === 'personal-training') {
+      const summaryDiv = document.querySelector('.personal-training-summary');
+      if (summaryDiv) {
+        const links = summaryDiv.querySelectorAll('a');
+        links.forEach((link: HTMLAnchorElement) => {
+          link.style.color = theme.palette.themePrimary;
+          link.style.textDecoration = 'underline';
+        });
+      }
+    }
+  }, [currentView, theme.palette.themePrimary]);
+
+  // Don't show for about page
+  if (currentView === 'about') {
+    return null;
+  }
+
+  const getOverviewTitle = () => {
+    switch (currentView) {
+      case 'services':
+      case 'consulting':
+      case 'education-training':
+      case 'resonance-core':
+        return 'Overview';
+      case 'development':
+        return 'Web & Application Program Overview';
+      case 'design':
+        return 'Design Program Overview';
+      case 'personal-training':
+        return 'Program Overview & Archetype Mapping';
+      default:
+        return 'Overview';
+    }
+  };
+
+  const getSummary = () => {
+    switch (currentView) {
+      case 'services':
+        return SERVICES_EXPORTS.SERVICES_SUMMARY;
+      case 'education-training':
+        return SERVICES_EXPORTS.EDUCATION_TRAINING_SUMMARY;
+      case 'personal-training':
+        return SERVICES_EXPORTS.PERSONAL_TRAINING_SUMMARY;
+      case 'consulting':
+        return SERVICES_EXPORTS.CONSULTING_SUMMARY;
+      case 'resonance-core':
+        return SERVICES_EXPORTS.RESONANCE_CORE_SUMMARY;
+      case 'development':
+        return SERVICES_EXPORTS.DEVELOPMENT_SUMMARY;
+      case 'design':
+        return SERVICES_EXPORTS.DESIGN_SUMMARY;
+      default:
+        return SERVICES_EXPORTS.SERVICES_SUMMARY;
+    }
+  };
+
+  // Helper function to render summary content safely
+  const renderSummary = (summary: string | string[]) => {
+    if (Array.isArray(summary)) {
+      return (
+        <>
+          {summary.map((paragraph, index) => (
+            <React.Fragment key={index}>
+              {paragraph}
+              {index < summary.length - 1 && (
+                <>
+                  <br />
+                  <br />
+                </>
+              )}
+            </React.Fragment>
+          ))}
+        </>
+      );
+    }
+    return summary;
+  };
+
+  return (
+    <ServiceContainer>
+      <H2Title name={getOverviewTitle()} style={{ margin: '0 0 1.5rem 0' }} />
+      <Typography
+        variant='p'
+        textAlign='left'
+        color={theme.palette.neutralPrimary}
+        noHyphens
+        style={styles.textContent}
+      >
+        <ServiceSummaryRenderer
+          currentView={currentView}
+          summary={getSummary()}
+          fallbackRenderer={renderSummary}
+        />
+      </Typography>
+    </ServiceContainer>
   );
 };
 
@@ -415,9 +1599,8 @@ export const AboutSection: React.FC<{
                   ) as HTMLElement;
                   if (subheading && tile) {
                     e.currentTarget.style.transform = 'translateY(-2px)';
-                    subheading.style.boxShadow =
-                      '0 4px 16px rgba(0, 0, 0, 0.12)';
-                    tile.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.12)';
+                    subheading.style.boxShadow = theme.shadows.m;
+                    tile.style.boxShadow = theme.shadows.m;
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -442,7 +1625,7 @@ export const AboutSection: React.FC<{
                       theme.themeMode === 'high-contrast'
                         ? theme.palette.neutralDark
                         : theme.palette.themeSecondary,
-                    color: 'white',
+                    color: theme.palette.white,
                     padding: '0.25rem 0.75rem',
                     borderRadius: '4px 4px 0 0',
                     border: `2px solid ${theme.palette.themeSecondary}`,
@@ -506,6 +1689,29 @@ export const ProfessionalSummary: React.FC<{
     orientation === 'portrait' ||
     orientation === 'tablet-portrait' ||
     orientation === 'large-portrait';
+  const [showWhatsIncluded, setShowWhatsIncluded] = useState(false);
+
+  // Determine service based on currentView
+  const service =
+    currentView === 'personal-training'
+      ? 'personal-training'
+      : currentView === 'development'
+        ? 'development'
+        : 'design';
+
+  // Apply styles to links within personal training summary
+  useEffect(() => {
+    if (currentView === 'personal-training') {
+      const summaryDiv = document.querySelector('.personal-training-summary');
+      if (summaryDiv) {
+        const links = summaryDiv.querySelectorAll('a');
+        links.forEach((link: HTMLAnchorElement) => {
+          link.style.color = theme.palette.themePrimary;
+          link.style.textDecoration = 'underline';
+        });
+      }
+    }
+  }, [currentView, theme.palette.themePrimary]);
 
   // Don't show on about page since we have AboutSection now
   if (currentView === 'about') {
@@ -552,6 +1758,23 @@ export const ProfessionalSummary: React.FC<{
         return 'Brand Identity & Experience Design';
       default:
         return 'Our Services';
+    }
+  };
+
+  const getOverviewTitle = () => {
+    switch (currentView) {
+      case 'services':
+      case 'consulting':
+      case 'education-training':
+      case 'resonance-core':
+      case 'development':
+        return 'Overview';
+      case 'design':
+        return 'Design Program Overview';
+      case 'personal-training':
+        return 'Program Overview & Archetype Mapping';
+      default:
+        return 'Overview';
     }
   };
 
@@ -617,6 +1840,7 @@ export const ProfessionalSummary: React.FC<{
 
   return (
     <>
+      {/* Header Section */}
       <div
         style={styles.sectionContainer(
           orientation,
@@ -652,14 +1876,18 @@ export const ProfessionalSummary: React.FC<{
           <H2Title name={getTitle()} />
         </Container>
       </div>
+
+      {/* Overview Section */}
       <Container
         marginLeft='auto'
         marginRight='auto'
-        marginBottom={theme.spacing.xl}
+        marginBottom={
+          currentView === 'personal-training' ? '0' : theme.spacing.xl
+        }
         padding={
           isMobile || orientation === 'mobile-landscape'
             ? `${theme.spacing.l} ${theme.spacing.m}`
-            : theme.spacing.xxl
+            : '1rem 2.5rem 0 2.5rem'
         }
         maxWidth='1000px'
         style={{
@@ -671,52 +1899,74 @@ export const ProfessionalSummary: React.FC<{
           border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
         }}
       >
-        <H2Title name='Overview' style={{ margin: '0 0 1.5rem 0' }} />
+        <H2Title name={getOverviewTitle()} style={{ margin: '0 0 1.5rem 0' }} />
         <Typography
           variant='p'
           textAlign='left'
           color={theme.palette.neutralPrimary}
-          marginBottom='3rem'
+          marginBottom='2rem'
           noHyphens
           style={styles.textContent}
         >
-          {renderSummary(getSummary())}
+          {currentView === 'personal-training' ||
+          currentView === 'design' ||
+          currentView === 'development' ||
+          currentView === 'resonance-core' ||
+          currentView === 'education-training' ||
+          currentView === 'consulting' ? (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: getSummary(),
+              }}
+              className={
+                currentView === 'personal-training'
+                  ? 'personal-training-summary'
+                  : currentView === 'design'
+                    ? 'design-summary'
+                    : currentView === 'development'
+                      ? 'development-summary'
+                      : currentView === 'resonance-core'
+                        ? 'resonance-core-summary'
+                        : currentView === 'education-training'
+                          ? 'education-training-summary'
+                          : 'consulting-summary'
+              }
+            />
+          ) : (
+            renderSummary(getSummary())
+          )}
         </Typography>
-        <H2Title name='Services Offered' style={{ margin: '0 0 1.5rem 0' }} />
-        <Container
-          display='flex'
-          flexDirection='column'
-          gap={
-            orientation === 'mobile-landscape'
-              ? theme.spacing.s1
-              : theme.spacing.m
-          }
-          paddingLeft='0'
-          paddingRight='0'
-          marginLeft='0'
-          style={{ width: '100%', padding: '0 !important' }}
-        >
-          {isMobile || orientation === 'mobile-landscape'
-            ? bulletPoints.map((point) => (
-                <BulletPoint
-                  key={point.name}
-                  name={point.name}
-                  description={point.description}
-                  onClick={() => point.route && navigate(point.route)}
-                  isHoverable={!!point.route}
-                />
-              ))
-            : bulletPairs.map((pair, rowIndex) => (
-                <div
-                  key={rowIndex}
-                  style={{
-                    ...styles.gridContainer(false, '1fr 1fr'),
-                    gap: '0.5rem',
-                    width: '100%',
-                    padding: '0 0.5rem',
-                  }}
-                >
-                  {pair.map((point) => (
+
+        {currentView === 'personal-training' && (
+          <CTACallout
+            variant='personalTraining'
+            currentView={currentView}
+            showOnlyFor={[]}
+            hideBottomHR={true}
+          />
+        )}
+
+        {currentView !== 'personal-training' && (
+          <>
+            <H2Title
+              name='Services Offered'
+              style={{ margin: '0 0 1.5rem 0' }}
+            />
+            <Container
+              display='flex'
+              flexDirection='column'
+              gap={
+                orientation === 'mobile-landscape'
+                  ? theme.spacing.s1
+                  : theme.spacing.m
+              }
+              paddingLeft='0'
+              paddingRight='0'
+              marginLeft='0'
+              style={{ width: '100%', padding: '0 !important' }}
+            >
+              {isMobile || orientation === 'mobile-landscape'
+                ? bulletPoints.map((point) => (
                     <BulletPoint
                       key={point.name}
                       name={point.name}
@@ -724,11 +1974,136 @@ export const ProfessionalSummary: React.FC<{
                       onClick={() => point.route && navigate(point.route)}
                       isHoverable={!!point.route}
                     />
+                  ))
+                : bulletPairs.map((pair, rowIndex) => (
+                    <div
+                      key={rowIndex}
+                      style={{
+                        ...styles.gridContainer(false, '1fr 1fr'),
+                        gap: '0.5rem',
+                        width: '100%',
+                        padding: '0 0.5rem',
+                      }}
+                    >
+                      {pair.map((point) => (
+                        <BulletPoint
+                          key={point.name}
+                          name={point.name}
+                          description={point.description}
+                          onClick={() => point.route && navigate(point.route)}
+                          isHoverable={!!point.route}
+                        />
+                      ))}
+                    </div>
                   ))}
-                </div>
-              ))}
-        </Container>
+            </Container>
+          </>
+        )}
       </Container>
+
+      {/* Personal Training Services Section */}
+      {currentView === 'personal-training' && (
+        <Container
+          marginLeft='auto'
+          marginRight='auto'
+          marginBottom={theme.spacing.s1}
+          padding={
+            isMobile || orientation === 'mobile-landscape'
+              ? `${theme.spacing.l} ${theme.spacing.m}`
+              : '1rem 2.5rem 0 2.5rem'
+          }
+          maxWidth='1000px'
+        >
+          <H2Title name='Services Offered' style={{ margin: '0 0 1.5rem 0' }} />
+          <Container
+            display='flex'
+            flexDirection='column'
+            gap={
+              orientation === 'mobile-landscape'
+                ? theme.spacing.s1
+                : theme.spacing.m
+            }
+            paddingLeft='0'
+            paddingRight='0'
+            marginLeft='0'
+            style={{ width: '100%', padding: '0 !important' }}
+          >
+            {isMobile || orientation === 'mobile-landscape'
+              ? bulletPoints.map((point) => (
+                  <BulletPoint
+                    key={point.name}
+                    name={point.name}
+                    description={point.description}
+                    onClick={() => point.route && navigate(point.route)}
+                    isHoverable={!!point.route}
+                  />
+                ))
+              : bulletPairs.map((pair, rowIndex) => (
+                  <div
+                    key={rowIndex}
+                    style={{
+                      ...styles.gridContainer(false, '1fr 1fr'),
+                      gap: '0.5rem',
+                      width: '100%',
+                      padding: '0 0.5rem',
+                    }}
+                  >
+                    {pair.map((point) => (
+                      <BulletPoint
+                        key={point.name}
+                        name={point.name}
+                        description={point.description}
+                        onClick={() => point.route && navigate(point.route)}
+                        isHoverable={!!point.route}
+                      />
+                    ))}
+                  </div>
+                ))}
+
+            {/* Program Tier Table */}
+            <div style={{ marginTop: '3rem' }}>
+              <H2Title
+                name='Program Tiers'
+                style={{ margin: '0 0 1.5rem 0' }}
+              />
+              <ProgramTierTable
+                theme={theme}
+                isMobile={isMobile}
+                service={currentView || 'services'}
+              />
+            </div>
+
+            {/* What's Included CTA */}
+            <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+              <StyledButton
+                onClick={() => setShowWhatsIncluded(true)}
+                variant='primary'
+                size='medium'
+              >
+                What's Included? View Full Comparison
+              </StyledButton>
+            </div>
+          </Container>
+        </Container>
+      )}
+
+      {/* What's Included Modal */}
+      <AnimatePresence mode='wait'>
+        {showWhatsIncluded && (
+          <WhatsIncludedModal
+            service={service}
+            isOpen={showWhatsIncluded}
+            onClose={() => {
+              setShowWhatsIncluded(false);
+              // Dispatch event to notify header that modal is closing
+              window.dispatchEvent(
+                new CustomEvent('whats-included-modal-close')
+              );
+            }}
+            theme={theme}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };
@@ -1145,17 +2520,9 @@ export const TaglineHeader: React.FC<{
     return null;
   }
 
-  const hrStyles = {
-    margin: '2rem 0',
-    border: 'none',
-    height: '1px',
-    backgroundColor: theme.palette.themePrimary,
-    opacity: 0.3,
-  };
-
   return (
     <>
-      <hr style={hrStyles} />
+      <hr style={styles.hrStyles(theme)} />
       <div
         style={{
           textAlign: 'center',
@@ -1204,7 +2571,7 @@ export const TaglineHeader: React.FC<{
           {SERVICES_EXPORTS.FLUXLINE_SECONDARY_TAGLINE}
         </Typography>
       </div>
-      <hr style={hrStyles} />
+      <hr style={styles.hrStyles(theme)} />
     </>
   );
 };
@@ -1254,17 +2621,35 @@ export const Services: React.FC<ServicesProps> = ({
               <GetStarted />
             </>
           ) : (
-            // Original layout for other service pages
+            // New hierarchical structure for all service pages
             <>
-              <ProfessionalSummary currentView={actualView} />
+              {/* 1. Hero Section / Opening Line */}
+              <HeroSection currentView={actualView} />
+
+              {/* 2. Program Overview & Archetype Mapping */}
+              <OverviewSection currentView={actualView} />
+
+              {/* 3. Services Offered (Bullet Format) */}
+              <ServicesOfferedSection currentView={actualView} />
+
+              {/* 4. Program Tiers Offered (Grid or Cards) */}
+              <ProgramTiersSection currentView={actualView} />
+
+              {/* 5. White Paper */}
               <WhitePagesSection currentView={actualView} />
+
+              {/* 6. Legal CTA */}
               <CTACallout
                 variant='legal'
-                currentView={actualView}
                 showOnlyFor={[]}
+                hideTopHR={false}
                 hideBottomHR={true}
               />
-              <GetStarted />
+
+              {/* 7. Ready to Get Started? (Final CTA) */}
+              <div style={{ margin: '0 0 2rem 0' }}>
+                <GetStarted currentView={actualView} isServicesPage />
+              </div>
             </>
           )}
         </div>
