@@ -472,6 +472,7 @@ const WhatsIncludedModal: React.FC<{
   const features = SERVICES_EXPORTS.getProgramFeatures(service);
   const isPersonalTraining = service === 'personal-training';
   const isBrandIdentity = service === 'design';
+  const isDevelopment = service === 'development';
 
   return (
     <div
@@ -617,6 +618,32 @@ const WhatsIncludedModal: React.FC<{
                       </th>
                     </>
                   )}
+                  {isDevelopment && (
+                    <>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                        })}
+                      >
+                        Starter
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                        })}
+                      >
+                        Signature
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          borderRadius: '0 4px 0 0',
+                          textAlign: 'center',
+                        })}
+                      >
+                        Premium
+                      </th>
+                    </>
+                  )}
                 </tr>
               </thead>
               <tbody>
@@ -704,6 +731,37 @@ const WhatsIncludedModal: React.FC<{
                         />
                       </>
                     )}
+                    {isDevelopment && (
+                      <>
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).starter,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).signature,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).premium,
+                          }}
+                        />
+                      </>
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -747,7 +805,11 @@ export const ProgramTiersSection: React.FC<{
 
   // Determine service based on currentView
   const service =
-    currentView === 'personal-training' ? 'personal-training' : 'design';
+    currentView === 'personal-training'
+      ? 'personal-training'
+      : currentView === 'development'
+        ? 'development'
+        : 'design';
 
   // Dispatch event when modal opens
   React.useEffect(() => {
@@ -757,7 +819,7 @@ export const ProgramTiersSection: React.FC<{
   }, [showWhatsIncluded]);
 
   // Only show tiers for services that have them
-  const servicesWithTiers = ['personal-training', 'design'];
+  const servicesWithTiers = ['personal-training', 'design', 'development'];
   if (!currentView || !servicesWithTiers.includes(currentView)) {
     return null;
   }
@@ -787,7 +849,7 @@ export const ProgramTiersSection: React.FC<{
       >
         {currentView === 'personal-training'
           ? 'Choose your path based on your archetype assessment and personal goals.'
-          : 'Select the package that best fits your brand development needs.'}
+          : 'Choose the tier that aligns with your brand’s current phase, archetype, and unfolding vision.'}
       </Typography>
 
       <ProgramTierTable
@@ -927,7 +989,7 @@ export const ServicesOfferedSection: React.FC<{
       >
         {currentView === 'personal-training'
           ? 'Scannable list of features and rituals. This is the scroll of invitations.'
-          : 'Comprehensive offerings designed for your specific needs.'}
+          : 'Every module a milestone, every feature a ritual—crafted for your sovereign ascent.'}
       </Typography>
 
       <div
@@ -1050,8 +1112,9 @@ export const OverviewSection: React.FC<{
       case 'consulting':
       case 'education-training':
       case 'resonance-core':
-      case 'development':
         return 'Overview';
+      case 'development':
+        return 'Web & Application Program Overview';
       case 'design':
         return 'Design Program Overview';
       case 'personal-training':
@@ -1136,6 +1199,13 @@ export const OverviewSection: React.FC<{
               __html: SERVICES_EXPORTS.DESIGN_SUMMARY,
             }}
             className='design-summary'
+          />
+        ) : currentView === 'development' ? (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: SERVICES_EXPORTS.DEVELOPMENT_SUMMARY,
+            }}
+            className='development-summary'
           />
         ) : (
           renderSummary(getSummary())
@@ -1335,7 +1405,11 @@ export const ProfessionalSummary: React.FC<{
 
   // Determine service based on currentView
   const service =
-    currentView === 'personal-training' ? 'personal-training' : 'design';
+    currentView === 'personal-training'
+      ? 'personal-training'
+      : currentView === 'development'
+        ? 'development'
+        : 'design';
 
   // Apply styles to links within personal training summary
   useEffect(() => {
@@ -1546,12 +1620,20 @@ export const ProfessionalSummary: React.FC<{
           noHyphens
           style={styles.textContent}
         >
-          {currentView === 'personal-training' || currentView === 'design' ? (
+          {currentView === 'personal-training' ||
+          currentView === 'design' ||
+          currentView === 'development' ? (
             <div
               dangerouslySetInnerHTML={{
                 __html: getSummary(),
               }}
-              className='personal-training-summary'
+              className={
+                currentView === 'personal-training'
+                  ? 'personal-training-summary'
+                  : currentView === 'design'
+                    ? 'design-summary'
+                    : 'development-summary'
+              }
             />
           ) : (
             renderSummary(getSummary())

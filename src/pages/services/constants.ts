@@ -40,7 +40,7 @@ const CONSULTING_SUMMARY =
   'Strategic business alignment, systems architecture, and technology integration to help small to medium businesses and entrepreneurs build their most effective and authentic selves.';
 
 const DEVELOPMENT_SUMMARY =
-  'Crafting full-stack digital products using modern technologies—with an emphasis on modularity, usability, and long-term maintainability.';
+  "<strong>At Fluxline, we don't just build websites—we architect digital temples.</strong> Every line of code, every interface, every deployment pipeline is designed to serve your mission with modular clarity and emotional intelligence. Whether you're launching a lean MVP, scaling a full-stack platform, or immortalizing your brand through a custom app, our development rituals blend intuitive UX, resilient infrastructure, and long-term maintainability. <br /><br />From frontend flow to backend logic, cloud architecture to CI/CD pipelines, we guide founders and creatives through a build process that feels intentional, empowering, and aligned. Your product isn't just functional—<strong>it's a living system, built to evolve</strong>.";
 
 const DESIGN_SUMMARY =
   "Fluxline Design is where strategy meets symbolism. We architect visual identities and digital experiences that don’t just look good—<strong>they feel aligned</strong>. Every logo, layout, and interface is a ritual of clarity, crafted to reflect your evolution and resonate with your audience. Whether you're launching, scaling, or immortalizing your legacy, we design with emotional intelligence, modular precision, and mythic depth.";
@@ -249,7 +249,7 @@ const SERVICES_BULLET_POINTS: IAboutBulletPoint[] = [
   {
     name: 'Life Coaching & The Resonance Core',
     description:
-    'Personal development through the Resonance Core Framework™—guiding individuals through emotional sovereignty and mythic integration.',
+      'Personal development through the Resonance Core Framework™—guiding individuals through emotional sovereignty and mythic integration.',
     route: '/services/resonance-core',
     // White pages integration
     id: 'resonance-core',
@@ -261,7 +261,7 @@ const SERVICES_BULLET_POINTS: IAboutBulletPoint[] = [
   {
     name: 'Coaching, Education & Leadership',
     description:
-    'Transformational coaching and emotionally intelligent leadership for founders and teams building with purpose.',
+      'Transformational coaching and emotionally intelligent leadership for founders and teams building with purpose.',
     route: '/services/education-training',
     // White pages integration
     id: 'education-training',
@@ -456,41 +456,45 @@ const DEVELOPMENT_BULLET_POINTS: IAboutBulletPoint[] = [
   {
     name: 'Frontend Development',
     description:
-      'React, TypeScript, Tailwind, SCSS, and modern JavaScript frameworks',
+      'Crafting intuitive interfaces using React, TypeScript, and Tailwind—where every pixel serves purpose and flow',
   },
   {
     name: 'Backend Systems',
-    description: 'Node.js, MERN stack, APIs, and database integration',
+    description:
+      'Architecting secure, scalable logic with Node.js, APIs, and database rituals that power your digital core',
   },
   {
     name: 'CI/CD Pipelines',
     description:
-      'Building and integrating continuous software delivery for automated testing and deployment',
+      'Automating deployment and testing cycles to ensure your product evolves with precision and ease',
   },
   {
     name: 'Cloud Infrastructure and Architecture',
     description:
-      'Designing scalable, secure cloud environments for applications and services',
+      'Designing resilient environments on Azure, AWS, or GCP—where your app breathes, scales, and anchors',
   },
   {
-    name: 'Docker and Containerization',
+    name: 'Docker & Containerization',
     description:
-      'Implementing Docker and microservices for consistent development and deployment environments',
+      'Encapsulating services into modular containers for consistent development, deployment, and legacy-proof scaling',
   },
   {
     name: 'Mobile Applications',
-    description: 'React Native and progressive web applications',
+    description:
+      'Building cross-platform experiences with React Native and PWAs—bringing your vision to every device and threshold',
   },
   {
     name: 'Performance Optimization',
-    description: 'Improving application speed, usability, and SEO',
+    description:
+      'Refining speed, usability, and SEO to ensure your product moves like breath and loads like intention',
   },
   {
     name: 'Accessibility Best Practices',
     description:
-      'Ensuring digital products are inclusive and user-friendly for all',
+      'Ensuring every user—regardless of ability—can navigate your digital temple with clarity and dignity',
   },
 ];
+
 
 const DESIGN_BULLET_POINTS: IAboutBulletPoint[] = [
   {
@@ -831,7 +835,7 @@ const PROGRAM_FEATURES = [
     hybridHypertrophy: '✅',
   },
   {
-    feature: 'Local Access<br />(Utah\'s Salt Lake, Provo & Davis Counties)',
+    feature: "Local Access<br />(Utah's Salt Lake, Provo & Davis Counties)",
     onlinePT: '❌',
     hybridPT: '✅',
     onlineHypertrophy: '❌',
@@ -1006,6 +1010,129 @@ const BRAND_IDENTITY_PROGRAM_FEATURES = [
   },
 ];
 
+// Web & App Development program tiers data
+const DEVELOPMENT_PROGRAM_TIERS = [
+  {
+    tier: 'Starter (Lean Launches)',
+    idealFor:
+      'Landing page or 3-page brochure site entrepreneurs, small businesses',
+    rate: '$1,200+',
+    note: 'Next.js or static HTML implementation',
+  },
+  {
+    tier: 'Signature (Growth Phase)',
+    idealFor: 'Full website (5–8 pages) or MVP web app for growing businesses',
+    rate: '$2,800+',
+    note: 'Includes CMS integration and basic backend',
+  },
+  {
+    tier: 'Premium (Legacy Builders)',
+    idealFor: 'Full-stack web app or mobile app for established organizations',
+    rate: '$5,500+',
+    note: 'Complete architecture with retainer support available',
+  },
+];
+
+// Web & App Development features comparison data
+const DEVELOPMENT_PROGRAM_FEATURES = [
+  {
+    feature: 'Custom UI Design',
+    starter: '✅',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'Responsive Layout',
+    starter: '✅',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'SEO Optimization',
+    starter: '✅',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'Performance Optimization',
+    starter: '✅',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'Accessibility Best Practices',
+    starter: '✅',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'Hosting Setup',
+    starter: '✅',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'Email Integration',
+    starter: '✅',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'CMS Integration',
+    starter: '❌',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'Backend Development',
+    starter: '❌',
+    signature: '✅<br />Basic Node.js or Firebase',
+    premium: '✅<br />Advanced MERN stack',
+  },
+  {
+    feature: 'Mobile Optimization',
+    starter: '❌<br />Mobile available as add-on',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'CI/CD Pipeline',
+    starter: '❌',
+    signature: '✅',
+    premium: '✅',
+  },
+  {
+    feature: 'Cloud Infrastructure',
+    starter: '❌',
+    signature: '❌',
+    premium: '✅<br />Azure, AWS, or GCP',
+  },
+  {
+    feature: 'Docker & Containerization',
+    starter: '❌',
+    signature: '❌',
+    premium: '✅',
+  },
+  {
+    feature: 'Admin Dashboard / Portal',
+    starter: '❌',
+    signature: '❌',
+    premium: '✅',
+  },
+  {
+    feature: 'Revision Rounds',
+    starter: '1',
+    signature: '2',
+    premium: '3+',
+  },
+  {
+    feature: 'Retainer Support',
+    starter: '❌',
+    signature: '❌',
+    premium: '✅<br />Available',
+  },
+];
+
 // Helper function to get program tiers by service
 const getProgramTiers = (service: string) => {
   switch (service) {
@@ -1013,6 +1140,8 @@ const getProgramTiers = (service: string) => {
       return PROGRAM_TIERS;
     case 'design':
       return BRAND_IDENTITY_PROGRAM_TIERS;
+    case 'development':
+      return DEVELOPMENT_PROGRAM_TIERS;
     default:
       return [];
   }
@@ -1025,6 +1154,8 @@ const getProgramFeatures = (service: string) => {
       return PROGRAM_FEATURES;
     case 'design':
       return BRAND_IDENTITY_PROGRAM_FEATURES;
+    case 'development':
+      return DEVELOPMENT_PROGRAM_FEATURES;
     default:
       return [];
   }
@@ -1135,6 +1266,8 @@ const SERVICES_EXPORTS = {
   PROGRAM_FEATURES,
   BRAND_IDENTITY_PROGRAM_TIERS,
   BRAND_IDENTITY_PROGRAM_FEATURES,
+  DEVELOPMENT_PROGRAM_TIERS,
+  DEVELOPMENT_PROGRAM_FEATURES,
   getProgramTiers,
   getProgramFeatures,
   getHeroContent,

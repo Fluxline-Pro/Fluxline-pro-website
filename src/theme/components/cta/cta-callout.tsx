@@ -74,10 +74,12 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
       isExternal: true,
     },
     getStarted: {
-      title: '👉 Ready to Get Started?',
+      title: '👉 Your vision is calling. Let’s architect it into form.',
       description:
         currentView === 'personal-training'
           ? "Let's get your personalized plan started! Click this button to book a free, no obligation consultation with us to discuss your health and training goals."
+        : currentView === 'development'
+          ? 'Every build begins with a conversation. Book your free consultation—let’s architect your vision.'
           : 'Book your free consultation to discuss your project needs and get started today!',
       icon: ARROW_ICON,
       route: BOOKINGS_URL,
