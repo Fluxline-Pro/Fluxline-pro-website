@@ -28,7 +28,7 @@ const SERVICES_SUMMARY =
   'Fluxline offers strategic, emotionally intelligent, and design-forward solutions for founders, creatives, and organizations seeking transformation. Every service is a curriculum gate—crafted to align your identity, systems, and mission with intentionality and resonance.';
 
 const EDUCATION_TRAINING_SUMMARY =
-  'Transformational coaching, founder mentorship, and emotionally intelligent team leadership for those who build with purpose.';
+  'This isn’t just training—<strong>it’s transmission</strong>. Fluxline’s Coaching, Education & Leadership offerings guide founders, creatives, and organizations through experiential learning, emotional intelligence, and strategic embodiment. Whether you’re leading a team, launching a curriculum, or refining your influence, we offer modular frameworks, live workshops, and personalized coaching to help you build with purpose.<br/><br />Every session is designed to activate your leadership archetype, align your mission with emotional cadence, and cultivate sovereign presence in every interaction. This is education for those ready to lead with clarity, courage, and creative truth.';
 
 const PERSONAL_TRAINING_SUMMARY =
   "<strong>Training is not just physical—it's emotional, symbolic, and sovereign.</strong> At Fluxline, we specialize in modular coaching systems that adapt to your goals, limitations, and breakthroughs. Whether you're returning to movement, navigating chronic pain, or refining your edge, we design your path with precision and care.<br /><br />Before choosing a program, we invite you to take the <strong>Fluxline Archetype Quiz</strong> in the header above—a brief emotional mapping tool that helps identify your training style, motivational patterns, and ideal coaching rhythm. <br /><br />Your results help guide us in selecting the right program tier, coaching cadence, and onboarding rituals. Every offering is tailored to your body, schedule, and emotional readiness.<br /><br />We work with all bodies, all backgrounds, and all thresholds. This is not just fitness—<strong><em>it's felt transformation</em></strong>.";
@@ -302,40 +302,42 @@ const EDUCATION_TRAINING_BULLET_POINTS: IAboutBulletPoint[] = [
   {
     name: '1-on-1 Coaching',
     description:
-      'Personalized coaching sessions to help you achieve your goals',
+      'Personalized sessions to clarify vision, reframe thresholds, and activate sovereign leadership',
   },
   {
     name: 'Livestream Workshops',
     description:
-      'Interactive workshops covering a range of topics from design to development',
+      'Interactive sessions covering design, development, emotional intelligence, and mythic integration',
   },
   {
-    name: 'Live Demos & Workshops',
+    name: 'Live Demos & Training',
     description:
-      'Hands-on sessions to learn new skills and technologies in real-time',
+      'Hands-on walkthroughs of tools, techniques, and frameworks for embodied learning',
   },
   {
-    name: 'Company-wide Training',
+    name: 'Company-Wide Training',
     description:
-      'Tailored training programs for teams to enhance skills and productivity',
+      'Tailored programs for teams seeking emotional fluency, technical clarity, and strategic cohesion',
   },
   {
     name: 'Modular Frameworks',
     description:
-      'Flexible training modules that adapt to your learning pace and style',
+      'Flexible learning modules that adapt to your pace, archetype, and organizational rhythm',
   },
   {
     name: 'ITIL Best Practices',
     description:
-      'Hands-on training in ITIL framework for IT service management',
+      'Service management rituals for teams navigating technical systems and operational thresholds',
   },
   {
     name: 'Web Performance Optimization',
-    description: 'Techniques to enhance website speed, usability, and SEO',
+    description:
+      'Training in speed, usability, and SEO—turning friction into flow across digital platforms',
   },
   {
     name: 'Accessibility Best Practices',
-    description: 'Creating inclusive digital experiences for all users',
+    description:
+      'Creating inclusive experiences that honor every user’s journey and digital dignity',
   },
 ];
 
@@ -409,7 +411,6 @@ const RESONANCE_CORE_BULLET_POINTS: IAboutBulletPoint[] = [
       'Personalized framework to understand your DRIVEs, resonances, and role in life, society, and community',
   },
 ];
-
 
 const CONSULTING_BULLET_POINTS: IAboutBulletPoint[] = [
   {
@@ -496,7 +497,6 @@ const DEVELOPMENT_BULLET_POINTS: IAboutBulletPoint[] = [
       'Ensuring every user—regardless of ability—can navigate your digital temple with clarity and dignity',
   },
 ];
-
 
 const DESIGN_BULLET_POINTS: IAboutBulletPoint[] = [
   {
@@ -1039,19 +1039,22 @@ const DEVELOPMENT_PROGRAM_TIERS = [
 const RESONANCE_CORE_PROGRAM_TIERS = [
   {
     tier: 'Initiate (Clarity Phase)',
-    idealFor: 'Individuals seeking emotional clarity and foundational sovereignty rituals',
+    idealFor:
+      'Individuals seeking emotional clarity and foundational sovereignty rituals',
     rate: '$300/month',
     note: '2 coaching sessions/month with starter ritual kit',
   },
   {
     tier: 'Embodied (Integration Phase)',
-    idealFor: 'Active practitioners ready for deep shadow work and custom ritual design',
+    idealFor:
+      'Active practitioners ready for deep shadow work and custom ritual design',
     rate: '$600/month',
     note: '4 coaching sessions/month with full curriculum access',
   },
   {
     tier: 'Legacy (Transmission Phase)',
-    idealFor: 'Advanced practitioners creating lasting impact and teaching others',
+    idealFor:
+      'Advanced practitioners creating lasting impact and teaching others',
     rate: '$1,200/month',
     note: 'Weekly sessions with legacy asset creation and retainer support',
   },
@@ -1209,6 +1212,89 @@ const RESONANCE_CORE_PROGRAM_FEATURES = [
   },
 ];
 
+// Education & Training program tiers data
+const EDUCATION_TRAINING_PROGRAM_TIERS = [
+  {
+    tier: 'Individual Coaching',
+    idealFor:
+      'Founders and creatives seeking personal development and strategic clarity',
+    rate: '$250/month',
+    note: '2 coaching sessions/month with livestream workshop access',
+  },
+  {
+    tier: 'Team Training',
+    idealFor:
+      'Small teams (up to 5 members) needing skills development and emotional intelligence',
+    rate: '$1,200/month',
+    note: 'Includes custom training modules and performance audits',
+  },
+  {
+    tier: 'Organizational Leadership',
+    idealFor:
+      'Full organizations seeking comprehensive leadership development and strategic systems',
+    rate: '$3,500+/month',
+    note: 'Custom curriculum with ITIL training and retainer support',
+  },
+];
+
+// Education & Training features comparison data
+const EDUCATION_TRAINING_PROGRAM_FEATURES = [
+  {
+    feature: 'Coaching Sessions',
+    individual: '✅',
+    team: '❌',
+    organizational: '✅',
+  },
+  {
+    feature: 'Livestream Workshops',
+    individual: '1/month',
+    team: '2/month',
+    organizational: 'Unlimited',
+  },
+  {
+    feature: 'Custom Modules',
+    individual: '❌',
+    team: '✅',
+    organizational: '✅',
+  },
+  {
+    feature: 'Emotional Intelligence Training',
+    individual: '❌',
+    team: '✅',
+    organizational: '✅',
+  },
+  {
+    feature: 'Performance Audits',
+    individual: '❌',
+    team: '✅',
+    organizational: '✅',
+  },
+  {
+    feature: 'Accessibility Training',
+    individual: '❌',
+    team: '✅',
+    organizational: '✅',
+  },
+  {
+    feature: 'ITIL Framework',
+    individual: '❌',
+    team: '❌',
+    organizational: '✅',
+  },
+  {
+    feature: 'Curriculum Design',
+    individual: '❌',
+    team: '❌',
+    organizational: '✅',
+  },
+  {
+    feature: 'Retainer Support',
+    individual: '❌',
+    team: '❌',
+    organizational: '✅',
+  },
+];
+
 // Helper function to get program tiers by service
 const getProgramTiers = (service: string) => {
   switch (service) {
@@ -1220,6 +1306,8 @@ const getProgramTiers = (service: string) => {
       return DEVELOPMENT_PROGRAM_TIERS;
     case 'resonance-core':
       return RESONANCE_CORE_PROGRAM_TIERS;
+    case 'education-training':
+      return EDUCATION_TRAINING_PROGRAM_TIERS;
     default:
       return [];
   }
@@ -1236,6 +1324,8 @@ const getProgramFeatures = (service: string) => {
       return DEVELOPMENT_PROGRAM_FEATURES;
     case 'resonance-core':
       return RESONANCE_CORE_PROGRAM_FEATURES;
+    case 'education-training':
+      return EDUCATION_TRAINING_PROGRAM_FEATURES;
     default:
       return [];
   }
@@ -1350,6 +1440,8 @@ const SERVICES_EXPORTS = {
   DEVELOPMENT_PROGRAM_FEATURES,
   RESONANCE_CORE_PROGRAM_TIERS,
   RESONANCE_CORE_PROGRAM_FEATURES,
+  EDUCATION_TRAINING_PROGRAM_TIERS,
+  EDUCATION_TRAINING_PROGRAM_FEATURES,
   getProgramTiers,
   getProgramFeatures,
   getHeroContent,

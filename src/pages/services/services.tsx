@@ -57,14 +57,14 @@ const H2Title = ({
   );
 };
 
-export const GetStarted: React.FC<{ currentView?: string; isServicesPage?: boolean }> = ({
-  currentView,
-  isServicesPage = false,
-}) => {
+export const GetStarted: React.FC<{
+  currentView?: string;
+  isServicesPage?: boolean;
+}> = ({ currentView, isServicesPage = false }) => {
   return (
     <CTACallout
       variant='getStarted'
-      currentView={ isServicesPage ? 'services' : currentView || undefined }
+      currentView={isServicesPage ? 'services' : currentView || undefined}
       showOnlyFor={[]} // Show on all views
       hideTopHR={true}
       hideBottomHR={true}
@@ -476,6 +476,7 @@ const WhatsIncludedModal: React.FC<{
   const isBrandIdentity = service === 'design';
   const isDevelopment = service === 'development';
   const isResonanceCore = service === 'resonance-core';
+  const isEducationTraining = service === 'education-training';
 
   return (
     <div
@@ -673,6 +674,32 @@ const WhatsIncludedModal: React.FC<{
                       </th>
                     </>
                   )}
+                  {isEducationTraining && (
+                    <>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                        })}
+                      >
+                        Individual
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          textAlign: 'center',
+                        })}
+                      >
+                        Team
+                      </th>
+                      <th
+                        style={styles.tableHeader(theme, {
+                          borderRadius: '0 4px 0 0',
+                          textAlign: 'center',
+                        })}
+                      >
+                        Organizational
+                      </th>
+                    </>
+                  )}
                 </tr>
               </thead>
               <tbody>
@@ -822,6 +849,37 @@ const WhatsIncludedModal: React.FC<{
                         />
                       </>
                     )}
+                    {isEducationTraining && (
+                      <>
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).individual,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).team,
+                          }}
+                        />
+                        <td
+                          style={styles.tableCell(theme, {
+                            textAlign: 'center',
+                            fontSize: '1.2rem',
+                          })}
+                          dangerouslySetInnerHTML={{
+                            __html: (row as any).organizational,
+                          }}
+                        />
+                      </>
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -871,7 +929,9 @@ export const ProgramTiersSection: React.FC<{
         ? 'development'
         : currentView === 'resonance-core'
           ? 'resonance-core'
-          : 'design';
+          : currentView === 'education-training'
+            ? 'education-training'
+            : 'design';
 
   // Dispatch event when modal opens
   React.useEffect(() => {
@@ -881,7 +941,13 @@ export const ProgramTiersSection: React.FC<{
   }, [showWhatsIncluded]);
 
   // Only show tiers for services that have them
-  const servicesWithTiers = ['personal-training', 'design', 'development', 'resonance-core'];
+  const servicesWithTiers = [
+    'personal-training',
+    'design',
+    'development',
+    'resonance-core',
+    'education-training',
+  ];
   if (!currentView || !servicesWithTiers.includes(currentView)) {
     return null;
   }
@@ -1275,6 +1341,13 @@ export const OverviewSection: React.FC<{
               __html: SERVICES_EXPORTS.RESONANCE_CORE_SUMMARY,
             }}
             className='resonance-core-summary'
+          />
+        ) : currentView === 'education-training' ? (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: SERVICES_EXPORTS.EDUCATION_TRAINING_SUMMARY,
+            }}
+            className='education-training-summary'
           />
         ) : (
           renderSummary(getSummary())
@@ -1691,7 +1764,9 @@ export const ProfessionalSummary: React.FC<{
         >
           {currentView === 'personal-training' ||
           currentView === 'design' ||
-          currentView === 'development' ? (
+          currentView === 'development' ||
+          currentView === 'resonance-core' ||
+          currentView === 'education-training' ? (
             <div
               dangerouslySetInnerHTML={{
                 __html: getSummary(),
@@ -1701,7 +1776,11 @@ export const ProfessionalSummary: React.FC<{
                   ? 'personal-training-summary'
                   : currentView === 'design'
                     ? 'design-summary'
-                    : 'development-summary'
+                    : currentView === 'development'
+                      ? 'development-summary'
+                      : currentView === 'resonance-core'
+                        ? 'resonance-core-summary'
+                        : 'education-training-summary'
               }
             />
           ) : (
@@ -2437,7 +2516,7 @@ export const Services: React.FC<ServicesProps> = ({
 
               {/* 7. Ready to Get Started? (Final CTA) */}
               <div style={{ margin: '0 0 2rem 0' }}>
-                  <GetStarted currentView={actualView} isServicesPage />
+                <GetStarted currentView={actualView} isServicesPage />
               </div>
             </>
           )}
