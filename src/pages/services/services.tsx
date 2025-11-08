@@ -20,6 +20,16 @@ import { WhitePageItem } from '../white-pages/white-pages-constants';
 import { CTACallout } from '../../theme/components/cta';
 import { FadeIn } from '../../theme/components/animations/fade-animations';
 
+// New utility imports
+import {
+  getServiceFromView,
+  serviceHasTiers,
+} from './utils/serviceUtils';
+import { useMobileDetection } from './hooks/useMobileDetection';
+import { StyledButton } from './components/StyledButton';
+import { ServiceContainer } from './components/ServiceContainer';
+import { ServiceSummaryRenderer } from './components/ServiceSummaryRenderer';
+
 // Use styles from constants file
 const styles = SERVICES_EXPORTS.SERVICES_STYLES;
 interface ServicesProps {
@@ -945,21 +955,9 @@ const WhatsIncludedModal: React.FC<{
           </div>
 
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-            <button
-              onClick={onClose}
-              style={{
-                background: theme.palette.themeSecondary,
-                color: theme.palette.white,
-                border: 'none',
-                padding: '0.75rem 1.5rem',
-                fontFamily: theme.typography.fonts.body.fontFamily,
-                borderRadius: '4px',
-                fontSize: '1rem',
-                cursor: 'pointer',
-              }}
-            >
+            <StyledButton onClick={onClose} variant='primary' size='small'>
               Close
-            </button>
+            </StyledButton>
           </div>
         </div>
       </FadeIn>
@@ -972,26 +970,10 @@ export const ProgramTiersSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
   const { theme } = useAppTheme();
-  const orientation = useDeviceOrientation();
-  const isMobile =
-    orientation === 'portrait' ||
-    orientation === 'tablet-portrait' ||
-    orientation === 'large-portrait';
+  const { isMobile } = useMobileDetection();
   const [showWhatsIncluded, setShowWhatsIncluded] = useState(false);
 
-  // Determine service based on currentView
-  const service =
-    currentView === 'personal-training'
-      ? 'personal-training'
-      : currentView === 'development'
-        ? 'development'
-        : currentView === 'resonance-core'
-          ? 'resonance-core'
-          : currentView === 'education-training'
-            ? 'education-training'
-            : currentView === 'consulting'
-              ? 'consulting'
-              : 'design';
+  const service = getServiceFromView(currentView);
 
   // Dispatch event when modal opens
   React.useEffect(() => {
@@ -1001,31 +983,12 @@ export const ProgramTiersSection: React.FC<{
   }, [showWhatsIncluded]);
 
   // Only show tiers for services that have them
-  const servicesWithTiers = [
-    'personal-training',
-    'design',
-    'development',
-    'resonance-core',
-    'education-training',
-    'consulting',
-  ];
-  if (!currentView || !servicesWithTiers.includes(currentView)) {
+  if (!serviceHasTiers(currentView)) {
     return null;
   }
 
   return (
-    <Container
-      marginLeft='auto'
-      marginRight='auto'
-      marginBottom='1rem'
-      padding={
-        isMobile || orientation === 'mobile-landscape'
-          ? `${theme.spacing.l} ${theme.spacing.m}`
-          : '1rem 2.5rem 0 2.5rem'
-      }
-      maxWidth='1000px'
-    >
-      <hr style={styles.hrStyles(theme)} />
+    <ServiceContainer showHR>
       <H2Title
         name='Program Tiers Offered'
         style={{ margin: '0 0 2rem 0', textAlign: 'center' }}
@@ -1044,36 +1007,17 @@ export const ProgramTiersSection: React.FC<{
       <ProgramTierTable
         theme={theme}
         isMobile={isMobile}
-        service={currentView}
+        service={currentView || 'services'}
       />
 
       <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-        <button
+        <StyledButton
           onClick={() => setShowWhatsIncluded(true)}
-          style={{
-            background: theme.palette.themeSecondary,
-            color: theme.palette.white,
-            border: 'none',
-            padding: '1rem 2rem',
-            borderRadius: '4px',
-            fontSize: '1.1rem',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-            fontFamily: theme.typography.fonts.body.fontFamily,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = theme.palette.themeDark;
-            e.currentTarget.style.transform = 'translateY(-2px)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = theme.palette.themeSecondary;
-            e.currentTarget.style.transform = 'translateY(0)';
-          }}
+          variant='primary'
+          size='medium'
         >
           View Full Comparison - What's Included in Each Tier?
-        </button>
+        </StyledButton>
       </div>
 
       {/* What's Included Modal */}
@@ -1093,7 +1037,7 @@ export const ProgramTiersSection: React.FC<{
           />
         )}
       </AnimatePresence>
-    </Container>
+    </ServiceContainer>
   );
 };
 
@@ -1103,11 +1047,7 @@ export const ServicesOfferedSection: React.FC<{
 }> = ({ currentView }) => {
   const { theme } = useAppTheme();
   const navigate = useNavigate();
-  const orientation = useDeviceOrientation();
-  const isMobile =
-    orientation === 'portrait' ||
-    orientation === 'tablet-portrait' ||
-    orientation === 'large-portrait';
+  const { isMobile, isMobileLandscape } = useMobileDetection();
   const [hoveredServiceCard, setHoveredServiceCard] = useState<string | null>(
     null
   );
@@ -1157,18 +1097,7 @@ export const ServicesOfferedSection: React.FC<{
   // const bulletPairs = createPairs(bulletPoints);
 
   return (
-    <Container
-      marginLeft='auto'
-      marginRight='auto'
-      marginBottom='0'
-      padding={
-        isMobile || orientation === 'mobile-landscape'
-          ? `${theme.spacing.l} ${theme.spacing.m}`
-          : '1rem 2.5rem 0 2.5rem'
-      }
-      maxWidth='1000px'
-    >
-      <hr style={styles.hrStyles(theme)} />
+    <ServiceContainer marginBottom='0' showHR>
       <H2Title name='Services Offered' style={{ margin: '0 0 1.5rem 0' }} />
       <Typography
         variant='p'
@@ -1185,7 +1114,7 @@ export const ServicesOfferedSection: React.FC<{
         style={{
           display: 'grid',
           gridTemplateColumns:
-            isMobile || orientation === 'mobile-landscape'
+            isMobile || isMobileLandscape
               ? '1fr'
               : 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
           gap: '1.5rem',
@@ -1261,7 +1190,7 @@ export const ServicesOfferedSection: React.FC<{
           );
         })}
       </div>
-    </Container>
+    </ServiceContainer>
   );
 };
 
@@ -1270,11 +1199,6 @@ export const OverviewSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
   const { theme } = useAppTheme();
-  const orientation = useDeviceOrientation();
-  const isMobile =
-    orientation === 'portrait' ||
-    orientation === 'tablet-portrait' ||
-    orientation === 'large-portrait';
 
   // Apply styles to links within personal training summary
   useEffect(() => {
@@ -1357,16 +1281,7 @@ export const OverviewSection: React.FC<{
   };
 
   return (
-    <Container
-      marginLeft='auto'
-      marginRight='auto'
-      padding={
-        isMobile || orientation === 'mobile-landscape'
-          ? `${theme.spacing.l} ${theme.spacing.m}`
-          : '2.5rem 2.5rem 0rem 2.5rem'
-      }
-      maxWidth='1000px'
-    >
+    <ServiceContainer>
       <H2Title name={getOverviewTitle()} style={{ margin: '0 0 1.5rem 0' }} />
       <Typography
         variant='p'
@@ -1375,53 +1290,13 @@ export const OverviewSection: React.FC<{
         noHyphens
         style={styles.textContent}
       >
-        {currentView === 'personal-training' ? (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: SERVICES_EXPORTS.PERSONAL_TRAINING_SUMMARY,
-            }}
-            className='personal-training-summary'
-          />
-        ) : currentView === 'design' ? (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: SERVICES_EXPORTS.DESIGN_SUMMARY,
-            }}
-            className='design-summary'
-          />
-        ) : currentView === 'development' ? (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: SERVICES_EXPORTS.DEVELOPMENT_SUMMARY,
-            }}
-            className='development-summary'
-          />
-        ) : currentView === 'resonance-core' ? (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: SERVICES_EXPORTS.RESONANCE_CORE_SUMMARY,
-            }}
-            className='resonance-core-summary'
-          />
-        ) : currentView === 'education-training' ? (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: SERVICES_EXPORTS.EDUCATION_TRAINING_SUMMARY,
-            }}
-            className='education-training-summary'
-          />
-        ) : currentView === 'consulting' ? (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: SERVICES_EXPORTS.CONSULTING_SUMMARY,
-            }}
-            className='consulting-summary'
-          />
-        ) : (
-          renderSummary(getSummary())
-        )}
+        <ServiceSummaryRenderer
+          currentView={currentView}
+          summary={getSummary()}
+          fallbackRenderer={renderSummary}
+        />
       </Typography>
-    </Container>
+    </ServiceContainer>
   );
 };
 
@@ -1991,36 +1866,19 @@ export const ProfessionalSummary: React.FC<{
               <ProgramTierTable
                 theme={theme}
                 isMobile={isMobile}
-                service={currentView}
+                service={currentView || 'services'}
               />
             </div>
 
             {/* What's Included CTA */}
             <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-              <button
+              <StyledButton
                 onClick={() => setShowWhatsIncluded(true)}
-                style={{
-                  background: theme.palette.themePrimary,
-                  color: theme.palette.white,
-                  border: 'none',
-                  padding: '1rem 2rem',
-                  borderRadius: '4px',
-                  fontSize: '1.1rem',
-                  fontWeight: 'bold',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = theme.palette.themeDark;
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = theme.palette.themePrimary;
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
+                variant='primary'
+                size='medium'
               >
                 What's Included? View Full Comparison
-              </button>
+              </StyledButton>
             </div>
           </Container>
         </Container>
