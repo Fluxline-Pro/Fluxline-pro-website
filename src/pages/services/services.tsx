@@ -411,19 +411,35 @@ const ProgramTierTable: React.FC<{
       <table
         style={{
           ...styles.table,
-          minWidth: isMobile ? '600px' : 'auto',
+          minWidth: isMobile ? '500px' : 'auto',
+          width: '100%',
+          tableLayout: 'fixed',
         }}
       >
         <thead>
           <tr>
             <th
-              style={styles.tableHeader(theme, { borderRadius: '4px 0 0 0' })}
+              style={{
+                ...styles.tableHeader(theme, { borderRadius: '4px 0 0 0' }),
+                width: '25%',
+              }}
             >
               Program Tier
             </th>
-            <th style={styles.tableHeader(theme)}>Ideal For</th>
             <th
-              style={styles.tableHeader(theme, { borderRadius: '0 4px 0 0' })}
+              style={{
+                ...styles.tableHeader(theme),
+                width: '45%',
+              }}
+            >
+              Ideal For
+            </th>
+            <th
+              style={{
+                ...styles.tableHeader(theme, { borderRadius: '0 4px 0 0' }),
+                textAlign: 'center' as const,
+                width: '30%',
+              }}
             >
               Monthly Rate
             </th>
@@ -442,15 +458,11 @@ const ProgramTierTable: React.FC<{
                         : theme.palette.themePrimary,
                   }),
                   textAlign: 'left',
-                  maxWidth: '300px',
+                  width: '25%',
                   wordWrap: 'break-word',
                   overflowWrap: 'break-word',
-                  hyphens: 'none',
-                  display: '-webkit-box',
-                  WebkitLineClamp: 3,
-                  WebkitBoxOrient: 'vertical' as const,
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
+                  hyphens: 'auto',
+                  verticalAlign: 'top',
                 }}
               >
                 {tier.tier}
@@ -458,17 +470,11 @@ const ProgramTierTable: React.FC<{
               <td
                 style={{
                   ...styles.tableCell(theme),
-                  minWidth: '150px',
-                  maxWidth: '300px',
-                  textAlign: 'center',
-                  display: '-webkit-box',
-                  WebkitLineClamp: 3,
-                  WebkitBoxOrient: 'vertical' as const,
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
+                  width: '45%',
                   wordWrap: 'break-word',
                   overflowWrap: 'break-word',
-                  hyphens: 'none',
+                  hyphens: 'auto',
+                  verticalAlign: 'top',
                 }}
               >
                 {tier.idealFor}
@@ -476,12 +482,12 @@ const ProgramTierTable: React.FC<{
               <td
                 style={{
                   ...styles.tableCell(theme),
-                  minWidth: '150px',
-                  maxWidth: '300px',
+                  width: '30%',
                   textAlign: 'center',
                   wordWrap: 'break-word',
                   overflowWrap: 'break-word',
-                  hyphens: 'none',
+                  hyphens: 'auto',
+                  verticalAlign: 'top',
                 }}
               >
                 <div style={{ fontWeight: 'bold' }}>{tier.rate}</div>
@@ -494,11 +500,6 @@ const ProgramTierTable: React.FC<{
                           ? theme.palette.neutralSecondary
                           : theme.palette.neutralTertiary,
                       marginTop: '0.25rem',
-                      display: '-webkit-box',
-                      WebkitLineClamp: 3,
-                      WebkitBoxOrient: 'vertical' as const,
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
                     }}
                   >
                     {tier.note}
@@ -526,19 +527,13 @@ const WhatsIncludedModal: React.FC<{
   const getBodyCellStyle = (baseStyles: any = {}) => ({
     ...styles.tableCell(theme, {
       textAlign: 'center',
-      fontSize: '1.2rem',
+      fontSize: isMobile ? '1rem' : '1.2rem',
       ...baseStyles,
     }),
-    minWidth: '150px',
-    maxWidth: '300px',
     wordWrap: 'break-word' as const,
     overflowWrap: 'break-word' as const,
-    hyphens: 'none' as const,
-    display: '-webkit-box',
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: 'vertical' as const,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
+    hyphens: 'auto' as const,
+    verticalAlign: 'top' as const,
   });
 
   // Prevent body scrolling when modal is open
@@ -661,6 +656,7 @@ const WhatsIncludedModal: React.FC<{
                 ...styles.table,
                 minWidth: isMobile ? '650px' : '800px',
                 width: '100%',
+                tableLayout: 'fixed',
               }}
             >
               <thead>
@@ -672,9 +668,8 @@ const WhatsIncludedModal: React.FC<{
                         position: isMobile ? 'static' : 'sticky',
                         left: isMobile ? undefined : 0,
                       }),
-                      width: isMobile ? '150px' : '200px',
-                      minWidth: isMobile ? '150px' : '200px',
-                      whiteSpace: 'nowrap',
+                      width: '28%',
+                      whiteSpace: isMobile ? 'normal' : 'nowrap',
                     }}
                   >
                     Feature
@@ -686,8 +681,8 @@ const WhatsIncludedModal: React.FC<{
                           ...styles.tableHeader(theme, {
                             textAlign: 'center',
                           }),
-                          minWidth: isMobile ? '120px' : '140px',
-                          whiteSpace: 'nowrap',
+                          width: '18%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
                         }}
                       >
                         Online PT Only
@@ -697,8 +692,8 @@ const WhatsIncludedModal: React.FC<{
                           ...styles.tableHeader(theme, {
                             textAlign: 'center',
                           }),
-                          minWidth: isMobile ? '120px' : '140px',
-                          whiteSpace: 'nowrap',
+                          width: '18%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
                         }}
                       >
                         Hybrid PT
@@ -708,8 +703,8 @@ const WhatsIncludedModal: React.FC<{
                           ...styles.tableHeader(theme, {
                             textAlign: 'center',
                           }),
-                          minWidth: isMobile ? '140px' : '160px',
-                          whiteSpace: 'nowrap',
+                          width: '18%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
                         }}
                       >
                         Online Hypertrophy
@@ -720,8 +715,8 @@ const WhatsIncludedModal: React.FC<{
                             borderRadius: '0 4px 0 0',
                             textAlign: 'center',
                           }),
-                          minWidth: isMobile ? '140px' : '160px',
-                          whiteSpace: 'nowrap',
+                          width: '18%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
                         }}
                       >
                         Hybrid Hypertrophy
@@ -731,26 +726,36 @@ const WhatsIncludedModal: React.FC<{
                   {isBrandIdentity && (
                     <>
                       <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '120px',
-                          whiteSpace: 'nowrap',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            textAlign: 'center',
+                          }),
+                          width: '24%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
+                        }}
                       >
                         Starter
                       </th>
                       <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            textAlign: 'center',
+                          }),
+                          width: '24%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
+                        }}
                       >
                         Signature
                       </th>
                       <th
-                        style={styles.tableHeader(theme, {
-                          borderRadius: '0 4px 0 0',
-                          textAlign: 'center',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            borderRadius: '0 4px 0 0',
+                            textAlign: 'center',
+                          }),
+                          width: '24%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
+                        }}
                       >
                         Premium
                       </th>
@@ -759,30 +764,36 @@ const WhatsIncludedModal: React.FC<{
                   {isDevelopment && (
                     <>
                       <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '120px',
-                          whiteSpace: 'nowrap',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            textAlign: 'center',
+                          }),
+                          width: '24%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
+                        }}
                       >
                         Starter
                       </th>
                       <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '120px',
-                          whiteSpace: 'nowrap',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            textAlign: 'center',
+                          }),
+                          width: '24%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
+                        }}
                       >
                         Signature
                       </th>
                       <th
-                        style={styles.tableHeader(theme, {
-                          borderRadius: '0 4px 0 0',
-                          textAlign: 'center',
-                          minWidth: '120px',
-                          whiteSpace: 'nowrap',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            borderRadius: '0 4px 0 0',
+                            textAlign: 'center',
+                          }),
+                          width: '24%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
+                        }}
                       >
                         Premium
                       </th>
@@ -791,30 +802,36 @@ const WhatsIncludedModal: React.FC<{
                   {isResonanceCore && (
                     <>
                       <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '120px',
-                          whiteSpace: 'nowrap',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            textAlign: 'center',
+                          }),
+                          width: '24%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
+                        }}
                       >
                         Initiate
                       </th>
                       <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '120px',
-                          whiteSpace: 'nowrap',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            textAlign: 'center',
+                          }),
+                          width: '24%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
+                        }}
                       >
                         Embodied
                       </th>
                       <th
-                        style={styles.tableHeader(theme, {
-                          borderRadius: '0 4px 0 0',
-                          textAlign: 'center',
-                          minWidth: '120px',
-                          whiteSpace: 'nowrap',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            borderRadius: '0 4px 0 0',
+                            textAlign: 'center',
+                          }),
+                          width: '24%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
+                        }}
                       >
                         Legacy
                       </th>
@@ -823,30 +840,36 @@ const WhatsIncludedModal: React.FC<{
                   {isEducationTraining && (
                     <>
                       <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '140px',
-                          whiteSpace: 'nowrap',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            textAlign: 'center',
+                          }),
+                          width: '24%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
+                        }}
                       >
                         Individual
                       </th>
                       <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '120px',
-                          whiteSpace: 'nowrap',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            textAlign: 'center',
+                          }),
+                          width: '24%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
+                        }}
                       >
                         Team
                       </th>
                       <th
-                        style={styles.tableHeader(theme, {
-                          borderRadius: '0 4px 0 0',
-                          textAlign: 'center',
-                          minWidth: '160px',
-                          whiteSpace: 'nowrap',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            borderRadius: '0 4px 0 0',
+                            textAlign: 'center',
+                          }),
+                          width: '24%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
+                        }}
                       >
                         Organizational
                       </th>
@@ -855,30 +878,36 @@ const WhatsIncludedModal: React.FC<{
                   {isConsulting && (
                     <>
                       <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '140px',
-                          whiteSpace: 'nowrap',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            textAlign: 'center',
+                          }),
+                          width: '24%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
+                        }}
                       >
                         Foundation
                       </th>
                       <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '130px',
-                          whiteSpace: 'nowrap',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            textAlign: 'center',
+                          }),
+                          width: '24%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
+                        }}
                       >
                         Expansion
                       </th>
                       <th
-                        style={styles.tableHeader(theme, {
-                          borderRadius: '0 4px 0 0',
-                          textAlign: 'center',
-                          minWidth: '130px',
-                          whiteSpace: 'nowrap',
-                        })}
+                        style={{
+                          ...styles.tableHeader(theme, {
+                            borderRadius: '0 4px 0 0',
+                            textAlign: 'center',
+                          }),
+                          width: '24%',
+                          whiteSpace: isMobile ? 'normal' : 'nowrap',
+                        }}
                       >
                         Sovereign
                       </th>
@@ -897,19 +926,13 @@ const WhatsIncludedModal: React.FC<{
                           fontSize: '1rem',
                           left: isMobile ? undefined : 0,
                         }),
-                        width: isMobile ? '180px' : '200px',
-                        minWidth: isMobile ? '180px' : '200px',
-                        maxWidth: '300px',
+                        width: '28%',
                         paddingRight: '1rem',
                         textAlign: 'left',
                         wordWrap: 'break-word',
                         overflowWrap: 'break-word',
-                        hyphens: 'none',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: 'vertical' as const,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
+                        hyphens: 'auto',
+                        verticalAlign: 'top',
                       }}
                       dangerouslySetInnerHTML={{
                         __html: (row as any).feature,
