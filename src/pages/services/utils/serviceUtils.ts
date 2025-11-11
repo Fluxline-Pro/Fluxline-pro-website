@@ -18,14 +18,15 @@ export const getServiceFromView = (currentView?: string): string => {
 
 /**
  * Services that have program tiers functionality
+ * Note: Temporarily commented out services with unratified pricing
  */
 export const SERVICES_WITH_TIERS = [
   'personal-training',
   'design',
   'development',
-  'resonance-core',
-  'education-training',
-  'consulting',
+  // 'resonance-core', // Temporarily disabled - pricing not ratified
+  // 'education-training', // Temporarily disabled - pricing not ratified
+  // 'consulting', // Temporarily disabled - pricing not ratified
 ] as const;
 
 /**
