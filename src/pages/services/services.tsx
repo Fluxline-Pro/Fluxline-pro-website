@@ -411,19 +411,35 @@ const ProgramTierTable: React.FC<{
       <table
         style={{
           ...styles.table,
-          minWidth: isMobile ? '600px' : 'auto',
+          minWidth: isMobile ? '500px' : 'auto',
+          width: '100%',
+          tableLayout: 'fixed',
         }}
       >
         <thead>
           <tr>
             <th
-              style={styles.tableHeader(theme, { borderRadius: '4px 0 0 0' })}
+              style={{
+                ...styles.tableHeader(theme, { borderRadius: '4px 0 0 0' }),
+                width: '25%',
+              }}
             >
               Program Tier
             </th>
-            <th style={styles.tableHeader(theme)}>Ideal For</th>
             <th
-              style={styles.tableHeader(theme, { borderRadius: '0 4px 0 0' })}
+              style={{
+                ...styles.tableHeader(theme),
+                width: '45%',
+              }}
+            >
+              Ideal For
+            </th>
+            <th
+              style={{
+                ...styles.tableHeader(theme, { borderRadius: '0 4px 0 0' }),
+                textAlign: 'center' as const,
+                width: '30%',
+              }}
             >
               Monthly Rate
             </th>
@@ -433,35 +449,46 @@ const ProgramTierTable: React.FC<{
           {programTiers.map((tier, index) => (
             <tr key={tier.tier} style={styles.tableRow(theme, index)}>
               <td
-                style={styles.tableCell(theme, {
-                  fontWeight: 'bold',
-                  color:
-                    theme.themeMode === 'dark'
-                      ? theme.palette.themeLight
-                      : theme.palette.themePrimary,
-                })}
+                style={{
+                  ...styles.tableCell(theme, {
+                    fontWeight: 'bold',
+                    color:
+                      theme.themeMode === 'dark'
+                        ? theme.palette.themeLight
+                        : theme.palette.themePrimary,
+                  }),
+                  textAlign: 'left',
+                  width: '25%',
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word',
+                  hyphens: 'auto',
+                  verticalAlign: 'top',
+                }}
               >
                 {tier.tier}
               </td>
               <td
-                style={styles.tableCell(theme, {
-                  minWidth: '150px',
-                  maxWidth: '250px',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                })}
+                style={{
+                  ...styles.tableCell(theme),
+                  width: '45%',
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word',
+                  hyphens: 'auto',
+                  verticalAlign: 'top',
+                }}
               >
                 {tier.idealFor}
               </td>
               <td
-                style={styles.tableCell(theme, {
-                  minWidth: '150px',
-                  maxWidth: '200px',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                })}
+                style={{
+                  ...styles.tableCell(theme),
+                  width: '30%',
+                  textAlign: 'center',
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word',
+                  hyphens: 'auto',
+                  verticalAlign: 'top',
+                }}
               >
                 <div style={{ fontWeight: 'bold' }}>{tier.rate}</div>
                 {tier.note && (
@@ -496,6 +523,67 @@ const WhatsIncludedModal: React.FC<{
 }> = ({ isOpen, onClose, theme, service }) => {
   const { isMobile } = useMobileDetection();
 
+  // Service configuration for dynamic table rendering
+  const serviceConfig = {
+    'personal-training': {
+      columns: [
+        'onlinePT',
+        'hybridPT',
+        'onlineHypertrophy',
+        'hybridHypertrophy',
+      ],
+      headers: [
+        'Online PT Only',
+        'Hybrid PT',
+        'Online Hypertrophy',
+        'Hybrid Hypertrophy',
+      ],
+      columnWidth: '18%',
+    },
+    design: {
+      columns: ['starter', 'signature', 'premium'],
+      headers: ['Starter', 'Signature', 'Premium'],
+      columnWidth: '24%',
+    },
+    development: {
+      columns: ['starter', 'signature', 'premium'],
+      headers: ['Starter', 'Signature', 'Premium'],
+      columnWidth: '24%',
+    },
+    'resonance-core': {
+      columns: ['initiate', 'embodied', 'legacy'],
+      headers: ['Initiate', 'Embodied', 'Legacy'],
+      columnWidth: '24%',
+    },
+    'education-training': {
+      columns: ['individual', 'team', 'organizational'],
+      headers: ['Individual', 'Team', 'Organizational'],
+      columnWidth: '24%',
+    },
+    consulting: {
+      columns: ['foundation', 'expansion', 'sovereign'],
+      headers: ['Foundation', 'Expansion', 'Sovereign'],
+      columnWidth: '24%',
+    },
+  };
+
+  const config =
+    serviceConfig[service as keyof typeof serviceConfig] ||
+    serviceConfig['design'];
+
+  // Helper for consistent body cell styling with text wrapping
+  const getBodyCellStyle = (baseStyles: any = {}) => ({
+    ...styles.tableCell(theme, {
+      textAlign: 'center',
+      fontSize: isMobile ? '1rem' : '1.2rem',
+      ...baseStyles,
+    }),
+    wordWrap: 'break-word' as const,
+    overflowWrap: 'break-word' as const,
+    hyphens: 'auto' as const,
+    verticalAlign: 'top' as const,
+  });
+
   // Prevent body scrolling when modal is open
   React.useEffect(() => {
     if (isOpen && isMobile) {
@@ -515,12 +603,6 @@ const WhatsIncludedModal: React.FC<{
   if (!isOpen) return null;
 
   const features = SERVICES_EXPORTS.getProgramFeatures(service);
-  const isPersonalTraining = service === 'personal-training';
-  const isBrandIdentity = service === 'design';
-  const isDevelopment = service === 'development';
-  const isResonanceCore = service === 'resonance-core';
-  const isEducationTraining = service === 'education-training';
-  const isConsulting = service === 'consulting';
 
   return (
     <div
@@ -616,6 +698,7 @@ const WhatsIncludedModal: React.FC<{
                 ...styles.table,
                 minWidth: isMobile ? '650px' : '800px',
                 width: '100%',
+                tableLayout: 'fixed',
               }}
             >
               <thead>
@@ -627,218 +710,30 @@ const WhatsIncludedModal: React.FC<{
                         position: isMobile ? 'static' : 'sticky',
                         left: isMobile ? undefined : 0,
                       }),
-                      width: isMobile ? '150px' : '200px',
-                      minWidth: isMobile ? '150px' : '200px',
-                      whiteSpace: 'nowrap',
+                      width: '28%',
+                      whiteSpace: isMobile ? 'normal' : 'nowrap',
                     }}
                   >
                     Feature
                   </th>
-                  {isPersonalTraining && (
-                    <>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            textAlign: 'center',
-                          }),
-                          minWidth: isMobile ? '120px' : '140px',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        Online PT Only
-                      </th>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            textAlign: 'center',
-                          }),
-                          minWidth: isMobile ? '120px' : '140px',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        Hybrid PT
-                      </th>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            textAlign: 'center',
-                          }),
-                          minWidth: isMobile ? '140px' : '160px',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        Online Hypertrophy
-                      </th>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            borderRadius: '0 4px 0 0',
-                            textAlign: 'center',
-                          }),
-                          minWidth: isMobile ? '140px' : '160px',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        Hybrid Hypertrophy
-                      </th>
-                    </>
-                  )}
-                  {isBrandIdentity && (
-                    <>
-                      <th
-                        style={styles.tableHeader(theme, {
+                  {config.headers.map((header, index) => (
+                    <th
+                      key={header}
+                      style={{
+                        ...styles.tableHeader(theme, {
+                          borderRadius:
+                            index === config.headers.length - 1
+                              ? '0 4px 0 0'
+                              : undefined,
                           textAlign: 'center',
-                          minWidth: '120px',
-                          whiteSpace: 'nowrap',
-                        })}
-                      >
-                        Starter
-                      </th>
-                      <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                        })}
-                      >
-                        Signature
-                      </th>
-                      <th
-                        style={styles.tableHeader(theme, {
-                          borderRadius: '0 4px 0 0',
-                          textAlign: 'center',
-                        })}
-                      >
-                        Premium
-                      </th>
-                    </>
-                  )}
-                  {isDevelopment && (
-                    <>
-                      <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '120px',
-                          whiteSpace: 'nowrap',
-                        })}
-                      >
-                        Starter
-                      </th>
-                      <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '120px',
-                          whiteSpace: 'nowrap',
-                        })}
-                      >
-                        Signature
-                      </th>
-                      <th
-                        style={styles.tableHeader(theme, {
-                          borderRadius: '0 4px 0 0',
-                          textAlign: 'center',
-                          minWidth: '120px',
-                          whiteSpace: 'nowrap',
-                        })}
-                      >
-                        Premium
-                      </th>
-                    </>
-                  )}
-                  {isResonanceCore && (
-                    <>
-                      <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '120px',
-                          whiteSpace: 'nowrap',
-                        })}
-                      >
-                        Initiate
-                      </th>
-                      <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '120px',
-                          whiteSpace: 'nowrap',
-                        })}
-                      >
-                        Embodied
-                      </th>
-                      <th
-                        style={styles.tableHeader(theme, {
-                          borderRadius: '0 4px 0 0',
-                          textAlign: 'center',
-                          minWidth: '120px',
-                          whiteSpace: 'nowrap',
-                        })}
-                      >
-                        Legacy
-                      </th>
-                    </>
-                  )}
-                  {isEducationTraining && (
-                    <>
-                      <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '140px',
-                          whiteSpace: 'nowrap',
-                        })}
-                      >
-                        Individual
-                      </th>
-                      <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '120px',
-                          whiteSpace: 'nowrap',
-                        })}
-                      >
-                        Team
-                      </th>
-                      <th
-                        style={styles.tableHeader(theme, {
-                          borderRadius: '0 4px 0 0',
-                          textAlign: 'center',
-                          minWidth: '160px',
-                          whiteSpace: 'nowrap',
-                        })}
-                      >
-                        Organizational
-                      </th>
-                    </>
-                  )}
-                  {isConsulting && (
-                    <>
-                      <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '140px',
-                          whiteSpace: 'nowrap',
-                        })}
-                      >
-                        Foundation
-                      </th>
-                      <th
-                        style={styles.tableHeader(theme, {
-                          textAlign: 'center',
-                          minWidth: '130px',
-                          whiteSpace: 'nowrap',
-                        })}
-                      >
-                        Expansion
-                      </th>
-                      <th
-                        style={styles.tableHeader(theme, {
-                          borderRadius: '0 4px 0 0',
-                          textAlign: 'center',
-                          minWidth: '130px',
-                          whiteSpace: 'nowrap',
-                        })}
-                      >
-                        Sovereign
-                      </th>
-                    </>
-                  )}
+                        }),
+                        width: config.columnWidth,
+                        whiteSpace: isMobile ? 'normal' : 'nowrap',
+                      }}
+                    >
+                      {header}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
@@ -852,305 +747,27 @@ const WhatsIncludedModal: React.FC<{
                           fontSize: '1rem',
                           left: isMobile ? undefined : 0,
                         }),
-                        width: isMobile ? '180px' : '200px',
-                        minWidth: isMobile ? '180px' : '200px',
-                        whiteSpace: 'nowrap',
+                        width: '28%',
                         paddingRight: '1rem',
+                        textAlign: 'left',
+                        wordWrap: 'break-word',
+                        overflowWrap: 'break-word',
+                        hyphens: 'auto',
+                        verticalAlign: 'top',
                       }}
                       dangerouslySetInnerHTML={{
                         __html: (row as any).feature,
                       }}
                     />
-                    {isPersonalTraining && (
-                      <>
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).onlinePT,
-                          }}
-                        />
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).hybridPT,
-                          }}
-                        />
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).onlineHypertrophy,
-                          }}
-                        />
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).hybridHypertrophy,
-                          }}
-                        />
-                      </>
-                    )}
-                    {isBrandIdentity && (
-                      <>
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).starter,
-                          }}
-                        />
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).signature,
-                          }}
-                        />
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).premium,
-                          }}
-                        />
-                      </>
-                    )}
-                    {isDevelopment && (
-                      <>
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).starter,
-                          }}
-                        />
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).signature,
-                          }}
-                        />
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).premium,
-                          }}
-                        />
-                      </>
-                    )}
-                    {isResonanceCore && (
-                      <>
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).initiate,
-                          }}
-                        />
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).embodied,
-                          }}
-                        />
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).legacy,
-                          }}
-                        />
-                      </>
-                    )}
-                    {isEducationTraining && (
-                      <>
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).individual,
-                          }}
-                        />
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).team,
-                          }}
-                        />
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).organizational,
-                          }}
-                        />
-                      </>
-                    )}
-                    {isConsulting && (
-                      <>
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).foundation,
-                          }}
-                        />
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).expansion,
-                          }}
-                        />
-                        <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).sovereign,
-                          }}
-                        />
-                      </>
-                    )}
+                    {config.columns.map((column) => (
+                      <td
+                        key={column}
+                        style={getBodyCellStyle()}
+                        dangerouslySetInnerHTML={{
+                          __html: (row as any)[column],
+                        }}
+                      />
+                    ))}
                   </tr>
                 ))}
               </tbody>
