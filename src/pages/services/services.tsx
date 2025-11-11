@@ -523,6 +523,54 @@ const WhatsIncludedModal: React.FC<{
 }> = ({ isOpen, onClose, theme, service }) => {
   const { isMobile } = useMobileDetection();
 
+  // Service configuration for dynamic table rendering
+  const serviceConfig = {
+    'personal-training': {
+      columns: [
+        'onlinePT',
+        'hybridPT',
+        'onlineHypertrophy',
+        'hybridHypertrophy',
+      ],
+      headers: [
+        'Online PT Only',
+        'Hybrid PT',
+        'Online Hypertrophy',
+        'Hybrid Hypertrophy',
+      ],
+      columnWidth: '18%',
+    },
+    design: {
+      columns: ['starter', 'signature', 'premium'],
+      headers: ['Starter', 'Signature', 'Premium'],
+      columnWidth: '24%',
+    },
+    development: {
+      columns: ['starter', 'signature', 'premium'],
+      headers: ['Starter', 'Signature', 'Premium'],
+      columnWidth: '24%',
+    },
+    'resonance-core': {
+      columns: ['initiate', 'embodied', 'legacy'],
+      headers: ['Initiate', 'Embodied', 'Legacy'],
+      columnWidth: '24%',
+    },
+    'education-training': {
+      columns: ['individual', 'team', 'organizational'],
+      headers: ['Individual', 'Team', 'Organizational'],
+      columnWidth: '24%',
+    },
+    consulting: {
+      columns: ['foundation', 'expansion', 'sovereign'],
+      headers: ['Foundation', 'Expansion', 'Sovereign'],
+      columnWidth: '24%',
+    },
+  };
+
+  const config =
+    serviceConfig[service as keyof typeof serviceConfig] ||
+    serviceConfig['design'];
+
   // Helper for consistent body cell styling with text wrapping
   const getBodyCellStyle = (baseStyles: any = {}) => ({
     ...styles.tableCell(theme, {
@@ -555,12 +603,6 @@ const WhatsIncludedModal: React.FC<{
   if (!isOpen) return null;
 
   const features = SERVICES_EXPORTS.getProgramFeatures(service);
-  const isPersonalTraining = service === 'personal-training';
-  const isBrandIdentity = service === 'design';
-  const isDevelopment = service === 'development';
-  const isResonanceCore = service === 'resonance-core';
-  const isEducationTraining = service === 'education-training';
-  const isConsulting = service === 'consulting';
 
   return (
     <div
@@ -674,245 +716,24 @@ const WhatsIncludedModal: React.FC<{
                   >
                     Feature
                   </th>
-                  {isPersonalTraining && (
-                    <>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            textAlign: 'center',
-                          }),
-                          width: '18%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Online PT Only
-                      </th>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            textAlign: 'center',
-                          }),
-                          width: '18%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Hybrid PT
-                      </th>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            textAlign: 'center',
-                          }),
-                          width: '18%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Online Hypertrophy
-                      </th>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            borderRadius: '0 4px 0 0',
-                            textAlign: 'center',
-                          }),
-                          width: '18%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Hybrid Hypertrophy
-                      </th>
-                    </>
-                  )}
-                  {isBrandIdentity && (
-                    <>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            textAlign: 'center',
-                          }),
-                          width: '24%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Starter
-                      </th>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            textAlign: 'center',
-                          }),
-                          width: '24%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Signature
-                      </th>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            borderRadius: '0 4px 0 0',
-                            textAlign: 'center',
-                          }),
-                          width: '24%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Premium
-                      </th>
-                    </>
-                  )}
-                  {isDevelopment && (
-                    <>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            textAlign: 'center',
-                          }),
-                          width: '24%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Starter
-                      </th>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            textAlign: 'center',
-                          }),
-                          width: '24%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Signature
-                      </th>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            borderRadius: '0 4px 0 0',
-                            textAlign: 'center',
-                          }),
-                          width: '24%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Premium
-                      </th>
-                    </>
-                  )}
-                  {isResonanceCore && (
-                    <>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            textAlign: 'center',
-                          }),
-                          width: '24%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Initiate
-                      </th>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            textAlign: 'center',
-                          }),
-                          width: '24%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Embodied
-                      </th>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            borderRadius: '0 4px 0 0',
-                            textAlign: 'center',
-                          }),
-                          width: '24%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Legacy
-                      </th>
-                    </>
-                  )}
-                  {isEducationTraining && (
-                    <>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            textAlign: 'center',
-                          }),
-                          width: '24%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Individual
-                      </th>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            textAlign: 'center',
-                          }),
-                          width: '24%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Team
-                      </th>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            borderRadius: '0 4px 0 0',
-                            textAlign: 'center',
-                          }),
-                          width: '24%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Organizational
-                      </th>
-                    </>
-                  )}
-                  {isConsulting && (
-                    <>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            textAlign: 'center',
-                          }),
-                          width: '24%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Foundation
-                      </th>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            textAlign: 'center',
-                          }),
-                          width: '24%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Expansion
-                      </th>
-                      <th
-                        style={{
-                          ...styles.tableHeader(theme, {
-                            borderRadius: '0 4px 0 0',
-                            textAlign: 'center',
-                          }),
-                          width: '24%',
-                          whiteSpace: isMobile ? 'normal' : 'nowrap',
-                        }}
-                      >
-                        Sovereign
-                      </th>
-                    </>
-                  )}
+                  {config.headers.map((header, index) => (
+                    <th
+                      key={header}
+                      style={{
+                        ...styles.tableHeader(theme, {
+                          borderRadius:
+                            index === config.headers.length - 1
+                              ? '0 4px 0 0'
+                              : undefined,
+                          textAlign: 'center',
+                        }),
+                        width: config.columnWidth,
+                        whiteSpace: isMobile ? 'normal' : 'nowrap',
+                      }}
+                    >
+                      {header}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
@@ -938,144 +759,15 @@ const WhatsIncludedModal: React.FC<{
                         __html: (row as any).feature,
                       }}
                     />
-                    {isPersonalTraining && (
-                      <>
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).onlinePT,
-                          }}
-                        />
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).hybridPT,
-                          }}
-                        />
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).onlineHypertrophy,
-                          }}
-                        />
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).hybridHypertrophy,
-                          }}
-                        />
-                      </>
-                    )}
-                    {isBrandIdentity && (
-                      <>
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).starter,
-                          }}
-                        />
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).signature,
-                          }}
-                        />
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).premium,
-                          }}
-                        />
-                      </>
-                    )}
-                    {isDevelopment && (
-                      <>
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).starter,
-                          }}
-                        />
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).signature,
-                          }}
-                        />
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).premium,
-                          }}
-                        />
-                      </>
-                    )}
-                    {isResonanceCore && (
-                      <>
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).initiate,
-                          }}
-                        />
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).embodied,
-                          }}
-                        />
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).legacy,
-                          }}
-                        />
-                      </>
-                    )}
-                    {isEducationTraining && (
-                      <>
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).individual,
-                          }}
-                        />
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).team,
-                          }}
-                        />
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).organizational,
-                          }}
-                        />
-                      </>
-                    )}
-                    {isConsulting && (
-                      <>
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).foundation,
-                          }}
-                        />
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).expansion,
-                          }}
-                        />
-                        <td
-                          style={getBodyCellStyle()}
-                          dangerouslySetInnerHTML={{
-                            __html: (row as any).sovereign,
-                          }}
-                        />
-                      </>
-                    )}
+                    {config.columns.map((column) => (
+                      <td
+                        key={column}
+                        style={getBodyCellStyle()}
+                        dangerouslySetInnerHTML={{
+                          __html: (row as any)[column],
+                        }}
+                      />
+                    ))}
                   </tr>
                 ))}
               </tbody>
