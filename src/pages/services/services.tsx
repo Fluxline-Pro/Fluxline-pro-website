@@ -433,35 +433,56 @@ const ProgramTierTable: React.FC<{
           {programTiers.map((tier, index) => (
             <tr key={tier.tier} style={styles.tableRow(theme, index)}>
               <td
-                style={styles.tableCell(theme, {
-                  fontWeight: 'bold',
-                  color:
-                    theme.themeMode === 'dark'
-                      ? theme.palette.themeLight
-                      : theme.palette.themePrimary,
-                })}
+                style={{
+                  ...styles.tableCell(theme, {
+                    fontWeight: 'bold',
+                    color:
+                      theme.themeMode === 'dark'
+                        ? theme.palette.themeLight
+                        : theme.palette.themePrimary,
+                  }),
+                  textAlign: 'left',
+                  maxWidth: '300px',
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word',
+                  hyphens: 'none',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical' as const,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
               >
                 {tier.tier}
               </td>
               <td
-                style={styles.tableCell(theme, {
+                style={{
+                  ...styles.tableCell(theme),
                   minWidth: '150px',
-                  maxWidth: '250px',
-                  whiteSpace: 'nowrap',
+                  maxWidth: '300px',
+                  textAlign: 'center',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical' as const,
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
-                })}
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word',
+                  hyphens: 'none',
+                }}
               >
                 {tier.idealFor}
               </td>
               <td
-                style={styles.tableCell(theme, {
+                style={{
+                  ...styles.tableCell(theme),
                   minWidth: '150px',
-                  maxWidth: '200px',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                })}
+                  maxWidth: '300px',
+                  textAlign: 'center',
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word',
+                  hyphens: 'none',
+                }}
               >
                 <div style={{ fontWeight: 'bold' }}>{tier.rate}</div>
                 {tier.note && (
@@ -473,6 +494,11 @@ const ProgramTierTable: React.FC<{
                           ? theme.palette.neutralSecondary
                           : theme.palette.neutralTertiary,
                       marginTop: '0.25rem',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: 'vertical' as const,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
                     }}
                   >
                     {tier.note}
@@ -495,6 +521,25 @@ const WhatsIncludedModal: React.FC<{
   service: string;
 }> = ({ isOpen, onClose, theme, service }) => {
   const { isMobile } = useMobileDetection();
+
+  // Helper for consistent body cell styling with text wrapping
+  const getBodyCellStyle = (baseStyles: any = {}) => ({
+    ...styles.tableCell(theme, {
+      textAlign: 'center',
+      fontSize: '1.2rem',
+      ...baseStyles,
+    }),
+    minWidth: '150px',
+    maxWidth: '300px',
+    wordWrap: 'break-word' as const,
+    overflowWrap: 'break-word' as const,
+    hyphens: 'none' as const,
+    display: '-webkit-box',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical' as const,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  });
 
   // Prevent body scrolling when modal is open
   React.useEffect(() => {
@@ -854,8 +899,17 @@ const WhatsIncludedModal: React.FC<{
                         }),
                         width: isMobile ? '180px' : '200px',
                         minWidth: isMobile ? '180px' : '200px',
-                        whiteSpace: 'nowrap',
+                        maxWidth: '300px',
                         paddingRight: '1rem',
+                        textAlign: 'left',
+                        wordWrap: 'break-word',
+                        overflowWrap: 'break-word',
+                        hyphens: 'none',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: 'vertical' as const,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
                       }}
                       dangerouslySetInnerHTML={{
                         __html: (row as any).feature,
@@ -864,57 +918,25 @@ const WhatsIncludedModal: React.FC<{
                     {isPersonalTraining && (
                       <>
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).onlinePT,
                           }}
                         />
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).hybridPT,
                           }}
                         />
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).onlineHypertrophy,
                           }}
                         />
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).hybridHypertrophy,
                           }}
@@ -924,43 +946,19 @@ const WhatsIncludedModal: React.FC<{
                     {isBrandIdentity && (
                       <>
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).starter,
                           }}
                         />
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).signature,
                           }}
                         />
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).premium,
                           }}
@@ -970,43 +968,19 @@ const WhatsIncludedModal: React.FC<{
                     {isDevelopment && (
                       <>
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).starter,
                           }}
                         />
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).signature,
                           }}
                         />
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).premium,
                           }}
@@ -1016,43 +990,19 @@ const WhatsIncludedModal: React.FC<{
                     {isResonanceCore && (
                       <>
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).initiate,
                           }}
                         />
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).embodied,
                           }}
                         />
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).legacy,
                           }}
@@ -1062,43 +1012,19 @@ const WhatsIncludedModal: React.FC<{
                     {isEducationTraining && (
                       <>
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).individual,
                           }}
                         />
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).team,
                           }}
                         />
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).organizational,
                           }}
@@ -1108,43 +1034,19 @@ const WhatsIncludedModal: React.FC<{
                     {isConsulting && (
                       <>
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).foundation,
                           }}
                         />
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).expansion,
                           }}
                         />
                         <td
-                          style={styles.tableCell(theme, {
-                            textAlign: 'center',
-                            fontSize: '1.2rem',
-                            minWidth: '150px',
-                            maxWidth: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          })}
+                          style={getBodyCellStyle()}
                           dangerouslySetInnerHTML={{
                             __html: (row as any).sovereign,
                           }}
