@@ -297,7 +297,11 @@ export const HeroSection: React.FC<{
         {currentView !== 'services' && (
           <NavigationArrow
             direction='backward'
-            navigate={() => navigate(currentView === 'fluxline-ethos' ? '/about' : '/services')}
+            navigate={() =>
+              navigate(
+                currentView === 'fluxline-ethos' ? '/about' : '/services'
+              )
+            }
             size={isMobile ? 'large' : 'medium'}
             showBackground={false}
           />
@@ -1257,11 +1261,6 @@ export const FluxlineEthosAboutSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
   const { theme } = useAppTheme();
-  const orientation = useDeviceOrientation();
-  const isMobile =
-    orientation === 'portrait' ||
-    orientation === 'tablet-portrait' ||
-    orientation === 'large-portrait';
 
   // Only show for 'fluxline-ethos' view
   if (currentView !== 'fluxline-ethos') {
