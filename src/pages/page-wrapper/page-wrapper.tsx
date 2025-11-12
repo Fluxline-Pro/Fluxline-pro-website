@@ -42,6 +42,10 @@ const PAGE_CONFIGS = {
     image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
     imageText: '',
   },
+  '/fluxline-ethos': {
+    image: require('../../assets/images/FluxlineEthos.png'),
+    imageText: '',
+  },
   '/legal': {
     image: 'FLUXLINE_LOGO', // Special marker for dynamic logo
     imageText: '',

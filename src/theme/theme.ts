@@ -458,13 +458,13 @@ export const typography = {
     h3: {
       fontFamily:
         'Inter Variable, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
-      fontSize: 'clamp(1.6rem, 2.5cqi, 1.85rem)',
-      fontWeight: '700' as '700',
-      fontVariationSettings: '"wght" 700, "wdth" 100, "slnt" 0',
+      fontSize: 'clamp(1.4rem, 2.5cqi, 1.5rem)',
+      fontWeight: '500' as '500',
+      fontVariationSettings: '"wght" 500, "wdth" 100, "slnt" 0',
       letterSpacing: '0.1px',
       textShadow: 'none',
       textTransform: 'capitalize' as const,
-      lineHeight: '1.3',
+      lineHeight: '1.2',
     },
     h4: {
       fontFamily:

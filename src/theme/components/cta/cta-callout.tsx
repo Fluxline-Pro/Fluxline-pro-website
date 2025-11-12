@@ -12,7 +12,8 @@ export interface CTACalloutProps {
     | 'consultation'
     | 'getStarted'
     | 'personalTraining'
-    | 'aboutFluxline';
+    | 'aboutFluxline'
+    | 'fluxlineEthos';
   currentView?: string;
   showOnlyFor?: string[]; // Which views to show this CTA on
   hideTopHR?: boolean; // Option to hide the top HR when stacking CTAs
@@ -64,6 +65,14 @@ export const CTACallout: React.FC<CTACalloutProps> = ({
         'Discover our mission statement and how it aligns with your goals',
       icon: ARROW_ICON,
       route: '/about',
+      isExternal: false,
+    },
+    fluxlineEthos: {
+      title: '🔥 What is the Fluxline Ethos?',
+      description:
+        'Explore the framework that makes Fluxline stand out as an advocate for your identity and purpose',
+      icon: ARROW_ICON,
+      route: '/fluxline-ethos',
       isExternal: false,
     },
     personalTraining: {

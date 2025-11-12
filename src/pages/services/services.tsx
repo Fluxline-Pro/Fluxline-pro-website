@@ -17,6 +17,7 @@ import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { NavigationArrow } from '../../theme/components/navigation-arrow/navigation-arrow';
 import { PdfModal } from '../../theme/components/modal/pdf-modal';
 import { WhitePageItem } from '../white-pages/white-pages-constants';
+import { WhitePageCard } from '../../theme/components/card/white-page-card/white-page-card';
 import { CTACallout } from '../../theme/components/cta';
 import { FadeIn } from '../../theme/components/animations/fade-animations';
 
@@ -183,60 +184,21 @@ export const WhitePagesSection: React.FC<{
               : currentView === 'services'
                 ? 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))'
                 : '1fr',
-            gap: '1rem',
+            gap: '1.5rem',
           }}
         >
           {relevantWhitePages.map((whitePage) => (
-            <div
+            <WhitePageCard
               key={whitePage.id}
-              style={{
-                backgroundColor: 'transparent',
-                border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
-                borderRadius: theme.borderRadius.container.small,
-                padding: '1rem',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                opacity: hoveredCard === whitePage.id ? 1 : 0.85,
-                transform:
-                  hoveredCard === whitePage.id
-                    ? 'translateY(-2px)'
-                    : 'translateY(0)',
-                boxShadow:
-                  hoveredCard === whitePage.id ? theme.shadows.s : 'none',
-              }}
-              onClick={() => handleCardClick(whitePage)}
+              whitePage={whitePage}
+              isHovered={hoveredCard === whitePage.id}
+              onClick={handleCardClick}
               onMouseEnter={() => setHoveredCard(whitePage.id)}
               onMouseLeave={() => setHoveredCard(null)}
-            >
-              <Typography
-                variant='h4'
-                color={theme.palette.neutralPrimary}
-                marginBottom='0.5rem'
-                fontSize={theme.typography.fontSizes.clamp4}
-              >
-                {whitePage.title}
-              </Typography>
-              <Typography
-                variant='p'
-                color={theme.palette.neutralSecondary}
-                fontSize='0.9rem'
-                marginBottom='0.5rem'
-              >
-                {whitePage.description}
-              </Typography>
-              <Typography
-                variant='p'
-                color={theme.palette.themeTertiary}
-                fontSize='0.8rem'
-                fontWeight={400}
-                style={{
-                  opacity: hoveredCard === whitePage.id ? 1 : 0.7,
-                  transition: 'opacity 0.2s ease',
-                }}
-              >
-                View White Paper
-              </Typography>
-            </div>
+              variant='default'
+              isPdf={true}
+              context='whitepaper'
+            />
           ))}
         </div>
 
@@ -301,7 +263,6 @@ export const HeroSection: React.FC<{
     <div
       style={{
         width: '100%',
-        marginBottom: '3rem',
         background:
           theme.themeMode === 'high-contrast'
             ? theme.semanticColors.warningBackground
@@ -311,9 +272,9 @@ export const HeroSection: React.FC<{
         padding:
           isMobile || orientation === 'mobile-landscape'
             ? `${theme.spacing.l} ${theme.spacing.m}`
-            : theme.spacing.xxl,
+            : `${theme.spacing.l} ${theme.spacing.xxl}`,
         maxWidth: '1100px',
-        margin: '0 auto',
+        margin: '0 auto 2rem',
       }}
     >
       {/* Navigation and Title Section */}
@@ -329,14 +290,14 @@ export const HeroSection: React.FC<{
         alignItems='center'
         paddingLeft='0'
         marginLeft='0'
-        marginBottom='2rem'
+        marginBottom='0.25rem'
         gap={theme.spacing.s}
         style={{ padding: '0' }}
       >
         {currentView !== 'services' && (
           <NavigationArrow
             direction='backward'
-            navigate={() => navigate('/services')}
+            navigate={() => navigate(currentView === 'fluxline-ethos' ? '/about' : '/services')}
             size={isMobile ? 'large' : 'medium'}
             showBackground={false}
           />
@@ -351,7 +312,7 @@ export const HeroSection: React.FC<{
           color={theme.palette.neutralPrimary}
           textTransform='none'
           marginBottom='1.5rem'
-          fontSize={isMobile ? '1.2rem' : '1.4rem'}
+          fontSize={isMobile ? '1.1rem' : '1.25rem'}
           fontWeight='400'
           maxWidth='800px'
           margin='0 0 1.5rem 0'
@@ -964,41 +925,50 @@ export const FluxlineEthosServicesSection: React.FC<{
                     ? 'translateY(-4px)'
                     : 'translateY(0)',
                 opacity: service.route ? 1 : 0.8,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                minHeight: '180px',
               }}
               onClick={() => service.route && navigate(service.route)}
               onMouseEnter={() => setHoveredServiceCard(service.name)}
               onMouseLeave={() => setHoveredServiceCard(null)}
             >
-              <Typography
-                variant='h3'
-                color={theme.palette.themePrimary}
-                marginBottom='0.75rem'
-                fontSize='1.1rem'
-                fontWeight='600'
-              >
-                {service.name}
-              </Typography>
-              <Typography
-                variant='p'
-                color={theme.palette.neutralPrimary}
-                fontSize='0.95rem'
-                style={{ lineHeight: '1.5' }}
-              >
-                {service.description}
-              </Typography>
-              {service.route && (
+              <div>
+                <Typography
+                  variant='h3'
+                  color={theme.palette.themePrimary}
+                  marginBottom='0.75rem'
+                  fontSize={theme.typography.fontSizes.clamp5}
+                  style={{
+                    textDecoration:
+                      isHovered && service.route ? 'underline' : 'none',
+                    textUnderlineOffset: '4px',
+                  }}
+                >
+                  {service.name}
+                </Typography>
                 <Typography
                   variant='p'
-                  color={theme.palette.themePrimary}
-                  fontSize='0.85rem'
+                  color={theme.palette.neutralPrimary}
+                  fontSize='0.95rem'
+                >
+                  {service.description}
+                </Typography>
+              </div>
+              {service.route && (
+                <Typography
+                  variant='h6'
+                  color={theme.palette.themeSecondary}
+                  fontSize='1rem'
+                  marginTop='1rem'
+                  fontWeight={700}
                   style={{
-                    marginTop: '0.5rem',
-                    fontWeight: '500',
-                    opacity: isHovered ? 1 : 0.7,
+                    opacity: isHovered ? 1 : 0.8,
                     transition: 'opacity 0.3s ease',
                   }}
                 >
-                  Learn More →
+                  Learn More ➤
                 </Typography>
               )}
             </div>
@@ -1123,31 +1093,37 @@ export const ServicesOfferedSection: React.FC<{
                     ? 'translateY(-4px)'
                     : 'translateY(0)',
                 opacity: point.route ? 1 : 0.8,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                minHeight: '180px',
               }}
               onClick={() => point.route && navigate(point.route)}
               onMouseEnter={() => setHoveredServiceCard(point.name)}
               onMouseLeave={() => setHoveredServiceCard(null)}
             >
-              <Typography
-                variant='h3'
-                color={theme.palette.themePrimary}
-                marginBottom='0.75rem'
-                fontSize={theme.typography.fontSizes.clamp5}
-                style={{
-                  textDecoration:
-                    isHovered && point.route ? 'underline' : 'none',
-                  textUnderlineOffset: '4px',
-                }}
-              >
-                {point.name}
-              </Typography>
-              <Typography
-                variant='p'
-                color={theme.palette.neutralPrimary}
-                fontSize='0.95rem'
-              >
-                {point.description}
-              </Typography>
+              <div>
+                <Typography
+                  variant='h3'
+                  color={theme.palette.themePrimary}
+                  marginBottom='0.75rem'
+                  fontSize={theme.typography.fontSizes.clamp5}
+                  style={{
+                    textDecoration:
+                      isHovered && point.route ? 'underline' : 'none',
+                    textUnderlineOffset: '4px',
+                  }}
+                >
+                  {point.name}
+                </Typography>
+                <Typography
+                  variant='p'
+                  color={theme.palette.neutralPrimary}
+                  fontSize='0.95rem'
+                >
+                  {point.description}
+                </Typography>
+              </div>
               {point.route && (
                 <Typography
                   variant='h6'
@@ -1520,6 +1496,8 @@ export const AboutSection: React.FC<{
     </div>
   );
 };
+
+// Professional Summary Section Component
 
 export const ProfessionalSummary: React.FC<{
   currentView: ServicesProps['currentView'];
@@ -2492,6 +2470,13 @@ export const Services: React.FC<ServicesProps> = ({
               <AboutSection currentView={actualView} />
               <TaglineHeader currentView={actualView} />
               <MissionVisionSection currentView={actualView} />
+              <CTACallout
+                variant='fluxlineEthos'
+                currentView={actualView}
+                showOnlyFor={['about']}
+                hideTopHR={true}
+                hideBottomHR={false}
+              />
               <TechnicalSkillsSection
                 isMobile={orientation === 'portrait'}
                 currentView={actualView}

@@ -158,14 +158,7 @@ export const ContentArea = React.forwardRef<HTMLDivElement, ContentAreaProps>(
                   : orientation === 'tablet-portrait'
                     ? 'clamp(0px, 100vh, 850px)' // Smaller height to not run into menu buttons on tablet-portrait
                     : orientation === 'ultrawide'
-                      ? (() => {
-                          // Check if aspect ratio is 3:1 or higher for ultrawide constraint
-                          const aspectRatio =
-                            window.innerWidth / window.innerHeight;
-                          return aspectRatio >= 2.2
-                            ? 'clamp(0px, 100vh, 700px)' // Constrain to 700px for 3:1+ aspect ratios
-                            : 'clamp(0px, 100vh, 900px)'; // Standard ultrawide constraint
-                        })()
+                      ? 'clamp(0px, 100vh, 750px)' // Constrain to 700px for 3:1+ aspect ratios
                       : orientation === 'landscape'
                         ? 'clamp(0px, 100vh, 900px)' // Using clamp instead of min for better cross-environment support
                         : orientation === 'large-portrait'
