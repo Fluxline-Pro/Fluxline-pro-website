@@ -11,7 +11,8 @@ interface ServicesPageProps {
     | 'consulting'
     | 'resonance-core'
     | 'development'
-    | 'design';
+    | 'design'
+    | 'fluxline-ethos';
 }
 
 export const ServicesPage: React.FC<ServicesPageProps> = ({

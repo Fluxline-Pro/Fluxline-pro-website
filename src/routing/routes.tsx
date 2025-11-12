@@ -69,6 +69,10 @@ const routes: RouteObject[] = [
         element: <ServicesPage contentType='about' />,
       },
       {
+        path: 'fluxline-ethos',
+        element: <ServicesPage contentType='fluxline-ethos' />,
+      },
+      {
         path: 'services',
         element: <ServicesPage contentType='services' />,
         children: [

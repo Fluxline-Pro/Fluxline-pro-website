@@ -17,6 +17,7 @@ import { useAppTheme } from '../../theme/hooks/useAppTheme';
 import { NavigationArrow } from '../../theme/components/navigation-arrow/navigation-arrow';
 import { PdfModal } from '../../theme/components/modal/pdf-modal';
 import { WhitePageItem } from '../white-pages/white-pages-constants';
+import { WhitePageCard } from '../../theme/components/card/white-page-card/white-page-card';
 import { CTACallout } from '../../theme/components/cta';
 import { FadeIn } from '../../theme/components/animations/fade-animations';
 
@@ -38,7 +39,8 @@ interface ServicesProps {
     | 'resonance-core'
     | 'consulting'
     | 'development'
-    | 'design';
+    | 'design'
+    | 'fluxline-ethos';
 }
 
 const H2Title = ({
@@ -182,60 +184,21 @@ export const WhitePagesSection: React.FC<{
               : currentView === 'services'
                 ? 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))'
                 : '1fr',
-            gap: '1rem',
+            gap: '1.5rem',
           }}
         >
           {relevantWhitePages.map((whitePage) => (
-            <div
+            <WhitePageCard
               key={whitePage.id}
-              style={{
-                backgroundColor: 'transparent',
-                border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
-                borderRadius: theme.borderRadius.container.small,
-                padding: '1rem',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                opacity: hoveredCard === whitePage.id ? 1 : 0.85,
-                transform:
-                  hoveredCard === whitePage.id
-                    ? 'translateY(-2px)'
-                    : 'translateY(0)',
-                boxShadow:
-                  hoveredCard === whitePage.id ? theme.shadows.s : 'none',
-              }}
-              onClick={() => handleCardClick(whitePage)}
+              whitePage={whitePage}
+              isHovered={hoveredCard === whitePage.id}
+              onClick={handleCardClick}
               onMouseEnter={() => setHoveredCard(whitePage.id)}
               onMouseLeave={() => setHoveredCard(null)}
-            >
-              <Typography
-                variant='h4'
-                color={theme.palette.neutralPrimary}
-                marginBottom='0.5rem'
-                fontSize={theme.typography.fontSizes.clamp4}
-              >
-                {whitePage.title}
-              </Typography>
-              <Typography
-                variant='p'
-                color={theme.palette.neutralSecondary}
-                fontSize='0.9rem'
-                marginBottom='0.5rem'
-              >
-                {whitePage.description}
-              </Typography>
-              <Typography
-                variant='p'
-                color={theme.palette.themeTertiary}
-                fontSize='0.8rem'
-                fontWeight={400}
-                style={{
-                  opacity: hoveredCard === whitePage.id ? 1 : 0.7,
-                  transition: 'opacity 0.2s ease',
-                }}
-              >
-                View White Paper
-              </Typography>
-            </div>
+              variant='default'
+              isPdf={true}
+              context='whitepaper'
+            />
           ))}
         </div>
 
@@ -300,7 +263,6 @@ export const HeroSection: React.FC<{
     <div
       style={{
         width: '100%',
-        marginBottom: '3rem',
         background:
           theme.themeMode === 'high-contrast'
             ? theme.semanticColors.warningBackground
@@ -310,9 +272,9 @@ export const HeroSection: React.FC<{
         padding:
           isMobile || orientation === 'mobile-landscape'
             ? `${theme.spacing.l} ${theme.spacing.m}`
-            : theme.spacing.xxl,
+            : `${theme.spacing.l} ${theme.spacing.xxl}`,
         maxWidth: '1100px',
-        margin: '0 auto',
+        margin: '0 auto 2rem',
       }}
     >
       {/* Navigation and Title Section */}
@@ -328,14 +290,18 @@ export const HeroSection: React.FC<{
         alignItems='center'
         paddingLeft='0'
         marginLeft='0'
-        marginBottom='2rem'
+        marginBottom='0.25rem'
         gap={theme.spacing.s}
         style={{ padding: '0' }}
       >
         {currentView !== 'services' && (
           <NavigationArrow
             direction='backward'
-            navigate={() => navigate('/services')}
+            navigate={() =>
+              navigate(
+                currentView === 'fluxline-ethos' ? '/about' : '/services'
+              )
+            }
             size={isMobile ? 'large' : 'medium'}
             showBackground={false}
           />
@@ -344,18 +310,16 @@ export const HeroSection: React.FC<{
       </Container>
 
       {/* Hero Content */}
-      <div
-        style={{ textAlign: 'center', maxWidth: '1000px', margin: '0 auto' }}
-      >
+      <div style={{ textAlign: 'left', maxWidth: '1000px', margin: '0 auto' }}>
         <Typography
           variant='h3'
           color={theme.palette.neutralPrimary}
           textTransform='none'
           marginBottom='1.5rem'
-          fontSize={isMobile ? '1.2rem' : '1.4rem'}
+          fontSize={isMobile ? '1.1rem' : '1.25rem'}
           fontWeight='400'
           maxWidth='800px'
-          margin='0 auto'
+          margin='0 0 1.5rem 0'
           style={{ lineHeight: '1.6' }}
         >
           {heroContent.subtitle}
@@ -862,6 +826,163 @@ export const ProgramTiersSection: React.FC<{
 };
 
 // Services Offered Section Component
+export const FluxlineEthosServicesSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+  const navigate = useNavigate();
+  const { isMobile, isMobileLandscape } = useMobileDetection();
+  const [hoveredServiceCard, setHoveredServiceCard] = useState<string | null>(
+    null
+  );
+
+  // Only show for 'fluxline-ethos' view
+  if (currentView !== 'fluxline-ethos') {
+    return null;
+  }
+
+  const ethosServices = [
+    {
+      name: 'Resonance Core Coaching',
+      description:
+        'Emotional sovereignty and mythic integration through the Resonance Core Framework™',
+      route: '/services/resonance-core',
+    },
+    {
+      name: 'Personal Training & Wellness',
+      description:
+        'Align body, breath, and mission through movement, mindset, and somatic clarity',
+      route: '/services/personal-training',
+    },
+    {
+      name: 'Brand Identity & Experience Design',
+      description:
+        'End-to-end brand architecture that reflects your evolution and resonates with your audience',
+      route: '/services/design',
+    },
+    {
+      name: 'Web & Application Development',
+      description:
+        'Full-stack digital products built with modular clarity and long-term maintainability',
+      route: '/services/development',
+    },
+    {
+      name: 'Education, Leadership & Consulting',
+      description:
+        'Transformational coaching and emotionally intelligent leadership for purpose-driven teams',
+      route: '/services/education-training',
+    },
+    {
+      name: 'Business Strategy & Systems Alignment',
+      description:
+        'Strategic mission development and tech integration for operational sovereignty',
+      route: '/services/consulting',
+    },
+  ];
+
+  return (
+    <ServiceContainer marginBottom='0' showHR>
+      <H2Title name='🛠️ Services Overview' style={{ margin: '0 0 1.5rem 0' }} />
+      <Typography
+        variant='p'
+        color={theme.palette.neutralSecondary}
+        marginBottom='2rem'
+        style={{ textAlign: 'center', fontStyle: 'italic' }}
+      >
+        Every service is a curriculum gate—crafted for sovereign ascent and
+        intentional evolution
+      </Typography>
+
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns:
+            isMobile || isMobileLandscape
+              ? '1fr'
+              : 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
+          gap: '1.5rem',
+          width: '100%',
+        }}
+      >
+        {ethosServices.map((service, index) => {
+          const isHovered = hoveredServiceCard === service.name;
+
+          return (
+            <div
+              key={service.name}
+              style={{
+                backgroundColor:
+                  theme.themeMode === 'high-contrast'
+                    ? theme.palette.neutralDark
+                    : theme.palette.neutralLight,
+                borderRadius: theme.borderRadius.container.button,
+                padding: '1.5rem',
+                cursor: service.route ? 'pointer' : 'default',
+                transition: 'all 0.3s ease',
+                border: `2px solid ${isHovered && service.route ? theme.palette.themePrimary : 'transparent'}`,
+                boxShadow:
+                  isHovered && service.route
+                    ? theme.shadows.xl
+                    : theme.shadows.card,
+                transform:
+                  isHovered && service.route
+                    ? 'translateY(-4px)'
+                    : 'translateY(0)',
+                opacity: service.route ? 1 : 0.8,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                minHeight: '180px',
+              }}
+              onClick={() => service.route && navigate(service.route)}
+              onMouseEnter={() => setHoveredServiceCard(service.name)}
+              onMouseLeave={() => setHoveredServiceCard(null)}
+            >
+              <div>
+                <Typography
+                  variant='h3'
+                  color={theme.palette.themePrimary}
+                  marginBottom='0.75rem'
+                  fontSize={theme.typography.fontSizes.clamp5}
+                  style={{
+                    textDecoration:
+                      isHovered && service.route ? 'underline' : 'none',
+                    textUnderlineOffset: '4px',
+                  }}
+                >
+                  {service.name}
+                </Typography>
+                <Typography
+                  variant='p'
+                  color={theme.palette.neutralPrimary}
+                  fontSize='0.95rem'
+                >
+                  {service.description}
+                </Typography>
+              </div>
+              {service.route && (
+                <Typography
+                  variant='h6'
+                  color={theme.palette.themeSecondary}
+                  fontSize='1rem'
+                  marginTop='1rem'
+                  fontWeight={700}
+                  style={{
+                    opacity: isHovered ? 1 : 0.8,
+                    transition: 'opacity 0.3s ease',
+                  }}
+                >
+                  Learn More ➤
+                </Typography>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </ServiceContainer>
+  );
+};
+
 export const ServicesOfferedSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
@@ -966,31 +1087,37 @@ export const ServicesOfferedSection: React.FC<{
                     ? 'translateY(-4px)'
                     : 'translateY(0)',
                 opacity: point.route ? 1 : 0.8,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                minHeight: '180px',
               }}
               onClick={() => point.route && navigate(point.route)}
               onMouseEnter={() => setHoveredServiceCard(point.name)}
               onMouseLeave={() => setHoveredServiceCard(null)}
             >
-              <Typography
-                variant='h3'
-                color={theme.palette.themePrimary}
-                marginBottom='0.75rem'
-                fontSize={theme.typography.fontSizes.clamp5}
-                style={{
-                  textDecoration:
-                    isHovered && point.route ? 'underline' : 'none',
-                  textUnderlineOffset: '4px',
-                }}
-              >
-                {point.name}
-              </Typography>
-              <Typography
-                variant='p'
-                color={theme.palette.neutralPrimary}
-                fontSize='0.95rem'
-              >
-                {point.description}
-              </Typography>
+              <div>
+                <Typography
+                  variant='h3'
+                  color={theme.palette.themePrimary}
+                  marginBottom='0.75rem'
+                  fontSize={theme.typography.fontSizes.clamp5}
+                  style={{
+                    textDecoration:
+                      isHovered && point.route ? 'underline' : 'none',
+                    textUnderlineOffset: '4px',
+                  }}
+                >
+                  {point.name}
+                </Typography>
+                <Typography
+                  variant='p'
+                  color={theme.palette.neutralPrimary}
+                  fontSize='0.95rem'
+                >
+                  {point.description}
+                </Typography>
+              </div>
               {point.route && (
                 <Typography
                   variant='h6'
@@ -1116,6 +1243,69 @@ export const OverviewSection: React.FC<{
           fallbackRenderer={renderSummary}
         />
       </Typography>
+    </ServiceContainer>
+  );
+};
+
+export const FluxlineEthosAboutSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+
+  // Only show for 'fluxline-ethos' view
+  if (currentView !== 'fluxline-ethos') {
+    return null;
+  }
+
+  return (
+    <ServiceContainer>
+      <H2Title name='🌌 About Fluxline' style={{ margin: '0 0 1.5rem 0' }} />
+      <Typography
+        variant='p'
+        color={theme.palette.neutralPrimary}
+        marginBottom='1.5rem'
+        noHyphens
+        style={styles.textContent}
+      >
+        Fluxline architects transformative systems, brand experiences, and
+        human-centered technology. We fuse <em>emotional rhythm</em>,{' '}
+        <em>creative truth</em>, and <em>legacy-driven resonance</em> into every
+        offering.
+      </Typography>
+
+      <Typography
+        variant='p'
+        color={theme.palette.neutralPrimary}
+        marginBottom='1.5rem'
+        noHyphens
+        style={styles.textContent}
+      >
+        Our mission is to empower individuals and organizations to become{' '}
+        <em>self-authored stewards</em> of their inner and outer
+        architecture—designing lives and legacies that echo beyond the present
+        moment.
+      </Typography>
+
+      <Typography
+        variant='p'
+        color={theme.palette.neutralPrimary}
+        marginBottom='2rem'
+        noHyphens
+        style={styles.textContent}
+      >
+        We believe dashboards should track not just dollars and reps, but{' '}
+        <em>moments of truth</em>, <em>emotional shifts</em>, and{' '}
+        <em>creative emergence</em>. Every plan is a mirror. Every relationship,
+        a sacred protocol of presence.
+      </Typography>
+
+      <CTACallout
+        variant='aboutFluxline'
+        currentView={currentView}
+        showOnlyFor={[]}
+        hideTopHR={true}
+        hideBottomHR={true}
+      />
     </ServiceContainer>
   );
 };
@@ -1295,6 +1485,8 @@ export const AboutSection: React.FC<{
     </div>
   );
 };
+
+// Professional Summary Section Component
 
 export const ProfessionalSummary: React.FC<{
   currentView: ServicesProps['currentView'];
@@ -2125,6 +2317,45 @@ export const ServicesSection: React.FC<{
   );
 };
 
+export const FluxlineEthosConsultationSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+  const isMobile = useIsMobile();
+
+  // Only show for 'fluxline-ethos' view
+  if (currentView !== 'fluxline-ethos') {
+    return null;
+  }
+
+  return (
+    <ServiceContainer>
+      <H2Title
+        name='✨ Book a Consultation'
+        style={{ margin: '0 0 1rem 0', textAlign: 'center' }}
+      />
+      <Typography
+        variant='p'
+        color={theme.palette.neutralPrimary}
+        marginBottom='2rem'
+        fontSize={isMobile ? '1.1rem' : '1.2rem'}
+        style={{ fontStyle: 'italic', lineHeight: '1.5', textAlign: 'center' }}
+      >
+        Your vision is calling. Let's architect it into form.
+      </Typography>
+      <div style={{ textAlign: 'center' }}>
+        <CTACallout
+          variant='consultation'
+          currentView={currentView}
+          showOnlyFor={[]}
+          hideTopHR={true}
+          hideBottomHR={true}
+        />
+      </div>
+    </ServiceContainer>
+  );
+};
+
 export const TaglineHeader: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
@@ -2207,6 +2438,7 @@ export const Services: React.FC<ServicesProps> = ({
     const pathParts = path.split('/').filter((part: string) => part);
 
     if (pathParts[0] === 'about') return 'about';
+    if (pathParts[0] === 'fluxline-ethos') return 'fluxline-ethos';
     if (pathParts[0] === 'services' && pathParts[1]) {
       return pathParts[1] as ServicesProps['currentView'];
     }
@@ -2222,11 +2454,18 @@ export const Services: React.FC<ServicesProps> = ({
       <FadeUp key={actualView} delay={0.1} duration={0.5}>
         <div>
           {actualView === 'about' ? (
-            // Optimized About page with improved visual hierarchy and flow
+            // About page with specialized layout
             <>
               <AboutSection currentView={actualView} />
               <TaglineHeader currentView={actualView} />
               <MissionVisionSection currentView={actualView} />
+              <CTACallout
+                variant='fluxlineEthos'
+                currentView={actualView}
+                showOnlyFor={['about']}
+                hideTopHR={true}
+                hideBottomHR={false}
+              />
               <TechnicalSkillsSection
                 isMobile={orientation === 'portrait'}
                 currentView={actualView}
@@ -2238,32 +2477,47 @@ export const Services: React.FC<ServicesProps> = ({
               <GetStarted />
             </>
           ) : (
-            // New hierarchical structure for all service pages
+            // Unified layout for all service pages (including fluxline-ethos)
             <>
               {/* 1. Hero Section / Opening Line */}
               <HeroSection currentView={actualView} />
 
-              {/* 2. Program Overview & Archetype Mapping */}
-              <OverviewSection currentView={actualView} />
+              {/* 2. About/Overview Section */}
+              {actualView === 'fluxline-ethos' ? (
+                <FluxlineEthosAboutSection currentView={actualView} />
+              ) : (
+                <OverviewSection currentView={actualView} />
+              )}
 
               {/* 3. Services Offered (Bullet Format) */}
-              <ServicesOfferedSection currentView={actualView} />
+              {actualView === 'fluxline-ethos' ? (
+                <FluxlineEthosServicesSection currentView={actualView} />
+              ) : (
+                <ServicesOfferedSection currentView={actualView} />
+              )}
 
               {/* 4. Program Tiers Offered (Grid or Cards) */}
               <ProgramTiersSection currentView={actualView} />
 
-              {/* 5. White Paper */}
+              {/* 5. Consultation CTA for fluxline-ethos */}
+              {actualView === 'fluxline-ethos' && (
+                <FluxlineEthosConsultationSection currentView={actualView} />
+              )}
+
+              {/* 6. White Paper */}
               <WhitePagesSection currentView={actualView} />
 
-              {/* 6. Legal CTA */}
-              <CTACallout
-                variant='legal'
-                showOnlyFor={[]}
-                hideTopHR={false}
-                hideBottomHR={true}
-              />
+              {/* 7. Legal CTA */}
+              {actualView !== 'fluxline-ethos' && (
+                <CTACallout
+                  variant='legal'
+                  showOnlyFor={[]}
+                  hideTopHR={false}
+                  hideBottomHR={true}
+                />
+              )}
 
-              {/* 7. Ready to Get Started? (Final CTA) */}
+              {/* 8. Ready to Get Started? (Final CTA) */}
               <div style={{ margin: '0 0 2rem 0' }}>
                 <GetStarted currentView={actualView} isServicesPage />
               </div>

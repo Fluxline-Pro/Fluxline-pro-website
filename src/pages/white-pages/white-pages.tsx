@@ -131,6 +131,8 @@ export const WhitePagesView: React.FC = () => {
                   onMouseEnter={() => setHoveredCard(whitePage.id)}
                   onMouseLeave={() => setHoveredCard(null)}
                   variant='default'
+                  isPdf={true}
+                  context='whitepaper'
                 />
               ))}
             </div>
