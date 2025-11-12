@@ -979,16 +979,6 @@ export const FluxlineEthosServicesSection: React.FC<{
           );
         })}
       </div>
-
-      <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-        <CTACallout
-          variant='getStarted'
-          currentView={currentView}
-          showOnlyFor={[]}
-          hideTopHR={true}
-          hideBottomHR={false}
-        />
-      </div>
     </ServiceContainer>
   );
 };
