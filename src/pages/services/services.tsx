@@ -38,7 +38,8 @@ interface ServicesProps {
     | 'resonance-core'
     | 'consulting'
     | 'development'
-    | 'design';
+    | 'design'
+    | 'fluxline-ethos';
 }
 
 const H2Title = ({
@@ -344,9 +345,7 @@ export const HeroSection: React.FC<{
       </Container>
 
       {/* Hero Content */}
-      <div
-        style={{ textAlign: 'center', maxWidth: '1000px', margin: '0 auto' }}
-      >
+      <div style={{ textAlign: 'left', maxWidth: '1000px', margin: '0 auto' }}>
         <Typography
           variant='h3'
           color={theme.palette.neutralPrimary}
@@ -355,7 +354,7 @@ export const HeroSection: React.FC<{
           fontSize={isMobile ? '1.2rem' : '1.4rem'}
           fontWeight='400'
           maxWidth='800px'
-          margin='0 auto'
+          margin='0 0 1.5rem 0'
           style={{ lineHeight: '1.6' }}
         >
           {heroContent.subtitle}
@@ -862,6 +861,164 @@ export const ProgramTiersSection: React.FC<{
 };
 
 // Services Offered Section Component
+export const FluxlineEthosServicesSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+  const navigate = useNavigate();
+  const { isMobile, isMobileLandscape } = useMobileDetection();
+  const [hoveredServiceCard, setHoveredServiceCard] = useState<string | null>(
+    null
+  );
+
+  // Only show for 'fluxline-ethos' view
+  if (currentView !== 'fluxline-ethos') {
+    return null;
+  }
+
+  const ethosServices = [
+    {
+      name: 'Resonance Core Coaching',
+      description:
+        'Emotional sovereignty and mythic integration through the Resonance Core Framework™',
+      route: '/services/resonance-core',
+    },
+    {
+      name: 'Personal Training & Wellness',
+      description:
+        'Align body, breath, and mission through movement, mindset, and somatic clarity',
+      route: '/services/personal-training',
+    },
+    {
+      name: 'Brand Identity & Experience Design',
+      description:
+        'End-to-end brand architecture that reflects your evolution and resonates with your audience',
+      route: '/services/design',
+    },
+    {
+      name: 'Web & Application Development',
+      description:
+        'Full-stack digital products built with modular clarity and long-term maintainability',
+      route: '/services/development',
+    },
+    {
+      name: 'Education, Leadership & Consulting',
+      description:
+        'Transformational coaching and emotionally intelligent leadership for purpose-driven teams',
+      route: '/services/education-training',
+    },
+    {
+      name: 'Business Strategy & Systems Alignment',
+      description:
+        'Strategic mission development and tech integration for operational sovereignty',
+      route: '/services/consulting',
+    },
+  ];
+
+  return (
+    <ServiceContainer marginBottom='0' showHR>
+      <H2Title name='🛠️ Services Overview' style={{ margin: '0 0 1.5rem 0' }} />
+      <Typography
+        variant='p'
+        color={theme.palette.neutralSecondary}
+        marginBottom='2rem'
+        style={{ textAlign: 'center', fontStyle: 'italic' }}
+      >
+        Every service is a curriculum gate—crafted for sovereign ascent and
+        intentional evolution
+      </Typography>
+
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns:
+            isMobile || isMobileLandscape
+              ? '1fr'
+              : 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
+          gap: '1.5rem',
+          width: '100%',
+        }}
+      >
+        {ethosServices.map((service, index) => {
+          const isHovered = hoveredServiceCard === service.name;
+
+          return (
+            <div
+              key={service.name}
+              style={{
+                backgroundColor:
+                  theme.themeMode === 'high-contrast'
+                    ? theme.palette.neutralDark
+                    : theme.palette.neutralLight,
+                borderRadius: theme.borderRadius.container.button,
+                padding: '1.5rem',
+                cursor: service.route ? 'pointer' : 'default',
+                transition: 'all 0.3s ease',
+                border: `2px solid ${isHovered && service.route ? theme.palette.themePrimary : 'transparent'}`,
+                boxShadow:
+                  isHovered && service.route
+                    ? theme.shadows.xl
+                    : theme.shadows.card,
+                transform:
+                  isHovered && service.route
+                    ? 'translateY(-4px)'
+                    : 'translateY(0)',
+                opacity: service.route ? 1 : 0.8,
+              }}
+              onClick={() => service.route && navigate(service.route)}
+              onMouseEnter={() => setHoveredServiceCard(service.name)}
+              onMouseLeave={() => setHoveredServiceCard(null)}
+            >
+              <Typography
+                variant='h3'
+                color={theme.palette.themePrimary}
+                marginBottom='0.75rem'
+                fontSize='1.1rem'
+                fontWeight='600'
+              >
+                {service.name}
+              </Typography>
+              <Typography
+                variant='p'
+                color={theme.palette.neutralPrimary}
+                fontSize='0.95rem'
+                style={{ lineHeight: '1.5' }}
+              >
+                {service.description}
+              </Typography>
+              {service.route && (
+                <Typography
+                  variant='p'
+                  color={theme.palette.themePrimary}
+                  fontSize='0.85rem'
+                  style={{
+                    marginTop: '0.5rem',
+                    fontWeight: '500',
+                    opacity: isHovered ? 1 : 0.7,
+                    transition: 'opacity 0.3s ease',
+                  }}
+                >
+                  Learn More →
+                </Typography>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+        <CTACallout
+          variant='getStarted'
+          currentView={currentView}
+          showOnlyFor={[]}
+          hideTopHR={true}
+          hideBottomHR={false}
+        />
+      </div>
+    </ServiceContainer>
+  );
+};
+
 export const ServicesOfferedSection: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
@@ -1116,6 +1273,74 @@ export const OverviewSection: React.FC<{
           fallbackRenderer={renderSummary}
         />
       </Typography>
+    </ServiceContainer>
+  );
+};
+
+export const FluxlineEthosAboutSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+  const orientation = useDeviceOrientation();
+  const isMobile =
+    orientation === 'portrait' ||
+    orientation === 'tablet-portrait' ||
+    orientation === 'large-portrait';
+
+  // Only show for 'fluxline-ethos' view
+  if (currentView !== 'fluxline-ethos') {
+    return null;
+  }
+
+  return (
+    <ServiceContainer>
+      <H2Title name='🌌 About Fluxline' style={{ margin: '0 0 1.5rem 0' }} />
+      <Typography
+        variant='p'
+        color={theme.palette.neutralPrimary}
+        marginBottom='1.5rem'
+        noHyphens
+        style={styles.textContent}
+      >
+        Fluxline architects transformative systems, brand experiences, and
+        human-centered technology. We fuse <em>emotional rhythm</em>,{' '}
+        <em>creative truth</em>, and <em>legacy-driven resonance</em> into every
+        offering.
+      </Typography>
+
+      <Typography
+        variant='p'
+        color={theme.palette.neutralPrimary}
+        marginBottom='1.5rem'
+        noHyphens
+        style={styles.textContent}
+      >
+        Our mission is to empower individuals and organizations to become{' '}
+        <em>self-authored stewards</em> of their inner and outer
+        architecture—designing lives and legacies that echo beyond the present
+        moment.
+      </Typography>
+
+      <Typography
+        variant='p'
+        color={theme.palette.neutralPrimary}
+        marginBottom='2rem'
+        noHyphens
+        style={styles.textContent}
+      >
+        We believe dashboards should track not just dollars and reps, but{' '}
+        <em>moments of truth</em>, <em>emotional shifts</em>, and{' '}
+        <em>creative emergence</em>. Every plan is a mirror. Every relationship,
+        a sacred protocol of presence.
+      </Typography>
+
+      <CTACallout
+        variant='aboutFluxline'
+        currentView={currentView}
+        showOnlyFor={[]}
+        hideTopHR={true}
+        hideBottomHR={true}
+      />
     </ServiceContainer>
   );
 };
@@ -2125,6 +2350,45 @@ export const ServicesSection: React.FC<{
   );
 };
 
+export const FluxlineEthosConsultationSection: React.FC<{
+  currentView: ServicesProps['currentView'];
+}> = ({ currentView }) => {
+  const { theme } = useAppTheme();
+  const isMobile = useIsMobile();
+
+  // Only show for 'fluxline-ethos' view
+  if (currentView !== 'fluxline-ethos') {
+    return null;
+  }
+
+  return (
+    <ServiceContainer>
+      <H2Title
+        name='✨ Book a Consultation'
+        style={{ margin: '0 0 1rem 0', textAlign: 'center' }}
+      />
+      <Typography
+        variant='p'
+        color={theme.palette.neutralPrimary}
+        marginBottom='2rem'
+        fontSize={isMobile ? '1.1rem' : '1.2rem'}
+        style={{ fontStyle: 'italic', lineHeight: '1.5', textAlign: 'center' }}
+      >
+        Your vision is calling. Let's architect it into form.
+      </Typography>
+      <div style={{ textAlign: 'center' }}>
+        <CTACallout
+          variant='consultation'
+          currentView={currentView}
+          showOnlyFor={[]}
+          hideTopHR={true}
+          hideBottomHR={true}
+        />
+      </div>
+    </ServiceContainer>
+  );
+};
+
 export const TaglineHeader: React.FC<{
   currentView: ServicesProps['currentView'];
 }> = ({ currentView }) => {
@@ -2207,6 +2471,7 @@ export const Services: React.FC<ServicesProps> = ({
     const pathParts = path.split('/').filter((part: string) => part);
 
     if (pathParts[0] === 'about') return 'about';
+    if (pathParts[0] === 'fluxline-ethos') return 'fluxline-ethos';
     if (pathParts[0] === 'services' && pathParts[1]) {
       return pathParts[1] as ServicesProps['currentView'];
     }
@@ -2222,7 +2487,7 @@ export const Services: React.FC<ServicesProps> = ({
       <FadeUp key={actualView} delay={0.1} duration={0.5}>
         <div>
           {actualView === 'about' ? (
-            // Optimized About page with improved visual hierarchy and flow
+            // About page with specialized layout
             <>
               <AboutSection currentView={actualView} />
               <TaglineHeader currentView={actualView} />
@@ -2238,32 +2503,47 @@ export const Services: React.FC<ServicesProps> = ({
               <GetStarted />
             </>
           ) : (
-            // New hierarchical structure for all service pages
+            // Unified layout for all service pages (including fluxline-ethos)
             <>
               {/* 1. Hero Section / Opening Line */}
               <HeroSection currentView={actualView} />
 
-              {/* 2. Program Overview & Archetype Mapping */}
-              <OverviewSection currentView={actualView} />
+              {/* 2. About/Overview Section */}
+              {actualView === 'fluxline-ethos' ? (
+                <FluxlineEthosAboutSection currentView={actualView} />
+              ) : (
+                <OverviewSection currentView={actualView} />
+              )}
 
               {/* 3. Services Offered (Bullet Format) */}
-              <ServicesOfferedSection currentView={actualView} />
+              {actualView === 'fluxline-ethos' ? (
+                <FluxlineEthosServicesSection currentView={actualView} />
+              ) : (
+                <ServicesOfferedSection currentView={actualView} />
+              )}
 
               {/* 4. Program Tiers Offered (Grid or Cards) */}
               <ProgramTiersSection currentView={actualView} />
 
-              {/* 5. White Paper */}
+              {/* 5. Consultation CTA for fluxline-ethos */}
+              {actualView === 'fluxline-ethos' && (
+                <FluxlineEthosConsultationSection currentView={actualView} />
+              )}
+
+              {/* 6. White Paper */}
               <WhitePagesSection currentView={actualView} />
 
-              {/* 6. Legal CTA */}
-              <CTACallout
-                variant='legal'
-                showOnlyFor={[]}
-                hideTopHR={false}
-                hideBottomHR={true}
-              />
+              {/* 7. Legal CTA */}
+              {actualView !== 'fluxline-ethos' && (
+                <CTACallout
+                  variant='legal'
+                  showOnlyFor={[]}
+                  hideTopHR={false}
+                  hideBottomHR={true}
+                />
+              )}
 
-              {/* 7. Ready to Get Started? (Final CTA) */}
+              {/* 8. Ready to Get Started? (Final CTA) */}
               <div style={{ margin: '0 0 2rem 0' }}>
                 <GetStarted currentView={actualView} isServicesPage />
               </div>

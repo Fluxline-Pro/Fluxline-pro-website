@@ -69,6 +69,7 @@ interface UnifiedContentPageProps {
     | 'consulting'
     | 'development'
     | 'design'
+    | 'fluxline-ethos'
     | 'contact-me';
 }
 
@@ -516,7 +517,8 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
     contentType === 'education-training' ||
     contentType === 'consulting' ||
     contentType === 'development' ||
-    contentType === 'design'
+    contentType === 'design' ||
+    contentType === 'fluxline-ethos'
   ) {
     return <Services currentView={contentType} />;
   }

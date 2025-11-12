@@ -1440,6 +1440,14 @@ const getProgramFeatures = (service: string) => {
 // Helper functions for hero content
 const getHeroContent = (currentView: string) => {
   switch (currentView) {
+    case 'fluxline-ethos':
+      return {
+        title:
+          '🔥 Fluxline Ethos: Architecting Legacy Through Ritual, Resonance & Iteration',
+        subtitle:
+          'Fluxline is a multidimensional framework for transformation—where emotional intelligence, somatic discipline, and financial clarity converge to build systems that breathe, brands that feel, and legacies that last. We guide conscious leaders, creatives, and organizations through curriculum gates—each one a threshold of identity, mission, and resonance.',
+        cta: 'Book a consultation',
+      };
     case 'personal-training':
       return {
         title: 'Personal Training & Wellness',
@@ -1495,6 +1503,8 @@ const getHeroContent = (currentView: string) => {
 // Helper function for service names
 const getServiceName = (currentView: string) => {
   switch (currentView) {
+    case 'fluxline-ethos':
+      return 'Fluxline Ethos';
     case 'personal-training':
       return 'Personal Training & Wellness';
     case 'education-training':

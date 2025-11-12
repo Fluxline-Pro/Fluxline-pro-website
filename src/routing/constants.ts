@@ -13,6 +13,12 @@ interface Routes {
 export const ROUTES: Routes[] = [
   { name: 'home', path: '', isMenuItem: true, isContentScreen: false },
   { name: 'about us', path: 'about', isMenuItem: true, isContentScreen: false },
+  {
+    name: 'fluxline ethos',
+    path: 'fluxline-ethos',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
   { name: 'blog', path: 'blog', isMenuItem: false, isContentScreen: true },
   {
     name: 'portfolio',
