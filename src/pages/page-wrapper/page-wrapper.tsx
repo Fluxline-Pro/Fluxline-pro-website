@@ -94,6 +94,10 @@ const PAGE_CONFIGS = {
     image: require('../../assets/images/Blog1280x1815.jpg'),
     imageText: 'Blog',
   },
+  '/press': {
+    image: require('../../assets/images/Content1280x1815.jpg'),
+    imageText: 'Press Releases',
+  },
   '/contact-me': {
     image: require('../../assets/images/ContactMe2400x1600.jpg'), // Special marker for dynamic logo
     imageText: '',

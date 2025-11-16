@@ -51,6 +51,13 @@ export const ROUTES: Routes[] = [
     isContentScreen: false,
   },
   {
+    name: 'press releases',
+    path: 'press',
+    isMenuItem: true,
+    isContentScreen: true,
+  },
+  // Legal sub-routes
+  {
     name: 'stewardship contract',
     path: 'legal/stewardship-contract',
     isMenuItem: false,

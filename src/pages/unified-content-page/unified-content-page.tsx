@@ -18,7 +18,6 @@ import FluentButton from '../../theme/components/button/button';
 import { Container } from '../../theme/layouts/Container';
 import Typography from '../../theme/components/typography/typography';
 import {
-  useDeviceOrientation,
   useIsLargeDesktop,
   useIsMobile,
   useIsTablet,
@@ -110,10 +109,7 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
 
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
-  const isMobileLandscape = useDeviceOrientation() === 'mobile-landscape';
-  const isTabletPortrait = useDeviceOrientation() === 'tablet-portrait';
   const isLargeScreen = useIsLargeDesktop();
-  const isSquare = useDeviceOrientation() === 'square';
   const { theme } = useAppTheme();
 
   // Get content data manager
@@ -571,11 +567,7 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
     } else if (viewType === 'grid') {
       return isMobile ? 1 : isTablet ? 2 : !isLargeScreen ? 3 : 4;
     } else {
-      return isMobile || isTabletPortrait
-        ? 1
-        : isTablet || isSquare || isMobileLandscape
-          ? 2
-          : 3;
+      return 1;
     }
   };
 
@@ -651,6 +643,9 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
             width: '100%',
             height: '100%',
             overflow: 'hidden',
+            // Ensure content doesn't exceed container bounds
+            maxWidth: '100%',
+            flexShrink: 0,
           }}
         >
           <img
@@ -661,6 +656,9 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
               height: '100%',
               objectFit: 'cover',
               transition: 'transform 0.3s ease-in-out',
+              // Prevent image from exceeding container
+              maxWidth: '100%',
+              display: 'block',
             }}
             onMouseOver={(e) => {
               // Apply zoom effect on hover
@@ -721,7 +719,17 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
           delay={0.1}
           duration={0.5}
         >
-          <LayoutGrid columns={columns} gap='1rem' margin='0 0 1.25rem 0'>
+          <LayoutGrid
+            columns={columns}
+            gap='1rem'
+            margin='0 0 1.25rem 0'
+            maxWidth={viewType === 'small-tile' ? '700px' : undefined}
+            style={
+              viewType === 'small-tile'
+                ? { margin: '0 auto 1.25rem auto' }
+                : undefined
+            }
+          >
             {displayPosts.map(renderCard)}
           </LayoutGrid>
         </FadeUp>

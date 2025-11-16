@@ -562,6 +562,9 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
             flexDirection: 'row' as const,
             width: '100%',
             minHeight: '80px',
+            // Ensure small cards don't overflow their container
+            maxWidth: '100%',
+            overflow: 'hidden',
           },
           imageContainer: {
             ...baseImageContainer,
@@ -569,11 +572,17 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
             height: 'auto' as const,
             minHeight: isMobile ? '80px' : '90px', // Slightly increased height
             marginRight: theme.spacing.s2,
+            // Ensure image container respects its width constraints
+            maxWidth: isMobile ? '110px' : '125px',
+            flexShrink: 0,
           },
           content: {
             ...baseContent,
             padding: `${theme.spacing.m} ${theme.spacing.s}`,
             justifyContent: 'center' as const,
+            // Ensure content area doesn't overflow
+            minWidth: 0,
+            flex: 1,
           },
         };
       case 'large':
@@ -727,7 +736,12 @@ export const UnifiedCard: React.FC<UnifiedCardProps> = ({
     <BaseCard
       elevation={elevation}
       onClick={onClick}
-      style={{ position: 'relative' }}
+      style={{
+        position: 'relative',
+        // Ensure card doesn't exceed container bounds
+        maxWidth: '100%',
+        overflow: 'hidden',
+      }}
     >
       {/* Loading overlay - shows when content is not ready */}
       {!isCardReady && (

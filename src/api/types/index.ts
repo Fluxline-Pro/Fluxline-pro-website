@@ -14,6 +14,7 @@ export * from './github';
 export * from './media';
 export * from './books';
 export * from './contact';
+export * from './pressreleases';
 
 // API Client types
 export interface ApiClientConfig {
