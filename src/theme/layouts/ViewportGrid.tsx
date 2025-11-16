@@ -123,6 +123,9 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
   }, [orientation, isHomePage]);
 
   // Get layout configuration
+  // Pass isRightContentScrollable to adjust placeContent:
+  // - 'start' for scrollable content (positions content at top)
+  // - 'center' for non-scrollable content (maintains centering)
   const { gridTemplateColumns, containerStyle } = useLayoutConfig(
     orientation,
     isHomePage,

@@ -196,9 +196,9 @@ export const useLayoutConfig = (
         ? isOnboardingPage
           ? 'center'
           : 'start'
-        : isContentScrollable
-          ? 'start'
-          : 'center',
+        : isContentScrollable // Adjust based on scrollability to fix vertical positioning
+          ? 'start' // Scrollable content starts at top, allowing full access to content
+          : 'center', // Non-scrollable content is centered for better visual presentation
     backgroundColor: theme.semanticColors.bodyBackground,
     backdropFilter: 'blur(8px)',
     zIndex: 1,
