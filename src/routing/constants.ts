@@ -39,6 +39,12 @@ export const ROUTES: Routes[] = [
     isContentScreen: false,
   },
   {
+    name: 'case studies',
+    path: 'case-studies',
+    isMenuItem: true,
+    isContentScreen: true,
+  },
+  {
     name: 'white pages',
     path: 'white-pages',
     isMenuItem: false,

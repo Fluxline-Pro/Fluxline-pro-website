@@ -14,7 +14,8 @@ export type PostTypeKey =
   | 'githubPosts'
   | 'events'
   | 'books'
-  | 'contactMeForm';
+  | 'contactMeForm'
+  | 'caseStudies';
 
 export interface APIStoreState {
   isLoading: boolean;

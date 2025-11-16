@@ -63,6 +63,7 @@ interface UnifiedContentPageProps {
     | 'architecture'
     | 'media'
     | 'press'
+    | 'case-studies'
     | 'personal-training'
     | 'education-training'
     | 'resonance-core'
@@ -540,6 +541,28 @@ const ContentManager: React.FC<{ contentType: string }> = ({ contentType }) => {
         />
       );
     }
+    
+    // Special handling for case studies: use custom detail view
+    if (contentType === 'case-studies') {
+      // Import case study detail component
+      const { CaseStudyDetail } = require('../case-studies/case-study-detail');
+      const { useCaseStudiesStore } = require('../../store/store-specs/caseStudiesStore');
+      const caseStudiesStore = useCaseStudiesStore();
+      const caseStudy = caseStudiesStore.getCaseStudy(id);
+      
+      if (!caseStudy) {
+        return (
+          <FluentSpinner
+            size={SpinnerSize.large}
+            label='Loading case study...'
+            showLabel={true}
+          />
+        );
+      }
+      
+      return <CaseStudyDetail caseStudy={caseStudy} />;
+    }
+    
     return (
       <AnimatePresence mode='wait'>
         <FadeUp key={`detail-${id}`} delay={0.1} duration={0.5}>

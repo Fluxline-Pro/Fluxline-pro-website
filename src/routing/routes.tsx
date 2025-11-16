@@ -23,7 +23,7 @@ import NotFound from '../pages/404/404';
 import ContactPage from '../pages/contact-page/contact-page';
 // import Events from '../pages/events/events';
 // import Portfolio from '../pages/portfolio/portfolio';
-// import { UnifiedContentPage } from '../pages/unified-content-page/unified-content-page';
+import { UnifiedContentPage } from '../pages/unified-content-page/unified-content-page';
 // import AuthScreen from '../pages/auth-screen/auth-screen';
 import ServicesPage from '../pages/services-page/services-page';
 import WhitePagesView from '../pages/white-pages/white-pages';
@@ -105,6 +105,16 @@ const routes: RouteObject[] = [
       {
         path: 'white-pages',
         element: <WhitePagesView />,
+      },
+      {
+        path: 'case-studies',
+        element: <UnifiedContentPage contentType='case-studies' />,
+        children: [
+          {
+            path: ':id',
+            element: <></>, // Content is handled by UnifiedContentPage
+          },
+        ],
       },
       // {
       //   path: 'architecture',
