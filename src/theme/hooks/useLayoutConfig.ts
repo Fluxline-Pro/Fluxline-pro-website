@@ -26,7 +26,8 @@ export const useLayoutConfig = (
   isXLScreen: boolean,
   nested: boolean,
   theme: IExtendedTheme,
-  layoutPreference: 'left-handed' | 'right-handed'
+  layoutPreference: 'left-handed' | 'right-handed',
+  isContentScrollable?: boolean
 ): LayoutConfig => {
   const location = useLocation();
   const isOnboardingPage =
@@ -195,7 +196,9 @@ export const useLayoutConfig = (
         ? isOnboardingPage
           ? 'center'
           : 'start'
-        : 'center',
+        : isContentScrollable
+          ? 'start'
+          : 'center',
     backgroundColor: theme.semanticColors.bodyBackground,
     backdropFilter: 'blur(8px)',
     zIndex: 1,

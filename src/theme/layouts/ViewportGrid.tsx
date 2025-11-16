@@ -130,7 +130,8 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
     isXLScreen,
     nested,
     theme,
-    layoutPreference
+    layoutPreference,
+    isRightContentScrollable
   );
 
   // console.log('Layout Config:', {
