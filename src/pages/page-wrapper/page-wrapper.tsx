@@ -143,20 +143,26 @@ const EXCLUDED_PAGES = ['/'];
 
 interface PageWrapperProps {
   children: React.ReactNode;
-  showImageTitle?: boolean; // Optional prop to override image title visibility
-  contentImage?: string; // Optional prop to override the image used in the left panel
+  showImageTitle?: boolean;
+  contentImage?: string;
+  contentRef?: React.RefObject<HTMLDivElement | null>;
 }
 
 export const PageWrapper: React.FC<PageWrapperProps> = ({
   children,
   showImageTitle,
   contentImage,
+  contentRef,
 }) => {
   const location = useLocation();
   const orientation = useDeviceOrientation(); // Determine if we should show the title on the image card
   const { selectedPost } = useContentFilterStore();
   const { id } = useParams();
   const { themeMode } = useAppTheme();
+
+  // Create internal ref if not provided externally
+  const internalContentRef = React.useRef<HTMLDivElement>(null);
+  const actualContentRef = contentRef || internalContentRef;
 
   // Hide title for services views except about view to prevent duplicate titles
   const shouldShowTitle = React.useMemo(() => {
@@ -235,6 +241,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
       }
       rightChildren={
         <div
+          ref={actualContentRef}
           style={{
             width: '100%',
             maxWidth:
@@ -263,6 +270,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
         </div>
       }
       respectLayoutPreference={true}
+      contentRef={actualContentRef}
     />
   );
 };

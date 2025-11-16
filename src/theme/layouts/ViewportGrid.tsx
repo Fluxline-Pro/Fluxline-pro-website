@@ -34,6 +34,7 @@ interface ViewportGridProps {
   isHomePage?: boolean;
   backgroundImage?: 'one' | 'two';
   backgroundLoaded?: boolean;
+  contentRef?: React.RefObject<HTMLDivElement | null>;
 }
 
 export const ViewportGrid: React.FC<ViewportGridProps> = ({
@@ -52,6 +53,7 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
   isHomePage = false,
   backgroundImage = 'one',
   backgroundLoaded,
+  contentRef,
 }) => {
   const { layoutPreference, readingDirection, theme, themeMode } =
     useAppTheme();
@@ -63,10 +65,48 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
   const location = useLocation();
 
   // Create ref for right content area to detect scrollability
-  const rightContentRef = React.useRef<HTMLDivElement>(null);
+  // Use external contentRef if provided, otherwise use internal ref
+  const internalRef = React.useRef<HTMLDivElement>(null);
+  const rightContentRef = contentRef || internalRef;
   const isRightContentScrollable = useContentScrollable(rightContentRef);
 
-  // console.log('ViewportGrid Props:', {
+  // Re-evaluate scrollability when route changes or content mutates
+  React.useEffect(() => {
+    // Small delay to allow content to render
+    const timer = setTimeout(() => {
+      if (rightContentRef?.current) {
+        const event = new Event('resize', { bubbles: true });
+        window.dispatchEvent(event);
+      }
+    }, 200); // Increased delay for legal pages content loading
+
+    return () => clearTimeout(timer);
+  }, [location.pathname, rightContentRef]);
+
+  // Add mutation observer for legal pages that load content dynamically
+  React.useEffect(() => {
+    if (!rightContentRef?.current) return;
+
+    const observer = new MutationObserver(() => {
+      // Re-check scrollability when content changes (e.g., markdown loading)
+      const timer = setTimeout(() => {
+        if (rightContentRef?.current) {
+          const event = new Event('resize', { bubbles: true });
+          window.dispatchEvent(event);
+        }
+      }, 50);
+
+      return () => clearTimeout(timer);
+    });
+
+    observer.observe(rightContentRef.current, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    });
+
+    return () => observer.disconnect();
+  }, [rightContentRef]); // console.log('ViewportGrid Props:', {
   //   isHomePage,
   //   backgroundImage,
   //   orientation,
@@ -123,9 +163,7 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
   }, [orientation, isHomePage]);
 
   // Get layout configuration
-  // Pass isRightContentScrollable to adjust placeContent:
-  // - 'start' for scrollable content (positions content at top)
-  // - 'center' for non-scrollable content (maintains centering)
+  // Scrollability-based positioning is now handled via rightPlaceItems below
   const { gridTemplateColumns, containerStyle } = useLayoutConfig(
     orientation,
     isHomePage,
@@ -133,8 +171,7 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
     isXLScreen,
     nested,
     theme,
-    layoutPreference,
-    isRightContentScrollable
+    layoutPreference
   );
 
   // console.log('Layout Config:', {
@@ -200,17 +237,19 @@ export const ViewportGrid: React.FC<ViewportGridProps> = ({
 
   // Calculate placeItems for right content based on device orientation and scrollability
   const rightPlaceItems = React.useMemo(() => {
-    // Only apply scrollability logic to non-mobile-portrait devices
-    // Mobile portrait devices work correctly with the original placeItemsRight prop
+    // Mobile portrait uses the original placeItemsRight prop (works correctly)
     if (orientation === 'portrait') {
       return placeItemsRight;
     }
 
-    // For all other devices (tablet-portrait, large-portrait, mobile-landscape,
-    // ultrawide, square, landscape), use scrollability-based logic:
-    // - 'start' if content is scrollable (prevents content cutoff at top)
-    // - 'center' if content is not scrollable (provides better visual centering)
-    return isRightContentScrollable ? 'start' : 'center';
+    // For non-mobile viewports, use scrollability-based positioning:
+    // This ensures scrollable content is positioned at the top to allow full access,
+    // while non-scrollable content remains centered for better visual presentation
+    if (isRightContentScrollable) {
+      return 'start'; // Position scrollable content at top
+    } else {
+      return 'center'; // Center non-scrollable content
+    }
   }, [orientation, isRightContentScrollable, placeItemsRight]);
 
   return (

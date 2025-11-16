@@ -27,7 +27,7 @@ export const useLayoutConfig = (
   nested: boolean,
   theme: IExtendedTheme,
   layoutPreference: 'left-handed' | 'right-handed',
-  isContentScrollable?: boolean
+  isContentScrollable: boolean = false
 ): LayoutConfig => {
   const location = useLocation();
   const isOnboardingPage =
@@ -196,9 +196,7 @@ export const useLayoutConfig = (
         ? isOnboardingPage
           ? 'center'
           : 'start'
-        : isContentScrollable // Adjust based on scrollability to fix vertical positioning
-          ? 'start' // Scrollable content starts at top, allowing full access to content
-          : 'center', // Non-scrollable content is centered for better visual presentation
+        : 'center', // Always center for non-portrait - let ViewportGrid handle scrollability via placeItems
     backgroundColor: theme.semanticColors.bodyBackground,
     backdropFilter: 'blur(8px)',
     zIndex: 1,
