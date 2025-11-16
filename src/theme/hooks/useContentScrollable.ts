@@ -5,23 +5,36 @@ import React from 'react';
  * @param ref - Reference to the element to check
  * @returns boolean indicating if the content is scrollable
  */
-export const useContentScrollable = (ref: React.RefObject<HTMLDivElement | null>): boolean => {
+export const useContentScrollable = (
+  ref: React.RefObject<HTMLDivElement | null>
+): boolean => {
   const [isScrollable, setIsScrollable] = React.useState(false);
 
   React.useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     const checkScrollable = () => {
-      if (!ref.current) {
-        setIsScrollable(false);
-        return;
+      // Clear any pending timeout
+      if (timeoutId) {
+        clearTimeout(timeoutId);
       }
 
-      const element = ref.current;
-      // Check if content overflows vertically
-      const hasVerticalScroll = element.scrollHeight > element.clientHeight;
-      setIsScrollable(hasVerticalScroll);
+      // Debounce the check to avoid excessive calls during rapid changes
+      timeoutId = setTimeout(() => {
+        if (!ref.current) {
+          setIsScrollable(false);
+          return;
+        }
+
+        const element = ref.current;
+        // Check if content overflows vertically (add small buffer for precision)
+        const hasVerticalScroll =
+          element.scrollHeight > element.clientHeight + 1;
+        setIsScrollable(hasVerticalScroll);
+      }, 100); // Increase debounce to 100ms for legal pages that load content dynamically
     };
 
-    // Check immediately
+    // Check immediately (but debounced)
     checkScrollable();
 
     // Set up ResizeObserver to monitor size changes
@@ -34,6 +47,9 @@ export const useContentScrollable = (ref: React.RefObject<HTMLDivElement | null>
     window.addEventListener('resize', checkScrollable);
 
     return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
       resizeObserver.disconnect();
       window.removeEventListener('resize', checkScrollable);
     };

@@ -26,7 +26,8 @@ export const useLayoutConfig = (
   isXLScreen: boolean,
   nested: boolean,
   theme: IExtendedTheme,
-  layoutPreference: 'left-handed' | 'right-handed'
+  layoutPreference: 'left-handed' | 'right-handed',
+  isContentScrollable: boolean = false
 ): LayoutConfig => {
   const location = useLocation();
   const isOnboardingPage =
@@ -195,7 +196,7 @@ export const useLayoutConfig = (
         ? isOnboardingPage
           ? 'center'
           : 'start'
-        : 'center',
+        : 'center', // Always center for non-portrait - let ViewportGrid handle scrollability via placeItems
     backgroundColor: theme.semanticColors.bodyBackground,
     backdropFilter: 'blur(8px)',
     zIndex: 1,

@@ -20,6 +20,9 @@ export const WhitePagesView: React.FC = () => {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  // Create ref for scrollability detection
+  const contentRef = React.useRef<HTMLDivElement>(null);
+
   const isMobile =
     orientation === 'portrait' ||
     orientation === 'tablet-portrait' ||
@@ -76,7 +79,7 @@ export const WhitePagesView: React.FC = () => {
   };
 
   return (
-    <PageWrapper showImageTitle={true}>
+    <PageWrapper showImageTitle={true} contentRef={contentRef}>
       <FadeUp delay={0}>
         <div>
           <div style={styles.sectionContainer}>

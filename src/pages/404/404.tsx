@@ -36,12 +36,15 @@ const NotFound: React.FC = () => {
   const navigate = useNavigate();
   const { theme } = useAppTheme();
 
+  // Create ref for scrollability detection
+  const contentRef = React.useRef<HTMLDivElement>(null);
+
   const handleGoHome = () => {
     navigate('/');
   };
 
   return (
-    <PageWrapper>
+    <PageWrapper contentRef={contentRef}>
       <Container
         style={{
           padding: '2rem',
@@ -51,8 +54,8 @@ const NotFound: React.FC = () => {
           minHeight: '60vh',
         }}
       >
-        <H2Title name="Page Not Found" />
-        
+        <H2Title name='Page Not Found' />
+
         <Typography
           variant='p'
           color={theme.palette.neutralPrimary}
@@ -60,7 +63,8 @@ const NotFound: React.FC = () => {
           marginBottom='2rem'
           lineHeight='1.6'
         >
-          Sorry, we couldn't find what you were looking for. The page you're looking for doesn't exist or has been moved.
+          Sorry, we couldn't find what you were looking for. The page you're
+          looking for doesn't exist or has been moved.
         </Typography>
 
         <FluentButton
