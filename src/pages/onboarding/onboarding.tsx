@@ -51,6 +51,16 @@ import OnboardingAccessibility from './views/onboarding-accessibility';
 import OnboardingComplete from './views/onboarding-complete';
 import OnboardingSkip from './views/onboarding-skip';
 
+// PT Questionnaire Views
+import PTQuestionnaireWelcome from './views/pt-questionnaire/welcome';
+import PTQuestionnaireFitnessJourney from './views/pt-questionnaire/fitness-journey';
+import PTQuestionnaireGoals from './views/pt-questionnaire/goals';
+import PTQuestionnaireLifestyle from './views/pt-questionnaire/lifestyle';
+import PTQuestionnaireSupport from './views/pt-questionnaire/support';
+import PTQuestionnaireInvestment from './views/pt-questionnaire/investment';
+import PTQuestionnaireContact from './views/pt-questionnaire/contact';
+import PTQuestionnaireResults from './views/pt-questionnaire/results';
+
 // Styles
 import styles from './onboarding.module.scss';
 
@@ -213,6 +223,16 @@ export default function Onboarding() {
                   />
                   <Route path='complete' element={<OnboardingComplete />} />
                   <Route path='skip' element={<OnboardingSkip />} />
+                  
+                  {/* PT Questionnaire Routes */}
+                  <Route path='pt-questionnaire/welcome' element={<PTQuestionnaireWelcome />} />
+                  <Route path='pt-questionnaire/fitness-journey' element={<PTQuestionnaireFitnessJourney />} />
+                  <Route path='pt-questionnaire/goals' element={<PTQuestionnaireGoals />} />
+                  <Route path='pt-questionnaire/lifestyle' element={<PTQuestionnaireLifestyle />} />
+                  <Route path='pt-questionnaire/support' element={<PTQuestionnaireSupport />} />
+                  <Route path='pt-questionnaire/investment' element={<PTQuestionnaireInvestment />} />
+                  <Route path='pt-questionnaire/contact' element={<PTQuestionnaireContact />} />
+                  <Route path='pt-questionnaire/results' element={<PTQuestionnaireResults />} />
                 </Routes>
               </div>
             )}

@@ -220,5 +220,54 @@ export const ROUTES: Routes[] = [
     isMenuItem: false,
     isContentScreen: false,
   },
+  // Personal Training Questionnaire Routes
+  {
+    name: 'pt-questionnaire-welcome',
+    path: '/onboarding/pt-questionnaire/welcome',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'pt-questionnaire-fitness-journey',
+    path: '/onboarding/pt-questionnaire/fitness-journey',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'pt-questionnaire-goals',
+    path: '/onboarding/pt-questionnaire/goals',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'pt-questionnaire-lifestyle',
+    path: '/onboarding/pt-questionnaire/lifestyle',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'pt-questionnaire-support',
+    path: '/onboarding/pt-questionnaire/support',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'pt-questionnaire-investment',
+    path: '/onboarding/pt-questionnaire/investment',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'pt-questionnaire-contact',
+    path: '/onboarding/pt-questionnaire/contact',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
+  {
+    name: 'pt-questionnaire-results',
+    path: '/onboarding/pt-questionnaire/results',
+    isMenuItem: false,
+    isContentScreen: false,
+  },
   // Add more as needed
 ];
