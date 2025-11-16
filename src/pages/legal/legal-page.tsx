@@ -42,6 +42,9 @@ export const LegalPage: React.FC = () => {
   const [pdfModalOpen, setPdfModalOpen] = useState<boolean>(false);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
+  // Create ref for scrollability detection
+  const contentRef = React.useRef<HTMLDivElement>(null);
+
   // Load document when id changes
   useEffect(() => {
     if (id) {
@@ -140,7 +143,7 @@ export const LegalPage: React.FC = () => {
   };
 
   return (
-    <PageWrapper showImageTitle={true}>
+    <PageWrapper showImageTitle={true} contentRef={contentRef}>
       <AnimatePresence mode='wait'>
         {/* Render document list view */}
         {!id || !selectedDoc ? (

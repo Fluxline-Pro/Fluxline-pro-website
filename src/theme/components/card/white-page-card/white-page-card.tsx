@@ -41,7 +41,7 @@ export const WhitePageCard: React.FC<WhitePageCardProps> = ({
     backgroundColor: 'transparent',
     border: `1px solid ${theme.palette.neutralTertiaryAlt}`,
     borderRadius: theme.borderRadius.container.small,
-    padding: variant === 'compact' ? '1rem' : '1rem',
+    padding: variant === 'compact' ? '1.5rem' : '1.25rem',
     cursor: 'pointer',
     transition: 'all 0.2s ease',
     opacity: isHovered ? 1 : 0.85,
@@ -67,8 +67,8 @@ export const WhitePageCard: React.FC<WhitePageCardProps> = ({
         <Typography
           variant='h3'
           color={theme.palette.neutralPrimary}
-          marginBottom='0.5rem'
-          fontSize={theme.typography.fontSizes.clamp4}
+          marginBottom='0.75rem'
+          fontSize={theme.typography.fontSizes.clamp5}
         >
           {whitePage.title}
         </Typography>
